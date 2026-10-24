@@ -1,0 +1,23 @@
+# secrets
+.env
+.env.*
+!.env.example
+
+# dependencies and builds
+node_modules/
+.next/
+.next-build/
+out/
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# runtime
+.logs/
+*.log
+api/.runtime/
+
+# OS
+.DS_Store
+Thumbs.db

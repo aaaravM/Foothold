@@ -1,0 +1,561 @@
+[
+ {
+  "slug": "agriculture-business",
+  "url": "https://programmap.deltacollege.edu/program/agriculture-business/",
+  "page_title": "Agriculture Business Certificate of Achievement Program | San Joaquin Delta College",
+  "catalog_year": "2025-2026",
+  "control_number": "22243",
+  "top_code": "0112.00",
+  "cip_code": null,
+  "pathways": [
+   {
+    "college": "San Joaquin Delta College",
+    "pathway": "Agriculture Business",
+    "award": "Certificate of Achievement",
+    "units": "59-61 units",
+    "terms": "4 terms"
+   }
+  ]
+ },
+ {
+  "slug": "agriculture-mechanics",
+  "url": "https://programmap.deltacollege.edu/program/agriculture-mechanics/",
+  "page_title": "Agriculture Mechanics Certificate of Achievement Program | San Joaquin Delta College",
+  "catalog_year": "2025-2026",
+  "control_number": "05581",
+  "top_code": "0103.00",
+  "cip_code": null,
+  "pathways": [
+   {
+    "college": "San Joaquin Delta College",
+    "pathway": "Agriculture Mechanics",
+    "award": "Certificate of Achievement",
+    "units": "16.5 units",
+    "terms": "2 terms"
+   }
+  ]
+ },
+ {
+  "slug": "agriculture-plant-science",
+  "url": "https://programmap.deltacollege.edu/program/agriculture-plant-science/",
+  "page_title": "Agriculture Plant Science Associate in Science for Transfer Program | San Joaquin Delta College",
+  "catalog_year": "2025-2026",
+  "control_number": "37666",
+  "top_code": "0103.00",
+  "cip_code": null,
+  "pathways": [
+   {
+    "college": "San Joaquin Delta College",
+    "pathway": "Agriculture Plant Science",
+    "award": "Associate in Science for Transfer",
+    "units": "60-61.5 units",
+    "terms": "4 terms"
+   }
+  ]
+ },
+ {
+  "slug": "automation-technician-mechatronics",
+  "url": "https://programmap.deltacollege.edu/program/automation-technician-mechatronics/",
+  "page_title": "Automation Technician - Mechatronics Certificate of Achievement Program | San Joaquin Delta College",
+  "catalog_year": "2025-2026",
+  "control_number": "35052",
+  "top_code": "0935.00",
+  "cip_code": null,
+  "pathways": [
+   {
+    "college": "San Joaquin Delta College",
+    "pathway": "Automation Technician - Mechatronics",
+    "award": "Certificate of Achievement",
+    "units": "33.5 units",
+    "terms": "3 terms"
+   }
+  ]
+ },
+ {
+  "slug": "automation-technology-mechatronics",
+  "url": "https://programmap.deltacollege.edu/program/automation-technology-mechatronics/",
+  "page_title": "Automation Technology - Mechatronics Associate in Science Program | San Joaquin Delta College",
+  "catalog_year": "2025-2026",
+  "control_number": "35050",
+  "top_code": "0935.00",
+  "cip_code": null,
+  "pathways": [
+   {
+    "college": "San Joaquin Delta College",
+    "pathway": "Automation Technology - Mechatronics",
+    "award": "Associate in Science",
+    "units": "60 units",
+    "terms": "4 terms"
+   }
+  ]
+ },
+ {
+  "slug": "basic-electronics-technician",
+  "url": "https://programmap.deltacollege.edu/program/basic-electronics-technician/",
+  "page_title": "Basic Electronics Technician Certificate of Completion (Noncredit) Program | San Joaquin Delta College",
+  "catalog_year": "2025-2026",
+  "control_number": "45194",
+  "top_code": "0934.00",
+  "cip_code": null,
+  "pathways": []
+ },
+ {
+  "slug": "business-administration-for-transfer-2-0",
+  "url": "https://programmap.deltacollege.edu/program/business-administration-for-transfer-2-0/",
+  "page_title": "Business Administration for Transfer 2.0 Associate in Science for Transfer Program | San Joaquin Delta College",
+  "catalog_year": "2025-2026",
+  "control_number": "43281",
+  "top_code": "0505.00",
+  "cip_code": null,
+  "pathways": [
+   {
+    "college": "San Joaquin Delta College",
+    "pathway": "Business Administration for Transfer 2.0",
+    "award": "Associate in Science for Transfer",
+    "units": "60-64 units",
+    "terms": "4 terms"
+   }
+  ]
+ },
+ {
+  "slug": "caterpillar-dealer-service-technician-apprenticeship",
+  "url": "https://programmap.deltacollege.edu/program/caterpillar-dealer-service-technician-apprenticeship/",
+  "page_title": "Caterpillar Dealer Service Technician Apprenticeship Associate in Science Program | San Joaquin Delta College",
+  "catalog_year": "2025-2026",
+  "control_number": "14290",
+  "top_code": "0947.20",
+  "cip_code": null,
+  "pathways": [
+   {
+    "college": "San Joaquin Delta College",
+    "pathway": "Caterpillar Dealer Service Technician Apprenticeship",
+    "award": "Associate in Science",
+    "units": "81 units",
+    "terms": "5 terms"
+   }
+  ]
+ },
+ {
+  "slug": "computer-programming",
+  "url": "https://programmap.deltacollege.edu/program/computer-programming/",
+  "page_title": "Computer Programming Certificate of Achievement Program | San Joaquin Delta College",
+  "catalog_year": "2025-2026",
+  "control_number": "05594",
+  "top_code": "0707.10",
+  "cip_code": null,
+  "pathways": [
+   {
+    "college": "San Joaquin Delta College",
+    "pathway": "Computer Programming",
+    "award": "Certificate of Achievement",
+    "units": "44.5-48.5 units",
+    "terms": "4 terms"
+   }
+  ]
+ },
+ {
+  "slug": "computer-science-2",
+  "url": "https://programmap.deltacollege.edu/program/computer-science-2/",
+  "page_title": "Computer Science Associate in Science for Transfer Program | San Joaquin Delta College",
+  "catalog_year": "2025-2026",
+  "control_number": "33018",
+  "top_code": "0706.00",
+  "cip_code": null,
+  "pathways": [
+   {
+    "college": "San Joaquin Delta College",
+    "pathway": "Computer Science",
+    "award": "Associate in Science for Transfer",
+    "units": "63-64 units",
+    "terms": "5 terms"
+   }
+  ]
+ },
+ {
+  "slug": "computer-science-3",
+  "url": "https://programmap.deltacollege.edu/program/computer-science-3/",
+  "page_title": "Computer Science Certificate of Achievement Program | San Joaquin Delta College",
+  "catalog_year": "2025-2026",
+  "control_number": "22247",
+  "top_code": "0702.00",
+  "cip_code": null,
+  "pathways": [
+   {
+    "college": "San Joaquin Delta College",
+    "pathway": "Computer Science",
+    "award": "Certificate of Achievement",
+    "units": "50.5-53.5 units",
+    "terms": "4 terms"
+   }
+  ]
+ },
+ {
+  "slug": "computer-science",
+  "url": "https://programmap.deltacollege.edu/program/computer-science/",
+  "page_title": "Computer Science Associate in Science Program | San Joaquin Delta College",
+  "catalog_year": "2025-2026",
+  "control_number": "07304",
+  "top_code": "0702.00",
+  "cip_code": null,
+  "pathways": [
+   {
+    "college": "San Joaquin Delta College",
+    "pathway": "Computer Science",
+    "award": "Associate in Science",
+    "units": "60-61 units",
+    "terms": "4 terms"
+   }
+  ]
+ },
+ {
+  "slug": "control-systems-technician",
+  "url": "https://programmap.deltacollege.edu/program/control-systems-technician/",
+  "page_title": "Control Systems Technician Certificate of Completion (Noncredit) Program | San Joaquin Delta College",
+  "catalog_year": "2025-2026",
+  "control_number": "45193",
+  "top_code": "0935.00",
+  "cip_code": null,
+  "pathways": []
+ },
+ {
+  "slug": "diesel-bus-technician",
+  "url": "https://programmap.deltacollege.edu/program/diesel-bus-technician/",
+  "page_title": "Diesel Bus Technician Certificate of Achievement Program | San Joaquin Delta College",
+  "catalog_year": "2025-2026",
+  "control_number": "37671",
+  "top_code": "0947.00",
+  "cip_code": null,
+  "pathways": [
+   {
+    "college": "San Joaquin Delta College",
+    "pathway": "Diesel Bus Technician",
+    "award": "Certificate of Achievement",
+    "units": "32.5 units",
+    "terms": "4 terms"
+   }
+  ]
+ },
+ {
+  "slug": "diesel-equipment-technician-2",
+  "url": "https://programmap.deltacollege.edu/program/diesel-equipment-technician-2/",
+  "page_title": "Diesel Equipment Technician Associate in Science Program | San Joaquin Delta College",
+  "catalog_year": "2025-2026",
+  "control_number": "07420",
+  "top_code": "0947.00",
+  "cip_code": null,
+  "pathways": [
+   {
+    "college": "San Joaquin Delta College",
+    "pathway": "Diesel Equipment Technician",
+    "award": "Associate in Science",
+    "units": "66.5 units",
+    "terms": "5 terms"
+   }
+  ]
+ },
+ {
+  "slug": "diesel-equipment-technician",
+  "url": "https://programmap.deltacollege.edu/program/diesel-equipment-technician/",
+  "page_title": "Diesel Equipment Technician Certificate of Achievement Program | San Joaquin Delta College",
+  "catalog_year": "2025-2026",
+  "control_number": "22252",
+  "top_code": "0947.00",
+  "cip_code": null,
+  "pathways": [
+   {
+    "college": "San Joaquin Delta College",
+    "pathway": "Diesel Equipment Technician",
+    "award": "Certificate of Achievement",
+    "units": "42.5 units",
+    "terms": "5 terms"
+   }
+  ]
+ },
+ {
+  "slug": "electrical-technology-electrical-maintenance",
+  "url": "https://programmap.deltacollege.edu/program/electrical-technology-electrical-maintenance/",
+  "page_title": "Electrical Technology - Electrical Maintenance Certificate of Achievement Program | San Joaquin Delta College",
+  "catalog_year": "2025-2026",
+  "control_number": "07402",
+  "top_code": "0952.20",
+  "cip_code": null,
+  "pathways": [
+   {
+    "college": "San Joaquin Delta College",
+    "pathway": "Electrical Technology - Electrical Maintenance",
+    "award": "Certificate of Achievement",
+    "units": "30-33 units",
+    "terms": "3 terms"
+   }
+  ]
+ },
+ {
+  "slug": "electrical-technology-general-electrician-trainee",
+  "url": "https://programmap.deltacollege.edu/program/electrical-technology-general-electrician-trainee/",
+  "page_title": "Electrical Technology - General Electrician Trainee Certificate of Achievement Program | San Joaquin Delta College",
+  "catalog_year": "2025-2026",
+  "control_number": "35073",
+  "top_code": "0952.20",
+  "cip_code": null,
+  "pathways": [
+   {
+    "college": "San Joaquin Delta College",
+    "pathway": "Electrical Technology - General Electrician Trainee",
+    "award": "Certificate of Achievement",
+    "units": "43 units",
+    "terms": "4 terms"
+   }
+  ]
+ },
+ {
+  "slug": "electrical-technology",
+  "url": "https://programmap.deltacollege.edu/program/electrical-technology/",
+  "page_title": "Electrical Technology Associate in Science Program | San Joaquin Delta College",
+  "catalog_year": "2025-2026",
+  "control_number": "35059",
+  "top_code": "0952.20",
+  "cip_code": null,
+  "pathways": [
+   {
+    "college": "San Joaquin Delta College",
+    "pathway": "Electrical Technology",
+    "award": "Associate in Science",
+    "units": "67-76 units",
+    "terms": "5 terms"
+   }
+  ]
+ },
+ {
+  "slug": "electronics-technology",
+  "url": "https://programmap.deltacollege.edu/program/electronics-technology/",
+  "page_title": "Electronics Technology Certificate of Achievement Program | San Joaquin Delta College",
+  "catalog_year": "2025-2026",
+  "control_number": "07403",
+  "top_code": "0934.00",
+  "cip_code": null,
+  "pathways": [
+   {
+    "college": "San Joaquin Delta College",
+    "pathway": "Electronics Technology",
+    "award": "Certificate of Achievement",
+    "units": "21-22 units",
+    "terms": "2 terms"
+   }
+  ]
+ },
+ {
+  "slug": "engineering-electrical",
+  "url": "https://programmap.deltacollege.edu/program/engineering-electrical/",
+  "page_title": "Engineering - Electrical Associate in Science Program | San Joaquin Delta College",
+  "catalog_year": "2025-2026",
+  "control_number": "35920",
+  "top_code": "0901.00",
+  "cip_code": null,
+  "pathways": [
+   {
+    "college": "San Joaquin Delta College",
+    "pathway": "Engineering - Electrical",
+    "award": "Associate in Science",
+    "units": "64-65 units",
+    "terms": "4 terms"
+   }
+  ]
+ },
+ {
+  "slug": "gas-metal-arc-welding-gmaw-flux-core-arc-welding-fcaw",
+  "url": "https://programmap.deltacollege.edu/program/gas-metal-arc-welding-gmaw-flux-core-arc-welding-fcaw/",
+  "page_title": "Gas Metal Arc Welding (GMAW)/Flux Core Arc Welding (FCAW) Certificate of Achievement Program | San Joaquin Delta College",
+  "catalog_year": "2025-2026",
+  "control_number": "36608",
+  "top_code": "0956.50",
+  "cip_code": null,
+  "pathways": [
+   {
+    "college": "San Joaquin Delta College",
+    "pathway": "Gas Metal Arc Welding (GMAW)/Flux Core Arc Welding (FCAW)",
+    "award": "Certificate of Achievement",
+    "units": "20 units",
+    "terms": "2 terms"
+   }
+  ]
+ },
+ {
+  "slug": "heavy-equipment-mechanic",
+  "url": "https://programmap.deltacollege.edu/program/heavy-equipment-mechanic/",
+  "page_title": "Heavy Equipment Mechanic Certificate of Achievement Program | San Joaquin Delta College",
+  "catalog_year": "2025-2026",
+  "control_number": "14146",
+  "top_code": "0947.20",
+  "cip_code": null,
+  "pathways": [
+   {
+    "college": "San Joaquin Delta College",
+    "pathway": "Heavy Equipment Mechanic",
+    "award": "Certificate of Achievement",
+    "units": "24 units",
+    "terms": "3 terms"
+   }
+  ]
+ },
+ {
+  "slug": "heavy-equipment-technician-2",
+  "url": "https://programmap.deltacollege.edu/program/heavy-equipment-technician-2/",
+  "page_title": "Heavy Equipment Technician Certificate of Achievement Program | San Joaquin Delta College",
+  "catalog_year": "2025-2026",
+  "control_number": "22253",
+  "top_code": "0947.20",
+  "cip_code": null,
+  "pathways": [
+   {
+    "college": "San Joaquin Delta College",
+    "pathway": "Heavy Equipment Technician",
+    "award": "Certificate of Achievement",
+    "units": "31 units",
+    "terms": "3 terms"
+   }
+  ]
+ },
+ {
+  "slug": "heavy-equipment-technician",
+  "url": "https://programmap.deltacollege.edu/program/heavy-equipment-technician/",
+  "page_title": "Heavy Equipment Technician Associate in Science Program | San Joaquin Delta College",
+  "catalog_year": "2025-2026",
+  "control_number": "14147",
+  "top_code": "0947.20",
+  "cip_code": null,
+  "pathways": [
+   {
+    "college": "San Joaquin Delta College",
+    "pathway": "Heavy Equipment Technician",
+    "award": "Associate in Science",
+    "units": "60-69 units",
+    "terms": "5 terms"
+   }
+  ]
+ },
+ {
+  "slug": "logistics-and-transportation-supervisor",
+  "url": "https://programmap.deltacollege.edu/program/logistics-and-transportation-supervisor/",
+  "page_title": "Logistics and Transportation Supervisor Certificate of Achievement Program | San Joaquin Delta College",
+  "catalog_year": "2025-2026",
+  "control_number": "05588",
+  "top_code": "0510.00",
+  "cip_code": null,
+  "pathways": [
+   {
+    "college": "San Joaquin Delta College",
+    "pathway": "Logistics and Transportation Supervisor",
+    "award": "Certificate of Achievement",
+    "units": "24 units",
+    "terms": "2 terms"
+   }
+  ]
+ },
+ {
+  "slug": "logistics-and-transportation",
+  "url": "https://programmap.deltacollege.edu/program/logistics-and-transportation/",
+  "page_title": "Logistics and Transportation Associate in Science Program | San Joaquin Delta College",
+  "catalog_year": "2025-2026",
+  "control_number": "19693",
+  "top_code": "0510.00",
+  "cip_code": null,
+  "pathways": [
+   {
+    "college": "San Joaquin Delta College",
+    "pathway": "Logistics and Transportation",
+    "award": "Associate in Science",
+    "units": "60-64 units",
+    "terms": "4 terms"
+   }
+  ]
+ },
+ {
+  "slug": "nurse-assistant-and-home-health-aide",
+  "url": "https://programmap.deltacollege.edu/program/nurse-assistant-and-home-health-aide/",
+  "page_title": "Nurse Assistant and Home Health Aide Certificate of Completion (Noncredit) Program | San Joaquin Delta College",
+  "catalog_year": "2025-2026",
+  "control_number": "45195",
+  "top_code": "1230.30",
+  "cip_code": null,
+  "pathways": []
+ },
+ {
+  "slug": "nursing-r-n",
+  "url": "https://programmap.deltacollege.edu/program/nursing-r-n/",
+  "page_title": "Nursing R.N. Associate in Science Program | San Joaquin Delta College",
+  "catalog_year": "2025-2026",
+  "control_number": "05623",
+  "top_code": "1230.10",
+  "cip_code": null,
+  "pathways": [
+   {
+    "college": "San Joaquin Delta College",
+    "pathway": "Nursing R.N. - Major Courses Only",
+    "award": "Associate in Science",
+    "units": "36.5 units",
+    "terms": "4 terms"
+   },
+   {
+    "college": "San Joaquin Delta College",
+    "pathway": "Nursing R.N. - Pre-Nursing Prereqs & Additional Courses",
+    "award": "Associate in Science",
+    "units": "47-50 units",
+    "terms": "4 terms"
+   }
+  ]
+ },
+ {
+  "slug": "oxy-fuel-processes-and-shielded-metal-arc-welding-smaw",
+  "url": "https://programmap.deltacollege.edu/program/oxy-fuel-processes-and-shielded-metal-arc-welding-smaw/",
+  "page_title": "Oxy-Fuel Processes and Shielded Metal Arc Welding (SMAW) Certificate of Achievement Program | San Joaquin Delta College",
+  "catalog_year": "2025-2026",
+  "control_number": "36597",
+  "top_code": "0956.50",
+  "cip_code": null,
+  "pathways": [
+   {
+    "college": "San Joaquin Delta College",
+    "pathway": "Oxy-Fuel Processes and Shielded Metal Arc Welding (SMAW)",
+    "award": "Certificate of Achievement",
+    "units": "20 units",
+    "terms": "2 terms"
+   }
+  ]
+ },
+ {
+  "slug": "traffic-shipping-and-receiving-technician",
+  "url": "https://programmap.deltacollege.edu/program/traffic-shipping-and-receiving-technician/",
+  "page_title": "Traffic Shipping and Receiving Technician Certificate of Achievement Program | San Joaquin Delta College",
+  "catalog_year": "2025-2026",
+  "control_number": "11844",
+  "top_code": "0510.00",
+  "cip_code": null,
+  "pathways": [
+   {
+    "college": "San Joaquin Delta College",
+    "pathway": "Traffic Shipping and Receiving Technician",
+    "award": "Certificate of Achievement",
+    "units": "15-16 units",
+    "terms": "1 term"
+   }
+  ]
+ },
+ {
+  "slug": "welding-technology",
+  "url": "https://programmap.deltacollege.edu/program/welding-technology/",
+  "page_title": "Welding Technology Certificate of Achievement Program | San Joaquin Delta College",
+  "catalog_year": "2025-2026",
+  "control_number": "07426",
+  "top_code": "0956.50",
+  "cip_code": null,
+  "pathways": [
+   {
+    "college": "San Joaquin Delta College",
+    "pathway": "Welding Technology",
+    "award": "Certificate of Achievement",
+    "units": "42.5 units",
+    "terms": "3 terms"
+   }
+  ]
+ }
+]

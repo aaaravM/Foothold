@@ -1,0 +1,432 @@
+{
+  "release": "O*NET 31.0 Database (August 2026; current production release per https://www.onetcenter.org/db_releases.html)",
+  "license": "CC BY 4.0 (Creative Commons Attribution 4.0 International)",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "license_page": "https://www.onetcenter.org/license_db.html",
+  "attribution": "This page includes information from the O*NET 31.0 Database by the U.S. Department of Labor, Employment and Training Administration (USDOL/ETA). Used under the CC BY 4.0 license. O*NET® is a trademark of USDOL/ETA. Foothold has modified all or some of this information. USDOL/ETA has not approved, endorsed, or tested these modifications.",
+  "attribution_unmodified": "This page includes information from the O*NET 31.0 Database by the U.S. Department of Labor, Employment and Training Administration (USDOL/ETA). Used under the CC BY 4.0 license. O*NET® is a trademark of USDOL/ETA.",
+  "retrieved": "2026-10-24",
+  "files": [
+    {
+      "file": "occupation_data.csv",
+      "url": "https://www.onetcenter.org/dl_files/database/db_31_0_csv/occupation_data.csv",
+      "rows": 1016,
+      "bytes": 268030,
+      "sha256": "a09eae1d6609686e44e05b7290993a1c8b523d8ca224bc0eedc194c855c3ee02",
+      "contents": "O*NET-SOC code, title, description (1,016 occupations)"
+    },
+    {
+      "file": "work_styles.csv",
+      "url": "https://www.onetcenter.org/dl_files/database/db_31_0_csv/work_styles.csv",
+      "rows": 37422,
+      "bytes": 4329846,
+      "sha256": "a3e5331df515dbc9ede284667e72189a4f24c8a8af80f61bae908596ea48c926",
+      "contents": "Work Styles (1.D) ratings: WI impact + DR distinctiveness rank"
+    },
+    {
+      "file": "essential_skills.csv",
+      "url": "https://www.onetcenter.org/dl_files/database/db_31_0_csv/essential_skills.csv",
+      "rows": 18200,
+      "bytes": 2328135,
+      "sha256": "68c4d31d8c55077238395dca40cc4e6d32e6a608b5474bb8264b1f98ae415bd7",
+      "contents": "Essential Skills (2.A) IM/LV ratings (split out of the old Skills file in 30.3)"
+    },
+    {
+      "file": "transferable_skills.csv",
+      "url": "https://www.onetcenter.org/dl_files/database/db_31_0_csv/transferable_skills.csv",
+      "rows": 45500,
+      "bytes": 6081245,
+      "sha256": "f17d0419e818a3bf2f55076510c76c4aef01cc8f5aee2670d2f44f6f44ac60f7",
+      "contents": "Transferable Skills (2.B) IM/LV ratings (split out of the old Skills file in 30.3)"
+    },
+    {
+      "file": "career_interest_types.csv",
+      "url": "https://www.onetcenter.org/dl_files/database/db_31_0_csv/career_interest_types.csv",
+      "rows": 8307,
+      "bytes": 1136078,
+      "sha256": "19f452d51b81a4d59389b500f85baf252563858f596124fe446dd436a9f41206",
+      "contents": "RIASEC Career Interest Types (1.B.1) OI + IH high-points (file renamed from Interests in 30.3)"
+    },
+    {
+      "file": "specific_interest_areas.csv",
+      "url": "https://www.onetcenter.org/dl_files/database/db_31_0_csv/specific_interest_areas.csv",
+      "rows": 73062,
+      "bytes": 8712834,
+      "sha256": "3c59c823f228d4ee5e066560a4fc39676c5cfd956355ad9d19bf8f552f87f0eb",
+      "contents": "Specific Interest Areas (1.B.3) OI + DS display rank (file added in 30.3)"
+    },
+    {
+      "file": "content_model_reference.csv",
+      "url": "https://www.onetcenter.org/dl_files/database/db_31_0_csv/content_model_reference.csv",
+      "rows": 3006,
+      "bytes": 235856,
+      "sha256": "370033744006dbd5df048431d42a402f6741a00a229b6d0f4e4f4249b6399c04",
+      "contents": "Content Model element IDs, names, descriptions"
+    },
+    {
+      "file": "scales_reference.csv",
+      "url": "https://www.onetcenter.org/dl_files/database/db_31_0_csv/scales_reference.csv",
+      "rows": 33,
+      "bytes": 1006,
+      "sha256": "bcba23858ce21ecaacbde303a8993e35d46724b4afb8c9ec2b10e04f42adcfc9",
+      "contents": "Scale IDs, names, min/max"
+    }
+  ],
+  "careers": [
+    {
+      "career_id": "logistics_lead",
+      "title": "Logistics Operations Lead",
+      "onet_soc": "11-3071.00",
+      "onet_title": "Transportation, Storage, and Distribution Managers"
+    },
+    {
+      "career_id": "registered_nurse",
+      "title": "Registered Nurse",
+      "onet_soc": "29-1141.00",
+      "onet_title": "Registered Nurses"
+    },
+    {
+      "career_id": "diesel_mechanic",
+      "title": "Diesel and Heavy-Equipment Mechanic",
+      "onet_soc": "49-3031.00",
+      "onet_title": "Bus and Truck Mechanics and Diesel Engine Specialists"
+    },
+    {
+      "career_id": "welder",
+      "title": "Welder and Fabricator",
+      "onet_soc": "51-4121.00",
+      "onet_title": "Welders, Cutters, Solderers, and Brazers"
+    },
+    {
+      "career_id": "electrician",
+      "title": "Electrician (Apprenticeship Route)",
+      "onet_soc": "47-2111.00",
+      "onet_title": "Electricians"
+    },
+    {
+      "career_id": "software_dev",
+      "title": "Software Developer",
+      "onet_soc": "15-1252.00",
+      "onet_title": "Software Developers"
+    },
+    {
+      "career_id": "farm_ops_manager",
+      "title": "Farm Operations Manager",
+      "onet_soc": "11-9013.00",
+      "onet_title": "Farmers, Ranchers, and Other Agricultural Managers"
+    },
+    {
+      "career_id": "robotics_tech",
+      "title": "Robotics and Automation Technician",
+      "onet_soc": "17-3024.01",
+      "onet_title": "Robotics Technicians"
+    }
+  ],
+  "related": [
+    {
+      "onet_soc": "13-1081.00",
+      "onet_title": "Logisticians"
+    },
+    {
+      "onet_soc": "13-1081.02",
+      "onet_title": "Logistics Analysts"
+    },
+    {
+      "onet_soc": "11-3071.04",
+      "onet_title": "Supply Chain Managers"
+    },
+    {
+      "onet_soc": "53-1043.00",
+      "onet_title": "First-Line Supervisors of Material-Moving Machine and Vehicle Operators"
+    },
+    {
+      "onet_soc": "53-3032.00",
+      "onet_title": "Heavy and Tractor-Trailer Truck Drivers"
+    },
+    {
+      "onet_soc": "43-5071.00",
+      "onet_title": "Shipping, Receiving, and Inventory Clerks"
+    },
+    {
+      "onet_soc": "53-1042.00",
+      "onet_title": "First-Line Supervisors of Helpers, Laborers, and Material Movers, Hand"
+    },
+    {
+      "onet_soc": "53-7062.00",
+      "onet_title": "Laborers and Freight, Stock, and Material Movers, Hand"
+    },
+    {
+      "onet_soc": "53-7051.00",
+      "onet_title": "Industrial Truck and Tractor Operators"
+    },
+    {
+      "onet_soc": "53-7065.00",
+      "onet_title": "Stockers and Order Fillers"
+    },
+    {
+      "onet_soc": "49-3042.00",
+      "onet_title": "Mobile Heavy Equipment Mechanics, Except Engines"
+    },
+    {
+      "onet_soc": "49-3041.00",
+      "onet_title": "Farm Equipment Mechanics and Service Technicians"
+    },
+    {
+      "onet_soc": "51-2041.00",
+      "onet_title": "Structural Metal Fabricators and Fitters"
+    },
+    {
+      "onet_soc": "47-3013.00",
+      "onet_title": "Helpers--Electricians"
+    },
+    {
+      "onet_soc": "47-2152.00",
+      "onet_title": "Plumbers, Pipefitters, and Steamfitters"
+    },
+    {
+      "onet_soc": "49-9021.00",
+      "onet_title": "Heating, Air Conditioning, and Refrigeration Mechanics and Installers"
+    },
+    {
+      "onet_soc": "47-2231.00",
+      "onet_title": "Solar Photovoltaic Installers"
+    },
+    {
+      "onet_soc": "17-3024.00",
+      "onet_title": "Electro-Mechanical and Mechatronics Technologists and Technicians"
+    },
+    {
+      "onet_soc": "49-9041.00",
+      "onet_title": "Industrial Machinery Mechanics"
+    },
+    {
+      "onet_soc": "49-9071.00",
+      "onet_title": "Maintenance and Repair Workers, General"
+    },
+    {
+      "onet_soc": "51-9161.00",
+      "onet_title": "Computer Numerically Controlled Tool Operators"
+    },
+    {
+      "onet_soc": "29-2061.00",
+      "onet_title": "Licensed Practical and Licensed Vocational Nurses"
+    },
+    {
+      "onet_soc": "31-1131.00",
+      "onet_title": "Nursing Assistants"
+    },
+    {
+      "onet_soc": "31-9092.00",
+      "onet_title": "Medical Assistants"
+    },
+    {
+      "onet_soc": "29-2043.00",
+      "onet_title": "Paramedics"
+    },
+    {
+      "onet_soc": "29-1171.00",
+      "onet_title": "Nurse Practitioners"
+    },
+    {
+      "onet_soc": "15-1232.00",
+      "onet_title": "Computer User Support Specialists"
+    },
+    {
+      "onet_soc": "15-1254.00",
+      "onet_title": "Web Developers"
+    },
+    {
+      "onet_soc": "15-1212.00",
+      "onet_title": "Information Security Analysts"
+    },
+    {
+      "onet_soc": "45-1011.00",
+      "onet_title": "First-Line Supervisors of Farming, Fishing, and Forestry Workers"
+    },
+    {
+      "onet_soc": "45-2091.00",
+      "onet_title": "Agricultural Equipment Operators"
+    },
+    {
+      "onet_soc": "19-4012.01",
+      "onet_title": "Precision Agriculture Technicians"
+    },
+    {
+      "onet_soc": "45-2092.00",
+      "onet_title": "Farmworkers and Laborers, Crop, Nursery, and Greenhouse"
+    },
+    {
+      "onet_soc": "51-3092.00",
+      "onet_title": "Food Batchmakers"
+    }
+  ],
+  "related_groups": {
+    "logistics": [
+      "13-1081.00",
+      "13-1081.02",
+      "11-3071.04",
+      "53-1043.00",
+      "53-3032.00",
+      "43-5071.00"
+    ],
+    "warehouse_material_moving": [
+      "53-1042.00",
+      "53-7062.00",
+      "53-7051.00",
+      "53-7065.00"
+    ],
+    "trades": [
+      "49-3042.00",
+      "49-3041.00",
+      "51-2041.00",
+      "47-3013.00",
+      "47-2152.00",
+      "49-9021.00",
+      "47-2231.00"
+    ],
+    "automation_manufacturing": [
+      "17-3024.00",
+      "49-9041.00",
+      "49-9071.00",
+      "51-9161.00"
+    ],
+    "health": [
+      "29-2061.00",
+      "31-1131.00",
+      "31-9092.00",
+      "29-2043.00",
+      "29-1171.00"
+    ],
+    "tech": [
+      "15-1232.00",
+      "15-1254.00",
+      "15-1212.00"
+    ],
+    "agriculture_food": [
+      "45-1011.00",
+      "45-2091.00",
+      "19-4012.01",
+      "45-2092.00",
+      "51-3092.00"
+    ]
+  },
+  "work_styles": [
+    {
+      "element_id": "1.D.1.a",
+      "name": "Innovation"
+    },
+    {
+      "element_id": "1.D.1.b",
+      "name": "Achievement Orientation"
+    },
+    {
+      "element_id": "1.D.1.c",
+      "name": "Intellectual Curiosity"
+    },
+    {
+      "element_id": "1.D.1.d",
+      "name": "Tolerance for Ambiguity"
+    },
+    {
+      "element_id": "1.D.1.e",
+      "name": "Initiative"
+    },
+    {
+      "element_id": "1.D.1.f",
+      "name": "Adaptability"
+    },
+    {
+      "element_id": "1.D.1.g",
+      "name": "Self-Confidence"
+    },
+    {
+      "element_id": "1.D.1.h",
+      "name": "Perseverance"
+    },
+    {
+      "element_id": "1.D.1.i",
+      "name": "Leadership Orientation"
+    },
+    {
+      "element_id": "1.D.2.a",
+      "name": "Humility"
+    },
+    {
+      "element_id": "1.D.2.b",
+      "name": "Sincerity"
+    },
+    {
+      "element_id": "1.D.2.c",
+      "name": "Empathy"
+    },
+    {
+      "element_id": "1.D.2.d",
+      "name": "Cooperation"
+    },
+    {
+      "element_id": "1.D.2.e",
+      "name": "Optimism"
+    },
+    {
+      "element_id": "1.D.2.f",
+      "name": "Social Orientation"
+    },
+    {
+      "element_id": "1.D.3.a",
+      "name": "Cautiousness"
+    },
+    {
+      "element_id": "1.D.3.b",
+      "name": "Attention to Detail"
+    },
+    {
+      "element_id": "1.D.3.c",
+      "name": "Dependability"
+    },
+    {
+      "element_id": "1.D.3.d",
+      "name": "Integrity"
+    },
+    {
+      "element_id": "1.D.4.a",
+      "name": "Stress Tolerance"
+    },
+    {
+      "element_id": "1.D.4.b",
+      "name": "Self-Control"
+    }
+  ],
+  "work_style_groups": [
+    {
+      "element_id": "1.D.1",
+      "name": "Proactive and Growth Oriented"
+    },
+    {
+      "element_id": "1.D.2",
+      "name": "Interpersonally Oriented"
+    },
+    {
+      "element_id": "1.D.3",
+      "name": "Conscientious and Rule Oriented"
+    },
+    {
+      "element_id": "1.D.4",
+      "name": "Emotionally Resilient"
+    }
+  ],
+  "work_style_scales": [
+    {
+      "scale_id": "WI",
+      "scale_name": "Work Styles Impact",
+      "min": -3,
+      "max": 3
+    },
+    {
+      "scale_id": "DR",
+      "scale_name": "Distinctiveness Rank",
+      "min": 0,
+      "max": 10,
+      "note": "0 = not in the occupation's ranked list; 1 = most distinctive"
+    }
+  ]
+}

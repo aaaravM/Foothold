@@ -1,0 +1,1563 @@
+{
+ "schema": "foothold.programs.v1",
+ "retrieved": "2026-10-24",
+ "fees": {
+  "ccc_enrollment_fee_per_unit": {
+   "value": 46,
+   "unit": "USD per semester unit (California residents)",
+   "source_url": "https://www.deltacollege.edu/admission-aid/tuition-fees",
+   "source_note": "Delta College fee page: enrollment fee is set by the California State Legislature, not the college. Statute: Ed. Code 76300 (leginfo returned 403 to our fetch, so the statute text was not read directly).",
+   "statute_url_UNVERIFIED_FETCH": "https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=EDC&sectionNum=76300",
+   "status": "REAL",
+   "retrieved": "2026-10-24"
+  },
+  "delta_other_fees": [
+   {
+    "item": "Nonresident tuition (effective Summer 2026)",
+    "value": 328,
+    "unit": "USD per unit, plus $46/unit enrollment fee",
+    "status": "REAL"
+   },
+   {
+    "item": "Student activity fee (Mustang Pass)",
+    "value": 10,
+    "unit": "USD per semester",
+    "status": "REAL"
+   },
+   {
+    "item": "Student representation fee",
+    "value": 2,
+    "unit": "USD per semester",
+    "status": "REAL"
+   },
+   {
+    "item": "Student health fee",
+    "value": 26,
+    "unit": "USD per semester (22 for summer)",
+    "status": "REAL"
+   },
+   {
+    "item": "Parking permit (automobile)",
+    "value": 30,
+    "unit": "USD per semester",
+    "status": "REAL"
+   },
+   {
+    "item": "Course audit",
+    "value": 15,
+    "unit": "USD per unit",
+    "status": "REAL"
+   }
+  ],
+  "delta_other_fees_source_url": "https://www.deltacollege.edu/admission-aid/tuition-fees",
+  "fee_waiver_note": "California College Promise Grant can waive the enrollment fee for eligible students (not verified on an official page in this pass; see https://www.cccapply.org or the college financial aid office)."
+ },
+ "colleges": [
+  {
+   "name": "San Joaquin Delta College",
+   "city": "Stockton",
+   "program_mapper": "https://programmap.deltacollege.edu/",
+   "apply_url": "https://www.opencccapply.net/gateway/apply?cccMisCode=551",
+   "ccc_mis_code": "551",
+   "mapper_catalog_year": "2025-2026 (site banner: 2026-2027 maps coming soon)",
+   "scorecard": {
+    "unitid": 122658,
+    "school_name": "San Joaquin Delta College",
+    "city": "Stockton",
+    "tuition_in_state_usd": 1180,
+    "tuition_out_of_state_usd": 9772,
+    "avg_net_price_public_usd": 2451,
+    "cost_of_attendance_academic_year_usd": 12334,
+    "data_year": "Scorecard \"latest\" fields; the API response does not state the academic year",
+    "raw_file": "data/raw/programs/scorecard_delta.json",
+    "api_url": "https://api.data.gov/ed/collegescorecard/v1/schools?api_key=DEMO_KEY&school.name=<name>&fields=id,school.name,school.city,school.state,latest.cost.tuition.in_state,latest.cost.tuition.out_of_state,latest.cost.avg_net_price.public,latest.cost.attendance.academic_year",
+    "status": "REAL",
+    "retrieved": "2026-10-24"
+   }
+  },
+  {
+   "name": "Modesto Junior College",
+   "city": "Modesto",
+   "program_mapper": "https://programmap.mjc.edu/",
+   "mapper_catalog_year": "2026-2027",
+   "scorecard": {
+    "unitid": 118976,
+    "school_name": "Modesto Junior College",
+    "city": "Modesto",
+    "tuition_in_state_usd": 1276,
+    "tuition_out_of_state_usd": 8918,
+    "avg_net_price_public_usd": 5954,
+    "cost_of_attendance_academic_year_usd": 16086,
+    "data_year": "Scorecard \"latest\" fields; the API response does not state the academic year",
+    "raw_file": "data/raw/programs/scorecard_mjc.json",
+    "api_url": "https://api.data.gov/ed/collegescorecard/v1/schools?api_key=DEMO_KEY&school.name=<name>&fields=id,school.name,school.city,school.state,latest.cost.tuition.in_state,latest.cost.tuition.out_of_state,latest.cost.avg_net_price.public,latest.cost.attendance.academic_year",
+    "status": "REAL",
+    "retrieved": "2026-10-24"
+   }
+  }
+ ],
+ "career_programs": {
+  "29-1141": {
+   "label": "Registered nurse",
+   "programs": [
+    {
+     "college": "San Joaquin Delta College",
+     "slug": "nursing-r-n",
+     "url": "https://programmap.deltacollege.edu/program/nursing-r-n/",
+     "title": "Nursing R.N. Associate in Science",
+     "pathway": "Nursing R.N. - Major Courses Only",
+     "award": "Associate in Science",
+     "units": "36.5 units",
+     "units_min": 36.5,
+     "units_max": 36.5,
+     "terms": "4 terms",
+     "catalog_year": "2025-2026",
+     "control_number": "05623",
+     "top_code": "1230.10",
+     "est_enrollment_fee_usd_DERIVED": [
+      1679.0,
+      1679.0
+     ],
+     "status": "REAL",
+     "retrieved": "2026-10-24"
+    },
+    {
+     "college": "San Joaquin Delta College",
+     "slug": "nursing-r-n",
+     "url": "https://programmap.deltacollege.edu/program/nursing-r-n/",
+     "title": "Nursing R.N. Associate in Science",
+     "pathway": "Nursing R.N. - Pre-Nursing Prereqs & Additional Courses",
+     "award": "Associate in Science",
+     "units": "47-50 units",
+     "units_min": 47.0,
+     "units_max": 50.0,
+     "terms": "4 terms",
+     "catalog_year": "2025-2026",
+     "control_number": "05623",
+     "top_code": "1230.10",
+     "est_enrollment_fee_usd_DERIVED": [
+      2162.0,
+      2300.0
+     ],
+     "status": "REAL",
+     "retrieved": "2026-10-24"
+    },
+    {
+     "college": "San Joaquin Delta College",
+     "slug": "nurse-assistant-and-home-health-aide",
+     "url": "https://programmap.deltacollege.edu/program/nurse-assistant-and-home-health-aide/",
+     "title": "Nurse Assistant and Home Health Aide Certificate of Completion (Noncredit)",
+     "pathway": null,
+     "award": null,
+     "units": null,
+     "terms": null,
+     "catalog_year": "2025-2026",
+     "control_number": "45195",
+     "top_code": "1230.30",
+     "note": "Noncredit certificate (no unit/term card on mapper page)",
+     "status": "REAL",
+     "retrieved": "2026-10-24"
+    },
+    {
+     "college": "Modesto Junior College",
+     "slug": "nursing-adn-program-rn",
+     "url": "https://programmap.mjc.edu/program/nursing-adn-program-rn/",
+     "title": "Nursing: ADN Program (RN) Associate of Science",
+     "pathway": "Nursing: ADN Program (RN) - LVN Certified already to Nursing Program",
+     "award": "Associate of Science",
+     "units": "95-101 units",
+     "units_min": 95.0,
+     "units_max": 101.0,
+     "terms": "12 terms",
+     "catalog_year": "2026-2027",
+     "control_number": "06678",
+     "top_code": "1230.10",
+     "est_enrollment_fee_usd_DERIVED": [
+      4370.0,
+      4646.0
+     ],
+     "status": "REAL",
+     "retrieved": "2026-10-24"
+    },
+    {
+     "college": "Modesto Junior College",
+     "slug": "nursing-adn-program-rn",
+     "url": "https://programmap.mjc.edu/program/nursing-adn-program-rn/",
+     "title": "Nursing: ADN Program (RN) Associate of Science",
+     "pathway": "Nursing: ADN Program (RN) - Prereq with Nursing Program Coursework",
+     "award": "Associate of Science",
+     "units": "105.5 units",
+     "units_min": 105.5,
+     "units_max": 105.5,
+     "terms": "13 terms",
+     "catalog_year": "2026-2027",
+     "control_number": "06678",
+     "top_code": "1230.10",
+     "est_enrollment_fee_usd_DERIVED": [
+      4853.0,
+      4853.0
+     ],
+     "status": "REAL",
+     "retrieved": "2026-10-24"
+    },
+    {
+     "college": "Modesto Junior College",
+     "slug": "nursing-adn-program-rn",
+     "url": "https://programmap.mjc.edu/program/nursing-adn-program-rn/",
+     "title": "Nursing: ADN Program (RN) Associate of Science",
+     "pathway": "Nursing: ADN Program (RN) - Nurs. Prereq & CSU GE Cert for RN Prog Appl",
+     "award": "Associate of Science",
+     "units": "69.5 units",
+     "units_min": 69.5,
+     "units_max": 69.5,
+     "terms": "9 terms",
+     "catalog_year": "2026-2027",
+     "control_number": "06678",
+     "top_code": "1230.10",
+     "est_enrollment_fee_usd_DERIVED": [
+      3197.0,
+      3197.0
+     ],
+     "status": "REAL",
+     "retrieved": "2026-10-24"
+    }
+   ],
+   "apprenticeship": null
+  },
+  "51-4121": {
+   "label": "Welder",
+   "programs": [
+    {
+     "college": "San Joaquin Delta College",
+     "slug": "welding-technology",
+     "url": "https://programmap.deltacollege.edu/program/welding-technology/",
+     "title": "Welding Technology Certificate of Achievement",
+     "pathway": "Welding Technology",
+     "award": "Certificate of Achievement",
+     "units": "42.5 units",
+     "units_min": 42.5,
+     "units_max": 42.5,
+     "terms": "3 terms",
+     "catalog_year": "2025-2026",
+     "control_number": "07426",
+     "top_code": "0956.50",
+     "est_enrollment_fee_usd_DERIVED": [
+      1955.0,
+      1955.0
+     ],
+     "status": "REAL",
+     "retrieved": "2026-10-24"
+    },
+    {
+     "college": "San Joaquin Delta College",
+     "slug": "oxy-fuel-processes-and-shielded-metal-arc-welding-smaw",
+     "url": "https://programmap.deltacollege.edu/program/oxy-fuel-processes-and-shielded-metal-arc-welding-smaw/",
+     "title": "Oxy-Fuel Processes and Shielded Metal Arc Welding (SMAW) Certificate of Achievement",
+     "pathway": "Oxy-Fuel Processes and Shielded Metal Arc Welding (SMAW)",
+     "award": "Certificate of Achievement",
+     "units": "20 units",
+     "units_min": 20.0,
+     "units_max": 20.0,
+     "terms": "2 terms",
+     "catalog_year": "2025-2026",
+     "control_number": "36597",
+     "top_code": "0956.50",
+     "est_enrollment_fee_usd_DERIVED": [
+      920.0,
+      920.0
+     ],
+     "status": "REAL",
+     "retrieved": "2026-10-24"
+    },
+    {
+     "college": "San Joaquin Delta College",
+     "slug": "gas-metal-arc-welding-gmaw-flux-core-arc-welding-fcaw",
+     "url": "https://programmap.deltacollege.edu/program/gas-metal-arc-welding-gmaw-flux-core-arc-welding-fcaw/",
+     "title": "Gas Metal Arc Welding (GMAW)/Flux Core Arc Welding (FCAW) Certificate of Achievement",
+     "pathway": "Gas Metal Arc Welding (GMAW)/Flux Core Arc Welding (FCAW)",
+     "award": "Certificate of Achievement",
+     "units": "20 units",
+     "units_min": 20.0,
+     "units_max": 20.0,
+     "terms": "2 terms",
+     "catalog_year": "2025-2026",
+     "control_number": "36608",
+     "top_code": "0956.50",
+     "est_enrollment_fee_usd_DERIVED": [
+      920.0,
+      920.0
+     ],
+     "status": "REAL",
+     "retrieved": "2026-10-24"
+    },
+    {
+     "college": "Modesto Junior College",
+     "slug": "welding",
+     "url": "https://programmap.mjc.edu/program/welding/",
+     "title": "Welding Associate of Science",
+     "pathway": "Welding",
+     "award": "Associate of Science",
+     "units": "61.5-63 units",
+     "units_min": 61.5,
+     "units_max": 63.0,
+     "terms": "6 terms",
+     "catalog_year": "2026-2027",
+     "control_number": "06668",
+     "top_code": "0956.50",
+     "est_enrollment_fee_usd_DERIVED": [
+      2829.0,
+      2898.0
+     ],
+     "status": "REAL",
+     "retrieved": "2026-10-24"
+    }
+   ],
+   "apprenticeship": null
+  },
+  "49-3031": {
+   "label": "Diesel mechanic",
+   "programs": [
+    {
+     "college": "San Joaquin Delta College",
+     "slug": "diesel-equipment-technician",
+     "url": "https://programmap.deltacollege.edu/program/diesel-equipment-technician/",
+     "title": "Diesel Equipment Technician Certificate of Achievement",
+     "pathway": "Diesel Equipment Technician",
+     "award": "Certificate of Achievement",
+     "units": "42.5 units",
+     "units_min": 42.5,
+     "units_max": 42.5,
+     "terms": "5 terms",
+     "catalog_year": "2025-2026",
+     "control_number": "22252",
+     "top_code": "0947.00",
+     "est_enrollment_fee_usd_DERIVED": [
+      1955.0,
+      1955.0
+     ],
+     "status": "REAL",
+     "retrieved": "2026-10-24"
+    },
+    {
+     "college": "San Joaquin Delta College",
+     "slug": "diesel-equipment-technician-2",
+     "url": "https://programmap.deltacollege.edu/program/diesel-equipment-technician-2/",
+     "title": "Diesel Equipment Technician Associate in Science",
+     "pathway": "Diesel Equipment Technician",
+     "award": "Associate in Science",
+     "units": "66.5 units",
+     "units_min": 66.5,
+     "units_max": 66.5,
+     "terms": "5 terms",
+     "catalog_year": "2025-2026",
+     "control_number": "07420",
+     "top_code": "0947.00",
+     "est_enrollment_fee_usd_DERIVED": [
+      3059.0,
+      3059.0
+     ],
+     "status": "REAL",
+     "retrieved": "2026-10-24"
+    },
+    {
+     "college": "San Joaquin Delta College",
+     "slug": "diesel-bus-technician",
+     "url": "https://programmap.deltacollege.edu/program/diesel-bus-technician/",
+     "title": "Diesel Bus Technician Certificate of Achievement",
+     "pathway": "Diesel Bus Technician",
+     "award": "Certificate of Achievement",
+     "units": "32.5 units",
+     "units_min": 32.5,
+     "units_max": 32.5,
+     "terms": "4 terms",
+     "catalog_year": "2025-2026",
+     "control_number": "37671",
+     "top_code": "0947.00",
+     "est_enrollment_fee_usd_DERIVED": [
+      1495.0,
+      1495.0
+     ],
+     "status": "REAL",
+     "retrieved": "2026-10-24"
+    }
+   ],
+   "apprenticeship": null
+  },
+  "49-3042": {
+   "label": "Heavy equipment mechanic",
+   "programs": [
+    {
+     "college": "San Joaquin Delta College",
+     "slug": "heavy-equipment-technician-2",
+     "url": "https://programmap.deltacollege.edu/program/heavy-equipment-technician-2/",
+     "title": "Heavy Equipment Technician Certificate of Achievement",
+     "pathway": "Heavy Equipment Technician",
+     "award": "Certificate of Achievement",
+     "units": "31 units",
+     "units_min": 31.0,
+     "units_max": 31.0,
+     "terms": "3 terms",
+     "catalog_year": "2025-2026",
+     "control_number": "22253",
+     "top_code": "0947.20",
+     "est_enrollment_fee_usd_DERIVED": [
+      1426.0,
+      1426.0
+     ],
+     "status": "REAL",
+     "retrieved": "2026-10-24"
+    },
+    {
+     "college": "San Joaquin Delta College",
+     "slug": "heavy-equipment-technician",
+     "url": "https://programmap.deltacollege.edu/program/heavy-equipment-technician/",
+     "title": "Heavy Equipment Technician Associate in Science",
+     "pathway": "Heavy Equipment Technician",
+     "award": "Associate in Science",
+     "units": "60-69 units",
+     "units_min": 60.0,
+     "units_max": 69.0,
+     "terms": "5 terms",
+     "catalog_year": "2025-2026",
+     "control_number": "14147",
+     "top_code": "0947.20",
+     "est_enrollment_fee_usd_DERIVED": [
+      2760.0,
+      3174.0
+     ],
+     "status": "REAL",
+     "retrieved": "2026-10-24"
+    },
+    {
+     "college": "San Joaquin Delta College",
+     "slug": "heavy-equipment-mechanic",
+     "url": "https://programmap.deltacollege.edu/program/heavy-equipment-mechanic/",
+     "title": "Heavy Equipment Mechanic Certificate of Achievement",
+     "pathway": "Heavy Equipment Mechanic",
+     "award": "Certificate of Achievement",
+     "units": "24 units",
+     "units_min": 24.0,
+     "units_max": 24.0,
+     "terms": "3 terms",
+     "catalog_year": "2025-2026",
+     "control_number": "14146",
+     "top_code": "0947.20",
+     "est_enrollment_fee_usd_DERIVED": [
+      1104.0,
+      1104.0
+     ],
+     "status": "REAL",
+     "retrieved": "2026-10-24"
+    },
+    {
+     "college": "San Joaquin Delta College",
+     "slug": "caterpillar-dealer-service-technician-apprenticeship",
+     "url": "https://programmap.deltacollege.edu/program/caterpillar-dealer-service-technician-apprenticeship/",
+     "title": "Caterpillar Dealer Service Technician Apprenticeship Associate in Science",
+     "pathway": "Caterpillar Dealer Service Technician Apprenticeship",
+     "award": "Associate in Science",
+     "units": "81 units",
+     "units_min": 81.0,
+     "units_max": 81.0,
+     "terms": "5 terms",
+     "catalog_year": "2025-2026",
+     "control_number": "14290",
+     "top_code": "0947.20",
+     "est_enrollment_fee_usd_DERIVED": [
+      3726.0,
+      3726.0
+     ],
+     "status": "REAL",
+     "retrieved": "2026-10-24"
+    },
+    {
+     "college": "Modesto Junior College",
+     "slug": "basic-heavy-equipment-technician",
+     "url": "https://programmap.mjc.edu/program/basic-heavy-equipment-technician/",
+     "title": "Basic Heavy Equipment Technician Certificate of Achievement",
+     "pathway": "Basic Heavy Equipment Technician",
+     "award": "Certificate of Achievement",
+     "units": "18 units",
+     "units_min": 18.0,
+     "units_max": 18.0,
+     "terms": "1 term",
+     "catalog_year": "2026-2027",
+     "control_number": "36013",
+     "top_code": "0116.00",
+     "est_enrollment_fee_usd_DERIVED": [
+      828.0,
+      828.0
+     ],
+     "status": "REAL",
+     "retrieved": "2026-10-24"
+    },
+    {
+     "college": "Modesto Junior College",
+     "slug": "advanced-heavy-equipment-technician",
+     "url": "https://programmap.mjc.edu/program/advanced-heavy-equipment-technician/",
+     "title": "Advanced Heavy Equipment Technician Certificate of Achievement",
+     "pathway": "Advanced Heavy Equipment Technician",
+     "award": "Certificate of Achievement",
+     "units": "16 units",
+     "units_min": 16.0,
+     "units_max": 16.0,
+     "terms": "2 terms",
+     "catalog_year": "2026-2027",
+     "control_number": "19348",
+     "top_code": "0116.00",
+     "est_enrollment_fee_usd_DERIVED": [
+      736.0,
+      736.0
+     ],
+     "status": "REAL",
+     "retrieved": "2026-10-24"
+    }
+   ],
+   "apprenticeship": null
+  },
+  "49-3041": {
+   "label": "Farm equipment mechanic",
+   "programs": [
+    {
+     "college": "San Joaquin Delta College",
+     "slug": "agriculture-mechanics",
+     "url": "https://programmap.deltacollege.edu/program/agriculture-mechanics/",
+     "title": "Agriculture Mechanics Certificate of Achievement",
+     "pathway": "Agriculture Mechanics",
+     "award": "Certificate of Achievement",
+     "units": "16.5 units",
+     "units_min": 16.5,
+     "units_max": 16.5,
+     "terms": "2 terms",
+     "catalog_year": "2025-2026",
+     "control_number": "05581",
+     "top_code": "0103.00",
+     "est_enrollment_fee_usd_DERIVED": [
+      759.0,
+      759.0
+     ],
+     "status": "REAL",
+     "retrieved": "2026-10-24"
+    },
+    {
+     "college": "Modesto Junior College",
+     "slug": "mechanized-agriculture-technician",
+     "url": "https://programmap.mjc.edu/program/mechanized-agriculture-technician/",
+     "title": "Mechanized Agriculture Technician Certificate of Achievement",
+     "pathway": "Mechanized Agriculture Technician",
+     "award": "Certificate of Achievement",
+     "units": "30 units",
+     "units_min": 30.0,
+     "units_max": 30.0,
+     "terms": "3 terms",
+     "catalog_year": "2026-2027",
+     "control_number": "30509",
+     "top_code": "0116.00",
+     "est_enrollment_fee_usd_DERIVED": [
+      1380.0,
+      1380.0
+     ],
+     "status": "REAL",
+     "retrieved": "2026-10-24"
+    },
+    {
+     "college": "Modesto Junior College",
+     "slug": "agriculture-mechanics",
+     "url": "https://programmap.mjc.edu/program/agriculture-mechanics/",
+     "title": "Agriculture Mechanics Associate of Science",
+     "pathway": "Agriculture Mechanics",
+     "award": "Associate of Science",
+     "units": "61-66 units",
+     "units_min": 61.0,
+     "units_max": 66.0,
+     "terms": "5 terms",
+     "catalog_year": "2026-2027",
+     "control_number": "06642",
+     "top_code": "0116.00",
+     "est_enrollment_fee_usd_DERIVED": [
+      2806.0,
+      3036.0
+     ],
+     "status": "REAL",
+     "retrieved": "2026-10-24"
+    }
+   ],
+   "apprenticeship": null
+  },
+  "47-2111": {
+   "label": "Electrician",
+   "programs": [
+    {
+     "college": "San Joaquin Delta College",
+     "slug": "electrical-technology-general-electrician-trainee",
+     "url": "https://programmap.deltacollege.edu/program/electrical-technology-general-electrician-trainee/",
+     "title": "Electrical Technology - General Electrician Trainee Certificate of Achievement",
+     "pathway": "Electrical Technology - General Electrician Trainee",
+     "award": "Certificate of Achievement",
+     "units": "43 units",
+     "units_min": 43.0,
+     "units_max": 43.0,
+     "terms": "4 terms",
+     "catalog_year": "2025-2026",
+     "control_number": "35073",
+     "top_code": "0952.20",
+     "est_enrollment_fee_usd_DERIVED": [
+      1978.0,
+      1978.0
+     ],
+     "status": "REAL",
+     "retrieved": "2026-10-24"
+    },
+    {
+     "college": "San Joaquin Delta College",
+     "slug": "electrical-technology",
+     "url": "https://programmap.deltacollege.edu/program/electrical-technology/",
+     "title": "Electrical Technology Associate in Science",
+     "pathway": "Electrical Technology",
+     "award": "Associate in Science",
+     "units": "67-76 units",
+     "units_min": 67.0,
+     "units_max": 76.0,
+     "terms": "5 terms",
+     "catalog_year": "2025-2026",
+     "control_number": "35059",
+     "top_code": "0952.20",
+     "est_enrollment_fee_usd_DERIVED": [
+      3082.0,
+      3496.0
+     ],
+     "status": "REAL",
+     "retrieved": "2026-10-24"
+    },
+    {
+     "college": "San Joaquin Delta College",
+     "slug": "electrical-technology-electrical-maintenance",
+     "url": "https://programmap.deltacollege.edu/program/electrical-technology-electrical-maintenance/",
+     "title": "Electrical Technology - Electrical Maintenance Certificate of Achievement",
+     "pathway": "Electrical Technology - Electrical Maintenance",
+     "award": "Certificate of Achievement",
+     "units": "30-33 units",
+     "units_min": 30.0,
+     "units_max": 33.0,
+     "terms": "3 terms",
+     "catalog_year": "2025-2026",
+     "control_number": "07402",
+     "top_code": "0952.20",
+     "est_enrollment_fee_usd_DERIVED": [
+      1380.0,
+      1518.0
+     ],
+     "status": "REAL",
+     "retrieved": "2026-10-24"
+    },
+    {
+     "college": "Modesto Junior College",
+     "slug": "electrician",
+     "url": "https://programmap.mjc.edu/program/electrician/",
+     "title": "Electrician Certificate of Achievement",
+     "pathway": "Electrician",
+     "award": "Certificate of Achievement",
+     "units": "34 units",
+     "units_min": 34.0,
+     "units_max": 34.0,
+     "terms": "4 terms",
+     "catalog_year": "2026-2027",
+     "control_number": "35084",
+     "top_code": "0952.20",
+     "est_enrollment_fee_usd_DERIVED": [
+      1564.0,
+      1564.0
+     ],
+     "status": "REAL",
+     "retrieved": "2026-10-24"
+    }
+   ],
+   "apprenticeship": "sjeti-inside-wireman"
+  },
+  "17-3024": {
+   "label": "Mechatronics technician",
+   "programs": [
+    {
+     "college": "San Joaquin Delta College",
+     "slug": "automation-technician-mechatronics",
+     "url": "https://programmap.deltacollege.edu/program/automation-technician-mechatronics/",
+     "title": "Automation Technician - Mechatronics Certificate of Achievement",
+     "pathway": "Automation Technician - Mechatronics",
+     "award": "Certificate of Achievement",
+     "units": "33.5 units",
+     "units_min": 33.5,
+     "units_max": 33.5,
+     "terms": "3 terms",
+     "catalog_year": "2025-2026",
+     "control_number": "35052",
+     "top_code": "0935.00",
+     "est_enrollment_fee_usd_DERIVED": [
+      1541.0,
+      1541.0
+     ],
+     "status": "REAL",
+     "retrieved": "2026-10-24"
+    },
+    {
+     "college": "San Joaquin Delta College",
+     "slug": "automation-technology-mechatronics",
+     "url": "https://programmap.deltacollege.edu/program/automation-technology-mechatronics/",
+     "title": "Automation Technology - Mechatronics Associate in Science",
+     "pathway": "Automation Technology - Mechatronics",
+     "award": "Associate in Science",
+     "units": "60 units",
+     "units_min": 60.0,
+     "units_max": 60.0,
+     "terms": "4 terms",
+     "catalog_year": "2025-2026",
+     "control_number": "35050",
+     "top_code": "0935.00",
+     "est_enrollment_fee_usd_DERIVED": [
+      2760.0,
+      2760.0
+     ],
+     "status": "REAL",
+     "retrieved": "2026-10-24"
+    },
+    {
+     "college": "San Joaquin Delta College",
+     "slug": "electronics-technology",
+     "url": "https://programmap.deltacollege.edu/program/electronics-technology/",
+     "title": "Electronics Technology Certificate of Achievement",
+     "pathway": "Electronics Technology",
+     "award": "Certificate of Achievement",
+     "units": "21-22 units",
+     "units_min": 21.0,
+     "units_max": 22.0,
+     "terms": "2 terms",
+     "catalog_year": "2025-2026",
+     "control_number": "07403",
+     "top_code": "0934.00",
+     "est_enrollment_fee_usd_DERIVED": [
+      966.0,
+      1012.0
+     ],
+     "status": "REAL",
+     "retrieved": "2026-10-24"
+    },
+    {
+     "college": "San Joaquin Delta College",
+     "slug": "control-systems-technician",
+     "url": "https://programmap.deltacollege.edu/program/control-systems-technician/",
+     "title": "Control Systems Technician Certificate of Completion (Noncredit)",
+     "pathway": null,
+     "award": null,
+     "units": null,
+     "terms": null,
+     "catalog_year": "2025-2026",
+     "control_number": "45193",
+     "top_code": "0935.00",
+     "note": "Noncredit certificate (no unit/term card on mapper page)",
+     "status": "REAL",
+     "retrieved": "2026-10-24"
+    },
+    {
+     "college": "San Joaquin Delta College",
+     "slug": "basic-electronics-technician",
+     "url": "https://programmap.deltacollege.edu/program/basic-electronics-technician/",
+     "title": "Basic Electronics Technician Certificate of Completion (Noncredit)",
+     "pathway": null,
+     "award": null,
+     "units": null,
+     "terms": null,
+     "catalog_year": "2025-2026",
+     "control_number": "45194",
+     "top_code": "0934.00",
+     "note": "Noncredit certificate (no unit/term card on mapper page)",
+     "status": "REAL",
+     "retrieved": "2026-10-24"
+    },
+    {
+     "college": "Modesto Junior College",
+     "slug": "automation-technician",
+     "url": "https://programmap.mjc.edu/program/automation-technician/",
+     "title": "Automation Technician Certificate of Achievement",
+     "pathway": "Automation Technician",
+     "award": "Certificate of Achievement",
+     "units": "19 units",
+     "units_min": 19.0,
+     "units_max": 19.0,
+     "terms": "2 terms",
+     "catalog_year": "2026-2027",
+     "control_number": "45106",
+     "top_code": "0934.20",
+     "est_enrollment_fee_usd_DERIVED": [
+      874.0,
+      874.0
+     ],
+     "status": "REAL",
+     "retrieved": "2026-10-24"
+    },
+    {
+     "college": "Modesto Junior College",
+     "slug": "electro-mechanic",
+     "url": "https://programmap.mjc.edu/program/electro-mechanic/",
+     "title": "Electro-Mechanic Certificate of Achievement",
+     "pathway": "Electro-Mechanic",
+     "award": "Certificate of Achievement",
+     "units": "35 units",
+     "units_min": 35.0,
+     "units_max": 35.0,
+     "terms": "4 terms",
+     "catalog_year": "2026-2027",
+     "control_number": "35237",
+     "top_code": "0943.00",
+     "est_enrollment_fee_usd_DERIVED": [
+      1610.0,
+      1610.0
+     ],
+     "status": "REAL",
+     "retrieved": "2026-10-24"
+    },
+    {
+     "college": "Modesto Junior College",
+     "slug": "industrial-electronics-2",
+     "url": "https://programmap.mjc.edu/program/industrial-electronics-2/",
+     "title": "Industrial Electronics Certificate of Achievement",
+     "pathway": "Industrial Electronics",
+     "award": "Certificate of Achievement",
+     "units": "34 units",
+     "units_min": 34.0,
+     "units_max": 34.0,
+     "terms": "4 terms",
+     "catalog_year": "2026-2027",
+     "control_number": "20310",
+     "top_code": "0934.20",
+     "est_enrollment_fee_usd_DERIVED": [
+      1564.0,
+      1564.0
+     ],
+     "status": "REAL",
+     "retrieved": "2026-10-24"
+    },
+    {
+     "college": "Modesto Junior College",
+     "slug": "industrial-electronics",
+     "url": "https://programmap.mjc.edu/program/industrial-electronics/",
+     "title": "Industrial Electronics Associate of Science",
+     "pathway": "Industrial Electronics",
+     "award": "Associate of Science",
+     "units": "58.5-59 units",
+     "units_min": 58.5,
+     "units_max": 59.0,
+     "terms": "5 terms",
+     "catalog_year": "2026-2027",
+     "control_number": "08129",
+     "top_code": "0934.20",
+     "est_enrollment_fee_usd_DERIVED": [
+      2691.0,
+      2714.0
+     ],
+     "status": "REAL",
+     "retrieved": "2026-10-24"
+    }
+   ],
+   "apprenticeship": null
+  },
+  "15-1252": {
+   "label": "Software developer",
+   "programs": [
+    {
+     "college": "San Joaquin Delta College",
+     "slug": "computer-science-2",
+     "url": "https://programmap.deltacollege.edu/program/computer-science-2/",
+     "title": "Computer Science Associate in Science for Transfer",
+     "pathway": "Computer Science",
+     "award": "Associate in Science for Transfer",
+     "units": "63-64 units",
+     "units_min": 63.0,
+     "units_max": 64.0,
+     "terms": "5 terms",
+     "catalog_year": "2025-2026",
+     "control_number": "33018",
+     "top_code": "0706.00",
+     "est_enrollment_fee_usd_DERIVED": [
+      2898.0,
+      2944.0
+     ],
+     "status": "REAL",
+     "retrieved": "2026-10-24"
+    },
+    {
+     "college": "San Joaquin Delta College",
+     "slug": "computer-science",
+     "url": "https://programmap.deltacollege.edu/program/computer-science/",
+     "title": "Computer Science Associate in Science",
+     "pathway": "Computer Science",
+     "award": "Associate in Science",
+     "units": "60-61 units",
+     "units_min": 60.0,
+     "units_max": 61.0,
+     "terms": "4 terms",
+     "catalog_year": "2025-2026",
+     "control_number": "07304",
+     "top_code": "0702.00",
+     "est_enrollment_fee_usd_DERIVED": [
+      2760.0,
+      2806.0
+     ],
+     "status": "REAL",
+     "retrieved": "2026-10-24"
+    },
+    {
+     "college": "San Joaquin Delta College",
+     "slug": "computer-science-3",
+     "url": "https://programmap.deltacollege.edu/program/computer-science-3/",
+     "title": "Computer Science Certificate of Achievement",
+     "pathway": "Computer Science",
+     "award": "Certificate of Achievement",
+     "units": "50.5-53.5 units",
+     "units_min": 50.5,
+     "units_max": 53.5,
+     "terms": "4 terms",
+     "catalog_year": "2025-2026",
+     "control_number": "22247",
+     "top_code": "0702.00",
+     "est_enrollment_fee_usd_DERIVED": [
+      2323.0,
+      2461.0
+     ],
+     "status": "REAL",
+     "retrieved": "2026-10-24"
+    },
+    {
+     "college": "San Joaquin Delta College",
+     "slug": "computer-programming",
+     "url": "https://programmap.deltacollege.edu/program/computer-programming/",
+     "title": "Computer Programming Certificate of Achievement",
+     "pathway": "Computer Programming",
+     "award": "Certificate of Achievement",
+     "units": "44.5-48.5 units",
+     "units_min": 44.5,
+     "units_max": 48.5,
+     "terms": "4 terms",
+     "catalog_year": "2025-2026",
+     "control_number": "05594",
+     "top_code": "0707.10",
+     "est_enrollment_fee_usd_DERIVED": [
+      2047.0,
+      2231.0
+     ],
+     "status": "REAL",
+     "retrieved": "2026-10-24"
+    },
+    {
+     "college": "Modesto Junior College",
+     "slug": "computer-science-for-transfer-degree",
+     "url": "https://programmap.mjc.edu/program/computer-science-for-transfer-degree/",
+     "title": "Computer Science for Transfer Degree Associate of Science for Transfer",
+     "pathway": "Computer Science for Transfer Degree - Two-Year Plan",
+     "award": "Associate of Science for Transfer",
+     "units": "68-75 units",
+     "units_min": 68.0,
+     "units_max": 75.0,
+     "terms": "6 terms",
+     "catalog_year": "2026-2027",
+     "control_number": "33672",
+     "top_code": "0706.00",
+     "est_enrollment_fee_usd_DERIVED": [
+      3128.0,
+      3450.0
+     ],
+     "status": "REAL",
+     "retrieved": "2026-10-24"
+    },
+    {
+     "college": "Modesto Junior College",
+     "slug": "computer-science-for-transfer-degree",
+     "url": "https://programmap.mjc.edu/program/computer-science-for-transfer-degree/",
+     "title": "Computer Science for Transfer Degree Associate of Science for Transfer",
+     "pathway": "Computer Science for Transfer Degree - Three Year Plan",
+     "award": "Associate of Science for Transfer",
+     "units": "69-74 units",
+     "units_min": 69.0,
+     "units_max": 74.0,
+     "terms": "8 terms",
+     "catalog_year": "2026-2027",
+     "control_number": "33672",
+     "top_code": "0706.00",
+     "est_enrollment_fee_usd_DERIVED": [
+      3174.0,
+      3404.0
+     ],
+     "status": "REAL",
+     "retrieved": "2026-10-24"
+    },
+    {
+     "college": "Modesto Junior College",
+     "slug": "computer-science-for-transfer-degree",
+     "url": "https://programmap.mjc.edu/program/computer-science-for-transfer-degree/",
+     "title": "Computer Science for Transfer Degree Associate of Science for Transfer",
+     "pathway": "Computer Science for Transfer Degree - Calculus & Physics Ready",
+     "award": "Associate of Science for Transfer",
+     "units": "59-64 units",
+     "units_min": 59.0,
+     "units_max": 64.0,
+     "terms": "6 terms",
+     "catalog_year": "2026-2027",
+     "control_number": "33672",
+     "top_code": "0706.00",
+     "est_enrollment_fee_usd_DERIVED": [
+      2714.0,
+      2944.0
+     ],
+     "status": "REAL",
+     "retrieved": "2026-10-24"
+    },
+    {
+     "college": "Modesto Junior College",
+     "slug": "computer-science",
+     "url": "https://programmap.mjc.edu/program/computer-science/",
+     "title": "Computer Science Associate of Science",
+     "pathway": "Computer Science - Information Systems",
+     "award": "Associate of Science",
+     "units": "60.5-63.5 units",
+     "units_min": 60.5,
+     "units_max": 63.5,
+     "terms": "7 terms",
+     "catalog_year": "2026-2027",
+     "control_number": "06655",
+     "top_code": "0706.00",
+     "est_enrollment_fee_usd_DERIVED": [
+      2783.0,
+      2921.0
+     ],
+     "status": "REAL",
+     "retrieved": "2026-10-24"
+    },
+    {
+     "college": "Modesto Junior College",
+     "slug": "computer-science",
+     "url": "https://programmap.mjc.edu/program/computer-science/",
+     "title": "Computer Science Associate of Science",
+     "pathway": "Computer Science - Programming",
+     "award": "Associate of Science",
+     "units": "60.5-63.5 units",
+     "units_min": 60.5,
+     "units_max": 63.5,
+     "terms": "7 terms",
+     "catalog_year": "2026-2027",
+     "control_number": "06655",
+     "top_code": "0706.00",
+     "est_enrollment_fee_usd_DERIVED": [
+      2783.0,
+      2921.0
+     ],
+     "status": "REAL",
+     "retrieved": "2026-10-24"
+    },
+    {
+     "college": "Modesto Junior College",
+     "slug": "computer-science",
+     "url": "https://programmap.mjc.edu/program/computer-science/",
+     "title": "Computer Science Associate of Science",
+     "pathway": "Computer Science - Networking",
+     "award": "Associate of Science",
+     "units": "60-61 units",
+     "units_min": 60.0,
+     "units_max": 61.0,
+     "terms": "7 terms",
+     "catalog_year": "2026-2027",
+     "control_number": "06655",
+     "top_code": "0706.00",
+     "est_enrollment_fee_usd_DERIVED": [
+      2760.0,
+      2806.0
+     ],
+     "status": "REAL",
+     "retrieved": "2026-10-24"
+    }
+   ],
+   "apprenticeship": null
+  },
+  "11-9013": {
+   "label": "Farm/ranch/ag manager",
+   "programs": [
+    {
+     "college": "San Joaquin Delta College",
+     "slug": "agriculture-business",
+     "url": "https://programmap.deltacollege.edu/program/agriculture-business/",
+     "title": "Agriculture Business Certificate of Achievement",
+     "pathway": "Agriculture Business",
+     "award": "Certificate of Achievement",
+     "units": "59-61 units",
+     "units_min": 59.0,
+     "units_max": 61.0,
+     "terms": "4 terms",
+     "catalog_year": "2025-2026",
+     "control_number": "22243",
+     "top_code": "0112.00",
+     "est_enrollment_fee_usd_DERIVED": [
+      2714.0,
+      2806.0
+     ],
+     "status": "REAL",
+     "retrieved": "2026-10-24"
+    },
+    {
+     "college": "San Joaquin Delta College",
+     "slug": "agriculture-plant-science",
+     "url": "https://programmap.deltacollege.edu/program/agriculture-plant-science/",
+     "title": "Agriculture Plant Science Associate in Science for Transfer",
+     "pathway": "Agriculture Plant Science",
+     "award": "Associate in Science for Transfer",
+     "units": "60-61.5 units",
+     "units_min": 60.0,
+     "units_max": 61.5,
+     "terms": "4 terms",
+     "catalog_year": "2025-2026",
+     "control_number": "37666",
+     "top_code": "0103.00",
+     "est_enrollment_fee_usd_DERIVED": [
+      2760.0,
+      2829.0
+     ],
+     "status": "REAL",
+     "retrieved": "2026-10-24"
+    },
+    {
+     "college": "Modesto Junior College",
+     "slug": "agriculture-business-for-transfer-degree",
+     "url": "https://programmap.mjc.edu/program/agriculture-business-for-transfer-degree/",
+     "title": "Agriculture Business for Transfer Degree Associate of Science for Transfer",
+     "pathway": "Agriculture Business for Transfer Degree",
+     "award": "Associate of Science for Transfer",
+     "units": "60-62 units",
+     "units_min": 60.0,
+     "units_max": 62.0,
+     "terms": "5 terms",
+     "catalog_year": "2026-2027",
+     "control_number": "35537",
+     "top_code": "0112.00",
+     "est_enrollment_fee_usd_DERIVED": [
+      2760.0,
+      2852.0
+     ],
+     "status": "REAL",
+     "retrieved": "2026-10-24"
+    }
+   ],
+   "apprenticeship": null
+  },
+  "53-1047": {
+   "label": "Logistics lead (supervisor)",
+   "programs": [
+    {
+     "college": "San Joaquin Delta College",
+     "slug": "logistics-and-transportation-supervisor",
+     "url": "https://programmap.deltacollege.edu/program/logistics-and-transportation-supervisor/",
+     "title": "Logistics and Transportation Supervisor Certificate of Achievement",
+     "pathway": "Logistics and Transportation Supervisor",
+     "award": "Certificate of Achievement",
+     "units": "24 units",
+     "units_min": 24.0,
+     "units_max": 24.0,
+     "terms": "2 terms",
+     "catalog_year": "2025-2026",
+     "control_number": "05588",
+     "top_code": "0510.00",
+     "est_enrollment_fee_usd_DERIVED": [
+      1104.0,
+      1104.0
+     ],
+     "status": "REAL",
+     "retrieved": "2026-10-24"
+    },
+    {
+     "college": "San Joaquin Delta College",
+     "slug": "traffic-shipping-and-receiving-technician",
+     "url": "https://programmap.deltacollege.edu/program/traffic-shipping-and-receiving-technician/",
+     "title": "Traffic Shipping and Receiving Technician Certificate of Achievement",
+     "pathway": "Traffic Shipping and Receiving Technician",
+     "award": "Certificate of Achievement",
+     "units": "15-16 units",
+     "units_min": 15.0,
+     "units_max": 16.0,
+     "terms": "1 term",
+     "catalog_year": "2025-2026",
+     "control_number": "11844",
+     "top_code": "0510.00",
+     "est_enrollment_fee_usd_DERIVED": [
+      690.0,
+      736.0
+     ],
+     "status": "REAL",
+     "retrieved": "2026-10-24"
+    },
+    {
+     "college": "San Joaquin Delta College",
+     "slug": "logistics-and-transportation",
+     "url": "https://programmap.deltacollege.edu/program/logistics-and-transportation/",
+     "title": "Logistics and Transportation Associate in Science",
+     "pathway": "Logistics and Transportation",
+     "award": "Associate in Science",
+     "units": "60-64 units",
+     "units_min": 60.0,
+     "units_max": 64.0,
+     "terms": "4 terms",
+     "catalog_year": "2025-2026",
+     "control_number": "19693",
+     "top_code": "0510.00",
+     "est_enrollment_fee_usd_DERIVED": [
+      2760.0,
+      2944.0
+     ],
+     "status": "REAL",
+     "retrieved": "2026-10-24"
+    },
+    {
+     "college": "Modesto Junior College",
+     "slug": "logistics-and-supply-chain-management-2",
+     "url": "https://programmap.mjc.edu/program/logistics-and-supply-chain-management-2/",
+     "title": "Logistics and Supply Chain Management Certificate of Achievement",
+     "pathway": "Logistics and Supply Chain Management",
+     "award": "Certificate of Achievement",
+     "units": "24-30 units",
+     "units_min": 24.0,
+     "units_max": 30.0,
+     "terms": "3 terms",
+     "catalog_year": "2026-2027",
+     "control_number": "35013",
+     "top_code": "0510.00",
+     "est_enrollment_fee_usd_DERIVED": [
+      1104.0,
+      1380.0
+     ],
+     "status": "REAL",
+     "retrieved": "2026-10-24"
+    },
+    {
+     "college": "Modesto Junior College",
+     "slug": "logistics-and-supply-chain-management",
+     "url": "https://programmap.mjc.edu/program/logistics-and-supply-chain-management/",
+     "title": "Logistics and Supply Chain Management Associate of Science",
+     "pathway": "Logistics and Supply Chain Management",
+     "award": "Associate of Science",
+     "units": "56-60 units",
+     "units_min": 56.0,
+     "units_max": 60.0,
+     "terms": "6 terms",
+     "catalog_year": "2026-2027",
+     "control_number": "35012",
+     "top_code": "0510.00",
+     "est_enrollment_fee_usd_DERIVED": [
+      2576.0,
+      2760.0
+     ],
+     "status": "REAL",
+     "retrieved": "2026-10-24"
+    }
+   ],
+   "apprenticeship": null
+  },
+  "13-1081": {
+   "label": "Logistician",
+   "programs": [
+    {
+     "college": "San Joaquin Delta College",
+     "slug": "logistics-and-transportation",
+     "url": "https://programmap.deltacollege.edu/program/logistics-and-transportation/",
+     "title": "Logistics and Transportation Associate in Science",
+     "pathway": "Logistics and Transportation",
+     "award": "Associate in Science",
+     "units": "60-64 units",
+     "units_min": 60.0,
+     "units_max": 64.0,
+     "terms": "4 terms",
+     "catalog_year": "2025-2026",
+     "control_number": "19693",
+     "top_code": "0510.00",
+     "est_enrollment_fee_usd_DERIVED": [
+      2760.0,
+      2944.0
+     ],
+     "status": "REAL",
+     "retrieved": "2026-10-24"
+    },
+    {
+     "college": "San Joaquin Delta College",
+     "slug": "business-administration-for-transfer-2-0",
+     "url": "https://programmap.deltacollege.edu/program/business-administration-for-transfer-2-0/",
+     "title": "Business Administration for Transfer 2.0 Associate in Science for Transfer",
+     "pathway": "Business Administration for Transfer 2.0",
+     "award": "Associate in Science for Transfer",
+     "units": "60-64 units",
+     "units_min": 60.0,
+     "units_max": 64.0,
+     "terms": "4 terms",
+     "catalog_year": "2025-2026",
+     "control_number": "43281",
+     "top_code": "0505.00",
+     "est_enrollment_fee_usd_DERIVED": [
+      2760.0,
+      2944.0
+     ],
+     "status": "REAL",
+     "retrieved": "2026-10-24"
+    },
+    {
+     "college": "Modesto Junior College",
+     "slug": "logistics-and-supply-chain-management",
+     "url": "https://programmap.mjc.edu/program/logistics-and-supply-chain-management/",
+     "title": "Logistics and Supply Chain Management Associate of Science",
+     "pathway": "Logistics and Supply Chain Management",
+     "award": "Associate of Science",
+     "units": "56-60 units",
+     "units_min": 56.0,
+     "units_max": 60.0,
+     "terms": "6 terms",
+     "catalog_year": "2026-2027",
+     "control_number": "35012",
+     "top_code": "0510.00",
+     "est_enrollment_fee_usd_DERIVED": [
+      2576.0,
+      2760.0
+     ],
+     "status": "REAL",
+     "retrieved": "2026-10-24"
+    }
+   ],
+   "apprenticeship": null
+  },
+  "53-7062": {
+   "label": "Warehouse baseline",
+   "programs": [
+    {
+     "college": "San Joaquin Delta College",
+     "slug": "traffic-shipping-and-receiving-technician",
+     "url": "https://programmap.deltacollege.edu/program/traffic-shipping-and-receiving-technician/",
+     "title": "Traffic Shipping and Receiving Technician Certificate of Achievement",
+     "pathway": "Traffic Shipping and Receiving Technician",
+     "award": "Certificate of Achievement",
+     "units": "15-16 units",
+     "units_min": 15.0,
+     "units_max": 16.0,
+     "terms": "1 term",
+     "catalog_year": "2025-2026",
+     "control_number": "11844",
+     "top_code": "0510.00",
+     "est_enrollment_fee_usd_DERIVED": [
+      690.0,
+      736.0
+     ],
+     "status": "REAL",
+     "retrieved": "2026-10-24"
+    }
+   ],
+   "apprenticeship": null
+  }
+ },
+ "apprenticeships": [
+  {
+   "id": "sjeti-inside-wireman",
+   "occupation": "Electrician-Inside Wireman",
+   "program": "San Joaquin & Calaveras Counties Electrical J.A.T.C. (SJETI)",
+   "sponsors": "IBEW Local 595 (per sjeti.org)",
+   "length_months": 60,
+   "length_years": 5,
+   "related_training_hours_per_year_approx": 200,
+   "tuition": "tuition-free (per sjeti.org)",
+   "starting_wage_usd_hr": 21.35,
+   "min_age": 18,
+   "education_prereq": "High school diploma/GED/equivalent; one year of HS algebra (C or better) or one semester of college algebra (C or better)",
+   "exams": "Written test and oral exam; drug screen (cost borne by JATC)",
+   "address": "1531 El Pinal Drive, Stockton, CA 95205",
+   "phone": "(209) 462-0751",
+   "urls": {
+    "dir_das_listing": "https://www.dir.ca.gov/databases/das/results_aigdetail.asp?varOccId=9810",
+    "site": "https://sjeti.org/",
+    "application_process": "https://sjeti.org/applicants/application-process/",
+    "application": "https://sjeti.org/applicants/application/",
+    "curriculum": "https://sjeti.org/applicants/inside-wireman-curriculum/"
+   },
+   "dir_data_current_as_of": "10/24/2026",
+   "status": "REAL",
+   "retrieved": "2026-10-24"
+  }
+ ],
+ "transfer_targets": [
+  {
+   "name": "California State University, Stanislaus (Turlock)",
+   "term": "Fall 2026",
+   "basis": "per semester, undergraduate, CA resident",
+   "tuition_fee_more_than_6_units": 3419.0,
+   "total_more_than_6_units": 4815.0,
+   "total_0_6_units": 3257.0,
+   "tuition_fee_0_6_units": 1981.0,
+   "note": "Total includes campus mandatory fees (incl. StanBooks $240 at >6 units).",
+   "source_url": "https://www.csustan.edu/tuition-fees/fee-schedules-deadlines#fall-26",
+   "scorecard": {
+    "unitid": 110495,
+    "school_name": "California State University-Stanislaus",
+    "city": "Turlock",
+    "tuition_in_state_usd": 8690,
+    "tuition_out_of_state_usd": 22010,
+    "avg_net_price_public_usd": 3565,
+    "cost_of_attendance_academic_year_usd": 17570,
+    "data_year": "Scorecard \"latest\" fields; the API response does not state the academic year",
+    "raw_file": "data/raw/programs/scorecard_csustan.json",
+    "api_url": "https://api.data.gov/ed/collegescorecard/v1/schools?api_key=DEMO_KEY&school.name=<name>&fields=id,school.name,school.city,school.state,latest.cost.tuition.in_state,latest.cost.tuition.out_of_state,latest.cost.avg_net_price.public,latest.cost.attendance.academic_year",
+    "status": "REAL",
+    "retrieved": "2026-10-24"
+   },
+   "status": "REAL",
+   "retrieved": "2026-10-24"
+  },
+  {
+   "name": "California State University, Fresno",
+   "term": "Fall 2026",
+   "basis": "per semester, undergraduate, CA resident",
+   "tuition_fee_more_than_6_units": 3419.0,
+   "total_more_than_6_units": 4317.5,
+   "total_0_6_units": 2879.5,
+   "tuition_fee_0_6_units": 1981.0,
+   "nonresident_tuition_per_unit": 471.0,
+   "source_url": "https://adminfinance.fresnostate.edu/accountingservices/students/tuitionfees.html",
+   "scorecard": {
+    "unitid": 110556,
+    "school_name": "California State University-Fresno",
+    "city": "Fresno",
+    "tuition_in_state_usd": 8224,
+    "tuition_out_of_state_usd": 21544,
+    "avg_net_price_public_usd": 5418,
+    "cost_of_attendance_academic_year_usd": 19585,
+    "data_year": "Scorecard \"latest\" fields; the API response does not state the academic year",
+    "raw_file": "data/raw/programs/scorecard_fresnostate.json",
+    "api_url": "https://api.data.gov/ed/collegescorecard/v1/schools?api_key=DEMO_KEY&school.name=<name>&fields=id,school.name,school.city,school.state,latest.cost.tuition.in_state,latest.cost.tuition.out_of_state,latest.cost.avg_net_price.public,latest.cost.attendance.academic_year",
+    "status": "REAL",
+    "retrieved": "2026-10-24"
+   },
+   "status": "REAL",
+   "retrieved": "2026-10-24"
+  },
+  {
+   "name": "California State University, Sacramento",
+   "term": "Fall 2026 & Spring 2027",
+   "basis": "per semester, undergraduate, CA resident",
+   "tuition_fee_more_than_6_units": 3419.0,
+   "mandatory_campus_fees": 1409.0,
+   "total_more_than_6_units": 4828.0,
+   "total_0_6_units": 3390.0,
+   "tuition_fee_0_6_units": 1981.0,
+   "nonresident_tuition_per_unit": 471.0,
+   "source_url": "https://www.csus.edu/administration-business-affairs/bursar/tuition-living-costs.html",
+   "scorecard": {
+    "unitid": 110617,
+    "school_name": "California State University-Sacramento",
+    "city": "Sacramento",
+    "tuition_in_state_usd": 9014,
+    "tuition_out_of_state_usd": 22334,
+    "avg_net_price_public_usd": 11186,
+    "cost_of_attendance_academic_year_usd": 25925,
+    "data_year": "Scorecard \"latest\" fields; the API response does not state the academic year",
+    "raw_file": "data/raw/programs/scorecard_csus.json",
+    "api_url": "https://api.data.gov/ed/collegescorecard/v1/schools?api_key=DEMO_KEY&school.name=<name>&fields=id,school.name,school.city,school.state,latest.cost.tuition.in_state,latest.cost.tuition.out_of_state,latest.cost.avg_net_price.public,latest.cost.attendance.academic_year",
+    "status": "REAL",
+    "retrieved": "2026-10-24"
+   },
+   "status": "REAL",
+   "retrieved": "2026-10-24"
+  },
+  {
+   "name": "University of California, Merced",
+   "scorecard": {
+    "unitid": 445188,
+    "school_name": "University of California-Merced",
+    "city": "Merced",
+    "tuition_in_state_usd": 16271,
+    "tuition_out_of_state_usd": 53873,
+    "avg_net_price_public_usd": 11583,
+    "cost_of_attendance_academic_year_usd": 41008,
+    "data_year": "Scorecard \"latest\" fields; the API response does not state the academic year",
+    "raw_file": "data/raw/programs/scorecard_ucmerced.json",
+    "api_url": "https://api.data.gov/ed/collegescorecard/v1/schools?api_key=DEMO_KEY&school.name=<name>&fields=id,school.name,school.city,school.state,latest.cost.tuition.in_state,latest.cost.tuition.out_of_state,latest.cost.avg_net_price.public,latest.cost.attendance.academic_year",
+    "status": "REAL",
+    "retrieved": "2026-10-24"
+   },
+   "uc_system_estimate_2027_28_new_ca_resident": {
+    "uc_tuition_usd_per_year": 16278,
+    "campus_fees_avg_usd_per_year": 1900,
+    "total_cost_on_campus_usd": 49078,
+    "total_cost_off_campus_usd": 48678,
+    "note": "Systemwide average estimate (not Merced-specific); UC Tuition includes systemwide tuition + student services fee and is flat up to six years (Tuition Stability Plan).",
+    "source_url": "https://admission.universityofcalifornia.edu/tuition-financial-aid/tuition-cost-of-attendance/",
+    "status": "REAL",
+    "retrieved": "2026-10-24"
+   },
+   "ucm_campus_2026_27_SAMPLE": {
+    "tuition_per_semester": 7101,
+    "student_services_fee_per_semester": 693,
+    "campus_based_fees_per_semester": 668,
+    "total_per_semester": 8462,
+    "status": "SAMPLE",
+    "verify_url": "https://studentbilling.ucmerced.edu/tuition-fees/tuition",
+    "note": "Figures come from a search-engine summary; the UC Merced billing and financial aid pages returned 403 to curl and WebFetch, so they were NOT read directly."
+   }
+  }
+ ],
+ "csu_systemwide_tuition": {
+  "value_per_year_DERIVED": 6838,
+  "basis": "2 x $3,419 Fall 2026 per-semester tuition fee read on three CSU campus fee pages (>6 units, undergraduate)",
+  "official_page_UNREAD": "https://www.calstate.edu/attend/paying-for-college/csu-costs/tuition-and-fees/Pages/future-tuition-and-fees.aspx",
+  "note": "calstate.edu returned 403/404 to our fetches; consistent figure ($6,838 for 2026-27) seen only in search summary.",
+  "status": "REAL (derived from campus pages)"
+ },
+ "tools": {
+  "assist": {
+   "url": "https://assist.org",
+   "about_url": "https://resource.assist.org/",
+   "what": "Official repository of articulation and transferability info for California public colleges/universities (CCC -> CSU/UC) plus participating AICCU independents; shows how CCC courses satisfy elective, GE, and major requirements. Link out only; do not scrape.",
+   "status": "REAL",
+   "retrieved": "2026-10-24"
+  },
+  "program_mappers_verified_http_200": [
+   {
+    "college": "San Joaquin Delta College",
+    "url": "https://programmap.deltacollege.edu/",
+    "title": "San Joaquin Delta College | Program Pathways Mapper"
+   },
+   {
+    "college": "Modesto Junior College",
+    "url": "https://programmap.mjc.edu/",
+    "title": "Modesto Junior College | Program Pathways Mapper"
+   },
+   {
+    "college": "Reedley College",
+    "url": "https://programmap.reedleycollege.edu/",
+    "title": "Reedley College | Program Pathways Mapper"
+   },
+   {
+    "college": "Madera College",
+    "url": "https://programmap.maderacollege.edu/",
+    "title": "Madera College | Program Pathways Mapper"
+   },
+   {
+    "college": "Clovis Community College",
+    "url": "https://programmap.cloviscollege.edu/",
+    "title": "Program Mapper"
+   },
+   {
+    "college": "Bakersfield College",
+    "url": "https://programmap.bakersfieldcollege.edu/",
+    "title": "Bakersfield College | Program Pathways Mapper"
+   }
+  ],
+  "program_mappers_unverified_no_connection": [
+   "https://programmap.mercedcollege.edu/",
+   "https://programmap.fresnocitycollege.edu/",
+   "https://programmap.gocolumbia.edu/",
+   "https://programmap.cos.edu/",
+   "https://programmap.portervillecollege.edu/"
+  ],
+  "mapper_url_patterns": {
+   "category": "<mapper>/category/<slug>/",
+   "program": "<mapper>/program/<slug>/",
+   "vendor": "https://programmapper.org/"
+  }
+ }
+}
