@@ -1,0 +1,26 @@
+{
+  "created_at": "2026-10-24T23:58:35+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "choices": [
+      {
+        "choice_id": "a",
+        "text": "Recommend replacing the part and explain the safety reasons."
+      },
+      {
+        "choice_id": "b",
+        "text": "Do a careful weld repair with a reinforcing plate and inspect it."
+      },
+      {
+        "choice_id": "c",
+        "text": "Lay out both options with costs and let the farmer decide."
+      }
+    ],
+    "text": "A farmer from Hanford brings a disc harrow to your Stockton shop with a cracked frame member. A weld repair is cheaper and done today; a new part is safer but takes a week to arrive, in the middle of field prep.",
+    "title": "Weld it or replace it"
+  },
+  "schema": "PersonalizedEvent",
+  "task": "sim_personalize"
+}

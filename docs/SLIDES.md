@@ -42,16 +42,20 @@ Optional second stat (also verified, same source): Among California's regions, t
 **Three steps, with people in charge at every one**
 
 1. **Try the job**: a workday sim where **3 AI coworkers react in parallel** to your choices.
+   - **Any career**: 8 core careers, or search any O*NET 31.0 occupation and get a workday **generated live** from its O*NET work styles plus web research.
+   - **Personalized moments**: rewritten for you, while each choice keeps its trait deltas so the selector's math holds.
+   - **Free-text answers**: a 4th "Something else..." option, scored by the LLM (crisis text routes to 988).
    - **Adaptive selector**: Bayesian inference that picks the next moment by expected information gain. *(This is not deep RL.)*
    - **MLP career-fit model** on O*NET 31.0's 21 work styles → your top careers.
 2. **Plan the route**: type your limits in plain English, and you **confirm** the rules.
    - **OR-Tools CP-SAT solver** plans every route in milliseconds, with a greedy baseline beside it.
    - Reject a plan and your reason becomes a new rule. Approve it and it goes on your board.
 3. **Get the foothold**:
-   - **GNN skills graph** recommends courses and jobs, with explanation paths.
+   - **GNN "Picked for you"**: courses and jobs, each with a one-line reason.
+   - **Tavily "Live in your area"**: a live web-research agent runs 3 searches in parallel, ranks sources and writes a cited summary that drops unsupported numbers.
    - **Consent-gated employer portal**: blind skills-only cards and a four-fifths fairness check. Employers have to ask, and the learner decides.
 
-**Under the hood:** 4 **LangGraph** agents (sim, pathway, employer, coach) with **human-approval interrupts** · every LLM number fact-checked · **988 safety routing** before any AI reply
+**Under the hood:** 5 **LangGraph** agents (sim, pathway, employer, coach, research) with **human-approval interrupts** · every LLM number fact-checked · **988 safety routing** before any AI reply
 
 **Image:** put **`docs/images/langgraph-sim.png`** on this slide (right half, or a narrow column). It's the real LangGraph sim graph, exported from the same graph LangSmith / LangGraph Studio display. Caption: *"The sim agent graph (LangGraph): coworkers fan out in parallel; present_and_wait is a human interrupt."* The image is tall (1600 × 3811 px), so crop it to the top half (`select_event` → `update_state`) if space is tight. Other graphs: `docs/images/langgraph-pathway.png`, `langgraph-employer.png`, `langgraph-coach.png`.
 
@@ -62,10 +66,12 @@ Optional second stat (also verified, same source): Among California's regions, t
 | Layer | Tools |
 |---|---|
 | **Frontend** | Next.js 16 · React · TypeScript · Tailwind CSS · shadcn/ui · Motion · Cult UI · Watermelon UI · Skiper UI |
-| **AI agents & API** | Python · FastAPI · LangGraph · OpenAI gpt-6-luna |
+| **AI agents & API** | Python · FastAPI · LangGraph · OpenAI gpt-6-luna · **Tavily** (live web-research agent) |
+| **AI features** | Any-career workday generation · personalized moments · free-text answers scored by the LLM |
 | **ML & optimisation** | PyTorch · PyTorch Geometric · scikit-learn · OR-Tools CP-SAT · NetworkX |
 | **Data** | O*NET 31.0 (CC BY 4.0) · CA EDD OEWS wages |
-| **Infra** | Netlify · Supabase Postgres · Cloudflare Tunnel · Git |
+| **Infra** | Netlify (foothold-valley.netlify.app) · Supabase Postgres · Cloudflare Tunnel · Git |
+| **Testing** | pytest (231 passed) · golden-path end-to-end check (25/25) |
 
 **Design note:** remove **Vite, Docker, AWS and Redis**. We don't use them.
 
@@ -94,7 +100,7 @@ Footer: *Source: ml/artifacts/metrics.json. All of this was measured on syntheti
 ## Slide 5: Demo
 
 **Live demo**
-Four accounts, four tabs: Luis tries the job → Maya plans her route → Tri-Valley Freight asks → Luis says yes.
+Two tabs: Luis tries a diesel workday → sees live local research and his route near Stockton → Tri-Valley Freight asks → Luis says yes.
 
 *All people and employers are fictional.*
 

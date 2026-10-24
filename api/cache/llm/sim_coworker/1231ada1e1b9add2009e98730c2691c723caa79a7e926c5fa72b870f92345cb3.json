@@ -1,0 +1,13 @@
+{
+  "created_at": "2026-10-24T23:58:43+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "line": "Fine. We’ll use the old setup today, but put a date on the calendar to learn that tablet.",
+    "mood_delta": 1,
+    "reaction": "neutral"
+  },
+  "schema": "CoworkerReaction",
+  "task": "sim_coworker"
+}

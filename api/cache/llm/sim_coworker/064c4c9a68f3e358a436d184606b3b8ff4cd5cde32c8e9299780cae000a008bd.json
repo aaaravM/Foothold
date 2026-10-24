@@ -1,0 +1,13 @@
+{
+  "created_at": "2026-10-24T23:58:42+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "line": "Good plan. We’ll keep those trucks moving, then take our time learning the tablet when the shop slows down.",
+    "mood_delta": 4,
+    "reaction": "approves"
+  },
+  "schema": "CoworkerReaction",
+  "task": "sim_coworker"
+}

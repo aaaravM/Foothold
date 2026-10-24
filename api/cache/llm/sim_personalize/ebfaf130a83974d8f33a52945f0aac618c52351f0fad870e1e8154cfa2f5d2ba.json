@@ -1,0 +1,26 @@
+{
+  "created_at": "2026-10-24T23:58:41+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "choices": [
+      {
+        "choice_id": "a",
+        "text": "Use the new tool on all three trucks, even if it slows you down today."
+      },
+      {
+        "choice_id": "b",
+        "text": "Use the old setup today and learn the tablet on a slow afternoon."
+      },
+      {
+        "choice_id": "c",
+        "text": "Use the tablet on one truck with Pao beside you, comparing results."
+      }
+    ],
+    "text": "The Stockton shop just bought a diagnostic tablet with guided tests and remote support. Pao says it is slower than his old laptop setup. Three trucks are waiting this afternoon.",
+    "title": "The new scan tool"
+  },
+  "schema": "PersonalizedEvent",
+  "task": "sim_personalize"
+}

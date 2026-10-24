@@ -1,0 +1,13 @@
+{
+  "created_at": "2026-10-24T23:58:38+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "line": "You’ve laid out the safety reason. Make sure the farmer understands the week’s delay before we order it.",
+    "mood_delta": 0,
+    "reaction": "neutral"
+  },
+  "schema": "CoworkerReaction",
+  "task": "sim_coworker"
+}

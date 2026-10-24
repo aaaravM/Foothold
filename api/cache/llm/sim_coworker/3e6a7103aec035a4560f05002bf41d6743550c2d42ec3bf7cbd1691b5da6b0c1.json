@@ -1,0 +1,13 @@
+{
+  "created_at": "2026-10-24T23:58:37+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "line": "Thanks for laying out the safety reasons. I’ll make sure the farmer understands the part will take a week.",
+    "mood_delta": 1,
+    "reaction": "neutral"
+  },
+  "schema": "CoworkerReaction",
+  "task": "sim_coworker"
+}

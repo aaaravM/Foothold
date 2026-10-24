@@ -6,19 +6,21 @@ In California's Central Valley, the jobs are here (logistics, health care, diese
 
 ## What it does
 
-- **Try the job**: a short workday sim in one of 8 careers, with three AI coworkers who react to your choices in parallel. A Bayesian selector picks each next moment to learn the most about you. The result is a profile on O*NET's 21 work styles, your top careers from a trained model and local wages with source labels.
-- **Plan the route**: type your limits in plain English ("no classes before 9am, weekends off"), confirm the rules Foothold read, and a CP-SAT constraint solver plans each route (certificate, apprenticeship, transfer) in milliseconds. If you reject a plan, your reason becomes a new rule.
-- **Get the foothold**: employers see only blind, skills-only cards and a fairness audit of their shortlist. To reach someone, they send a consent request, and only that learner can accept it.
+- **Sign up where you live**: pick one of 16 Central Valley places and see the nearest campuses with approximate drive minutes.
+- **Try the job**: a short workday sim in one of 8 core careers, or **search any career** across every O*NET 31.0 occupation with work-style data (those workdays are generated live from O*NET work styles plus Tavily web research). Moments are rewritten for you while each choice keeps its trait math, three AI coworkers react in parallel, and you can answer in your own words with "Something else..." (scored by the LLM; crisis text routes to 988). A Bayesian selector picks each next moment to learn the most about you.
+- **End-of-day report**: career fit from a trained MLP, local pay with a source tooltip, GNN **Picked for you** courses and jobs with one-line reasons, and **Live in your area**: a Tavily research agent runs 3 parallel searches, ranks sources and streams a cited summary that drops unsupported numbers.
+- **Plan the route**: type your limits in plain English ("no classes before 9am, weekends off"), confirm the rules Foothold read, and a CP-SAT constraint solver plans each route (certificate, apprenticeship, transfer) in milliseconds, showing "Programs near <your place>". If you reject a plan, your reason becomes a new rule; approve it and it lands on your Track board.
+- **Get the foothold**: employers post jobs (prompt-injection attempts are flagged), browse blind, skills-only cards with a distance filter, and see fairness and skill-gap insights. To reach someone, they send a consent request, and only that learner can accept it.
 - **Support**: peer support circles, a coach for workplace conflict and EQ practice, and crisis routing straight to the 988 Lifeline.
 - **Honesty built in**: every wage, cost and duration is labelled REAL, SAMPLE, SYNTHETIC or FICTIONAL, and LLM-written numbers are checked against the data before you see them.
 
 ## How we built it
 
 - **Web**: Next.js 16, React, TypeScript, Tailwind, shadcn/ui, Motion, Cult UI, Watermelon UI and Skiper UI. It ships as a static export on Netlify, with per-tab sign-in sessions.
-- **Agents**: Python, FastAPI and LangGraph. There are four graphs: sim, pathway, employer and coach. They use parallel `Send` fan-out, SQLite checkpoints, SSE streaming and three human-in-the-loop interrupts. The LLM is OpenAI `gpt-6-luna`, behind a cache and a deterministic mock, so the app also runs offline.
-- **ML**: PyTorch (an MLP for career fit), PyTorch Geometric (a heterogeneous GNN skills-graph recommender), scikit-learn, OR-Tools CP-SAT (planner) and NetworkX.
+- **Agents**: Python, FastAPI and LangGraph. There are five graphs: sim, pathway, employer, coach and research (Tavily web search). They use parallel `Send` fan-out, SQLite checkpoints, SSE streaming and three human-in-the-loop interrupts. The LLM is OpenAI `gpt-6-luna`, behind a cache and a deterministic mock, so the app also runs offline.
+- **ML**: PyTorch (an MLP for career fit), PyTorch Geometric (a heterogeneous GNN recommender behind "Picked for you"), scikit-learn, OR-Tools CP-SAT (planner) and NetworkX.
 - **Data**: O*NET 31.0 (CC BY 4.0), CA EDD OEWS 2026 Q1 wages and projections, college fee pages and verified course listings. The training and evaluation sets are synthetic, and all people are fictional.
-- **Infra**: Netlify, Supabase Postgres (data mirror plus the public API-URL config), a Cloudflare / localhost.run tunnel to the laptop API, and Git.
+- **Infra**: Netlify (https://foothold-valley.netlify.app, runtime API discovery), Supabase Postgres (data mirror plus the public API-URL config), a Cloudflare / localhost.run tunnel to the laptop API, and Git.
 
 **Results** (all on synthetic data, from `ml/artifacts/metrics.json`):
 
@@ -34,6 +36,8 @@ In California's Central Valley, the jobs are here (logistics, health care, diese
 | Claim verifier (741 synthetic adversarial cases) | catch rate 1.0, false positives 0.0 | |
 | Fairness, four-fifths rule | pooled 0.8804; **1 of 8 postings pass** | skill match only: 0 of 8 |
 
+Tests: pytest 231 passed; golden-path end-to-end check (`scripts/e2e_golden.py`) 25/25.
+
 ## Challenges we ran into
 
 - **The network filter**: the network we built on blocks github.com, registry.npmjs.org and Cloudflare's quick-tunnel API. We installed npm packages through the Yarn registry mirror, added an ssh tunnel fallback, and stored the API's public URL in Supabase so the static site can find it.
@@ -44,7 +48,8 @@ In California's Central Valley, the jobs are here (logistics, health care, diese
 
 ## Accomplishments we're proud of
 
-- A full loop from trying a job to an approved plan to a consented employer connection, across four accounts in four tabs.
+- A full loop from trying a job to an approved plan to a consented employer connection, across two accounts in two tabs.
+- Any career, not just 8: live-generated workdays from O*NET plus web research, and a research agent that cites sources and drops numbers it can't support.
 - Every number on screen has a provenance label and a source. Every model has a baseline, and we show where the baseline wins.
 - Humans stay in charge at every decision: confirm the rules, approve the plan, pick who to contact, accept or decline.
 - Crisis safety that doesn't depend on the LLM.

@@ -17,17 +17,20 @@ This list is meant to be plain and honest.
 - **The sim workday events and EQ scenarios were drafted by an LLM**, are marked DRAFT, and haven't had human review. Their trait deltas are design judgments, not measurements.
 - **Program schedules are SAMPLE** (sections, times, weekly hours), and so are 15 course listings and parts of the skill taxonomy. Learners have to check them against the colleges' pages.
 - The logistics_lead wage uses OEWS 53-1047 while its O*NET profile is 11-3071.00 (the UI discloses the mismatch). 17-3024 has no Stockton-Lodi row and uses a labelled fallback.
-- Only 8 careers and 42 occupations are covered, and only 25 programs.
+- Only 8 core careers have hand-built events, the career-fit model covers 42 occupations, and there are only 25 programs. **Search any career** reaches every O*NET 31.0 occupation with work-style data, but those workdays are generated live by the LLM from O*NET work styles plus Tavily research and haven't been reviewed.
+- **Personalized moments and free-text scoring are LLM output.** Rewrites keep each choice's trait deltas, but the wording isn't reviewed, and "Something else..." answers are scored by the LLM, not a trained model.
+- **"Live in your area" is live web content.** The research agent cites sources and drops unsupported numbers, but quality depends on the Tavily results, and it needs `TAVILY_API_KEY` and network access.
 
 ## Product and engineering
 
 - **There's no hosted API.** The agents run on the presenter's laptop behind a tunnel. If the laptop sleeps, the AI features stop working. A quick-tunnel URL changes when the tunnel restarts, so `public_config.api_url` has to be updated or the site rebuilt.
 - **The network filter** (github.com, registry.npmjs.org and the Cloudflare quick-tunnel API are blocked) forced workarounds: the Yarn registry mirror and an ssh tunnel fallback. Cloudflare quick tunnels may not work from this network at all.
 - `api/requirements.txt` doesn't list `torch`, `torch_geometric`, `scikit-learn` or `networkx`. You install them separately (see README).
-- **Resetting is manual.** `scripts/reset.sh` needs the API stopped (Windows file locks) and only clears SQLite. Supabase mirror rows (consent requests, postings) have to be cleared by hand.
+- **Resetting is a CLI step.** `python scripts/reset_demo.py` clears demo activity (SQLite + Supabase mirror) with the API up; a full wipe (`scripts/reset.sh`) still needs the API stopped (Windows file locks). There is no reset button in the app.
 - **The API is single-process**, with SQLite for accounts and checkpoints, one uvicorn worker, and no rate limiting beyond the LLM cache and mock. Coach memory is in-process and is lost on restart, by design.
-- Accounts are four seeded demo accounts. There's no sign-up, password reset or account deletion.
+- Sign-up and onboarding exist, but there's no password reset, email verification or account deletion.
 - There's no counselor view and no Spanish UI (the 988 text includes its Spanish option).
 - Cross-tab updates use polling (about 4 s), not push.
-- An automated end-to-end browser test of the four-tab flow doesn't exist. The flow has been checked by hand and by the API tests (`api/tests`).
+- There's no automated **browser** test of the cross-tab flow. It's covered by the API tests (pytest 231 passed), the API-level golden path (`scripts/e2e_golden.py`, 25/25) and manual checks.
+- **This Wi-Fi blocks `*.netlify.app`**, so the deployed site can't be shown on the venue network; present from localhost:3000 or a phone hotspot.
 - The LangGraph images in `docs/images/` are LangGraph's own Mermaid render (the same structure LangSmith / LangGraph Studio show), not screenshots of a LangSmith trace. We didn't capture a LangSmith run.

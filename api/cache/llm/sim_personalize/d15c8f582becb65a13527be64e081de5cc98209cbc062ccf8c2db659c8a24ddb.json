@@ -1,0 +1,26 @@
+{
+  "created_at": "2026-10-24T23:58:19+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "choices": [
+      {
+        "choice_id": "a",
+        "text": "Keep at it: build a test harness and wiggle-test every connector until the fault shows."
+      },
+      {
+        "choice_id": "b",
+        "text": "Replace the most likely harness section and send it out with a note to call if it recurs."
+      },
+      {
+        "choice_id": "c",
+        "text": "Call the farmer and ask exactly when it fails: on hills, in heat, over bumps, or at a time of day."
+      }
+    ],
+    "text": "A combine header controller keeps cutting out, but the fault won’t repeat in the shop. After your full diagnostic on the truck, you’ve spent two hours on this, and the farmer needs it back before harvest picks up next week.",
+    "title": "The intermittent fault in Stockton"
+  },
+  "schema": "PersonalizedEvent",
+  "task": "sim_personalize"
+}

@@ -1,0 +1,11 @@
+{
+  "created_at": "2026-10-24T23:58:47+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "paragraph": "You worked through a truck down on the ninety-nine, an intermittent fault in Stockton, a brake job done by someone else, a weld-or-replace decision, and a new scan tool. Your cautiousness, dependability, and integrity showed in how you approached the day. Your strongest career match is Logistics Operations Lead at {top1_pct}; Registered Nurse and Electrician (Apprenticeship Route) are other possibilities at {top2_pct} and {top3_pct}. These are practice signals, not a verdict."
+  },
+  "schema": "ReportSummary",
+  "task": "sim_summary"
+}

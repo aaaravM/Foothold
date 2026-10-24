@@ -1,0 +1,26 @@
+{
+  "created_at": "2026-10-24T23:58:12+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "choices": [
+      {
+        "choice_id": "a",
+        "text": "Pull the codes and run a full diagnostic before giving any time estimate."
+      },
+      {
+        "choice_id": "b",
+        "text": "Try the most likely fix first, a clogged fuel filter, and get him moving if it works."
+      },
+      {
+        "choice_id": "c",
+        "text": "Ask Pao, who has seen this engine family a lot, what he would check first."
+      }
+    ],
+    "text": "A fruit hauler limps into your Stockton shop with a check-engine light and low power. The driver has peaches due in Los Angeles by evening. Brenda has already promised him a quick look.",
+    "title": "Truck down on the 99"
+  },
+  "schema": "PersonalizedEvent",
+  "task": "sim_personalize"
+}
