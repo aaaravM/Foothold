@@ -8,7 +8,13 @@
  *
  * Every page must degrade gracefully when the API is down: check
  * `isOfflineError(err)` and show "API offline" instead of crashing.
+ *
+ * Auth (CONTRACTS section 13): when this tab has a session, every request to the
+ * Foothold API carries `Authorization: Bearer <token>` automatically (never sent to
+ * other hosts). Pass `{ auth: false }` to skip it. A 401 on a request that carried
+ * the token asks the auth layer to re-check the session with GET /api/auth/me.
  */
+import { getSessionToken, requestSessionCheck } from "./auth";
 import type { TraceEvent } from "./types";
 
 export const API_URL: string = (process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000").replace(/\/+$/, "");
@@ -85,6 +91,19 @@ export interface RequestOptions {
   timeoutMs?: number;
   signal?: AbortSignal;
   headers?: Record<string, string>;
+  /** attach this tab's session token (default true; only ever sent to API_URL) */
+  auth?: boolean;
+}
+
+/** This tab's session token, for requests to our own API only. */
+function sessionTokenFor(url: string, enabled: boolean | undefined): string | null {
+  if (enabled === false) return null;
+  if (url !== API_URL && !url.startsWith(`${API_URL}/`)) return null;
+  return getSessionToken();
+}
+
+function authHeader(token: string | null): Record<string, string> {
+  return token ? { Authorization: `Bearer ${token}` } : {};
 }
 
 interface LinkedAbort {
@@ -149,6 +168,7 @@ async function readBody(res: Response): Promise<unknown> {
 
 async function requestJSON<T>(method: "GET" | "POST", path: string, body: unknown, options: RequestOptions = {}): Promise<T> {
   const url = apiUrl(path);
+  const token = sessionTokenFor(url, options.auth);
   const link = linkAbort(options.signal, options.timeoutMs ?? DEFAULT_TIMEOUT_MS);
   try {
     let res: Response;
@@ -158,6 +178,7 @@ async function requestJSON<T>(method: "GET" | "POST", path: string, body: unknow
         headers: {
           Accept: "application/json",
           ...(method === "POST" ? { "Content-Type": "application/json" } : {}),
+          ...authHeader(token),
           ...options.headers,
         },
         body: method === "POST" ? JSON.stringify(body ?? {}) : undefined,
@@ -171,6 +192,7 @@ async function requestJSON<T>(method: "GET" | "POST", path: string, body: unknow
     }
 
     if (!res.ok) {
+      if (res.status === 401 && token) requestSessionCheck();
       const errBody = await readBody(res).catch(() => undefined);
       throw new ApiError("http", `${method} ${path} failed with HTTP ${res.status}`, url, { status: res.status, body: errBody });
     }
@@ -308,6 +330,8 @@ export interface StreamOptions {
   /** max silence between chunks once streaming (default 90 000 ms; 0 disables) */
   idleTimeoutMs?: number;
   headers?: Record<string, string>;
+  /** attach this tab's session token (default true; only ever sent to API_URL) */
+  auth?: boolean;
 }
 
 /**
@@ -325,6 +349,7 @@ export async function streamSSE(
   options: StreamOptions = {},
 ): Promise<void> {
   const url = apiUrl(path);
+  const token = sessionTokenFor(url, options.auth);
   const connectTimeout = options.connectTimeoutMs ?? DEFAULT_TIMEOUT_MS;
   const idleTimeout = options.idleTimeoutMs ?? 90_000;
   const link = linkAbort(signal, connectTimeout);
@@ -334,7 +359,7 @@ export async function streamSSE(
     try {
       res = await fetch(url, {
         method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "text/event-stream", ...options.headers },
+        headers: { "Content-Type": "application/json", Accept: "text/event-stream", ...authHeader(token), ...options.headers },
         body: JSON.stringify(body ?? {}),
         signal: link.signal,
         cache: "no-store",
@@ -348,6 +373,7 @@ export async function streamSSE(
     link.disarm();
 
     if (!res.ok) {
+      if (res.status === 401 && token) requestSessionCheck();
       const errBody = await readBody(res).catch(() => undefined);
       throw new ApiError("http", `POST ${path} failed with HTTP ${res.status}`, url, { status: res.status, body: errBody });
     }

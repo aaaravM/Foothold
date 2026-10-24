@@ -4,7 +4,7 @@
 @import "./libs.css";
 
 /*
- * Foothold drawing-set theme.
+ * Foothold drawing-set theme (art direction: docs/DESIGN_DIRECTION.md).
  * Themes: data-theme="dark" (default, ink #050505) | "light" ("paper", #f4f4f1) on <html>.
  * Every text token is >= 4.5:1 on bg, surface and surface-2 in its theme; line-strong is
  * >= 3:1 (form borders, UI boundaries). `line` is a decorative hairline only.
@@ -38,6 +38,10 @@
   --danger: #ff7b72;
   --info: #7cb8ff;
   --violet: #b9a3ff;
+
+  /* film grain: light specks on ink */
+  --grain-opacity: 0.07;
+  --grain-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 2.4 -1.05'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
 }
 
 [data-theme="light"] {
@@ -58,6 +62,10 @@
   --danger: #b42318;
   --info: #1c5ca8;
   --violet: #6a4bc4;
+
+  /* film grain: dark specks on paper */
+  --grain-opacity: 0.09;
+  --grain-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 2.4 -1.05'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
 }
 
 /* Derived tokens and shadcn semantic variables. Re-declared on every [data-theme]
@@ -66,6 +74,7 @@
 [data-theme] {
   --grid-line: color-mix(in oklab, var(--ink) 6%, transparent);
   --grid-line-strong: color-mix(in oklab, var(--ink) 12%, transparent);
+  --grid-col-line: color-mix(in oklab, var(--ink) 5%, transparent);
   --accent-wash: color-mix(in oklab, var(--accent) 14%, transparent);
 
   --background: var(--bg);
@@ -91,7 +100,7 @@
   --chart-3: var(--success);
   --chart-4: var(--violet);
   --chart-5: var(--warning);
-  --radius: 0.1875rem;
+  --radius: 0.125rem;
   --sidebar: var(--surface);
   --sidebar-foreground: var(--ink);
   --sidebar-primary: var(--ink);
@@ -100,6 +109,38 @@
   --sidebar-accent-foreground: var(--ink);
   --sidebar-border: var(--line);
   --sidebar-ring: var(--accent);
+}
+
+/* Page grid + motion curves (theme independent). */
+:root {
+  --page-max: 1440px;
+  /* side gutter: 16px phone, 24px tablet, 32px desktop */
+  --page-pad: 16px;
+  --col-gap: 16px;
+  /* 4 columns on phones, 8 on tablets, 12 on desktop (GridOverlay draws the same) */
+  --cols: 4;
+  --nav-h: 3.5rem;
+
+  /* plotter ease from the brief: [0.65, 0, 0.35, 1] */
+  --ease-plot: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-snap: cubic-bezier(0.2, 0.9, 0.2, 1.3);
+}
+
+@media (min-width: 640px) {
+  :root {
+    --page-pad: 24px;
+    --col-gap: 20px;
+    --cols: 8;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --page-pad: 32px;
+    --col-gap: 24px;
+    --cols: 12;
+  }
 }
 
 /* ---------------------------------------------------------------- */
@@ -157,14 +198,14 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
 
-  /* small radii everywhere (3px base) */
-  --radius-sm: calc(var(--radius) * 0.6);
-  --radius-md: calc(var(--radius) * 0.8);
+  /* small radii everywhere (2px base, brief: 0-2px) */
+  --radius-sm: calc(var(--radius) * 0.5);
+  --radius-md: calc(var(--radius) * 0.75);
   --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.4);
-  --radius-2xl: calc(var(--radius) * 1.8);
-  --radius-3xl: calc(var(--radius) * 2.2);
-  --radius-4xl: calc(var(--radius) * 2.6);
+  --radius-xl: var(--radius);
+  --radius-2xl: var(--radius);
+  --radius-3xl: var(--radius);
+  --radius-4xl: var(--radius);
 }
 
 /* Fonts come from next/font (layout.tsx) as --font-mona-sans / --font-hubot-sans / --font-martian-mono. */
@@ -179,6 +220,21 @@
 /* Drawing-set utilities                                             */
 /* ---------------------------------------------------------------- */
 
+/* Centered page column: max 1440px with the responsive side gutter. */
+@utility page-container {
+  width: 100%;
+  max-width: var(--page-max);
+  margin-inline: auto;
+  padding-inline: var(--page-pad);
+}
+
+/* The 4 / 8 / 12 column technical grid (same columns as the G-key overlay). */
+@utility page-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+  column-gap: var(--col-gap);
+}
+
 /* Hairline drafting grid. Tune with --grid-size (default 24px). */
 @utility hairline-grid {
   background-image:
@@ -186,6 +242,16 @@
     linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
   background-size: var(--grid-size, 24px) var(--grid-size, 24px);
   background-position: -1px -1px;
+}
+
+/* Hairline grid radially masked so it fades toward the edges. Use on an empty decorative layer. */
+@utility hairline-grid-fade {
+  background-image:
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+  background-size: var(--grid-size, 24px) var(--grid-size, 24px);
+  background-position: -1px -1px;
+  mask-image: radial-gradient(var(--grid-mask, ellipse 75% 70% at 32% 38%), #000 20%, transparent 78%);
 }
 
 /* Minor 24px grid plus a stronger 120px major grid. */
@@ -260,6 +326,15 @@
   letter-spacing: -0.02em;
 }
 
+/* Hubot Sans width axis: font-wide (125), font-condensed (75). */
+@utility font-wide {
+  font-variation-settings: "wdth" 125;
+}
+
+@utility font-condensed {
+  font-variation-settings: "wdth" 75;
+}
+
 /* ---------------------------------------------------------------- */
 /* Base                                                              */
 /* ---------------------------------------------------------------- */
@@ -272,13 +347,15 @@
   html {
     @apply font-sans;
     -webkit-text-size-adjust: 100%;
-    scroll-padding-top: 5rem;
+    scroll-padding-top: calc(var(--nav-h) + 1.5rem);
     scrollbar-color: var(--line-strong) transparent;
   }
 
   body {
     @apply bg-background text-foreground antialiased;
     min-height: 100dvh;
+    font-size: 1.0625rem;
+    line-height: 1.55;
   }
 
   h1,
@@ -312,21 +389,421 @@
     background-color: var(--accent);
     color: var(--accent-ink);
   }
+}
 
-  /* Visible keyboard focus for anything that doesn't style its own (shadcn parts use rings). */
-  :where(a, button, input, textarea, select, summary, [tabindex]):focus-visible {
-    outline: 2px solid var(--ring);
-    outline-offset: 2px;
+/* Gold focus ring for every keyboard-focusable thing. Unlayered on purpose: it beats
+   `outline-none` from library utilities, so focus is visible everywhere. */
+:where(
+    a,
+    button,
+    input,
+    textarea,
+    select,
+    summary,
+    [tabindex],
+    [role="button"],
+    [role="tab"],
+    [role="menuitem"],
+    [role="menuitemradio"],
+    [role="menuitemcheckbox"],
+    [role="option"],
+    [role="switch"],
+    [role="checkbox"],
+    [role="radio"],
+    [role="slider"]
+  ):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------- */
+/* Motion + drafting components (CSS-driven moves start at first     */
+/* paint; JS moves live in components/motion).                       */
+/* ---------------------------------------------------------------- */
+
+@layer components {
+  /* --- Bracket hover: corner brackets snap in (BracketFrame / <Brackets/>) --- */
+  .bk-host {
+    position: relative;
+  }
+
+  .bk {
+    position: absolute;
+    width: var(--bk-size, 7px);
+    height: var(--bk-size, 7px);
+    border: 0 solid var(--bk-color, var(--accent));
+    opacity: 0;
+    pointer-events: none;
+    transition:
+      opacity 110ms linear,
+      transform 150ms var(--ease-snap);
+  }
+
+  .bk[data-corner="tl"] {
+    top: var(--bk-inset, -4px);
+    left: var(--bk-inset, -4px);
+    border-top-width: var(--bk-w, 1.5px);
+    border-left-width: var(--bk-w, 1.5px);
+    transform: translate(-5px, -5px);
+  }
+
+  .bk[data-corner="tr"] {
+    top: var(--bk-inset, -4px);
+    right: var(--bk-inset, -4px);
+    border-top-width: var(--bk-w, 1.5px);
+    border-right-width: var(--bk-w, 1.5px);
+    transform: translate(5px, -5px);
+  }
+
+  .bk[data-corner="bl"] {
+    bottom: var(--bk-inset, -4px);
+    left: var(--bk-inset, -4px);
+    border-bottom-width: var(--bk-w, 1.5px);
+    border-left-width: var(--bk-w, 1.5px);
+    transform: translate(-5px, 5px);
+  }
+
+  .bk[data-corner="br"] {
+    bottom: var(--bk-inset, -4px);
+    right: var(--bk-inset, -4px);
+    border-bottom-width: var(--bk-w, 1.5px);
+    border-right-width: var(--bk-w, 1.5px);
+    transform: translate(5px, 5px);
+  }
+
+  .bk-host:hover > .bk,
+  .bk-host:focus-visible > .bk,
+  .bk-host:has(:focus-visible) > .bk,
+  .bk-host[data-bk="on"] > .bk {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+
+  /* --- Draw underline: links draw their underline left to right --- */
+  .link-draw {
+    position: relative;
+    text-decoration: none;
+  }
+
+  .link-draw::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: var(--ul-offset, -0.2em);
+    height: var(--ul-weight, 1px);
+    background: var(--ul-color, currentColor);
+    transform: scaleX(0);
+    transform-origin: right center;
+    transition: transform 360ms var(--ease-plot);
+    pointer-events: none;
+  }
+
+  .link-draw[data-rest="hairline"]::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: var(--ul-offset, -0.2em);
+    height: 1px;
+    background: var(--line-strong);
+    pointer-events: none;
+  }
+
+  .link-draw:hover::after,
+  .link-draw:focus-visible::after,
+  .link-draw[data-drawn="true"]::after {
+    transform: scaleX(1);
+    transform-origin: left center;
+  }
+
+  /* --- Kinetic wordmark: per-letter clip reveal while wdth eases 75 -> 125 --- */
+  .fh-wordmark {
+    font-family: var(--font-display);
+    font-weight: 800;
+    line-height: 0.82;
+    letter-spacing: -0.045em;
+  }
+
+  .fh-wordmark-word {
+    display: inline-flex;
+    white-space: nowrap;
+    font-variation-settings: "wdth" var(--wm-wdth, 125);
+  }
+
+  .fh-wordmark-letter {
+    display: inline-block;
+  }
+
+  /* --- Sheet intro: border + registration marks draw first, then content --- */
+  .fh-sheet-line {
+    position: absolute;
+    background: var(--line);
+    pointer-events: none;
+  }
+
+  .fh-sheet-line[data-edge="top"] {
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    transform-origin: left center;
+  }
+
+  .fh-sheet-line[data-edge="bottom"] {
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    transform-origin: right center;
+  }
+
+  .fh-sheet-line[data-edge="left"] {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 1px;
+    transform-origin: center bottom;
+  }
+
+  .fh-sheet-line[data-edge="right"] {
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 1px;
+    transform-origin: center top;
+  }
+
+  /* hairline rule that draws in (dividers inside sheets) */
+  .fh-rule {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--line);
+    transform-origin: left center;
+    pointer-events: none;
+  }
+
+  /* --- Film grain + 12-column overlay (layout.tsx) --- */
+  .fh-grain {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    pointer-events: none;
+    background-image: var(--grain-image);
+    background-size: 180px 180px;
+    opacity: var(--grain-opacity);
+  }
+
+  .fh-grid-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  .fh-grid-overlay[data-state="on"] {
+    z-index: 55;
+  }
+
+  .fh-grid-overlay[data-state="off"] {
+    display: none;
+  }
+
+  .fh-grid-col {
+    position: relative;
+    height: 100%;
+    border-inline: 1px solid var(--grid-col-line);
+  }
+
+  .fh-grid-col:nth-child(n + 5) {
+    display: none;
+  }
+
+  @media (min-width: 640px) {
+    .fh-grid-col:nth-child(n + 5) {
+      display: block;
+    }
+
+    .fh-grid-col:nth-child(n + 9) {
+      display: none;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .fh-grid-col:nth-child(n + 9) {
+      display: block;
+    }
+  }
+
+  .fh-grid-overlay[data-state="on"] .fh-grid-col {
+    background: color-mix(in oklab, var(--accent) 6%, transparent);
+    border-color: color-mix(in oklab, var(--accent) 38%, transparent);
+  }
+
+  .fh-grid-num {
+    position: absolute;
+    top: calc(var(--nav-h) + 6px);
+    left: 4px;
+    opacity: 0;
+    color: var(--accent);
+  }
+
+  .fh-grid-overlay[data-state="on"] .fh-grid-num {
+    opacity: 1;
   }
 }
 
+/* First-paint moves. Gated on no-preference so reduced motion shows the final state. */
 @media (prefers-reduced-motion: no-preference) {
   html {
     scroll-behavior: smooth;
   }
+
+  .fh-wordmark-word {
+    animation: fh-wdth var(--wm-wdth-dur, 1.6s) var(--ease-plot) var(--wm-delay, 0s) both;
+  }
+
+  .fh-wordmark-letter {
+    animation: fh-letter-in var(--wm-letter-dur, 0.8s) var(--ease-plot) both;
+    animation-delay: calc(var(--wm-delay, 0s) + var(--i, 0) * var(--wm-stagger, 40ms));
+  }
+
+  /* sentence reveal: wipe left to right + settle */
+  .fh-reveal-line {
+    animation: fh-line-in 0.8s var(--ease-plot) both;
+    animation-delay: var(--d, 0s);
+  }
+
+  .fh-rise {
+    animation: fh-rise 0.7s var(--ease-out) both;
+    animation-delay: var(--d, 0s);
+  }
+
+  .fh-fade {
+    animation: fh-fade 0.6s linear both;
+    animation-delay: var(--d, 0s);
+  }
+
+  .fh-draw-x {
+    animation: fh-draw-x 0.6s var(--ease-plot) both;
+    animation-delay: var(--d, 0s);
+  }
+
+  .fh-sheet-line[data-edge="top"],
+  .fh-sheet-line[data-edge="bottom"] {
+    animation: fh-draw-x 0.42s var(--ease-plot) both;
+  }
+
+  .fh-sheet-line[data-edge="left"],
+  .fh-sheet-line[data-edge="right"] {
+    animation: fh-draw-y 0.42s var(--ease-plot) both;
+  }
+
+  .fh-sheet-line[data-edge="right"],
+  .fh-sheet-line[data-edge="bottom"] {
+    animation-delay: 0.14s;
+  }
+
+  .fh-rule {
+    animation: fh-draw-x 0.5s var(--ease-plot) both;
+    animation-delay: var(--d, 0.18s);
+  }
+
+  .fh-sheet-mark {
+    animation: fh-mark-in 0.38s var(--ease-out) both;
+    animation-delay: var(--d, 0s);
+  }
+
+  .fh-sheet-content {
+    animation: fh-rise 0.5s var(--ease-out) both;
+    animation-delay: var(--d, 0.3s);
+  }
 }
 
-/* Respect reduced motion for CSS animations too (Motion is handled by <MotionConfig reducedMotion="user">). */
+@keyframes fh-wdth {
+  from {
+    font-variation-settings: "wdth" 75;
+  }
+  to {
+    font-variation-settings: "wdth" var(--wm-wdth, 125);
+  }
+}
+
+@keyframes fh-letter-in {
+  from {
+    clip-path: inset(100% -30% -30% -30%);
+    transform: translateY(0.22em);
+  }
+  to {
+    clip-path: inset(-30% -30% -30% -30%);
+    transform: translateY(0);
+  }
+}
+
+@keyframes fh-line-in {
+  from {
+    clip-path: inset(-25% 100% -25% 0);
+    transform: translateX(-0.12em);
+  }
+  to {
+    clip-path: inset(-25% -2% -25% 0);
+    transform: translateX(0);
+  }
+}
+
+@keyframes fh-rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes fh-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fh-draw-x {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes fh-draw-y {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes fh-mark-in {
+  from {
+    opacity: 0;
+    transform: scale(0.3) rotate(-90deg);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Respect reduced motion for CSS animations too (Motion is handled by <MotionConfig reducedMotion="user">
+   plus useReducedMotionConfig() inside components/motion). */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

@@ -1,3 +1,9 @@
+"use client";
+
+/*
+ * Watermelon UI "medesk-dashboard" (MIT), adapted for Foothold: in-portal navigation
+ * without a router, so the portal can live inside one Next.js page. Added `initialPath`.
+ */
 import {
   createContext,
   useContext,
@@ -19,10 +25,12 @@ const DashboardNavigationContext = createContext<DashboardNavigation | null>(
 
 export function DashboardNavigationProvider({
   children,
+  initialPath = "/",
 }: {
   children: ReactNode;
+  initialPath?: string;
 }) {
-  const [pathname, setPathname] = useState("/");
+  const [pathname, setPathname] = useState(initialPath);
   const value = useMemo(
     () => ({ pathname, navigate: setPathname }),
     [pathname],
@@ -72,5 +80,5 @@ export function DashboardLink({
     navigate(href);
   }
 
-  return <a href={href} onClick={handleClick} {...props} />;
+  return <a href={`#portal${href === "/" ? "" : href}`} onClick={handleClick} {...props} />;
 }

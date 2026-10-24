@@ -1,5 +1,12 @@
 "use client"
 
+/*
+ * Cult UI "dynamic-island" (MIT, Copyright (c) 2023 Jordan-Gilliam), rethemed for Foothold:
+ * a square status plate (2px corners) with a hairline border instead of an iOS pill; no
+ * shadow, no blur on exit, no squircle clip-path (it referenced #squircle-* elements that
+ * do not exist). Size presets, the reducer and the animation queue are unchanged.
+ */
+
 import React, {
   createContext,
   ReactNode,
@@ -10,7 +17,12 @@ import React, {
   useRef,
   useState,
 } from "react"
-import { AnimatePresence, motion, useWillChange } from "motion/react"
+import {
+  AnimatePresence,
+  motion,
+  useWillChange,
+  type HTMLMotionProps,
+} from "motion/react"
 
 const stiffness = 400
 const damping = 30
@@ -64,7 +76,7 @@ const DynamicIslandSizePresets: Record<SizePresets, Preset> = {
   [SIZE_PRESETS.RESET]: {
     width: 150,
     aspectRatio: 1,
-    borderRadius: 20,
+    borderRadius: 2,
   },
   [SIZE_PRESETS.EMPTY]: {
     width: 0,
@@ -74,63 +86,63 @@ const DynamicIslandSizePresets: Record<SizePresets, Preset> = {
   [SIZE_PRESETS.DEFAULT]: {
     width: 150,
     aspectRatio: 44 / 150,
-    borderRadius: 46,
+    borderRadius: 2,
   },
   [SIZE_PRESETS.MINIMAL_LEADING]: {
     width: 52.33,
     aspectRatio: 44 / 52.33,
-    borderRadius: 22,
+    borderRadius: 2,
   },
   [SIZE_PRESETS.MINIMAL_TRAILING]: {
     width: 52.33,
     aspectRatio: 44 / 52.33,
-    borderRadius: 22,
+    borderRadius: 2,
   },
   [SIZE_PRESETS.COMPACT]: {
     width: 235,
     aspectRatio: 44 / 235,
-    borderRadius: 46,
+    borderRadius: 2,
   },
   [SIZE_PRESETS.COMPACT_LONG]: {
     width: 300,
     aspectRatio: 44 / 235,
-    borderRadius: 46,
+    borderRadius: 2,
   },
   [SIZE_PRESETS.COMPACT_MEDIUM]: {
     width: 351,
     aspectRatio: 64 / 371,
-    borderRadius: 44,
+    borderRadius: 2,
   },
   [SIZE_PRESETS.LONG]: {
     width: 371,
     aspectRatio: 84 / 371,
-    borderRadius: 42,
+    borderRadius: 2,
   },
   [SIZE_PRESETS.MEDIUM]: {
     width: 371,
     aspectRatio: 210 / 371,
-    borderRadius: 22,
+    borderRadius: 2,
   },
   [SIZE_PRESETS.LARGE]: {
     width: 371,
     aspectRatio: 84 / 371,
-    borderRadius: 42,
+    borderRadius: 2,
   },
   [SIZE_PRESETS.TALL]: {
     width: 371,
     aspectRatio: 210 / 371,
-    borderRadius: 42,
+    borderRadius: 2,
   },
   [SIZE_PRESETS.ULTRA]: {
     width: 630,
     aspectRatio: 630 / 800,
-    borderRadius: 42,
+    borderRadius: 2,
   },
   [SIZE_PRESETS.MASSIVE]: {
     width: 891,
     height: 1900,
     aspectRatio: 891 / 891,
-    borderRadius: 42,
+    borderRadius: 2,
   },
 }
 
@@ -291,14 +303,12 @@ const DynamicIslandContainer = ({ children }: { children: ReactNode }) => {
   )
 }
 
-const DynamicIsland = ({
-  children,
-  id,
-  ...props
-}: {
+type DynamicIslandProps = Omit<HTMLMotionProps<"div">, "children" | "id"> & {
   children: ReactNode
   id: string
-}) => {
+}
+
+const DynamicIsland = ({ children, id, ...props }: DynamicIslandProps) => {
   const willChange = useWillChange()
   const [screenSize, setScreenSize] = useState("desktop")
 
@@ -358,12 +368,11 @@ const DynamicIslandContent = ({
   willChange,
   screenSize,
   ...props
-}: {
+}: Omit<HTMLMotionProps<"div">, "children" | "id"> & {
   children: React.ReactNode
   id: string
-  willChange: any
+  willChange: ReturnType<typeof useWillChange>
   screenSize: string
-  [key: string]: any
 }) => {
   const { state, presets } = useDynamicIslandSize()
   const currentSize = presets[state.size]
@@ -373,7 +382,9 @@ const DynamicIslandContent = ({
   return (
     <motion.div
       id={id}
-      className="mx-auto h-0 w-0 items-center justify-center border border-black/10 bg-black text-center text-black transition duration-300 ease-in-out focus-within:bg-neutral-900 hover:shadow-md dark:border dark:border-white/5 dark:focus-within:bg-black"
+      data-slot="dynamic-island"
+      data-lib="cult"
+      className="mx-auto h-0 w-0 items-center justify-center overflow-hidden border border-line-strong bg-surface text-center text-ink transition-colors duration-300 ease-in-out focus-within:bg-surface-2"
       animate={{
         width: dimensions.width,
         height: dimensions.height,
@@ -382,10 +393,6 @@ const DynamicIslandContent = ({
           type: "spring",
           stiffness,
           damping,
-        },
-        clipPath: `none`,
-        transitionEnd: {
-          clipPath: `url(#squircle-${state.size})`,
         },
       }}
       style={{ willChange }}
@@ -432,7 +439,7 @@ const DynamicContainer = ({ className, children }: DynamicContainerProps) => {
       initial={initialState}
       animate={animateState}
       transition={transition}
-      exit={{ opacity: 0, filter: "blur(10px)", scale: 0.95, y: 20 }}
+      exit={{ opacity: 0, scale: 0.97, y: 8 }}
       style={{ willChange }}
       className={className}
     >
@@ -466,7 +473,7 @@ const DynamicDiv = ({ className, children }: DynamicChildrenProps) => {
           damping,
         },
       }}
-      exit={{ opacity: 0, filter: "blur(10px)", scale: 0 }}
+      exit={{ opacity: 0, scale: 0.9 }}
       style={{ willChange }}
       className={className}
     >

@@ -1,110 +1,54 @@
+/*
+ * Watermelon UI "medesk-dashboard" (MIT), rethemed for Foothold.
+ * The original light/dark shadcn token blocks are removed: the portal inherits Foothold's
+ * global tokens (globals.css), which already switch on <html data-theme>. Only the chart
+ * series variables stay, mapped to ink, hairlines and the one gold accent.
+ * Every rule is scoped to .medesk-dashboard or .medesk-portal (its dropdown/sheet portals).
+ */
+
 .medesk-dashboard,
-body:has(.medesk-dashboard) [data-slot="sidebar"][data-mobile="true"],
-body:has(.medesk-dashboard) [data-slot="sheet-content"] {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(0.98 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.975 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
-  --dashboard-scheduled: oklch(0.62325 0.14864 251.5);
-  --dashboard-completed: oklch(0.62265 0.12424 165.02);
-  --dashboard-no-show: oklch(0.76366 0.15429 69.59);
-  --dashboard-secondary: oklch(0.59276 0.14905 282.66);
+.medesk-portal {
+  /* square drawing-set corners: every rounded-* inside resolves to <= ~2.6px */
+  --radius: 1px;
+  --dashboard-scheduled: var(--ink);
+  --dashboard-completed: var(--ink-muted);
+  --dashboard-no-show: var(--accent);
+  --dashboard-secondary: var(--line-strong);
+  --dashboard-hatch: color-mix(in oklab, var(--ink) 55%, transparent);
 }
 
-.medesk-dashboard.dark,
-.dark .medesk-dashboard,
-.dark body:has(.medesk-dashboard) [data-slot="sidebar"][data-mobile="true"],
-.dark body:has(.medesk-dashboard) [data-slot="sheet-content"] {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.18 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+/* data-theme replaces the original .dark class: hatching needs a little less ink on dark */
+[data-theme="dark"] .medesk-dashboard,
+[data-theme="dark"] .medesk-portal {
+  --dashboard-hatch: color-mix(in oklab, var(--ink) 45%, transparent);
+}
+
+/* Embedded portal: shadcn's sidebar container is position:fixed + h-svh (built for a
+   full-viewport app). Pin it to the portal frame instead so it never covers the page. */
+.medesk-dashboard [data-slot="sidebar-container"] {
+  position: absolute;
+  height: 100%;
 }
 
 .medesk-dashboard.no-scrollbar,
-.medesk-dashboard.no-scrollbar *,
-.medesk-dashboard .no-scrollbar,
-.medesk-dashboard .no-scrollbar * {
+.medesk-dashboard .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
 
-.medesk-dashboard .dashboard-load-segment {
-  width: var(--department-width);
-  animation: dashboard-load-grow 700ms ease-out both;
+.medesk-dashboard.no-scrollbar::-webkit-scrollbar,
+.medesk-dashboard .no-scrollbar::-webkit-scrollbar {
+  display: none;
 }
 
+/* Plotter-style reveals: transform only (DESIGN_DIRECTION section 4). */
+.medesk-dashboard .dashboard-load-segment,
 .medesk-dashboard .dashboard-resource-progress {
-  transform-origin: left;
-  animation: dashboard-resource-grow 700ms ease-out both;
+  transform-origin: left center;
+  animation: dashboard-plot-x 700ms cubic-bezier(0.65, 0, 0.35, 1) both;
 }
 
-@keyframes dashboard-load-grow {
-  from {
-    width: 0;
-  }
-
-  to {
-    width: var(--department-width);
-  }
-}
-
-@keyframes dashboard-resource-grow {
+@keyframes dashboard-plot-x {
   from {
     transform: scaleX(0);
   }
@@ -114,22 +58,26 @@ body:has(.medesk-dashboard) [data-slot="sheet-content"] {
   }
 }
 
-.medesk-dashboard.no-scrollbar::-webkit-scrollbar,
-.medesk-dashboard.no-scrollbar *::-webkit-scrollbar,
-.medesk-dashboard .no-scrollbar::-webkit-scrollbar,
-.medesk-dashboard .no-scrollbar *::-webkit-scrollbar {
-  display: none;
+/* Recharts: mono ticks, no focus box on mouse click, a real ring for keyboard focus. */
+.medesk-dashboard .recharts-cartesian-axis-tick-value {
+  font-family: var(--font-mono);
+  letter-spacing: 0.06em;
 }
 
-[data-slot="dropdown-menu-content"] [data-slot="dropdown-menu-item"],
-[data-slot="dropdown-menu-content"] [data-slot="dropdown-menu-sub-trigger"] {
-  padding-inline: 0.625rem;
-  padding-block: 0.625rem;
+.medesk-dashboard .recharts-wrapper :focus:not(:focus-visible),
+.medesk-dashboard .recharts-surface:focus:not(:focus-visible) {
+  outline: none;
 }
 
-[data-slot="dropdown-menu-content"] [data-slot="dropdown-menu-checkbox-item"],
-[data-slot="dropdown-menu-content"] [data-slot="dropdown-menu-radio-item"] {
-  padding-block: 0.625rem;
-  padding-left: 0.625rem;
-  padding-right: 2rem;
+/* Dropdown rows inside the portal (the original rules were unscoped). */
+.medesk-portal [data-slot="dropdown-menu-item"],
+.medesk-portal [data-slot="dropdown-menu-radio-item"] {
+  padding-block: 0.5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .medesk-dashboard .dashboard-load-segment,
+  .medesk-dashboard .dashboard-resource-progress {
+    animation: none;
+  }
 }

@@ -1,8 +1,11 @@
 /**
- * Demo personas. ALL FICTIONAL: invented people and an invented employer.
- * Ids match docs/CONTRACTS.md section 4. Detailed constraints (hours, budget,
- * commute, credits) live in data/processed/personas.json and come from
- * GET /api/meta/personas; this file only holds what the UI shows.
+ * Static profiles of the demo people, for public examples only (landing chapters, About).
+ * ALL FICTIONAL: invented people and an invented employer. Ids match docs/CONTRACTS.md section 4.
+ *
+ * This is not identity: who is signed in comes from the per-tab account session
+ * (components/auth, CONTRACTS section 13). There is no persona switcher.
+ * Detailed constraints (hours, budget, commute, credits) live in data/processed/personas.json
+ * and come from GET /api/meta/personas.
  */
 import type { EmployerId, LearnerId, Provenance } from "./types";
 
@@ -16,7 +19,7 @@ export interface PersonaSummary {
   name: string;
   /** one-line situation */
   tagline: string;
-  /** short facts for cards and the persona switcher */
+  /** short facts for example cards */
   facts: string[];
   age?: number;
   fictional: true;
@@ -68,8 +71,6 @@ export const PERSONAS: Readonly<Record<PersonaId, PersonaSummary>> = {
 export const PERSONA_ORDER: readonly PersonaId[] = ["maya", "dev", "luis", "tri_valley_freight"];
 export const LEARNER_IDS: readonly LearnerId[] = ["maya", "dev", "luis"];
 export const EMPLOYER_IDS: readonly EmployerId[] = ["tri_valley_freight"];
-
-export const DEFAULT_PERSONA_ID: PersonaId = "maya";
 
 export function isPersonaId(value: unknown): value is PersonaId {
   return typeof value === "string" && Object.prototype.hasOwnProperty.call(PERSONAS, value);

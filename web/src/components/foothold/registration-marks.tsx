@@ -10,6 +10,10 @@ export interface RegistrationMarksProps {
   inset?: string;
   /** which corners to draw (default all four) */
   corners?: ReadonlyArray<"tl" | "tr" | "bl" | "br">;
+  /** spin-and-snap in on mount, staggered per corner (CSS; skipped for reduced motion) */
+  animated?: boolean;
+  /** seconds before the first mark animates (default 0) */
+  delay?: number;
   className?: string;
 }
 
@@ -19,22 +23,31 @@ const ALL = ["tl", "tr", "bl", "br"] as const;
  * Printer's registration marks at the corners of the nearest positioned ancestor.
  * Decorative only (aria-hidden). Parent needs `position: relative`.
  */
-export function RegistrationMarks({ variant = "target", size = 14, inset = "-7px", corners = ALL, className }: RegistrationMarksProps) {
+export function RegistrationMarks({
+  variant = "target",
+  size = 14,
+  inset = "-7px",
+  corners = ALL,
+  animated = false,
+  delay = 0,
+  className,
+}: RegistrationMarksProps) {
   const c = size / 2;
   const r = size * 0.28;
   return (
     <span aria-hidden="true" className={cn("pointer-events-none absolute inset-0 text-line-strong", className)}>
-      {corners.map((corner) => {
+      {corners.map((corner, i) => {
         const pos: React.CSSProperties = {
           width: size,
           height: size,
           ...(corner.includes("t") ? { top: inset } : { bottom: inset }),
           ...(corner.includes("l") ? { left: inset } : { right: inset }),
+          ...(animated ? ({ "--d": `${delay + i * 0.06}s` } as React.CSSProperties) : null),
         };
         return (
           <svg
             key={corner}
-            className="absolute"
+            className={cn("absolute", animated && "fh-sheet-mark")}
             style={pos}
             viewBox={`0 0 ${size} ${size}`}
             fill="none"

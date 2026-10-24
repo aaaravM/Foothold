@@ -276,7 +276,7 @@ _breaker_until = 0.0
 
 
 def _fingerprint(s: config.Settings) -> str:
-    raw = f"{s.openai_api_key or ''}\x1f{s.openai_model or ''}".encode("utf-8")
+    raw = f"{s.api_key}\x1f{s.openai_model or ''}".encode("utf-8")
     return hashlib.sha256(raw).hexdigest()
 
 
@@ -301,7 +301,7 @@ def check_key(timeout: float = KEY_CHECK_TIMEOUT_S) -> KeyStatus:
     if not s.key_present:
         return out
     try:
-        client = _sync_client(s.openai_api_key or "")
+        client = _sync_client(s.api_key)
         if s.openai_model:
             client.models.retrieve(s.openai_model, timeout=timeout)
         else:
@@ -468,7 +468,7 @@ def _text_or_raise(resp: Any) -> str:
 
 def _call_structured(s: config.Settings, task: str, system: str, user: str, schema: type[M]) -> M | None:
     try:
-        client = _sync_client(s.openai_api_key or "")
+        client = _sync_client(s.api_key)
         obj = _parsed_or_raise(client.responses.parse(text_format=schema, **_request_kwargs(s, system, user)), schema)
     except Exception as exc:
         _on_failure(task, exc)
@@ -479,7 +479,7 @@ def _call_structured(s: config.Settings, task: str, system: str, user: str, sche
 
 def _call_text(s: config.Settings, task: str, system: str, user: str) -> str | None:
     try:
-        client = _sync_client(s.openai_api_key or "")
+        client = _sync_client(s.api_key)
         out = _text_or_raise(client.responses.create(**_request_kwargs(s, system, user)))
     except Exception as exc:
         _on_failure(task, exc)
@@ -490,7 +490,7 @@ def _call_text(s: config.Settings, task: str, system: str, user: str) -> str | N
 
 async def _acall_structured(s: config.Settings, task: str, system: str, user: str, schema: type[M]) -> M | None:
     try:
-        client = _async_client(s.openai_api_key or "")
+        client = _async_client(s.api_key)
         resp = await asyncio.wait_for(
             client.responses.parse(text_format=schema, **_request_kwargs(s, system, user)), LLM_TIMEOUT_S + 1.0
         )
@@ -504,7 +504,7 @@ async def _acall_structured(s: config.Settings, task: str, system: str, user: st
 
 async def _acall_text(s: config.Settings, task: str, system: str, user: str) -> str | None:
     try:
-        client = _async_client(s.openai_api_key or "")
+        client = _async_client(s.api_key)
         resp = await asyncio.wait_for(client.responses.create(**_request_kwargs(s, system, user)), LLM_TIMEOUT_S + 1.0)
         out = _text_or_raise(resp)
     except Exception as exc:
