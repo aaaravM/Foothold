@@ -1,0 +1,268 @@
+[
+  {
+    "id": "onet_31_0",
+    "title": "O*NET 31.0 Database: Work Styles, Essential Skills, Transferable Skills, Career Interest Types, Occupation Data, Content Model Reference",
+    "url": "https://www.onetcenter.org/database.html",
+    "publisher": "U.S. Department of Labor, Employment and Training Administration (USDOL/ETA), National Center for O*NET Development",
+    "license": "CC BY 4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0/",
+    "license_page": "https://www.onetcenter.org/license_db.html",
+    "retrieved": "2026-10-24",
+    "status": "REAL",
+    "attribution": "This page includes information from the O*NET 31.0 Database by the U.S. Department of Labor, Employment and Training Administration (USDOL/ETA). Used under the CC BY 4.0 license. O*NET® is a trademark of USDOL/ETA. Foothold has modified all or some of this information. USDOL/ETA has not approved, endorsed, or tested these modifications.",
+    "modified": true,
+    "modifications": [
+      "Work Styles WI values (-3..+3) converted to 0..1 percentile ranks across all occupations with complete Work Styles data (traits.json ids, occupations.json, careers.json).",
+      "Element names mapped to snake_case ids; Work Styles and skill descriptions copied verbatim from content_model_reference.csv.",
+      "Career skill lists choose the 5 O*NET skills with the highest Importance relative to the all-occupation mean, combined with Foothold job-specific skills.",
+      "Only 42 of the 1,016 occupations are kept in occupations.json (8 Foothold careers + 34 related occupations).",
+      "Foothold career titles and summaries are Foothold's own; O*NET titles are kept in onet_title."
+    ],
+    "methods": {
+      "Work styles (traits) on a 0..1 scale": "For each of the 21 O*NET 31.0 Work Styles and each occupation: value = (number of occupations with a lower Work Styles Impact (WI) + 0.5 x number with the same WI) / 891, where 891 is every O*NET-SOC occupation with complete Work Styles data (21 elements, WI and DR). 0.5 is about the middle of all occupations; 0.9 means a higher WI than about 90% of occupations. Raw WI and DR stay in occupations.json.",
+      "Career skills": "careers.json skills = Foothold job-specific skills (editorial, SAMPLE) + the 5 O*NET 31.0 skills with the highest Importance z-score versus the mean of all 910 occupations with Skills data, among skills with Importance >= 2.5."
+    },
+    "files": [
+      {
+        "file": "occupation_data.csv",
+        "url": "https://www.onetcenter.org/dl_files/database/db_31_0_csv/occupation_data.csv",
+        "rows": 1016,
+        "sha256": "a09eae1d6609686e44e05b7290993a1c8b523d8ca224bc0eedc194c855c3ee02"
+      },
+      {
+        "file": "work_styles.csv",
+        "url": "https://www.onetcenter.org/dl_files/database/db_31_0_csv/work_styles.csv",
+        "rows": 37422,
+        "sha256": "a3e5331df515dbc9ede284667e72189a4f24c8a8af80f61bae908596ea48c926"
+      },
+      {
+        "file": "essential_skills.csv",
+        "url": "https://www.onetcenter.org/dl_files/database/db_31_0_csv/essential_skills.csv",
+        "rows": 18200,
+        "sha256": "68c4d31d8c55077238395dca40cc4e6d32e6a608b5474bb8264b1f98ae415bd7"
+      },
+      {
+        "file": "transferable_skills.csv",
+        "url": "https://www.onetcenter.org/dl_files/database/db_31_0_csv/transferable_skills.csv",
+        "rows": 45500,
+        "sha256": "f17d0419e818a3bf2f55076510c76c4aef01cc8f5aee2670d2f44f6f44ac60f7"
+      },
+      {
+        "file": "career_interest_types.csv",
+        "url": "https://www.onetcenter.org/dl_files/database/db_31_0_csv/career_interest_types.csv",
+        "rows": 8307,
+        "sha256": "19f452d51b81a4d59389b500f85baf252563858f596124fe446dd436a9f41206"
+      },
+      {
+        "file": "specific_interest_areas.csv",
+        "url": "https://www.onetcenter.org/dl_files/database/db_31_0_csv/specific_interest_areas.csv",
+        "rows": 73062,
+        "sha256": "3c59c823f228d4ee5e066560a4fc39676c5cfd956355ad9d19bf8f552f87f0eb"
+      },
+      {
+        "file": "content_model_reference.csv",
+        "url": "https://www.onetcenter.org/dl_files/database/db_31_0_csv/content_model_reference.csv",
+        "rows": 3006,
+        "sha256": "370033744006dbd5df048431d42a402f6741a00a229b6d0f4e4f4249b6399c04"
+      },
+      {
+        "file": "scales_reference.csv",
+        "url": "https://www.onetcenter.org/dl_files/database/db_31_0_csv/scales_reference.csv",
+        "rows": 33,
+        "sha256": "bcba23858ce21ecaacbde303a8993e35d46724b4afb8c9ec2b10e04f42adcfc9"
+      }
+    ],
+    "used_by": [
+      "traits.json",
+      "occupations.json",
+      "careers.json",
+      "skills.json",
+      "jobs.json"
+    ],
+    "producer": "data/build_processed.py",
+    "producer_file": "sources/onet.json"
+  },
+  {
+    "id": "onet_online",
+    "title": "O*NET OnLine occupation summary pages (verification links)",
+    "url": "https://www.onetonline.org/",
+    "publisher": "National Center for O*NET Development, for USDOL/ETA",
+    "license": "Linked only; no content copied",
+    "retrieved": "2026-10-24",
+    "status": "REAL",
+    "notes": "careers.json onet_url and jobs.json verify_url use https://www.onetonline.org/link/summary/<O*NET-SOC code> (pattern checked: HTTP 200 on 2026-10-24).",
+    "used_by": [
+      "careers.json",
+      "occupations.json",
+      "jobs.json"
+    ],
+    "producer": "data/build_processed.py",
+    "producer_file": "sources/onet.json"
+  },
+  {
+    "id": "foothold_taxonomy",
+    "title": "Foothold skills taxonomy and job nodes (job-specific skills, generic job titles, required skills, career ladders)",
+    "url": "data/build_processed.py",
+    "publisher": "Foothold (editorial)",
+    "license": "Foothold project",
+    "retrieved": null,
+    "status": "SAMPLE",
+    "notes": "Editorial mapping, not verified against job postings. Each job links to the closest O*NET occupation so typical tasks and skills can be checked. Titles are generic; no employer names.",
+    "used_by": [
+      "skills.json",
+      "jobs.json",
+      "careers.json"
+    ],
+    "producer": "data/build_processed.py",
+    "producer_file": "sources/onet.json"
+  },
+  {
+    "id": "foothold_fictional_coworkers",
+    "title": "Fictional coworkers for the Try-the-job sim (3 per career)",
+    "url": "data/build_processed.py",
+    "publisher": "Foothold",
+    "license": "Foothold project",
+    "retrieved": null,
+    "status": "FICTIONAL",
+    "notes": "All names, roles, and personalities are invented. Any resemblance to real people is coincidental.",
+    "used_by": [
+      "careers.json"
+    ],
+    "producer": "data/build_processed.py",
+    "producer_file": "sources/onet.json"
+  },
+  {
+    "id": "course_listings_verified",
+    "title": "Learning resources whose exact page was fetched and matched (60 listings)",
+    "url": "data/raw/courses/course_checks.json",
+    "publisher": "Various public providers (see list); checked by Foothold",
+    "license": "Links and short factual metadata only; no provider content copied",
+    "retrieved": "2026-10-24",
+    "status": "REAL",
+    "notes": "Title, provider, URL and cost (free) confirmed on the check date (HTTP 200 + expected title/text, the freeCodeCamp page-data file, or the OpenStax catalog API). Hours are Foothold estimates (hours_status SAMPLE) unless the page states them. Skill tags are Foothold's editorial mapping.",
+    "providers": [
+      "Arduino (https://docs.arduino.cc/learn/)",
+      "Cal/OSHA (California Department of Industrial Relations) (https://www.dir.ca.gov/dosh/heatillnessinfo.html)",
+      "California Department of Motor Vehicles (https://www.dmv.ca.gov/portal/driver-handbooks/)",
+      "California Department of Pesticide Regulation (https://www.cdpr.ca.gov/worker-health-and-safety/)",
+      "California Department of Water Resources (https://cimis.water.ca.gov/)",
+      "Charles Severance (py4e.com) (https://www.py4e.com/)",
+      "Food and Agriculture Organization of the United Nations (FAO) (https://www.fao.org/4/x0490e/x0490e00.htm)",
+      "Harvard University (CS50) (https://cs50.harvard.edu/python/)",
+      "Harvard University (CS50) (https://cs50.harvard.edu/sql/)",
+      "Harvard University (CS50) (https://cs50.harvard.edu/web/)",
+      "Harvard University (CS50) (https://cs50.harvard.edu/x/)",
+      "LearnFree (GCFGlobal) (https://www.learnfree.org/series/excel-foundations)",
+      "MDN Web Docs (Mozilla) (https://developer.mozilla.org/en-US/docs/Learn_web_development)",
+      "MIT CSAIL (https://missing.csail.mit.edu/)",
+      "MIT OpenCourseWare (https://ocw.mit.edu/courses/15-279-management-communication-for-undergraduates-fall-2012/)",
+      "MIT OpenCourseWare (https://ocw.mit.edu/courses/15-762j-supply-chain-planning-spring-2011/)",
+      "MIT OpenCourseWare (https://ocw.mit.edu/courses/2-12-introduction-to-robotics-fall-2005/)",
+      "MIT OpenCourseWare (https://ocw.mit.edu/courses/6-002-circuits-and-electronics-spring-2007/)",
+      "MIT OpenCourseWare (https://ocw.mit.edu/courses/6-100l-introduction-to-cs-and-programming-using-python-fall-2022/)",
+      "MIT OpenCourseWare (https://ocw.mit.edu/courses/esd-260j-logistics-systems-fall-2006/)",
+      "National Fire Protection Association (NFPA) (https://www.nfpa.org/for-professionals/codes-and-standards/list-of-codes-and-standards/free-access)",
+      "Northeast Wisconsin Technical College (LibreTexts) (https://eng.libretexts.org/Courses/Northeast_Wisconsin_Technical_College/Fluids_1%3A_Fluid_Power_and_Pneumatics_(NWTC))",
+      "Northeast Wisconsin Technical College (WisTech Open) (https://www.wistechopen.org/resources/fluids-2-basic-hydraulics)",
+      "Open RN / WisTech Open (Chippewa Valley Technical College) (https://wtcs.pressbooks.pub/nursingfundamentals/)",
+      "Open RN / WisTech Open (Chippewa Valley Technical College) (https://wtcs.pressbooks.pub/nursingmpc/)",
+      "Open RN / WisTech Open (Chippewa Valley Technical College) (https://wtcs.pressbooks.pub/nursingskills/)",
+      "Open RN / WisTech Open (Chippewa Valley Technical College) (https://wtcs.pressbooks.pub/pharmacology/)",
+      "OpenStax (Rice University) (https://openstax.org/details/books/anatomy-and-physiology-2e)",
+      "OpenStax (Rice University) (https://openstax.org/details/books/clinical-nursing-skills)",
+      "OpenStax (Rice University) (https://openstax.org/details/books/college-success)",
+      "OpenStax (Rice University) (https://openstax.org/details/books/fundamentals-nursing)",
+      "OpenStax (Rice University) (https://openstax.org/details/books/introduction-python-programming)",
+      "OpenStax (Rice University) (https://openstax.org/details/books/introductory-statistics-2e)",
+      "OpenStax (Rice University) (https://openstax.org/details/books/medical-surgical-nursing)",
+      "OpenStax (Rice University) (https://openstax.org/details/books/organizational-behavior)",
+      "OpenStax (Rice University) (https://openstax.org/details/books/pharmacology)",
+      "OpenStax (Rice University) (https://openstax.org/details/books/principles-management)",
+      "OpenStax (Rice University) (https://openstax.org/details/books/workplace-software-skills)",
+      "OpenStax (Rice University) (https://openstax.org/details/books/writing-guide)",
+      "Python Software Foundation (https://docs.python.org/3/tutorial/)",
+      "Scott Chacon and Ben Straub (git-scm.com) (https://git-scm.com/book/en/v2)",
+      "Ted Evans (Atlantic OER Pressbooks) (https://pressbooks.atlanticoer-relatlantique.ca/eltghybridtext/)",
+      "The Odin Project (https://www.theodinproject.com/paths/foundations/courses/foundations)",
+      "Tony R. Kuphaldt (hosted by ibiblio) (https://www.ibiblio.org/kuphaldt/electricCircuits/)",
+      "Tony R. Kuphaldt (hosted by ibiblio) (https://www.ibiblio.org/kuphaldt/socratic/sinst/)",
+      "U.S. Occupational Safety and Health Administration (OSHA) (https://www.osha.gov/agricultural-operations)",
+      "U.S. Occupational Safety and Health Administration (OSHA) (https://www.osha.gov/control-hazardous-energy)",
+      "U.S. Occupational Safety and Health Administration (OSHA) (https://www.osha.gov/electrical)",
+      "U.S. Occupational Safety and Health Administration (OSHA) (https://www.osha.gov/etools/powered-industrial-trucks)",
+      "U.S. Occupational Safety and Health Administration (OSHA) (https://www.osha.gov/robotics)",
+      "U.S. Occupational Safety and Health Administration (OSHA) (https://www.osha.gov/warehousing)",
+      "U.S. Occupational Safety and Health Administration (OSHA) (https://www.osha.gov/welding-cutting-brazing)",
+      "UC Statewide Integrated Pest Management Program (UC ANR) (https://ipm.ucanr.edu/online-training/)",
+      "Washington Open ProfTech (Washington State Board for Community and Technical Colleges) (https://openwa.pressbooks.pub/welding1/)",
+      "WisTech Open (https://wtcs.pressbooks.pub/blueprintreading/)",
+      "freeCodeCamp (https://www.freecodecamp.org/learn/2022/responsive-web-design/)",
+      "freeCodeCamp (https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures-v8/)",
+      "freeCodeCamp (https://www.freecodecamp.org/learn/quality-assurance/)",
+      "freeCodeCamp (https://www.freecodecamp.org/learn/relational-database/)",
+      "freeCodeCamp (https://www.freecodecamp.org/learn/scientific-computing-with-python/)"
+    ],
+    "used_by": [
+      "courses.json"
+    ],
+    "producer": "data/build_processed.py",
+    "producer_file": "sources/onet.json"
+  },
+  {
+    "id": "course_listings_sample",
+    "title": "Learning resources not verified at the exact page or with unknown cost (15 listings)",
+    "url": "data/build_processed.py",
+    "publisher": "Various public providers (see list)",
+    "license": "Links only",
+    "retrieved": null,
+    "status": "SAMPLE",
+    "notes": "Plausible listings at real providers. When the exact page was not verified the link goes to the provider homepage; when the price is not stated cost_usd is null. Verify before relying on them.",
+    "providers": [
+      "American Heart Association (https://cpr.heart.org/)",
+      "American Red Cross (https://www.redcross.org/take-a-class)",
+      "American Welding Society (AWS) (https://www.aws.org/)",
+      "International Society of Automation (ISA) (https://www.isa.org/certification/ccst)",
+      "Khan Academy (https://www.khanacademy.org/)",
+      "National Institute for Automotive Service Excellence (ASE) (https://www.ase.com/)",
+      "Penn State Extension (https://extension.psu.edu/national-safe-tractor-and-machinery-operation-program)",
+      "Smart Automation Certification Alliance (SACA) (https://www.saca.org/)",
+      "U.S. Occupational Safety and Health Administration (OSHA), delivered by authorized trainers (https://www.osha.gov/training/outreach)",
+      "World Health Organization (OpenWHO) (https://openwho.org/)"
+    ],
+    "used_by": [
+      "courses.json"
+    ],
+    "producer": "data/build_processed.py",
+    "producer_file": "sources/onet.json"
+  },
+  {
+    "id": "ccc_program_mappers",
+    "title": "California Community Colleges Program Pathways Mapper pages, San Joaquin Delta College and Modesto Junior College (10 certificates used in courses.json)",
+    "url": "https://programmap.deltacollege.edu/",
+    "publisher": "San Joaquin Delta College; Modesto Junior College",
+    "license": "Public web pages; facts only (title, award, units)",
+    "retrieved": "2026-10-24",
+    "status": "REAL",
+    "notes": "Units read from the program map pages (data/raw/programs/programs_raw.json, read 2026-10-24); page titles re-checked by build_processed.py --verify-courses. Also: https://programmap.mjc.edu/",
+    "used_by": [
+      "courses.json"
+    ],
+    "producer": "data/build_processed.py",
+    "producer_file": "sources/onet.json"
+  },
+  {
+    "id": "delta_fees",
+    "title": "San Joaquin Delta College Tuition and Fees: California community college enrollment fee ($46 per unit, residents)",
+    "url": "https://www.deltacollege.edu/admission-aid/tuition-fees",
+    "publisher": "San Joaquin Delta College",
+    "license": "Public web page; facts only",
+    "retrieved": "2026-10-24",
+    "status": "REAL",
+    "notes": "The page states the enrollment fee is approved by the California State Legislature. courses.json program cost_usd = units x fee (excludes books, tools, materials, other fees).",
+    "used_by": [
+      "courses.json"
+    ],
+    "producer": "data/build_processed.py",
+    "producer_file": "sources/onet.json"
+  }
+]

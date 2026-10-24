@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://foothold.local/schemas/traits.schema.json",
+  "title": "Foothold traits (O*NET 31.0 Work Styles)",
+  "type": "array",
+  "minItems": 21,
+  "maxItems": 21,
+  "items": {
+    "type": "object",
+    "required": [
+      "id",
+      "name",
+      "onet_element_id",
+      "group",
+      "short"
+    ],
+    "properties": {
+      "id": {
+        "enum": [
+          "innovation",
+          "achievement_orientation",
+          "intellectual_curiosity",
+          "tolerance_for_ambiguity",
+          "initiative",
+          "adaptability",
+          "self_confidence",
+          "perseverance",
+          "leadership_orientation",
+          "humility",
+          "sincerity",
+          "empathy",
+          "cooperation",
+          "optimism",
+          "social_orientation",
+          "cautiousness",
+          "attention_to_detail",
+          "dependability",
+          "integrity",
+          "stress_tolerance",
+          "self_control"
+        ]
+      },
+      "name": {
+        "type": "string",
+        "minLength": 1
+      },
+      "onet_element_id": {
+        "type": "string",
+        "pattern": "^1\\.D\\.[1-4]\\.[a-i]$"
+      },
+      "group": {
+        "type": "string",
+        "minLength": 1
+      },
+      "group_id": {
+        "type": "string",
+        "pattern": "^1\\.D\\.[1-4]$"
+      },
+      "short": {
+        "type": "string",
+        "minLength": 1
+      },
+      "credit": {
+        "type": "string",
+        "minLength": 1
+      },
+      "source_id": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  }
+}

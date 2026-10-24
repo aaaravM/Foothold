@@ -1,0 +1,660 @@
+{
+  "description": "Evidence log for data/processed/courses.json: each listing's exact page was fetched on 'checked'. Written by data/build_processed.py --verify-courses.",
+  "checked": "2026-10-24",
+  "user_agent": "desktop browser UA string (scripted urllib request)",
+  "summary": {
+    "checked": 74,
+    "matched": 74
+  },
+  "checks": {
+    "arduino_docs_learn": {
+      "url": "https://docs.arduino.cc/learn/",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "page fetch",
+      "evidence": "HTTP 200; title=''; text contains ['Getting Started with Arduino']",
+      "error": null,
+      "final_url": "https://docs.arduino.cc/learn/"
+    },
+    "ca_dmv_commercial_handbook": {
+      "url": "https://www.dmv.ca.gov/portal/driver-handbooks/",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "page fetch",
+      "evidence": "HTTP 200; title=\"Driver's Handbooks - Driving Test Resources - California DMV\"; text contains ['Commercial Driver Handbook']",
+      "error": null,
+      "final_url": "https://www.dmv.ca.gov/portal/driver-handbooks/"
+    },
+    "calosha_heat_illness": {
+      "url": "https://www.dir.ca.gov/dosh/heatillnessinfo.html",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "page fetch",
+      "evidence": "HTTP 200; title='Cal/OSHA Heat Illness Prevention Guidance and Resources'",
+      "error": null,
+      "final_url": "https://www.dir.ca.gov/dosh/heatillnessinfo.html"
+    },
+    "cdpr_worker_safety": {
+      "url": "https://www.cdpr.ca.gov/worker-health-and-safety/",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "page fetch",
+      "evidence": "HTTP 200; title='Worker Health and Safety - Department of Pesticide Regulation'",
+      "error": null,
+      "final_url": "https://www.cdpr.ca.gov/worker-health-and-safety/"
+    },
+    "cimis": {
+      "url": "https://cimis.water.ca.gov/",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "page fetch",
+      "evidence": "HTTP 200; title='CIMIS - California Irrigation Management Information System'",
+      "error": null,
+      "final_url": "https://cimis.water.ca.gov/"
+    },
+    "cs50_python": {
+      "url": "https://cs50.harvard.edu/python/",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "page fetch",
+      "evidence": "HTTP 200; title=\"CS50's Introduction to Programming with Python\"",
+      "error": null,
+      "final_url": "https://cs50.harvard.edu/python/"
+    },
+    "cs50_sql": {
+      "url": "https://cs50.harvard.edu/sql/",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "page fetch",
+      "evidence": "HTTP 200; title=\"CS50's Introduction to Databases with SQL\"",
+      "error": null,
+      "final_url": "https://cs50.harvard.edu/sql/"
+    },
+    "cs50_web": {
+      "url": "https://cs50.harvard.edu/web/",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "page fetch",
+      "evidence": "HTTP 200; title=\"CS50's Web Programming with Python and JavaScript\"",
+      "error": null,
+      "final_url": "https://cs50.harvard.edu/web/"
+    },
+    "cs50x": {
+      "url": "https://cs50.harvard.edu/x/",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "page fetch",
+      "evidence": "HTTP 200; title='CS50x 2026'",
+      "error": null,
+      "final_url": "https://cs50.harvard.edu/x/"
+    },
+    "delta_ag_mechanics_coa": {
+      "url": "https://programmap.deltacollege.edu/program/agriculture-mechanics/",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "page fetch",
+      "evidence": "HTTP 200; title='Agriculture Mechanics Certificate of Achievement Program | San Joaquin Delta College'",
+      "error": null,
+      "final_url": "https://programmap.deltacollege.edu/program/agriculture-mechanics/"
+    },
+    "delta_automation_mechatronics_coa": {
+      "url": "https://programmap.deltacollege.edu/program/automation-technician-mechatronics/",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "page fetch",
+      "evidence": "HTTP 200; title='Automation Technician - Mechatronics Certificate of Achievement Program | San Joaquin Delta College'",
+      "error": null,
+      "final_url": "https://programmap.deltacollege.edu/program/automation-technician-mechatronics/"
+    },
+    "delta_diesel_technician_coa": {
+      "url": "https://programmap.deltacollege.edu/program/diesel-equipment-technician/",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "page fetch",
+      "evidence": "HTTP 200; title='Diesel Equipment Technician Certificate of Achievement Program | San Joaquin Delta College'",
+      "error": null,
+      "final_url": "https://programmap.deltacollege.edu/program/diesel-equipment-technician/"
+    },
+    "delta_electrician_trainee_coa": {
+      "url": "https://programmap.deltacollege.edu/program/electrical-technology-general-electrician-trainee/",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "page fetch",
+      "evidence": "HTTP 200; title='Electrical Technology - General Electrician Trainee Certificate of Achievement Program | San Joaquin Delta College'",
+      "error": null,
+      "final_url": "https://programmap.deltacollege.edu/program/electrical-technology-general-electrician-trainee/"
+    },
+    "delta_gmaw_fcaw_coa": {
+      "url": "https://programmap.deltacollege.edu/program/gas-metal-arc-welding-gmaw-flux-core-arc-welding-fcaw/",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "page fetch",
+      "evidence": "HTTP 200; title='Gas Metal Arc Welding (GMAW)/Flux Core Arc Welding (FCAW) Certificate of Achievement Program | San Joaquin Delta College'",
+      "error": null,
+      "final_url": "https://programmap.deltacollege.edu/program/gas-metal-arc-welding-gmaw-flux-core-arc-welding-fcaw/"
+    },
+    "delta_heavy_equipment_mechanic_coa": {
+      "url": "https://programmap.deltacollege.edu/program/heavy-equipment-mechanic/",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "page fetch",
+      "evidence": "HTTP 200; title='Heavy Equipment Mechanic Certificate of Achievement Program | San Joaquin Delta College'",
+      "error": null,
+      "final_url": "https://programmap.deltacollege.edu/program/heavy-equipment-mechanic/"
+    },
+    "delta_logistics_supervisor_coa": {
+      "url": "https://programmap.deltacollege.edu/program/logistics-and-transportation-supervisor/",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "page fetch",
+      "evidence": "HTTP 200; title='Logistics and Transportation Supervisor Certificate of Achievement Program | San Joaquin Delta College'",
+      "error": null,
+      "final_url": "https://programmap.deltacollege.edu/program/logistics-and-transportation-supervisor/"
+    },
+    "delta_smaw_coa": {
+      "url": "https://programmap.deltacollege.edu/program/oxy-fuel-processes-and-shielded-metal-arc-welding-smaw/",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "page fetch",
+      "evidence": "HTTP 200; title='Oxy-Fuel Processes and Shielded Metal Arc Welding (SMAW) Certificate of Achievement Program | San Joaquin Delta College'",
+      "error": null,
+      "final_url": "https://programmap.deltacollege.edu/program/oxy-fuel-processes-and-shielded-metal-arc-welding-smaw/"
+    },
+    "fao_56_crop_et": {
+      "url": "https://www.fao.org/4/x0490e/x0490e00.htm",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "page fetch",
+      "evidence": "HTTP 200; title='Table of Contents'; text contains ['Crop evapotranspiration', 'FAO Irrigation and drainage paper 56']",
+      "error": null,
+      "final_url": "https://www.fao.org/4/x0490e/x0490e00.htm"
+    },
+    "fcc_javascript_algorithms": {
+      "url": "https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures-v8/",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "freeCodeCamp page-data",
+      "evidence": "page-data superBlock='javascript-algorithms-and-data-structures-v8'",
+      "error": null
+    },
+    "fcc_quality_assurance": {
+      "url": "https://www.freecodecamp.org/learn/quality-assurance/",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "freeCodeCamp page-data",
+      "evidence": "page-data superBlock='quality-assurance'",
+      "error": null
+    },
+    "fcc_relational_database": {
+      "url": "https://www.freecodecamp.org/learn/relational-database/",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "freeCodeCamp page-data",
+      "evidence": "page-data superBlock='relational-database'",
+      "error": null
+    },
+    "fcc_responsive_web_design": {
+      "url": "https://www.freecodecamp.org/learn/2022/responsive-web-design/",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "freeCodeCamp page-data",
+      "evidence": "page-data superBlock='2022/responsive-web-design'",
+      "error": null
+    },
+    "fcc_scientific_python": {
+      "url": "https://www.freecodecamp.org/learn/scientific-computing-with-python/",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "freeCodeCamp page-data",
+      "evidence": "page-data superBlock='scientific-computing-with-python'",
+      "error": null
+    },
+    "hybrid_text_plcs": {
+      "url": "https://pressbooks.atlanticoer-relatlantique.ca/eltghybridtext/",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "page fetch",
+      "evidence": "HTTP 200; title='Hybrid Text: Working With PLCs – Simple Book Publishing'",
+      "error": null,
+      "final_url": "https://pressbooks.atlanticoer-relatlantique.ca/eltghybridtext/"
+    },
+    "isa_ccst": {
+      "url": "https://www.isa.org/certification/ccst",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "page fetch",
+      "evidence": "HTTP 200; title='Certified Control Systems Technician (CCST)'",
+      "error": null,
+      "final_url": "https://www.isa.org/certification/ccst"
+    },
+    "kuphaldt_electric_circuits": {
+      "url": "https://www.ibiblio.org/kuphaldt/electricCircuits/",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "page fetch",
+      "evidence": "HTTP 200; title='Lessons In Electric Circuits'",
+      "error": null,
+      "final_url": "https://www.ibiblio.org/kuphaldt/electricCircuits/"
+    },
+    "kuphaldt_socratic_instrumentation": {
+      "url": "https://www.ibiblio.org/kuphaldt/socratic/sinst/",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "page fetch",
+      "evidence": "HTTP 200; title='Socratic Instrumentation'",
+      "error": null,
+      "final_url": "https://www.ibiblio.org/kuphaldt/socratic/sinst/"
+    },
+    "learnfree_excel": {
+      "url": "https://www.learnfree.org/series/excel-foundations",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "page fetch",
+      "evidence": "HTTP 200; title='Excel: Foundations | LearnFree'",
+      "error": null,
+      "final_url": "https://www.learnfree.org/series/excel-foundations"
+    },
+    "mdn_learn_web": {
+      "url": "https://developer.mozilla.org/en-US/docs/Learn_web_development",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "page fetch",
+      "evidence": "HTTP 200; title='Learn web development | MDN'",
+      "error": null,
+      "final_url": "https://developer.mozilla.org/en-US/docs/Learn_web_development"
+    },
+    "mit_6_100l": {
+      "url": "https://ocw.mit.edu/courses/6-100l-introduction-to-cs-and-programming-using-python-fall-2022/",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "page fetch",
+      "evidence": "HTTP 200; title='Introduction to CS and Programming using Python | Electrical Engineering and Computer Science | MIT OpenCourseWare'",
+      "error": null,
+      "final_url": "https://ocw.mit.edu/courses/6-100l-introduction-to-cs-and-programming-using-python-fall-2022/"
+    },
+    "mit_circuits_electronics": {
+      "url": "https://ocw.mit.edu/courses/6-002-circuits-and-electronics-spring-2007/",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "page fetch",
+      "evidence": "HTTP 200; title='Circuits and Electronics | Electrical Engineering and Computer Science | MIT OpenCourseWare'",
+      "error": null,
+      "final_url": "https://ocw.mit.edu/courses/6-002-circuits-and-electronics-spring-2007/"
+    },
+    "mit_intro_robotics": {
+      "url": "https://ocw.mit.edu/courses/2-12-introduction-to-robotics-fall-2005/",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "page fetch",
+      "evidence": "HTTP 200; title='Introduction to Robotics | Mechanical Engineering | MIT OpenCourseWare'",
+      "error": null,
+      "final_url": "https://ocw.mit.edu/courses/2-12-introduction-to-robotics-fall-2005/"
+    },
+    "mit_logistics_systems": {
+      "url": "https://ocw.mit.edu/courses/esd-260j-logistics-systems-fall-2006/",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "page fetch",
+      "evidence": "HTTP 200; title='Logistics Systems | Engineering Systems Division | MIT OpenCourseWare'",
+      "error": null,
+      "final_url": "https://ocw.mit.edu/courses/esd-260j-logistics-systems-fall-2006/"
+    },
+    "mit_management_communication": {
+      "url": "https://ocw.mit.edu/courses/15-279-management-communication-for-undergraduates-fall-2012/",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "page fetch",
+      "evidence": "HTTP 200; title='Management Communication for Undergraduates | Sloan School of Management | MIT OpenCourseWare'",
+      "error": null,
+      "final_url": "https://ocw.mit.edu/courses/15-279-management-communication-for-undergraduates-fall-2012/"
+    },
+    "mit_missing_semester": {
+      "url": "https://missing.csail.mit.edu/",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "page fetch",
+      "evidence": "HTTP 200; title='The Missing Semester of Your CS Education'",
+      "error": null,
+      "final_url": "https://missing.csail.mit.edu/"
+    },
+    "mit_supply_chain_planning": {
+      "url": "https://ocw.mit.edu/courses/15-762j-supply-chain-planning-spring-2011/",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "page fetch",
+      "evidence": "HTTP 200; title='Supply Chain Planning | Sloan School of Management | MIT OpenCourseWare'",
+      "error": null,
+      "final_url": "https://ocw.mit.edu/courses/15-762j-supply-chain-planning-spring-2011/"
+    },
+    "mjc_electrician_coa": {
+      "url": "https://programmap.mjc.edu/program/electrician/",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "page fetch",
+      "evidence": "HTTP 200; title='Electrician Certificate of Achievement Program | Modesto Junior College'",
+      "error": null,
+      "final_url": "https://programmap.mjc.edu/program/electrician/"
+    },
+    "mjc_mechanized_ag_coa": {
+      "url": "https://programmap.mjc.edu/program/mechanized-agriculture-technician/",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "page fetch",
+      "evidence": "HTTP 200; title='Mechanized Agriculture Technician Certificate of Achievement Program | Modesto Junior College'",
+      "error": null,
+      "final_url": "https://programmap.mjc.edu/program/mechanized-agriculture-technician/"
+    },
+    "nfpa_free_access": {
+      "url": "https://www.nfpa.org/for-professionals/codes-and-standards/list-of-codes-and-standards/free-access",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "page fetch",
+      "evidence": "HTTP 200; title='Free access NFPA codes and standards'",
+      "error": null,
+      "final_url": "https://www.nfpa.org/for-professionals/codes-and-standards/list-of-codes-and-standards/free-access"
+    },
+    "nwtc_fluids_1": {
+      "url": "https://eng.libretexts.org/Courses/Northeast_Wisconsin_Technical_College/Fluids_1%3A_Fluid_Power_and_Pneumatics_(NWTC)",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "page fetch",
+      "evidence": "HTTP 200; title='Fluids 1: Fluid Power and Pneumatics (NWTC) - Engineering LibreTexts'",
+      "error": null,
+      "final_url": "https://eng.libretexts.org/Courses/Northeast_Wisconsin_Technical_College/Fluids_1%3A_Fluid_Power_and_Pneumatics_(NWTC)"
+    },
+    "nwtc_fluids_2": {
+      "url": "https://www.wistechopen.org/resources/fluids-2-basic-hydraulics",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "page fetch",
+      "evidence": "HTTP 200; title='Fluids 2: Basic Hydraulics @ Northeast Wisconsin Technical College | WisTech Open'; text contains ['Zero Textbook Cost']",
+      "error": null,
+      "final_url": "https://www.wistechopen.org/resources/fluids-2-basic-hydraulics"
+    },
+    "odin_foundations": {
+      "url": "https://www.theodinproject.com/paths/foundations/courses/foundations",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "page fetch",
+      "evidence": "HTTP 200; title='Foundations | The Odin Project'",
+      "error": null,
+      "final_url": "https://www.theodinproject.com/paths/foundations/courses/foundations"
+    },
+    "openrn_nursing_fundamentals": {
+      "url": "https://wtcs.pressbooks.pub/nursingfundamentals/",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "page fetch",
+      "evidence": "HTTP 200; title='Nursing Fundamentals 2e – Simple Book Publishing'",
+      "error": null,
+      "final_url": "https://wtcs.pressbooks.pub/nursingfundamentals/"
+    },
+    "openrn_nursing_management": {
+      "url": "https://wtcs.pressbooks.pub/nursingmpc/",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "page fetch",
+      "evidence": "HTTP 200; title='Nursing Management and Professional Concepts 2e – Simple Book Publishing'",
+      "error": null,
+      "final_url": "https://wtcs.pressbooks.pub/nursingmpc/"
+    },
+    "openrn_nursing_pharmacology": {
+      "url": "https://wtcs.pressbooks.pub/pharmacology/",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "page fetch",
+      "evidence": "HTTP 200; title='Nursing Pharmacology – Simple Book Publishing'",
+      "error": null,
+      "final_url": "https://wtcs.pressbooks.pub/pharmacology/"
+    },
+    "openrn_nursing_skills": {
+      "url": "https://wtcs.pressbooks.pub/nursingskills/",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "page fetch",
+      "evidence": "HTTP 200; title='Nursing Skills 2e – Simple Book Publishing'",
+      "error": null,
+      "final_url": "https://wtcs.pressbooks.pub/nursingskills/"
+    },
+    "openstax_anatomy_physiology": {
+      "url": "https://openstax.org/details/books/anatomy-and-physiology-2e",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "OpenStax CMS API",
+      "evidence": "API: slug='anatomy-and-physiology-2e' title='Anatomy and Physiology 2e' state='live'",
+      "error": null
+    },
+    "openstax_clinical_nursing_skills": {
+      "url": "https://openstax.org/details/books/clinical-nursing-skills",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "OpenStax CMS API",
+      "evidence": "API: slug='clinical-nursing-skills' title='Clinical Nursing Skills' state='live'",
+      "error": null
+    },
+    "openstax_college_success": {
+      "url": "https://openstax.org/details/books/college-success",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "OpenStax CMS API",
+      "evidence": "API: slug='college-success' title='College Success' state='live'",
+      "error": null
+    },
+    "openstax_fundamentals_nursing": {
+      "url": "https://openstax.org/details/books/fundamentals-nursing",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "OpenStax CMS API",
+      "evidence": "API: slug='fundamentals-nursing' title='Fundamentals of Nursing' state='live'",
+      "error": null
+    },
+    "openstax_intro_python": {
+      "url": "https://openstax.org/details/books/introduction-python-programming",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "OpenStax CMS API",
+      "evidence": "API: slug='introduction-python-programming' title='Introduction to Python Programming' state='live'",
+      "error": null
+    },
+    "openstax_intro_statistics": {
+      "url": "https://openstax.org/details/books/introductory-statistics-2e",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "OpenStax CMS API",
+      "evidence": "API: slug='introductory-statistics-2e' title='Introductory Statistics 2e' state='live'",
+      "error": null
+    },
+    "openstax_med_surg": {
+      "url": "https://openstax.org/details/books/medical-surgical-nursing",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "OpenStax CMS API",
+      "evidence": "API: slug='medical-surgical-nursing' title='Medical-Surgical Nursing' state='live'",
+      "error": null
+    },
+    "openstax_org_behavior": {
+      "url": "https://openstax.org/details/books/organizational-behavior",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "OpenStax CMS API",
+      "evidence": "API: slug='organizational-behavior' title='Organizational Behavior' state='live'",
+      "error": null
+    },
+    "openstax_pharmacology": {
+      "url": "https://openstax.org/details/books/pharmacology",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "OpenStax CMS API",
+      "evidence": "API: slug='pharmacology' title='Pharmacology for Nurses' state='live'",
+      "error": null
+    },
+    "openstax_principles_management": {
+      "url": "https://openstax.org/details/books/principles-management",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "OpenStax CMS API",
+      "evidence": "API: slug='principles-management' title='Principles of Management' state='live'",
+      "error": null
+    },
+    "openstax_workplace_software": {
+      "url": "https://openstax.org/details/books/workplace-software-skills",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "OpenStax CMS API",
+      "evidence": "API: slug='workplace-software-skills' title='Workplace Software and Skills' state='live'",
+      "error": null
+    },
+    "openstax_writing_guide": {
+      "url": "https://openstax.org/details/books/writing-guide",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "OpenStax CMS API",
+      "evidence": "API: slug='writing-guide' title='Writing Guide with Handbook' state='live'",
+      "error": null
+    },
+    "openwa_intro_welding": {
+      "url": "https://openwa.pressbooks.pub/welding1/",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "page fetch",
+      "evidence": "HTTP 200; title='Introduction to Welding – Simple Book Publishing'",
+      "error": null,
+      "final_url": "https://openwa.pressbooks.pub/welding1/"
+    },
+    "osha_agricultural_operations": {
+      "url": "https://www.osha.gov/agricultural-operations",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "page fetch",
+      "evidence": "HTTP 200; title='Agricultural Operations - Overview | Occupational Safety and Health Administration'",
+      "error": null,
+      "final_url": "https://www.osha.gov/agricultural-operations"
+    },
+    "osha_electrical_safety": {
+      "url": "https://www.osha.gov/electrical",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "page fetch",
+      "evidence": "HTTP 200; title='Electrical - Overview | Occupational Safety and Health Administration'",
+      "error": null,
+      "final_url": "https://www.osha.gov/electrical"
+    },
+    "osha_forklift_etool": {
+      "url": "https://www.osha.gov/etools/powered-industrial-trucks",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "page fetch",
+      "evidence": "HTTP 200; title='eTool : Powered Industrial Trucks (Forklift) | Occupational Safety and Health Administration'",
+      "error": null,
+      "final_url": "https://www.osha.gov/etools/powered-industrial-trucks"
+    },
+    "osha_lockout_tagout": {
+      "url": "https://www.osha.gov/control-hazardous-energy",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "page fetch",
+      "evidence": "HTTP 200; title='Control of Hazardous Energy (Lockout/Tagout) - Overview | Occupational Safety and Health Administration'",
+      "error": null,
+      "final_url": "https://www.osha.gov/control-hazardous-energy"
+    },
+    "osha_outreach_10_hour": {
+      "url": "https://www.osha.gov/training/outreach",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "page fetch",
+      "evidence": "HTTP 200; title='Outreach Training Program | Occupational Safety and Health Administration'; text contains ['10-hour or 30-hour course completion card']",
+      "error": null,
+      "final_url": "https://www.osha.gov/training/outreach"
+    },
+    "osha_robotics_safety": {
+      "url": "https://www.osha.gov/robotics",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "page fetch",
+      "evidence": "HTTP 200; title='Robotics - Overview | Occupational Safety and Health Administration'",
+      "error": null,
+      "final_url": "https://www.osha.gov/robotics"
+    },
+    "osha_warehousing": {
+      "url": "https://www.osha.gov/warehousing",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "page fetch",
+      "evidence": "HTTP 200; title='Warehousing - Overview | Occupational Safety and Health Administration'",
+      "error": null,
+      "final_url": "https://www.osha.gov/warehousing"
+    },
+    "osha_welding_safety": {
+      "url": "https://www.osha.gov/welding-cutting-brazing",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "page fetch",
+      "evidence": "HTTP 200; title='Welding, Cutting, and Brazing - Overview | Occupational Safety and Health Administration'",
+      "error": null,
+      "final_url": "https://www.osha.gov/welding-cutting-brazing"
+    },
+    "pro_git": {
+      "url": "https://git-scm.com/book/en/v2",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "page fetch",
+      "evidence": "HTTP 200; title='Git'; text contains ['Pro Git']",
+      "error": null,
+      "final_url": "https://git-scm.com/book/en/v2"
+    },
+    "psu_nstmop": {
+      "url": "https://extension.psu.edu/national-safe-tractor-and-machinery-operation-program",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "page fetch",
+      "evidence": "HTTP 200; title='National Safe Tractor and Machinery Operation Program'; text contains ['24 hours of instruction']",
+      "error": null,
+      "final_url": "https://extension.psu.edu/national-safe-tractor-and-machinery-operation-program"
+    },
+    "py4e": {
+      "url": "https://www.py4e.com/",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "page fetch",
+      "evidence": "HTTP 200; title='PY4E - Python for Everybody'",
+      "error": null,
+      "final_url": "https://www.py4e.com/"
+    },
+    "python_tutorial": {
+      "url": "https://docs.python.org/3/tutorial/",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "page fetch",
+      "evidence": "HTTP 200; title='The Python Tutorial — Python 3.15.1 documentation'",
+      "error": null,
+      "final_url": "https://docs.python.org/3/tutorial/"
+    },
+    "redcross_cpr_first_aid": {
+      "url": "https://www.redcross.org/take-a-class",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "page fetch",
+      "evidence": "HTTP 200; title='Red Cross Training | Take a Class | Red Cross'",
+      "error": null,
+      "final_url": "https://www.redcross.org/take-a-class"
+    },
+    "ucipm_online_training": {
+      "url": "https://ipm.ucanr.edu/online-training/",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "page fetch",
+      "evidence": "HTTP 200; title='Online Training / Home and Landscape / UC Statewide IPM Program (UC IPM)'; text contains ['Courses may be accessed for free']",
+      "error": null,
+      "final_url": "https://ipm.ucanr.edu/online-training/"
+    },
+    "wistech_blueprint_reading": {
+      "url": "https://wtcs.pressbooks.pub/blueprintreading/",
+      "checked": "2026-10-24",
+      "matched": true,
+      "method": "page fetch",
+      "evidence": "HTTP 200; title='Blueprint Reading – Simple Book Publishing'",
+      "error": null,
+      "final_url": "https://wtcs.pressbooks.pub/blueprintreading/"
+    }
+  }
+}

@@ -24,7 +24,7 @@ Read alongside: `docs/research/*.md` (verified facts: design notes, UI library i
 | Python | 3.12 venv **outside OneDrive**: `C:/Users/MUTTA/.venvs/foothold/Scripts/python.exe` (env `FOOTHOLD_PY`; scripts fall back to `.venv/Scripts/python`) |
 | Web | `web/` Next.js 16 App Router, TS strict, Tailwind v4, shadcn. Dev server log: `.logs/web.log` |
 | API | `uvicorn main:app --app-dir api --reload --port 8000`. Log: `.logs/api.log`. Docs at `http://localhost:8000/docs` |
-| Env file | repo-root `.env` (gitignored): `OPENAI_API_KEY`, `OPENAI_MODEL`, `LLM_MODE` (auto/openai/mock), `DEMO_MODE` (0/1), `NEXT_PUBLIC_API_URL` |
+| Env file | repo-root `.env` (gitignored): `OPENAI_API_KEY`, `OPENAI_MODEL`, `OPENAI_FALLBACK_MODEL`, `OPENAI_REASONING_EFFORT`, `LLM_MODE` (auto/openai/mock), `DEMO_MODE` (0/1), `AUTH_SECRET`, `NEXT_PUBLIC_API_URL` |
 | Web → API | direct `fetch` to `NEXT_PUBLIC_API_URL` (default `http://localhost:8000`); API CORS allows `http://(localhost|127.0.0.1):\d+` |
 
 ## 3. Repo layout and ownership
@@ -72,7 +72,7 @@ Python imports: `api/` is on `sys.path` (uvicorn `--app-dir api`; ml scripts ins
 ## 4. Shared ids and vocabularies
 
 - **Careers (8, exact ids)**: `logistics_lead`, `registered_nurse`, `diesel_mechanic`, `welder`, `electrician`, `software_dev`, `farm_ops_manager`, `robotics_tech`.
-- **Traits (work styles)**: read from `data/processed/traits.json` — never hardcode. Ordered list of `{id, name, onet_element_id, short}`; ids are snake_case (expected: `achievement_effort, persistence, initiative, leadership, cooperation, concern_for_others, social_orientation, self_control, stress_tolerance, adaptability, dependability, attention_to_detail, integrity, independence, innovation, analytical_thinking`). Trait values are 0..1.
+- **Traits (work styles)**: read from `data/processed/traits.json` — never hardcode. O*NET **31.0** revised Work Styles to **21 elements** (ids `1.D.*`, scale WI "Work Styles Impact" −3..+3, plus DR distinctiveness rank); the classic 16 / IM scale no longer exists, so Foothold uses all 21 (see `docs/research/data-onet.md` §3). Ordered list of `{id, name, onet_element_id, group, short}` with snake_case ids: `innovation, achievement_orientation, intellectual_curiosity, tolerance_for_ambiguity, initiative, adaptability, self_confidence, perseverance, leadership_orientation, humility, sincerity, empathy, cooperation, optimism, social_orientation, cautiousness, attention_to_detail, dependability, integrity, stress_tolerance, self_control`. Trait values are 0..1 (normalized from WI; the method is documented in `data/SOURCES.md`).
 - **Sim stats**: `safety`, `output`, `team_trust`, `stress` (ints 0..100; start 70/50/50/20).
 - **Route types**: `cc_transfer`, `certificate`, `apprenticeship`, `direct_to_work`.
 - **Personas** (fictional): learners `maya`, `dev`, `luis`; employer `tri_valley_freight` ("Tri-Valley Freight", fictional).
@@ -141,9 +141,10 @@ LLMMeta = {source: "openai" | "cache" | "mock", model: str | None, ms: int}
 | `/circle` | SHEET 05 Circle | DWG-005 | circle slice |
 | `/lab` | SHEET 06 Lab | DWG-006 | lab slice |
 | `/about` | SHEET 07 About | DWG-007 | lab slice |
-| `/demo` | DEMO | DWG-008 | demo slice |
+| `/signin` | ACCESS | DWG-000-A | auth slice |
+| `/demo` (unlinked presenter page) | DEMO | DWG-008 | demo slice |
 
-Shared primitives (shell creates them in `web/src/components/foothold/`; everyone reuses, nobody forks): `SheetFrame`, `ChapterLabel`, `MonoLabel`, `TitleBlock` (footer: DWG, REV, SCALE, DRAWN BY, DATE), `RegistrationMarks`, `DimensionLine`, `ProvenanceBadge`, `FictionalTag`, `SourceLink`, `StatBar`, `TraitRadar`, `TracePanel` (consumes §6 events), `MetricValue` / `NotTrainedYet`, `ApiStatus`, `CommandPalette` (⌘K: sheets, persona, theme, demo), `ThemeToggle`, `PersonaProvider`/`usePersona`. `web/src/lib/api.ts` exports `getJSON`, `postJSON`, `streamSSE(path, body, onEvent, signal)`; every page degrades gracefully ("API offline") when the API is down.
+Shared primitives (shell creates them in `web/src/components/foothold/`; everyone reuses, nobody forks): `SheetFrame`, `ChapterLabel`, `MonoLabel`, `TitleBlock` (footer: DWG, REV, SCALE, DRAWN BY, DATE), `RegistrationMarks`, `DimensionLine`, `ProvenanceBadge`, `FictionalTag`, `SourceLink`, `StatBar`, `TraitRadar`, `TracePanel` (consumes §6 events), `MetricValue` / `NotTrainedYet`, `ThemeToggle`. **No ⌘K command palette, no API-status indicator, no persona dropdown** (user decision; see §13 for accounts). `web/src/lib/api.ts` exports `getJSON`, `postJSON`, `streamSSE(path, body, onEvent, signal)`; every page degrades gracefully ("API offline") when the API is down.
 
 Theme: `data-theme="dark" | "light"` on `<html>` (default dark, persisted, no flash), tokens as CSS custom properties mapped into Tailwind v4 `@theme`. Accessibility: keyboard reachable, visible focus, labels, AA contrast in both themes, `prefers-reduced-motion` respected.
 
@@ -167,3 +168,28 @@ Each script read-merge-writes only its own top-level key, and always includes `s
 - Web: `cd web && npx tsc --noEmit` and `npx eslint <your files>`; then `curl -s -o /dev/null -w "%{http_code}" http://localhost:<web-port>/<route>` → 200, and check `.logs/web.log` for errors after your change.
 - API: `$FOOTHOLD_PY -m pytest api/tests -q`; `curl http://localhost:8000/...` (server reloads on save).
 - ML: scripts must finish in minutes on CPU with fixed seeds.
+
+## 12. Research reconciliations (orchestrator, after the research sweep)
+
+- **OpenAI**: `OPENAI_MODEL=gpt-6-luna` (OpenAI's current cost-sensitive / high-volume model per its docs), `OPENAI_FALLBACK_MODEL=gpt-5.6-luna`, `OPENAI_REASONING_EFFORT=low`. Use `client.responses.parse(model=..., instructions=..., input=..., text_format=PydanticModel, reasoning={"effort": ...}, max_output_tokens=...)` and read `.output_parsed`. Never send `temperature`/`top_p`. Pydantic schemas: every field required (optional = `X | None` with no default). Key check passed (HTTP 200) on 2026-10-24. See `docs/research/stack.md` §1.
+- **Provenance mapping**: research files use `DERIVED` (computed from official numbers, e.g. per-term fee × terms) → display as `REAL` with a note "derived from <source>"; `NOT_READ`/unverified → `SAMPLE` with the verify URL. Only REAL/SAMPLE/SYNTHETIC/FICTIONAL reach the UI.
+- **Wages**: CA EDD OEWS (2026 Q1 wages, Stockton–Lodi MSA) because every BLS host blocks scripted requests; cite as "CA EDD OEWS, 2026 Q1". 17-3024 (robotics tech) has no Stockton–Lodi row → show the labeled Sacramento/statewide fallback. Small-sample codes (11-9013, 49-3041) get a note.
+- **logistics_lead**: O*NET profile = 11-3071.00 (Transportation, Storage, and Distribution Managers); local wage = OEWS 53-1047 (first-line supervisors of transportation/material moving) — disclose the mismatch in the UI tooltip.
+- **Program Pathways Mapper**: link only the hosts verified in `docs/research/stats.md` / `data-wages-programs.md` (e.g. Delta College and Modesto JC mapper pages); never copy their content.
+- **Crisis copy**: show the verified 988 sentence from `docs/research/stats.md` (call or text 988); adding "If you're in immediate danger, call 911" is allowed; never claim confidentiality on Foothold's behalf.
+- **PyTorch 2.14**: `torch.load` defaults to `weights_only=True` → save `state_dict` + a JSON sidecar (dims, trait order, transforms, seed) and rebuild the module at load time. CPU only, full-batch PyG (no pyg-lib/torch-scatter).
+- **Server**: uvicorn single worker (SQLite), `--reload`; run CP-SAT solves and torch inference via `asyncio.to_thread` inside async handlers.
+- **shadcn**: initialized with style `radix-nova` (Radix base) — required by Watermelon items that use `asChild`. Theme stays `data-theme` on `<html>`; map Tailwind's `dark:` variant with `@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));`.
+- **recharts**: Watermelon's medesk dashboard pins recharts 2.15.4 while shadcn `chart` uses recharts 3.x — install one version only and adapt the other component.
+
+## 13. Accounts and per-tab sessions (user requirement; supersedes persona switching)
+
+- The user presents by **switching browser tabs, each signed into a different account**. So: real sign-in, **per-tab sessions** (token in `sessionStorage`, never cookies/localStorage, so tabs don't overwrite each other; survives reload), no persona dropdown, no ⌘K palette, no API-status indicator. It must look like a real product.
+- Demo accounts (all FICTIONAL): learners `maya`, `dev`, `luis`; employer `tri_valley_freight` ("Tri-Valley Freight"). Email logins on reserved example domains (example.com / example.org); a demo password per account; passwords hashed with stdlib PBKDF2/scrypt in an SQLite `accounts` table seeded at API startup (from `data/processed/personas.json` when present, else built-in defaults).
+- API: `POST /api/auth/login {email, password}` -> `{token, account}`; `GET /api/auth/me`; `POST /api/auth/logout`. Token = HMAC-SHA256-signed payload (stdlib `hmac`/`hashlib`), secret `AUTH_SECRET` from `.env`, 12 h expiry. `foothold.auth.current_account` FastAPI dependency (`Authorization: Bearer <token>`), `foothold.auth.require_kind("learner"|"employer")`, plus `optional_account` for public endpoints.
+- Account shape: `{id, kind: "learner"|"employer", display_name, persona_id, email, initials, org?}`.
+- Authorization: endpoints acting for a user take identity from the token, never from body params (consent requests carry the employer from the token; inbox + accept/decline only for the learner who owns the card; contact reveal only for the employer whose request that learner accepted).
+- Web: `web/src/components/auth/` (`AuthProvider`, `useAccount()`, `AccountSlot` = account menu with initials, name, role and Sign out, `RequireAccount kind=...` guard with a tasteful signed-out state), `/signin` page, `web/src/lib/auth.ts` (sessionStorage token helpers). `lib/api.ts` attaches `Authorization` automatically when a token exists.
+- Navigation adapts to the account: learners see SIM / PATH / GRAPH / CIRCLE / INBOX; employers see EMPLOYERS (postings, talent, consent requests, fairness, gap report); LAB and ABOUT are public; signed-out visitors see the landing, LAB, ABOUT and "Sign in".
+- Live cross-tab moments: the learner inbox and employer views poll every ~4 s, so a consent request sent from the employer tab appears in the learner's tab (with a subtle notification) without a reload, and acceptance unlocks the card in the employer tab.
+- `/demo` becomes an unlinked presenter page (run of show, which tab is signed into which account, demo-mode status); the audience never sees it. `DEMO_MODE=1` (cached LLM responses) still protects the golden path.

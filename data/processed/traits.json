@@ -1,0 +1,212 @@
+[
+  {
+    "id": "innovation",
+    "name": "Innovation",
+    "onet_element_id": "1.D.1.a",
+    "group": "Proactive and Growth Oriented",
+    "group_id": "1.D.1",
+    "short": "A tendency to be inventive, to be imaginative, and to adopt new perspectives on ways to accomplish work.",
+    "credit": "From the O*NET 31.0 Database by USDOL/ETA, used under CC BY 4.0.",
+    "source_id": "onet_31_0"
+  },
+  {
+    "id": "achievement_orientation",
+    "name": "Achievement Orientation",
+    "onet_element_id": "1.D.1.b",
+    "group": "Proactive and Growth Oriented",
+    "group_id": "1.D.1",
+    "short": "A tendency to establish and maintain personally challenging work-related goals, set high work-related standards, and exert high effort toward meeting those goals and standards.",
+    "credit": "From the O*NET 31.0 Database by USDOL/ETA, used under CC BY 4.0.",
+    "source_id": "onet_31_0"
+  },
+  {
+    "id": "intellectual_curiosity",
+    "name": "Intellectual Curiosity",
+    "onet_element_id": "1.D.1.c",
+    "group": "Proactive and Growth Oriented",
+    "group_id": "1.D.1",
+    "short": "A tendency to seek out and acquire new work-related knowledge and obtain a deep understanding of work-related subjects.",
+    "credit": "From the O*NET 31.0 Database by USDOL/ETA, used under CC BY 4.0.",
+    "source_id": "onet_31_0"
+  },
+  {
+    "id": "tolerance_for_ambiguity",
+    "name": "Tolerance for Ambiguity",
+    "onet_element_id": "1.D.1.d",
+    "group": "Proactive and Growth Oriented",
+    "group_id": "1.D.1",
+    "short": "A tendency to be comfortable with ambiguity and uncertainty at work.",
+    "credit": "From the O*NET 31.0 Database by USDOL/ETA, used under CC BY 4.0.",
+    "source_id": "onet_31_0"
+  },
+  {
+    "id": "initiative",
+    "name": "Initiative",
+    "onet_element_id": "1.D.1.e",
+    "group": "Proactive and Growth Oriented",
+    "group_id": "1.D.1",
+    "short": "A tendency to be proactive and take on extra responsibilities and tasks that may fall outside of one's required work role.",
+    "credit": "From the O*NET 31.0 Database by USDOL/ETA, used under CC BY 4.0.",
+    "source_id": "onet_31_0"
+  },
+  {
+    "id": "adaptability",
+    "name": "Adaptability",
+    "onet_element_id": "1.D.1.f",
+    "group": "Proactive and Growth Oriented",
+    "group_id": "1.D.1",
+    "short": "A tendency to be open to and comfortable with change, new experiences, or ideas at work.",
+    "credit": "From the O*NET 31.0 Database by USDOL/ETA, used under CC BY 4.0.",
+    "source_id": "onet_31_0"
+  },
+  {
+    "id": "self_confidence",
+    "name": "Self-Confidence",
+    "onet_element_id": "1.D.1.g",
+    "group": "Proactive and Growth Oriented",
+    "group_id": "1.D.1",
+    "short": "A tendency to believe in one's work-related capabilities and ability to control one's work-related outcomes.",
+    "credit": "From the O*NET 31.0 Database by USDOL/ETA, used under CC BY 4.0.",
+    "source_id": "onet_31_0"
+  },
+  {
+    "id": "perseverance",
+    "name": "Perseverance",
+    "onet_element_id": "1.D.1.h",
+    "group": "Proactive and Growth Oriented",
+    "group_id": "1.D.1",
+    "short": "A tendency to exhibit determination and resolve to perform or complete tasks in the face of difficult circumstances or obstacles at work.",
+    "credit": "From the O*NET 31.0 Database by USDOL/ETA, used under CC BY 4.0.",
+    "source_id": "onet_31_0"
+  },
+  {
+    "id": "leadership_orientation",
+    "name": "Leadership Orientation",
+    "onet_element_id": "1.D.1.i",
+    "group": "Proactive and Growth Oriented",
+    "group_id": "1.D.1",
+    "short": "A tendency to lead, take charge, offer opinions, and provide direction at work.",
+    "credit": "From the O*NET 31.0 Database by USDOL/ETA, used under CC BY 4.0.",
+    "source_id": "onet_31_0"
+  },
+  {
+    "id": "humility",
+    "name": "Humility",
+    "onet_element_id": "1.D.2.a",
+    "group": "Interpersonally Oriented",
+    "group_id": "1.D.2",
+    "short": "A tendency to be modest and humble when interacting with others at work.",
+    "credit": "From the O*NET 31.0 Database by USDOL/ETA, used under CC BY 4.0.",
+    "source_id": "onet_31_0"
+  },
+  {
+    "id": "sincerity",
+    "name": "Sincerity",
+    "onet_element_id": "1.D.2.b",
+    "group": "Interpersonally Oriented",
+    "group_id": "1.D.2",
+    "short": "A tendency to be genuine and sincere in interactions with others at work, without concern for personal gain or self-interest.",
+    "credit": "From the O*NET 31.0 Database by USDOL/ETA, used under CC BY 4.0.",
+    "source_id": "onet_31_0"
+  },
+  {
+    "id": "empathy",
+    "name": "Empathy",
+    "onet_element_id": "1.D.2.c",
+    "group": "Interpersonally Oriented",
+    "group_id": "1.D.2",
+    "short": "A tendency to show concern for others and be sensitive to others' needs and feelings at work.",
+    "credit": "From the O*NET 31.0 Database by USDOL/ETA, used under CC BY 4.0.",
+    "source_id": "onet_31_0"
+  },
+  {
+    "id": "cooperation",
+    "name": "Cooperation",
+    "onet_element_id": "1.D.2.d",
+    "group": "Interpersonally Oriented",
+    "group_id": "1.D.2",
+    "short": "A tendency to be pleasant, helpful, and willing to assist others at work.",
+    "credit": "From the O*NET 31.0 Database by USDOL/ETA, used under CC BY 4.0.",
+    "source_id": "onet_31_0"
+  },
+  {
+    "id": "optimism",
+    "name": "Optimism",
+    "onet_element_id": "1.D.2.e",
+    "group": "Interpersonally Oriented",
+    "group_id": "1.D.2",
+    "short": "A tendency to exhibit a positive attitude and positive emotions at work, even under difficult circumstances.",
+    "credit": "From the O*NET 31.0 Database by USDOL/ETA, used under CC BY 4.0.",
+    "source_id": "onet_31_0"
+  },
+  {
+    "id": "social_orientation",
+    "name": "Social Orientation",
+    "onet_element_id": "1.D.2.f",
+    "group": "Interpersonally Oriented",
+    "group_id": "1.D.2",
+    "short": "A tendency to seek out, enjoy, and be energized by social interaction at work.",
+    "credit": "From the O*NET 31.0 Database by USDOL/ETA, used under CC BY 4.0.",
+    "source_id": "onet_31_0"
+  },
+  {
+    "id": "cautiousness",
+    "name": "Cautiousness",
+    "onet_element_id": "1.D.3.a",
+    "group": "Conscientious and Rule Oriented",
+    "group_id": "1.D.3",
+    "short": "A tendency to be careful, deliberate, and risk-avoidant when making work-related decisions or doing work.",
+    "credit": "From the O*NET 31.0 Database by USDOL/ETA, used under CC BY 4.0.",
+    "source_id": "onet_31_0"
+  },
+  {
+    "id": "attention_to_detail",
+    "name": "Attention to Detail",
+    "onet_element_id": "1.D.3.b",
+    "group": "Conscientious and Rule Oriented",
+    "group_id": "1.D.3",
+    "short": "A tendency to be detail-oriented, organized, and thorough in completing work.",
+    "credit": "From the O*NET 31.0 Database by USDOL/ETA, used under CC BY 4.0.",
+    "source_id": "onet_31_0"
+  },
+  {
+    "id": "dependability",
+    "name": "Dependability",
+    "onet_element_id": "1.D.3.c",
+    "group": "Conscientious and Rule Oriented",
+    "group_id": "1.D.3",
+    "short": "A tendency to be reliable, responsible, and consistent in meeting work-related obligations.",
+    "credit": "From the O*NET 31.0 Database by USDOL/ETA, used under CC BY 4.0.",
+    "source_id": "onet_31_0"
+  },
+  {
+    "id": "integrity",
+    "name": "Integrity",
+    "onet_element_id": "1.D.3.d",
+    "group": "Conscientious and Rule Oriented",
+    "group_id": "1.D.3",
+    "short": "A tendency to be honest and ethical at work.",
+    "credit": "From the O*NET 31.0 Database by USDOL/ETA, used under CC BY 4.0.",
+    "source_id": "onet_31_0"
+  },
+  {
+    "id": "stress_tolerance",
+    "name": "Stress Tolerance",
+    "onet_element_id": "1.D.4.a",
+    "group": "Emotionally Resilient",
+    "group_id": "1.D.4",
+    "short": "A tendency to cope and function effectively in stressful situations at work.",
+    "credit": "From the O*NET 31.0 Database by USDOL/ETA, used under CC BY 4.0.",
+    "source_id": "onet_31_0"
+  },
+  {
+    "id": "self_control",
+    "name": "Self-Control",
+    "onet_element_id": "1.D.4.b",
+    "group": "Emotionally Resilient",
+    "group_id": "1.D.4",
+    "short": "A tendency to remain calm and composed and to manage emotions effectively in response to criticism or difficult situations at work.",
+    "credit": "From the O*NET 31.0 Database by USDOL/ETA, used under CC BY 4.0.",
+    "source_id": "onet_31_0"
+  }
+]

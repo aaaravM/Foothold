@@ -1,0 +1,939 @@
+[
+  {
+    "id": "warehouse_associate",
+    "title": "Warehouse Associate",
+    "career_id": "logistics_lead",
+    "level": "entry",
+    "required_skills": [
+      "osha_safety",
+      "coordination",
+      "monitoring",
+      "time_management"
+    ],
+    "leads_to": [
+      "forklift_operator",
+      "inventory_control_specialist"
+    ],
+    "onet_soc": "53-7062.00",
+    "onet_title": "Laborers and Freight, Stock, and Material Movers, Hand",
+    "verify_url": "https://www.onetonline.org/link/summary/53-7062.00",
+    "status": "SAMPLE",
+    "source_id": "foothold_taxonomy"
+  },
+  {
+    "id": "forklift_operator",
+    "title": "Forklift Operator",
+    "career_id": "logistics_lead",
+    "level": "entry",
+    "required_skills": [
+      "forklift_safety",
+      "osha_safety",
+      "operation_and_control",
+      "operations_monitoring"
+    ],
+    "leads_to": [
+      "warehouse_shift_lead"
+    ],
+    "onet_soc": "53-7051.00",
+    "onet_title": "Industrial Truck and Tractor Operators",
+    "verify_url": "https://www.onetonline.org/link/summary/53-7051.00",
+    "status": "SAMPLE",
+    "source_id": "foothold_taxonomy"
+  },
+  {
+    "id": "inventory_control_specialist",
+    "title": "Inventory Control Specialist",
+    "career_id": "logistics_lead",
+    "level": "entry",
+    "required_skills": [
+      "inventory_systems",
+      "spreadsheets",
+      "quality_control_analysis",
+      "mathematics"
+    ],
+    "leads_to": [
+      "warehouse_shift_lead",
+      "logistics_coordinator"
+    ],
+    "onet_soc": "43-5071.00",
+    "onet_title": "Shipping, Receiving, and Inventory Clerks",
+    "verify_url": "https://www.onetonline.org/link/summary/43-5071.00",
+    "status": "SAMPLE",
+    "source_id": "foothold_taxonomy"
+  },
+  {
+    "id": "warehouse_shift_lead",
+    "title": "Warehouse Shift Lead",
+    "career_id": "logistics_lead",
+    "level": "mid",
+    "required_skills": [
+      "management_of_personnel_resources",
+      "coordination",
+      "instructing",
+      "forklift_safety",
+      "inventory_systems"
+    ],
+    "leads_to": [
+      "distribution_operations_manager"
+    ],
+    "onet_soc": "53-1042.00",
+    "onet_title": "First-Line Supervisors of Helpers, Laborers, and Material Movers, Hand",
+    "verify_url": "https://www.onetonline.org/link/summary/53-1042.00",
+    "status": "SAMPLE",
+    "source_id": "foothold_taxonomy"
+  },
+  {
+    "id": "logistics_coordinator",
+    "title": "Logistics Coordinator",
+    "career_id": "logistics_lead",
+    "level": "mid",
+    "required_skills": [
+      "shipping_receiving",
+      "spreadsheets",
+      "coordination",
+      "complex_problem_solving",
+      "writing"
+    ],
+    "leads_to": [
+      "distribution_operations_manager"
+    ],
+    "onet_soc": "13-1081.00",
+    "onet_title": "Logisticians",
+    "verify_url": "https://www.onetonline.org/link/summary/13-1081.00",
+    "status": "SAMPLE",
+    "source_id": "foothold_taxonomy"
+  },
+  {
+    "id": "distribution_operations_manager",
+    "title": "Distribution Operations Manager",
+    "career_id": "logistics_lead",
+    "level": "senior",
+    "required_skills": [
+      "management_of_personnel_resources",
+      "management_of_financial_resources",
+      "management_of_material_resources",
+      "judgment_and_decision_making",
+      "negotiation",
+      "systems_evaluation"
+    ],
+    "leads_to": [],
+    "onet_soc": "11-3071.00",
+    "onet_title": "Transportation, Storage, and Distribution Managers",
+    "verify_url": "https://www.onetonline.org/link/summary/11-3071.00",
+    "status": "SAMPLE",
+    "source_id": "foothold_taxonomy"
+  },
+  {
+    "id": "certified_nursing_assistant",
+    "title": "Certified Nursing Assistant",
+    "career_id": "registered_nurse",
+    "level": "entry",
+    "required_skills": [
+      "infection_control",
+      "bls_cpr",
+      "service_orientation",
+      "social_perceptiveness",
+      "active_listening"
+    ],
+    "leads_to": [
+      "licensed_vocational_nurse",
+      "registered_nurse_med_surg"
+    ],
+    "onet_soc": "31-1131.00",
+    "onet_title": "Nursing Assistants",
+    "verify_url": "https://www.onetonline.org/link/summary/31-1131.00",
+    "status": "SAMPLE",
+    "source_id": "foothold_taxonomy"
+  },
+  {
+    "id": "medical_assistant",
+    "title": "Medical Assistant",
+    "career_id": "registered_nurse",
+    "level": "entry",
+    "required_skills": [
+      "ehr_charting",
+      "infection_control",
+      "patient_assessment",
+      "service_orientation",
+      "speaking"
+    ],
+    "leads_to": [
+      "licensed_vocational_nurse"
+    ],
+    "onet_soc": "31-9092.00",
+    "onet_title": "Medical Assistants",
+    "verify_url": "https://www.onetonline.org/link/summary/31-9092.00",
+    "status": "SAMPLE",
+    "source_id": "foothold_taxonomy"
+  },
+  {
+    "id": "licensed_vocational_nurse",
+    "title": "Licensed Vocational Nurse",
+    "career_id": "registered_nurse",
+    "level": "mid",
+    "required_skills": [
+      "medication_safety",
+      "patient_assessment",
+      "infection_control",
+      "ehr_charting",
+      "monitoring"
+    ],
+    "leads_to": [
+      "registered_nurse_med_surg"
+    ],
+    "onet_soc": "29-2061.00",
+    "onet_title": "Licensed Practical and Licensed Vocational Nurses",
+    "verify_url": "https://www.onetonline.org/link/summary/29-2061.00",
+    "status": "SAMPLE",
+    "source_id": "foothold_taxonomy"
+  },
+  {
+    "id": "registered_nurse_med_surg",
+    "title": "Registered Nurse (Medical-Surgical)",
+    "career_id": "registered_nurse",
+    "level": "mid",
+    "required_skills": [
+      "patient_assessment",
+      "medication_safety",
+      "ehr_charting",
+      "critical_thinking",
+      "coordination",
+      "judgment_and_decision_making"
+    ],
+    "leads_to": [
+      "charge_nurse"
+    ],
+    "onet_soc": "29-1141.00",
+    "onet_title": "Registered Nurses",
+    "verify_url": "https://www.onetonline.org/link/summary/29-1141.00",
+    "status": "SAMPLE",
+    "source_id": "foothold_taxonomy"
+  },
+  {
+    "id": "charge_nurse",
+    "title": "Charge Nurse",
+    "career_id": "registered_nurse",
+    "level": "senior",
+    "required_skills": [
+      "management_of_personnel_resources",
+      "coordination",
+      "judgment_and_decision_making",
+      "instructing",
+      "time_management",
+      "patient_assessment"
+    ],
+    "leads_to": [],
+    "onet_soc": "29-1141.00",
+    "onet_title": "Registered Nurses",
+    "verify_url": "https://www.onetonline.org/link/summary/29-1141.00",
+    "status": "SAMPLE",
+    "source_id": "foothold_taxonomy"
+  },
+  {
+    "id": "lube_pm_technician",
+    "title": "Lube and Preventive Maintenance Technician",
+    "career_id": "diesel_mechanic",
+    "level": "entry",
+    "required_skills": [
+      "equipment_maintenance",
+      "osha_safety",
+      "operations_monitoring",
+      "reading_comprehension"
+    ],
+    "leads_to": [
+      "diesel_technician_trainee"
+    ],
+    "onet_soc": "49-3031.00",
+    "onet_title": "Bus and Truck Mechanics and Diesel Engine Specialists",
+    "verify_url": "https://www.onetonline.org/link/summary/49-3031.00",
+    "status": "SAMPLE",
+    "source_id": "foothold_taxonomy"
+  },
+  {
+    "id": "diesel_technician_trainee",
+    "title": "Diesel Technician Trainee",
+    "career_id": "diesel_mechanic",
+    "level": "entry",
+    "required_skills": [
+      "equipment_maintenance",
+      "repairing",
+      "air_brakes",
+      "hydraulics",
+      "lockout_tagout"
+    ],
+    "leads_to": [
+      "diesel_technician",
+      "heavy_equipment_mechanic",
+      "farm_equipment_technician"
+    ],
+    "onet_soc": "49-3031.00",
+    "onet_title": "Bus and Truck Mechanics and Diesel Engine Specialists",
+    "verify_url": "https://www.onetonline.org/link/summary/49-3031.00",
+    "status": "SAMPLE",
+    "source_id": "foothold_taxonomy"
+  },
+  {
+    "id": "diesel_technician",
+    "title": "Diesel Technician",
+    "career_id": "diesel_mechanic",
+    "level": "mid",
+    "required_skills": [
+      "diesel_diagnostics",
+      "troubleshooting",
+      "repairing",
+      "air_brakes",
+      "hydraulics"
+    ],
+    "leads_to": [
+      "diesel_shop_foreman"
+    ],
+    "onet_soc": "49-3031.00",
+    "onet_title": "Bus and Truck Mechanics and Diesel Engine Specialists",
+    "verify_url": "https://www.onetonline.org/link/summary/49-3031.00",
+    "status": "SAMPLE",
+    "source_id": "foothold_taxonomy"
+  },
+  {
+    "id": "heavy_equipment_mechanic",
+    "title": "Heavy Equipment Mechanic",
+    "career_id": "diesel_mechanic",
+    "level": "mid",
+    "required_skills": [
+      "hydraulics",
+      "diesel_diagnostics",
+      "troubleshooting",
+      "repairing",
+      "equipment_maintenance"
+    ],
+    "leads_to": [
+      "diesel_shop_foreman"
+    ],
+    "onet_soc": "49-3042.00",
+    "onet_title": "Mobile Heavy Equipment Mechanics, Except Engines",
+    "verify_url": "https://www.onetonline.org/link/summary/49-3042.00",
+    "status": "SAMPLE",
+    "source_id": "foothold_taxonomy"
+  },
+  {
+    "id": "farm_equipment_technician",
+    "title": "Farm Equipment Service Technician",
+    "career_id": "diesel_mechanic",
+    "level": "mid",
+    "required_skills": [
+      "hydraulics",
+      "ag_equipment_operation",
+      "troubleshooting",
+      "repairing",
+      "diesel_diagnostics"
+    ],
+    "leads_to": [
+      "diesel_shop_foreman"
+    ],
+    "onet_soc": "49-3041.00",
+    "onet_title": "Farm Equipment Mechanics and Service Technicians",
+    "verify_url": "https://www.onetonline.org/link/summary/49-3041.00",
+    "status": "SAMPLE",
+    "source_id": "foothold_taxonomy"
+  },
+  {
+    "id": "diesel_shop_foreman",
+    "title": "Diesel Shop Foreman",
+    "career_id": "diesel_mechanic",
+    "level": "senior",
+    "required_skills": [
+      "management_of_personnel_resources",
+      "diesel_diagnostics",
+      "instructing",
+      "quality_control_analysis",
+      "time_management"
+    ],
+    "leads_to": [],
+    "onet_soc": "49-1011.00",
+    "onet_title": "First-Line Supervisors of Mechanics, Installers, and Repairers",
+    "verify_url": "https://www.onetonline.org/link/summary/49-1011.00",
+    "status": "SAMPLE",
+    "source_id": "foothold_taxonomy"
+  },
+  {
+    "id": "welder_helper",
+    "title": "Welder Helper",
+    "career_id": "welder",
+    "level": "entry",
+    "required_skills": [
+      "osha_safety",
+      "equipment_maintenance",
+      "monitoring",
+      "mathematics"
+    ],
+    "leads_to": [
+      "production_welder"
+    ],
+    "onet_soc": "51-9198.00",
+    "onet_title": "Helpers--Production Workers",
+    "verify_url": "https://www.onetonline.org/link/summary/51-9198.00",
+    "status": "SAMPLE",
+    "source_id": "foothold_taxonomy"
+  },
+  {
+    "id": "production_welder",
+    "title": "Production Welder",
+    "career_id": "welder",
+    "level": "entry",
+    "required_skills": [
+      "mig_welding",
+      "blueprint_reading",
+      "quality_control_analysis",
+      "osha_safety"
+    ],
+    "leads_to": [
+      "structural_welder",
+      "fabricator_fitter",
+      "tig_welder"
+    ],
+    "onet_soc": "51-4121.00",
+    "onet_title": "Welders, Cutters, Solderers, and Brazers",
+    "verify_url": "https://www.onetonline.org/link/summary/51-4121.00",
+    "status": "SAMPLE",
+    "source_id": "foothold_taxonomy"
+  },
+  {
+    "id": "structural_welder",
+    "title": "Structural Welder",
+    "career_id": "welder",
+    "level": "mid",
+    "required_skills": [
+      "stick_welding",
+      "mig_welding",
+      "blueprint_reading",
+      "quality_control_analysis",
+      "mathematics"
+    ],
+    "leads_to": [
+      "weld_inspector"
+    ],
+    "onet_soc": "51-4121.00",
+    "onet_title": "Welders, Cutters, Solderers, and Brazers",
+    "verify_url": "https://www.onetonline.org/link/summary/51-4121.00",
+    "status": "SAMPLE",
+    "source_id": "foothold_taxonomy"
+  },
+  {
+    "id": "fabricator_fitter",
+    "title": "Metal Fabricator and Fitter",
+    "career_id": "welder",
+    "level": "mid",
+    "required_skills": [
+      "blueprint_reading",
+      "mig_welding",
+      "mathematics",
+      "equipment_selection",
+      "operation_and_control"
+    ],
+    "leads_to": [
+      "weld_inspector"
+    ],
+    "onet_soc": "51-2041.00",
+    "onet_title": "Structural Metal Fabricators and Fitters",
+    "verify_url": "https://www.onetonline.org/link/summary/51-2041.00",
+    "status": "SAMPLE",
+    "source_id": "foothold_taxonomy"
+  },
+  {
+    "id": "tig_welder",
+    "title": "TIG Welder (Precision and Stainless)",
+    "career_id": "welder",
+    "level": "mid",
+    "required_skills": [
+      "tig_welding",
+      "blueprint_reading",
+      "quality_control_analysis",
+      "monitoring"
+    ],
+    "leads_to": [
+      "weld_inspector"
+    ],
+    "onet_soc": "51-4121.00",
+    "onet_title": "Welders, Cutters, Solderers, and Brazers",
+    "verify_url": "https://www.onetonline.org/link/summary/51-4121.00",
+    "status": "SAMPLE",
+    "source_id": "foothold_taxonomy"
+  },
+  {
+    "id": "weld_inspector",
+    "title": "Weld Quality Inspector",
+    "career_id": "welder",
+    "level": "senior",
+    "required_skills": [
+      "quality_control_analysis",
+      "blueprint_reading",
+      "writing",
+      "instructing",
+      "monitoring"
+    ],
+    "leads_to": [],
+    "onet_soc": "51-9061.00",
+    "onet_title": "Inspectors, Testers, Sorters, Samplers, and Weighers",
+    "verify_url": "https://www.onetonline.org/link/summary/51-9061.00",
+    "status": "SAMPLE",
+    "source_id": "foothold_taxonomy"
+  },
+  {
+    "id": "electrical_helper",
+    "title": "Electrical Helper",
+    "career_id": "electrician",
+    "level": "entry",
+    "required_skills": [
+      "osha_safety",
+      "lockout_tagout",
+      "conduit_bending",
+      "coordination"
+    ],
+    "leads_to": [
+      "electrician_trainee"
+    ],
+    "onet_soc": "47-3013.00",
+    "onet_title": "Helpers--Electricians",
+    "verify_url": "https://www.onetonline.org/link/summary/47-3013.00",
+    "status": "SAMPLE",
+    "source_id": "foothold_taxonomy"
+  },
+  {
+    "id": "solar_pv_installer",
+    "title": "Solar PV Installer",
+    "career_id": "electrician",
+    "level": "entry",
+    "required_skills": [
+      "electrical_theory",
+      "installation",
+      "osha_safety",
+      "nec_code_basics"
+    ],
+    "leads_to": [
+      "electrician_trainee"
+    ],
+    "onet_soc": "47-2231.00",
+    "onet_title": "Solar Photovoltaic Installers",
+    "verify_url": "https://www.onetonline.org/link/summary/47-2231.00",
+    "status": "SAMPLE",
+    "source_id": "foothold_taxonomy"
+  },
+  {
+    "id": "electrician_trainee",
+    "title": "Electrician Trainee (Apprentice)",
+    "career_id": "electrician",
+    "level": "entry",
+    "required_skills": [
+      "electrical_theory",
+      "nec_code_basics",
+      "conduit_bending",
+      "blueprint_reading",
+      "lockout_tagout",
+      "mathematics"
+    ],
+    "leads_to": [
+      "journey_electrician",
+      "industrial_maintenance_electrician"
+    ],
+    "onet_soc": "47-2111.00",
+    "onet_title": "Electricians",
+    "verify_url": "https://www.onetonline.org/link/summary/47-2111.00",
+    "status": "SAMPLE",
+    "source_id": "foothold_taxonomy"
+  },
+  {
+    "id": "journey_electrician",
+    "title": "Journey-Level Electrician",
+    "career_id": "electrician",
+    "level": "mid",
+    "required_skills": [
+      "nec_code_basics",
+      "installation",
+      "troubleshooting",
+      "blueprint_reading",
+      "electrical_theory"
+    ],
+    "leads_to": [
+      "electrical_foreman"
+    ],
+    "onet_soc": "47-2111.00",
+    "onet_title": "Electricians",
+    "verify_url": "https://www.onetonline.org/link/summary/47-2111.00",
+    "status": "SAMPLE",
+    "source_id": "foothold_taxonomy"
+  },
+  {
+    "id": "industrial_maintenance_electrician",
+    "title": "Industrial Maintenance Electrician",
+    "career_id": "electrician",
+    "level": "mid",
+    "required_skills": [
+      "troubleshooting",
+      "plc_basics",
+      "electrical_theory",
+      "lockout_tagout",
+      "repairing"
+    ],
+    "leads_to": [
+      "electrical_foreman",
+      "controls_lead"
+    ],
+    "onet_soc": "49-9071.00",
+    "onet_title": "Maintenance and Repair Workers, General",
+    "verify_url": "https://www.onetonline.org/link/summary/49-9071.00",
+    "status": "SAMPLE",
+    "source_id": "foothold_taxonomy"
+  },
+  {
+    "id": "electrical_foreman",
+    "title": "Electrical Foreman",
+    "career_id": "electrician",
+    "level": "senior",
+    "required_skills": [
+      "management_of_personnel_resources",
+      "nec_code_basics",
+      "coordination",
+      "judgment_and_decision_making",
+      "blueprint_reading"
+    ],
+    "leads_to": [],
+    "onet_soc": "47-1011.00",
+    "onet_title": "First-Line Supervisors of Construction Trades and Extraction Workers",
+    "verify_url": "https://www.onetonline.org/link/summary/47-1011.00",
+    "status": "SAMPLE",
+    "source_id": "foothold_taxonomy"
+  },
+  {
+    "id": "it_support_technician",
+    "title": "IT Support Technician",
+    "career_id": "software_dev",
+    "level": "entry",
+    "required_skills": [
+      "troubleshooting",
+      "service_orientation",
+      "active_listening",
+      "installation",
+      "writing"
+    ],
+    "leads_to": [
+      "junior_web_developer",
+      "qa_test_analyst"
+    ],
+    "onet_soc": "15-1232.00",
+    "onet_title": "Computer User Support Specialists",
+    "verify_url": "https://www.onetonline.org/link/summary/15-1232.00",
+    "status": "SAMPLE",
+    "source_id": "foothold_taxonomy"
+  },
+  {
+    "id": "junior_web_developer",
+    "title": "Junior Web Developer",
+    "career_id": "software_dev",
+    "level": "entry",
+    "required_skills": [
+      "web_fundamentals",
+      "git",
+      "programming",
+      "software_testing"
+    ],
+    "leads_to": [
+      "software_developer"
+    ],
+    "onet_soc": "15-1254.00",
+    "onet_title": "Web Developers",
+    "verify_url": "https://www.onetonline.org/link/summary/15-1254.00",
+    "status": "SAMPLE",
+    "source_id": "foothold_taxonomy"
+  },
+  {
+    "id": "qa_test_analyst",
+    "title": "QA Test Analyst",
+    "career_id": "software_dev",
+    "level": "entry",
+    "required_skills": [
+      "software_testing",
+      "quality_control_analysis",
+      "sql",
+      "writing",
+      "git"
+    ],
+    "leads_to": [
+      "software_developer"
+    ],
+    "onet_soc": "15-1253.00",
+    "onet_title": "Software Quality Assurance Analysts and Testers",
+    "verify_url": "https://www.onetonline.org/link/summary/15-1253.00",
+    "status": "SAMPLE",
+    "source_id": "foothold_taxonomy"
+  },
+  {
+    "id": "software_developer",
+    "title": "Software Developer",
+    "career_id": "software_dev",
+    "level": "mid",
+    "required_skills": [
+      "python",
+      "git",
+      "sql",
+      "software_testing",
+      "programming",
+      "complex_problem_solving"
+    ],
+    "leads_to": [
+      "senior_software_engineer"
+    ],
+    "onet_soc": "15-1252.00",
+    "onet_title": "Software Developers",
+    "verify_url": "https://www.onetonline.org/link/summary/15-1252.00",
+    "status": "SAMPLE",
+    "source_id": "foothold_taxonomy"
+  },
+  {
+    "id": "senior_software_engineer",
+    "title": "Senior Software Engineer",
+    "career_id": "software_dev",
+    "level": "senior",
+    "required_skills": [
+      "systems_analysis",
+      "technology_design",
+      "programming",
+      "instructing",
+      "judgment_and_decision_making"
+    ],
+    "leads_to": [],
+    "onet_soc": "15-1252.00",
+    "onet_title": "Software Developers",
+    "verify_url": "https://www.onetonline.org/link/summary/15-1252.00",
+    "status": "SAMPLE",
+    "source_id": "foothold_taxonomy"
+  },
+  {
+    "id": "farmworker_crop",
+    "title": "Farmworker (Crops and Orchards)",
+    "career_id": "farm_ops_manager",
+    "level": "entry",
+    "required_skills": [
+      "osha_safety",
+      "pesticide_safety",
+      "coordination",
+      "monitoring"
+    ],
+    "leads_to": [
+      "ag_equipment_operator",
+      "field_crew_supervisor"
+    ],
+    "onet_soc": "45-2092.00",
+    "onet_title": "Farmworkers and Laborers, Crop, Nursery, and Greenhouse",
+    "verify_url": "https://www.onetonline.org/link/summary/45-2092.00",
+    "status": "SAMPLE",
+    "source_id": "foothold_taxonomy"
+  },
+  {
+    "id": "ag_equipment_operator",
+    "title": "Agricultural Equipment Operator",
+    "career_id": "farm_ops_manager",
+    "level": "entry",
+    "required_skills": [
+      "ag_equipment_operation",
+      "equipment_maintenance",
+      "operation_and_control",
+      "osha_safety"
+    ],
+    "leads_to": [
+      "field_crew_supervisor",
+      "farm_equipment_technician"
+    ],
+    "onet_soc": "45-2091.00",
+    "onet_title": "Agricultural Equipment Operators",
+    "verify_url": "https://www.onetonline.org/link/summary/45-2091.00",
+    "status": "SAMPLE",
+    "source_id": "foothold_taxonomy"
+  },
+  {
+    "id": "precision_ag_technician",
+    "title": "Precision Ag and Irrigation Technician",
+    "career_id": "farm_ops_manager",
+    "level": "mid",
+    "required_skills": [
+      "irrigation_management",
+      "sensors_actuators",
+      "spreadsheets",
+      "systems_analysis",
+      "science"
+    ],
+    "leads_to": [
+      "farm_operations_manager"
+    ],
+    "onet_soc": "19-4012.01",
+    "onet_title": "Precision Agriculture Technicians",
+    "verify_url": "https://www.onetonline.org/link/summary/19-4012.01",
+    "status": "SAMPLE",
+    "source_id": "foothold_taxonomy"
+  },
+  {
+    "id": "field_crew_supervisor",
+    "title": "Field Crew Supervisor",
+    "career_id": "farm_ops_manager",
+    "level": "mid",
+    "required_skills": [
+      "management_of_personnel_resources",
+      "coordination",
+      "pesticide_safety",
+      "osha_safety",
+      "speaking",
+      "instructing"
+    ],
+    "leads_to": [
+      "farm_operations_manager"
+    ],
+    "onet_soc": "45-1011.00",
+    "onet_title": "First-Line Supervisors of Farming, Fishing, and Forestry Workers",
+    "verify_url": "https://www.onetonline.org/link/summary/45-1011.00",
+    "status": "SAMPLE",
+    "source_id": "foothold_taxonomy"
+  },
+  {
+    "id": "farm_operations_manager",
+    "title": "Farm Operations Manager",
+    "career_id": "farm_ops_manager",
+    "level": "senior",
+    "required_skills": [
+      "management_of_financial_resources",
+      "management_of_personnel_resources",
+      "irrigation_management",
+      "judgment_and_decision_making",
+      "spreadsheets",
+      "systems_evaluation"
+    ],
+    "leads_to": [],
+    "onet_soc": "11-9013.00",
+    "onet_title": "Farmers, Ranchers, and Other Agricultural Managers",
+    "verify_url": "https://www.onetonline.org/link/summary/11-9013.00",
+    "status": "SAMPLE",
+    "source_id": "foothold_taxonomy"
+  },
+  {
+    "id": "automated_line_operator",
+    "title": "Automated Line Operator",
+    "career_id": "robotics_tech",
+    "level": "entry",
+    "required_skills": [
+      "operations_monitoring",
+      "operation_and_control",
+      "lockout_tagout",
+      "quality_control_analysis"
+    ],
+    "leads_to": [
+      "maintenance_technician"
+    ],
+    "onet_soc": "51-9111.00",
+    "onet_title": "Packaging and Filling Machine Operators and Tenders",
+    "verify_url": "https://www.onetonline.org/link/summary/51-9111.00",
+    "status": "SAMPLE",
+    "source_id": "foothold_taxonomy"
+  },
+  {
+    "id": "maintenance_technician",
+    "title": "Maintenance Technician I",
+    "career_id": "robotics_tech",
+    "level": "entry",
+    "required_skills": [
+      "equipment_maintenance",
+      "repairing",
+      "lockout_tagout",
+      "electrical_theory",
+      "osha_safety"
+    ],
+    "leads_to": [
+      "industrial_machinery_mechanic",
+      "automation_technician"
+    ],
+    "onet_soc": "49-9071.00",
+    "onet_title": "Maintenance and Repair Workers, General",
+    "verify_url": "https://www.onetonline.org/link/summary/49-9071.00",
+    "status": "SAMPLE",
+    "source_id": "foothold_taxonomy"
+  },
+  {
+    "id": "industrial_machinery_mechanic",
+    "title": "Industrial Machinery Mechanic",
+    "career_id": "robotics_tech",
+    "level": "mid",
+    "required_skills": [
+      "troubleshooting",
+      "repairing",
+      "hydraulics",
+      "sensors_actuators",
+      "blueprint_reading"
+    ],
+    "leads_to": [
+      "controls_lead"
+    ],
+    "onet_soc": "49-9041.00",
+    "onet_title": "Industrial Machinery Mechanics",
+    "verify_url": "https://www.onetonline.org/link/summary/49-9041.00",
+    "status": "SAMPLE",
+    "source_id": "foothold_taxonomy"
+  },
+  {
+    "id": "automation_technician",
+    "title": "Automation Technician",
+    "career_id": "robotics_tech",
+    "level": "mid",
+    "required_skills": [
+      "plc_basics",
+      "sensors_actuators",
+      "electrical_theory",
+      "troubleshooting",
+      "installation"
+    ],
+    "leads_to": [
+      "robotics_technician",
+      "controls_lead"
+    ],
+    "onet_soc": "17-3024.00",
+    "onet_title": "Electro-Mechanical and Mechatronics Technologists and Technicians",
+    "verify_url": "https://www.onetonline.org/link/summary/17-3024.00",
+    "status": "SAMPLE",
+    "source_id": "foothold_taxonomy"
+  },
+  {
+    "id": "robotics_technician",
+    "title": "Robotics Technician",
+    "career_id": "robotics_tech",
+    "level": "mid",
+    "required_skills": [
+      "robot_programming",
+      "plc_basics",
+      "sensors_actuators",
+      "troubleshooting",
+      "programming"
+    ],
+    "leads_to": [
+      "controls_lead"
+    ],
+    "onet_soc": "17-3024.01",
+    "onet_title": "Robotics Technicians",
+    "verify_url": "https://www.onetonline.org/link/summary/17-3024.01",
+    "status": "SAMPLE",
+    "source_id": "foothold_taxonomy"
+  },
+  {
+    "id": "controls_lead",
+    "title": "Controls and Automation Lead",
+    "career_id": "robotics_tech",
+    "level": "senior",
+    "required_skills": [
+      "plc_basics",
+      "robot_programming",
+      "systems_analysis",
+      "instructing",
+      "management_of_personnel_resources"
+    ],
+    "leads_to": [],
+    "onet_soc": "17-3024.01",
+    "onet_title": "Robotics Technicians",
+    "verify_url": "https://www.onetonline.org/link/summary/17-3024.01",
+    "status": "SAMPLE",
+    "source_id": "foothold_taxonomy"
+  }
+]

@@ -1,26 +1,339 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "./libs.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/*
+ * Foothold drawing-set theme.
+ * Themes: data-theme="dark" (default, ink #050505) | "light" ("paper", #f4f4f1) on <html>.
+ * Every text token is >= 4.5:1 on bg, surface and surface-2 in its theme; line-strong is
+ * >= 3:1 (form borders, UI boundaries). `line` is a decorative hairline only.
+ * Ratios: docs/research/design-notes.md.
+ */
+
+/* Library `dark:` variants follow data-theme instead of a .dark class. */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+/* Foothold-only variant for paper-specific tweaks: paper:bg-... */
+@custom-variant paper (&:where([data-theme="light"], [data-theme="light"] *));
+
+/* ---------------------------------------------------------------- */
+/* Tokens                                                            */
+/* ---------------------------------------------------------------- */
+
+:root,
+[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #050505;
+  --surface: #0e0e0d;
+  --surface-2: #181816;
+  --ink: #f4f4f1;
+  --ink-muted: #b8b7af;
+  --ink-faint: #8f8e86;
+  --line: #2a2a27;
+  --line-strong: #6e6d66;
+  --accent: #e7b24a;
+  --accent-ink: #050505;
+  --success: #5fd397;
+  --warning: #f39a52;
+  --danger: #ff7b72;
+  --info: #7cb8ff;
+  --violet: #b9a3ff;
 }
+
+[data-theme="light"] {
+  color-scheme: light;
+  --bg: #f4f4f1;
+  --surface: #fbfbf9;
+  --surface-2: #e9e8e2;
+  --ink: #0c0c0b;
+  --ink-muted: #45443f;
+  --ink-faint: #63625b;
+  --line: #d6d5ce;
+  --line-strong: #7f7e75;
+  /* darker gold so accent text stays >= 4.5:1 on paper */
+  --accent: #8a5b00;
+  --accent-ink: #fdfbf6;
+  --success: #1b7343;
+  --warning: #9c4600;
+  --danger: #b42318;
+  --info: #1c5ca8;
+  --violet: #6a4bc4;
+}
+
+/* Derived tokens and shadcn semantic variables. Re-declared on every [data-theme]
+   element so a nested theme island recomputes them from its own tokens. */
+:root,
+[data-theme] {
+  --grid-line: color-mix(in oklab, var(--ink) 6%, transparent);
+  --grid-line-strong: color-mix(in oklab, var(--ink) 12%, transparent);
+  --accent-wash: color-mix(in oklab, var(--accent) 14%, transparent);
+
+  --background: var(--bg);
+  --foreground: var(--ink);
+  --card: var(--surface);
+  --card-foreground: var(--ink);
+  --popover: var(--surface);
+  --popover-foreground: var(--ink);
+  --primary: var(--ink);
+  --primary-foreground: var(--bg);
+  --secondary: var(--surface-2);
+  --secondary-foreground: var(--ink);
+  --muted: var(--surface-2);
+  --muted-foreground: var(--ink-muted);
+  /* --accent is the sunlit gold itself; this is the ink that sits on it */
+  --accent-foreground: var(--accent-ink);
+  --destructive: var(--danger);
+  --border: var(--line);
+  --input: var(--line-strong);
+  --ring: var(--accent);
+  --chart-1: var(--accent);
+  --chart-2: var(--info);
+  --chart-3: var(--success);
+  --chart-4: var(--violet);
+  --chart-5: var(--warning);
+  --radius: 0.1875rem;
+  --sidebar: var(--surface);
+  --sidebar-foreground: var(--ink);
+  --sidebar-primary: var(--ink);
+  --sidebar-primary-foreground: var(--bg);
+  --sidebar-accent: var(--surface-2);
+  --sidebar-accent-foreground: var(--ink);
+  --sidebar-border: var(--line);
+  --sidebar-ring: var(--accent);
+}
+
+/* ---------------------------------------------------------------- */
+/* Tailwind theme mapping                                            */
+/* ---------------------------------------------------------------- */
 
 @theme inline {
+  /* Foothold tokens: bg-bg, bg-surface, text-ink, text-ink-muted, border-line, text-accent ... */
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-ink-faint: var(--ink-faint);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-wash: var(--accent-wash);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+  --color-info: var(--info);
+  --color-violet: var(--violet);
+
+  /* shadcn */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* small radii everywhere (3px base) */
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* Fonts come from next/font (layout.tsx) as --font-mona-sans / --font-hubot-sans / --font-martian-mono. */
+@theme {
+  --font-sans: var(--font-mona-sans), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: var(--font-hubot-sans), var(--font-mona-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-martian-mono), ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --font-heading: var(--font-display);
+}
+
+/* ---------------------------------------------------------------- */
+/* Drawing-set utilities                                             */
+/* ---------------------------------------------------------------- */
+
+/* Hairline drafting grid. Tune with --grid-size (default 24px). */
+@utility hairline-grid {
+  background-image:
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+  background-size: var(--grid-size, 24px) var(--grid-size, 24px);
+  background-position: -1px -1px;
+}
+
+/* Minor 24px grid plus a stronger 120px major grid. */
+@utility hairline-grid-major {
+  background-image:
+    linear-gradient(to right, var(--grid-line-strong) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line-strong) 1px, transparent 1px),
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+  background-size:
+    120px 120px,
+    120px 120px,
+    24px 24px,
+    24px 24px;
+  background-position: -1px -1px;
+}
+
+/* L-shaped crop marks in the four corners (pure CSS; use RegistrationMarks for targets). */
+@utility crop-marks {
+  --mark: var(--line-strong);
+  --mark-len: 14px;
+  background-image:
+    linear-gradient(var(--mark), var(--mark)), linear-gradient(var(--mark), var(--mark)),
+    linear-gradient(var(--mark), var(--mark)), linear-gradient(var(--mark), var(--mark)),
+    linear-gradient(var(--mark), var(--mark)), linear-gradient(var(--mark), var(--mark)),
+    linear-gradient(var(--mark), var(--mark)), linear-gradient(var(--mark), var(--mark));
+  background-repeat: no-repeat;
+  background-size:
+    var(--mark-len) 1px, 1px var(--mark-len),
+    var(--mark-len) 1px, 1px var(--mark-len),
+    var(--mark-len) 1px, 1px var(--mark-len),
+    var(--mark-len) 1px, 1px var(--mark-len);
+  background-position:
+    left top, left top,
+    right top, right top,
+    left bottom, left bottom,
+    right bottom, right bottom;
+}
+
+/* Mono drawing labels: SHEET 01 / SIM, DWG-001, 01 / 06 */
+@utility label-mono {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  line-height: 1rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Display type (Hubot Sans). Named type-* so class merging never mistakes them for text colors. */
+@utility type-display-xl {
+  font-family: var(--font-display);
+  font-size: clamp(3.25rem, 11vw, 9.5rem);
+  font-weight: 700;
+  line-height: 0.88;
+  letter-spacing: -0.035em;
+}
+
+@utility type-display-lg {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 7vw, 5.75rem);
+  font-weight: 650;
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+}
+
+@utility type-display-md {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 4vw, 3rem);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+/* ---------------------------------------------------------------- */
+/* Base                                                              */
+/* ---------------------------------------------------------------- */
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    @apply font-sans;
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 5rem;
+    scrollbar-color: var(--line-strong) transparent;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    min-height: 100dvh;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-heading);
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  code,
+  kbd,
+  samp,
+  pre {
+    font-family: var(--font-mono);
+  }
+
+  a {
+    text-underline-offset: 0.2em;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  ::selection {
+    background-color: var(--accent);
+    color: var(--accent-ink);
+  }
+
+  /* Visible keyboard focus for anything that doesn't style its own (shadcn parts use rings). */
+  :where(a, button, input, textarea, select, summary, [tabindex]):focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Respect reduced motion for CSS animations too (Motion is handled by <MotionConfig reducedMotion="user">). */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

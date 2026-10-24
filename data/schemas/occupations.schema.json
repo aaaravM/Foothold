@@ -1,0 +1,279 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://foothold.local/schemas/occupations.schema.json",
+  "title": "Foothold occupations (career-fit universe)",
+  "type": "object",
+  "required": [
+    "provenance",
+    "method",
+    "occupations"
+  ],
+  "properties": {
+    "provenance": {
+      "type": "object",
+      "required": [
+        "status",
+        "source_id",
+        "retrieved",
+        "license"
+      ],
+      "properties": {
+        "status": {
+          "const": "REAL"
+        },
+        "source_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "retrieved": {
+          "type": "string",
+          "minLength": 1
+        },
+        "license": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "method": {
+      "type": "object",
+      "required": [
+        "work_styles",
+        "formula",
+        "universe_size"
+      ]
+    },
+    "occupations": {
+      "type": "array",
+      "minItems": 8,
+      "items": {
+        "type": "object",
+        "required": [
+          "onet_soc",
+          "title",
+          "career_id",
+          "work_styles",
+          "wi",
+          "dr"
+        ],
+        "properties": {
+          "onet_soc": {
+            "type": "string",
+            "pattern": "^\\d{2}-\\d{4}\\.\\d{2}$"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "career_id": {
+            "enum": [
+              "logistics_lead",
+              "registered_nurse",
+              "diesel_mechanic",
+              "welder",
+              "electrician",
+              "software_dev",
+              "farm_ops_manager",
+              "robotics_tech",
+              null
+            ]
+          },
+          "work_styles": {
+            "type": "object",
+            "required": [
+              "innovation",
+              "achievement_orientation",
+              "intellectual_curiosity",
+              "tolerance_for_ambiguity",
+              "initiative",
+              "adaptability",
+              "self_confidence",
+              "perseverance",
+              "leadership_orientation",
+              "humility",
+              "sincerity",
+              "empathy",
+              "cooperation",
+              "optimism",
+              "social_orientation",
+              "cautiousness",
+              "attention_to_detail",
+              "dependability",
+              "integrity",
+              "stress_tolerance",
+              "self_control"
+            ],
+            "propertyNames": {
+              "enum": [
+                "innovation",
+                "achievement_orientation",
+                "intellectual_curiosity",
+                "tolerance_for_ambiguity",
+                "initiative",
+                "adaptability",
+                "self_confidence",
+                "perseverance",
+                "leadership_orientation",
+                "humility",
+                "sincerity",
+                "empathy",
+                "cooperation",
+                "optimism",
+                "social_orientation",
+                "cautiousness",
+                "attention_to_detail",
+                "dependability",
+                "integrity",
+                "stress_tolerance",
+                "self_control"
+              ]
+            },
+            "additionalProperties": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          },
+          "wi": {
+            "type": "object",
+            "required": [
+              "innovation",
+              "achievement_orientation",
+              "intellectual_curiosity",
+              "tolerance_for_ambiguity",
+              "initiative",
+              "adaptability",
+              "self_confidence",
+              "perseverance",
+              "leadership_orientation",
+              "humility",
+              "sincerity",
+              "empathy",
+              "cooperation",
+              "optimism",
+              "social_orientation",
+              "cautiousness",
+              "attention_to_detail",
+              "dependability",
+              "integrity",
+              "stress_tolerance",
+              "self_control"
+            ],
+            "propertyNames": {
+              "enum": [
+                "innovation",
+                "achievement_orientation",
+                "intellectual_curiosity",
+                "tolerance_for_ambiguity",
+                "initiative",
+                "adaptability",
+                "self_confidence",
+                "perseverance",
+                "leadership_orientation",
+                "humility",
+                "sincerity",
+                "empathy",
+                "cooperation",
+                "optimism",
+                "social_orientation",
+                "cautiousness",
+                "attention_to_detail",
+                "dependability",
+                "integrity",
+                "stress_tolerance",
+                "self_control"
+              ]
+            },
+            "additionalProperties": {
+              "type": "number",
+              "minimum": -3,
+              "maximum": 3
+            }
+          },
+          "dr": {
+            "type": "object",
+            "required": [
+              "innovation",
+              "achievement_orientation",
+              "intellectual_curiosity",
+              "tolerance_for_ambiguity",
+              "initiative",
+              "adaptability",
+              "self_confidence",
+              "perseverance",
+              "leadership_orientation",
+              "humility",
+              "sincerity",
+              "empathy",
+              "cooperation",
+              "optimism",
+              "social_orientation",
+              "cautiousness",
+              "attention_to_detail",
+              "dependability",
+              "integrity",
+              "stress_tolerance",
+              "self_control"
+            ],
+            "propertyNames": {
+              "enum": [
+                "innovation",
+                "achievement_orientation",
+                "intellectual_curiosity",
+                "tolerance_for_ambiguity",
+                "initiative",
+                "adaptability",
+                "self_confidence",
+                "perseverance",
+                "leadership_orientation",
+                "humility",
+                "sincerity",
+                "empathy",
+                "cooperation",
+                "optimism",
+                "social_orientation",
+                "cautiousness",
+                "attention_to_detail",
+                "dependability",
+                "integrity",
+                "stress_tolerance",
+                "self_control"
+              ]
+            },
+            "additionalProperties": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10
+            }
+          },
+          "skills_im": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "number",
+              "minimum": 1,
+              "maximum": 5
+            }
+          },
+          "interests": {
+            "type": "object",
+            "propertyNames": {
+              "enum": [
+                "realistic",
+                "investigative",
+                "artistic",
+                "social",
+                "enterprising",
+                "conventional"
+              ]
+            },
+            "additionalProperties": {
+              "type": "number",
+              "minimum": 1,
+              "maximum": 7
+            }
+          }
+        }
+      }
+    }
+  }
+}
