@@ -95,7 +95,7 @@ export function Talent({
       {loading && !talent ? <MonoLabel as="p">Loading blind cards…</MonoLabel> : null}
       {talent && !talent.cards.length ? (
         <EmptyNote>
-          {talent.pool_size ? "No candidates pass this posting's filters." : "The talent pool hasn't been generated yet, so there are no cards to show."}
+          {talent.pool_size ? "No candidates pass this posting's filters." : "No talent pool yet."}
         </EmptyNote>
       ) : null}
       {talent?.cards.length ? (
@@ -159,7 +159,7 @@ function TalentCardView({ card, index, postingId, onRequested }: { card: TalentC
             Message to the candidate
           </label>
           <textarea id={msgId} className={cn(inputClass, "min-h-20")} value={message} maxLength={600} onChange={(e) => setMessage(e.target.value)} required />
-          <p className="text-xs text-ink-muted">They see your company, this message and the posting. You see their name and contact only if they accept.</p>
+          <p className="text-xs text-ink-muted">You see their name only if they accept.</p>
           {error ? <ErrorNote>{error}</ErrorNote> : null}
           <div className="flex flex-wrap gap-2">
             <button type="submit" className={primaryButtonClass} disabled={sending || !message.trim()}>

@@ -83,20 +83,15 @@ export function PathKanban({ version }: { version: number }) {
   };
 
   return (
-    <section aria-labelledby="path-board" className="space-y-4">
-      <div className="flex flex-wrap items-baseline justify-between gap-3">
-        <h2 id="path-board" className="font-display text-2xl text-ink">
-          Your board
-        </h2>
-        <MonoLabel aria-live="polite">{saving ? "Saving…" : items ? `${items.length} steps · saved to your account` : ""}</MonoLabel>
-      </div>
+    <section aria-label="Your board" className="space-y-4">
+      <MonoLabel as="p" aria-live="polite">{saving ? "Saving…" : items ? `${items.length} steps · saved` : ""}</MonoLabel>
       {error ? (
         <p role="alert" className="text-danger">
           {error}
         </p>
       ) : null}
       {items && items.length === 0 ? (
-        <p className="text-ink-muted">Approve a plan above and its steps land here, term by term.</p>
+        <p className="text-ink-muted">Approve a plan to fill your board.</p>
       ) : null}
       <div className="grid gap-3 md:grid-cols-3">
         {COLUMNS.map((col, ci) => {

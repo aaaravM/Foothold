@@ -1,0 +1,13 @@
+{
+  "created_at": "2026-10-24T23:31:09+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "line": "Good call. Let’s roll it back, then add this failure path to the test plan before it gets another chance.",
+    "mood_delta": 6,
+    "reaction": "approves"
+  },
+  "schema": "CoworkerReaction",
+  "task": "sim_coworker"
+}

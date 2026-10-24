@@ -7,7 +7,7 @@ export const metadata: Metadata = { title: "Sign in" };
 
 export default function SignInPage() {
   return (
-    <AuthShell title="Welcome back." accent={[1]} lead="Pick up your workday, your path and your circle right where you left them.">
+    <AuthShell title="Welcome back." accent={[1]} lead="Pick up where you left off.">
       <Suspense fallback={<p className="text-sm text-ink-muted">Loading…</p>}>
         <SignInForm />
       </Suspense>

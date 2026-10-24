@@ -1,14 +1,13 @@
-import type { Metadata } from "next";
-import { SheetFrame } from "@/components/foothold/sheet-frame";
-import { GraphExplorer } from "@/components/graph/graph-explorer";
-import { getSheet, sheetFrameProps } from "@/lib/sheets";
+"use client";
 
-export const metadata: Metadata = { title: "Graph" };
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
+/** The skills graph explorer was retired; its GNN picks now live on /path ("Picked for you"). */
 export default function GraphPage() {
-  return (
-    <SheetFrame {...sheetFrameProps("graph")} description={getSheet("graph").description}>
-      <GraphExplorer />
-    </SheetFrame>
-  );
+  const router = useRouter();
+  useEffect(() => {
+    router.replace("/path");
+  }, [router]);
+  return null;
 }

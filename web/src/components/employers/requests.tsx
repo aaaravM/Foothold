@@ -13,10 +13,9 @@ const EASE = [0.16, 1, 0.3, 1] as const;
 export function Requests({ requests, error }: { requests: EmployerRequest[] | null; error: string | null }) {
   if (error && !requests) return <ErrorNote>{error}</ErrorNote>;
   if (!requests) return <MonoLabel as="p">Loading requests…</MonoLabel>;
-  if (!requests.length) return <EmptyNote>No consent requests yet. Send one from a talent card or from a posting run.</EmptyNote>;
+  if (!requests.length) return <EmptyNote>No requests yet.</EmptyNote>;
   return (
     <div className="grid gap-3">
-      <p className="text-sm text-ink-muted">Updates every few seconds. When a learner accepts in their inbox, their card unlocks here.</p>
       <ul className="grid gap-3 md:grid-cols-2">
         {requests.map((r) => (
           <RequestCard key={r.id} request={r} />

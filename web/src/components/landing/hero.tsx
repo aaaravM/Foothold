@@ -47,11 +47,7 @@ export function Hero() {
       aria-label="Foothold"
       className="page-container relative flex min-h-[calc(100svh-var(--nav-h))] flex-col justify-center overflow-x-clip pt-10 pb-24"
     >
-      <p className="kicker fh-rise" style={{ "--d": "0.1s" } as React.CSSProperties}>
-        Careers in California&rsquo;s Central Valley
-      </p>
-
-      <motion.div style={{ y: wordY, opacity: wordFade }} className="mt-6 min-w-0">
+      <motion.div style={{ y: wordY, opacity: wordFade }} className="min-w-0">
         <KineticWordmark as="h1" className="max-w-full text-[clamp(4.2rem,17.5vw,17rem)] text-ink" />
       </motion.div>
 
@@ -64,9 +60,6 @@ export function Hero() {
           ))}
         </p>
         <div className="fh-rise space-y-6 lg:col-span-5 lg:pb-1" style={{ "--d": "1.6s" } as React.CSSProperties}>
-          <p className="max-w-[42ch] text-[17px] leading-relaxed text-ink-muted">
-            Work a real-feeling shift with AI coworkers, get a plan that fits your week, and let employers find you for what you can do.
-          </p>
           <div className="flex flex-wrap items-center gap-3">
             <PrimaryAction />
             <a href="#stages" className="btn-ghost group">

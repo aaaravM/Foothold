@@ -46,7 +46,7 @@ from langgraph.graph import END, START, StateGraph
 from langgraph.types import Send, interrupt
 from pydantic import BaseModel
 
-from .. import data, llm, verifier
+from .. import data, llm, safety, verifier
 from ..sse import trace_node
 from ..trace import note
 
@@ -92,6 +92,10 @@ class SimState(TypedDict, total=False):
     report: dict[str, Any] | None
     verification: dict[str, Any] | None
     summary: dict[str, Any] | None
+    place_name: str | None
+    occupation: dict[str, Any] | None  # any-career runs: the O*NET occupation being tried
+    gen_coworkers: list[dict[str, Any]]
+    research: dict[str, Any] | None
 
 
 class CoworkerTask(TypedDict, total=False):
@@ -526,7 +530,7 @@ def interrupt_payload(state: SimState) -> dict[str, Any]:
     ev = state.get("current_event") or {}
     work = ev.get("_workplace")
     moods = state.get("moods") or {}
-    cws = coworkers_for(work)
+    cws = coworkers_in(state, ev)
     regular_played = sum(1 for h in (state.get("history") or []) if not h.get("crunch"))
     return {
         "event": {
@@ -542,6 +546,8 @@ def interrupt_payload(state: SimState) -> dict[str, Any]:
         "selection": state.get("selection"),
         "mode": state.get("mode"),
         "career_id": state.get("career_id"),
+        "occupation": _occ_public(state.get("occupation")),
+        "custom_allowed": True,
     }
 
 
@@ -563,7 +569,7 @@ def fan_out(state: SimState) -> list[Send] | str:
     moods = state.get("moods") or {}
     hints = choice.get("coworker_hints") or {}
     sends = []
-    for cw in coworkers_for(ev.get("_workplace")):
+    for cw in coworkers_in(state, ev):
         sends.append(Send("coworker", {
             "coworker": cw, "mood": int(moods.get(cw["id"], initial_mood(cw))),
             "event": {"event_id": ev.get("event_id"), "title": ev.get("title"), "text": ev.get("text")},
@@ -651,7 +657,7 @@ def update_state(state: SimState) -> dict[str, Any]:
 
     moods = dict(state.get("moods") or {})
     reacts = [r for r in (state.get("reactions") or []) if r.get("event_id") == ev.get("event_id")]
-    cws = {c["id"]: c for c in coworkers_for(ev.get("_workplace"))}
+    cws = {c["id"]: c for c in coworkers_in(state, ev)}
     for r in reacts:
         cid = r.get("coworker_id")
         if cid:

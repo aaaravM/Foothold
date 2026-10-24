@@ -109,7 +109,7 @@ export function PlacePicker({
 const KIND: Record<string, string> = { community_college: "Community college", apprenticeship: "Apprenticeship center", university: "University", csu: "CSU", uc: "UC" };
 
 /** "Programs near <place>": nearest campuses, drive time, and programs for the chosen career first. */
-export function NearbyPrograms({ placeId, placeName, careerId }: { placeId: string | null; placeName?: string; careerId: string }) {
+export function NearbyPrograms({ placeId, placeName, careerId, hideHeading = false }: { placeId: string | null; placeName?: string; careerId: string; hideHeading?: boolean }) {
   const [data, setData] = React.useState<NearResponse | null>(null);
   const [err, setErr] = React.useState<string | null>(null);
   React.useEffect(() => {
@@ -127,7 +127,7 @@ export function NearbyPrograms({ placeId, placeName, careerId }: { placeId: stri
     };
   }, [placeId]);
 
-  if (!placeId) return <p className="text-sm text-ink-muted">Choose your area to see the nearest campuses and programs.</p>;
+  if (!placeId) return <p className="text-sm text-ink-muted">Choose your area.</p>;
   if (err) return <p className="text-sm text-ink-muted">{err}</p>;
   if (!data) return <div className="h-32 animate-pulse rounded-2xl bg-surface/50" />;
 
@@ -138,13 +138,15 @@ export function NearbyPrograms({ placeId, placeName, careerId }: { placeId: stri
 
   return (
     <div>
-      <h3 className="text-lg text-ink">
-        Programs near <span className="text-accent">{data.origin?.name ?? placeName ?? "you"}</span>
-      </h3>
+      {hideHeading ? null : (
+        <h3 className="mb-4 text-lg text-ink">
+          Programs near <span className="text-accent">{data.origin?.name ?? placeName ?? "you"}</span>
+        </h3>
+      )}
       <AnimatePresence mode="wait">
         <motion.ul
           key={`${placeId}-${careerId}`}
-          className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2"
+          className={cn("grid grid-cols-1 gap-3 sm:grid-cols-2", hideHeading && "lg:grid-cols-4")}
           variants={staggerParent(0.07)}
           initial="hidden"
           animate="show"

@@ -119,7 +119,7 @@ export const SHEETS: readonly SheetMeta[] = [
     dwg: "DWG-003",
     description: "See how skills, courses and jobs connect",
     chapter: { index: 3, total: TOTAL_CHAPTERS, label: "LEARN" },
-    inNav: true,
+    inNav: false,
     navNumber: "03",
     audience: "learner",
     numbered: true,
@@ -220,9 +220,9 @@ export const NAV_SHEETS: readonly SheetMeta[] = SHEETS.filter((s) => s.inNav);
  * Lab and About live in the footer.
  */
 const NAV_BY_KIND: Record<"public" | "learner" | "employer", readonly SheetId[]> = {
-  public: ["sim", "path", "graph", "circle", "employers"],
-  learner: ["sim", "path", "graph", "circle", "inbox"],
-  employer: ["employers", "graph"],
+  public: ["sim", "path", "circle", "employers"],
+  learner: ["sim", "path", "circle", "inbox"],
+  employer: ["employers"],
 };
 
 export function navSheetsFor(kind: NavAccountKind): readonly SheetMeta[] {

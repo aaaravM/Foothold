@@ -1,0 +1,13 @@
+{
+  "created_at": "2026-10-24T23:30:58+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "line": "Good call simplifying the comments and thanking Priya. Can we turn the changes into clear tickets and still hit our timeline?",
+    "mood_delta": 5,
+    "reaction": "approves"
+  },
+  "schema": "CoworkerReaction",
+  "task": "sim_coworker"
+}

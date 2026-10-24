@@ -59,9 +59,7 @@ export function CoachPanel() {
 
   return (
     <div className="grid gap-4">
-      <p className="border-l-2 border-info pl-3 text-sm text-ink-muted">
-        Peer support and practice, not therapy. The coach listens and reflects back; it doesn&apos;t diagnose or give medical or legal advice.
-      </p>
+      <MonoLabel as="p">Peer support, not therapy.</MonoLabel>
       {crisis ? <CrisisPanel payload={crisis} /> : null}
       <ol className="grid max-h-80 gap-2 overflow-y-auto" aria-live="polite" aria-label="Conversation">
         {shown.map((t, i) => (
@@ -89,7 +87,7 @@ export function CoachPanel() {
           value={text}
           maxLength={1500}
           onChange={(e) => setText(e.target.value)}
-          placeholder="e.g. I'm nervous about asking my lead for different shifts so I can take a class."
+          placeholder="What's on your mind?"
         />
         <div className="flex flex-wrap items-center justify-between gap-3">
           <label className="flex items-center gap-2 text-sm text-ink-muted">
@@ -102,8 +100,7 @@ export function CoachPanel() {
         </div>
       </form>
       {state.error ? <ErrorNote>{state.error}</ErrorNote> : null}
-      {state.status !== "idle" ? <TracePanel nodes={trace.nodes} state={state} title="Coach graph" defaultOpen={false} /> : null}
-      <MonoLabel as="p">Contact details you type are removed before anything is stored.</MonoLabel>
+      {state.status !== "idle" ? <TracePanel nodes={trace.nodes} state={state} title="Behind the scenes" defaultOpen={false} /> : null}
     </div>
   );
 }

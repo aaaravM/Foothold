@@ -2,12 +2,12 @@
 
 import * as React from "react";
 import { motion, useMotionValue, useTransform, type MotionValue } from "motion/react";
+import { getJSON } from "@/lib/api";
 import { PreviewPanel } from "./feature-section";
 
 /**
  * Scroll-driven previews for the two stages that have no small live widget elsewhere:
- * Prove (a skills profile filling in from workday moments) and Learn (the skills graph lighting
- * a route). Both take a 0..1 MotionValue; without one they render their finished state.
+ * Prove (a skills profile filling in from workday moments) and Learn (GNN course picks). Both take a 0..1 MotionValue; without one they render their finished state.
  */
 
 const clamp01 = (n: number) => Math.max(0, Math.min(1, n));
@@ -70,78 +70,63 @@ export function ProvePreview({ progress }: { progress?: MotionValue<number> }) {
 }
 
 /* ------------------------------------------------------------------ */
-/* Learn                                                                */
+/* Learn: courses picked by the GNN recommender                         */
 /* ------------------------------------------------------------------ */
 
-type GNode = { id: string; label: string; x: number; y: number; have?: boolean; route?: number };
-const NODES: GNode[] = [
-  { id: "a", label: "Safety habits", x: 70, y: 210, have: true },
-  { id: "b", label: "Teamwork", x: 140, y: 90, have: true },
-  { id: "c", label: "Forklift cert", x: 230, y: 250, route: 1 },
-  { id: "d", label: "Inventory systems", x: 330, y: 150, route: 2 },
-  { id: "e", label: "Basic electrical", x: 250, y: 50 },
-  { id: "f", label: "PLC basics", x: 420, y: 60 },
-  { id: "g", label: "Logistics lead", x: 470, y: 230, route: 3 },
+type Pick = { id: string; title: string; reason: string };
+const FALLBACK_PICKS: Pick[] = [
+  { id: "f1", title: "Introduction to Robotics", reason: "Teaches Technology Design for your next role" },
+  { id: "f2", title: "SACA industry certifications", reason: "Teaches PLC basics for Robotics Technician" },
+  { id: "f3", title: "Fluid Power and Pneumatics", reason: "Teaches Hydraulics for Machinery Mechanic" },
 ];
-const EDGES: [string, string, boolean][] = [
-  ["a", "c", true],
-  ["b", "c", false],
-  ["b", "e", false],
-  ["c", "d", true],
-  ["e", "f", false],
-  ["d", "f", false],
-  ["d", "g", true],
-];
-const byId = Object.fromEntries(NODES.map((n) => [n.id, n]));
 
-function Edge({ from, to, route, p, order }: { from: GNode; to: GNode; route: boolean; p: MotionValue<number>; order: number }) {
-  const draw = useTransform(p, (v) => (route ? clamp01((v - 0.15 - order * 0.18) / 0.22) : 1));
-  return (
-    <>
-      <line x1={from.x} y1={from.y} x2={to.x} y2={to.y} stroke="currentColor" strokeOpacity={0.14} strokeWidth={1.5} />
-      {route ? (
-        <motion.line x1={from.x} y1={from.y} x2={to.x} y2={to.y} stroke="var(--accent)" strokeWidth={2.5} strokeLinecap="round" style={{ pathLength: draw }} />
-      ) : null}
-    </>
-  );
+type RecItem = { kind: string; id: string; title: string; why?: string | null };
+
+function shortTitle(t: string) {
+  return t.replace(/\s*\([^)]*\)\s*$/, "").replace(/^Fluids 1:\s*/, "");
+}
+function shortReason(why?: string | null) {
+  if (!why) return "Fits the skills you already have";
+  const tail = why.split(";").pop()?.trim() ?? why;
+  return tail.charAt(0).toUpperCase() + tail.slice(1);
 }
 
-function Node({ n, p }: { n: GNode; p: MotionValue<number> }) {
-  const lit = useTransform(p, (v) => (n.have ? 1 : n.route ? clamp01((v - 0.2 - n.route * 0.18) / 0.12) : 0));
-  const fill = useTransform(lit, (v) => (v > 0.5 ? "var(--accent)" : "var(--bg)"));
-  const r = useTransform(lit, [0, 1], [7, 9]);
-  const textOpacity = useTransform(lit, [0, 1], [0.55, 1]);
+function PickRow({ pick, i, p }: { pick: Pick; i: number; p: MotionValue<number> }) {
+  const local = useTransform(p, (v) => clamp01((v - 0.02 - i * 0.1) / 0.18));
+  const y = useTransform(local, [0, 1], [16, 0]);
   return (
-    <g>
-      <motion.circle cx={n.x} cy={n.y} r={r} style={{ fill }} stroke={n.have || n.route ? "var(--accent)" : "currentColor"} strokeOpacity={n.have || n.route ? 1 : 0.3} strokeWidth={1.5} />
-      <motion.text x={n.x} y={n.y + 26} textAnchor="middle" className="fill-current text-[13px]" stroke="var(--surface, var(--bg))" strokeWidth={5} strokeLinejoin="round" style={{ opacity: textOpacity, paintOrder: "stroke" }}>
-        {n.label}
-      </motion.text>
-    </g>
+    <motion.li style={{ opacity: local, y }} className="flex items-start gap-4 rounded-2xl border border-line bg-bg/60 p-4">
+      <span className="font-mono text-[13px] text-accent tabular-nums">{String(i + 1).padStart(2, "0")}</span>
+      <div className="min-w-0">
+        <p className="truncate text-[16px] font-medium text-ink">{pick.title}</p>
+        <p className="text-[14px] leading-snug text-ink-muted">{pick.reason}</p>
+      </div>
+    </motion.li>
   );
 }
 
 export function LearnPreview({ progress }: { progress?: MotionValue<number> }) {
   const p = useLocal(progress);
-  const routeEdges = EDGES.filter((e) => e[2]);
+  const [picks, setPicks] = React.useState<Pick[]>(FALLBACK_PICKS);
+  React.useEffect(() => {
+    let live = true;
+    getJSON<{ items?: RecItem[] }>("/api/graph/recommend/maya?model=gnn")
+      .then((d) => {
+        const courses = (d.items ?? []).filter((it) => it.kind === "course").slice(0, 3);
+        if (live && courses.length === 3) setPicks(courses.map((c) => ({ id: c.id, title: shortTitle(c.title), reason: shortReason(c.why) })));
+      })
+      .catch(() => {});
+    return () => {
+      live = false;
+    };
+  }, []);
   return (
-    <PreviewPanel label="Skills graph" aside={<span className="text-sm text-ink-faint">Next steps from what you have</span>}>
-      <svg viewBox="0 20 540 270" className="h-auto w-full text-ink" role="img" aria-label="Skills you have connect to a route: forklift certification, then inventory systems, then logistics lead.">
-        {EDGES.map(([a, b, route]) => (
-          <Edge key={`${a}${b}`} from={byId[a]} to={byId[b]} route={route} p={p} order={route ? routeEdges.findIndex((e) => e[0] === a && e[1] === b) : 0} />
+    <PreviewPanel label="Courses picked for you" aside={<span className="text-sm text-ink-faint">Ranked by our GNN</span>}>
+      <ul className="space-y-3">
+        {picks.map((pk, i) => (
+          <PickRow key={pk.id} pick={pk} i={i} p={p} />
         ))}
-        {NODES.map((n) => (
-          <Node key={n.id} n={n} p={p} />
-        ))}
-      </svg>
-      <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-ink-muted">
-        <span className="inline-flex items-center gap-2">
-          <span aria-hidden="true" className="size-2.5 rounded-full bg-accent" /> You have it
-        </span>
-        <span className="inline-flex items-center gap-2">
-          <span aria-hidden="true" className="size-2.5 rounded-full border border-accent" /> On your route
-        </span>
-      </div>
+      </ul>
     </PreviewPanel>
   );
 }

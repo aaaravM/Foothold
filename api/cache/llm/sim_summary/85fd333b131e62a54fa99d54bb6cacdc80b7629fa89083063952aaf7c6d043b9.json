@@ -1,0 +1,11 @@
+{
+  "created_at": "2026-10-24T23:31:14+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "paragraph": "You moved between a grower’s bug report, an unclear feature request, review feedback, automation, and a production outage, practicing curiosity, adaptability, and careful judgment along the way. Your strongest work styles showed up in how you explored problems, adjusted to changing demands, and weighed risks. Registered Nurse, Logistics Operations Lead, and Software Developer surfaced as career matches to explore; these are practice signals, not a verdict. Use them as a starting point for learning more about the work that fits you."
+  },
+  "schema": "ReportSummary",
+  "task": "sim_summary"
+}

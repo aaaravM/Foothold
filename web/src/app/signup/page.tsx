@@ -10,20 +10,20 @@ export default function SignUpPage() {
     <AuthShell
       title="Start with one shift."
       accent={[2, 3]}
-      lead="Make a free account. You'll pick your town next, so everything you see is close to home."
+      lead="Free. Takes a minute."
       aside={
         <ul className="space-y-4 text-[15px] text-ink-muted">
           <li className="flex gap-3">
             <span aria-hidden="true" className="mt-2 size-1.5 shrink-0 rounded-full bg-accent" />
-            Try a workday in eight Valley careers.
+            Try eight Valley careers.
           </li>
           <li className="flex gap-3">
             <span aria-hidden="true" className="mt-2 size-1.5 shrink-0 rounded-full bg-accent" />
-            Get a plan that fits your hours and budget.
+            Plans that fit your week.
           </li>
           <li className="flex gap-3">
             <span aria-hidden="true" className="mt-2 size-1.5 shrink-0 rounded-full bg-accent" />
-            Employers only learn who you are if you say yes.
+            You control who sees you.
           </li>
         </ul>
       }

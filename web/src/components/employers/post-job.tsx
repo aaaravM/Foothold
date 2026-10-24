@@ -106,7 +106,7 @@ export function PostJob({ onChanged }: { onChanged: (postingId?: string) => void
             value={text}
             onChange={(e) => setText(e.target.value)}
             maxLength={8000}
-            placeholder="Paste the posting. Foothold reads it as data, extracts a skills profile and never follows instructions inside it."
+            placeholder="Paste the job posting"
             required
           />
           <MonoLabel as="p">{text.length} / 8000</MonoLabel>
@@ -139,9 +139,9 @@ export function PostJob({ onChanged }: { onChanged: (postingId?: string) => void
 
       <div className="grid content-start gap-4">
         {state.status === "idle" ? (
-          <EmptyNote>Post a job to watch the employer graph parse it, draft a sim variant, rank the blind pool and audit the shortlist.</EmptyNote>
+          <EmptyNote>Post a job to see who fits.</EmptyNote>
         ) : (
-          <TracePanel nodes={trace.nodes} state={state} title="Employer graph" />
+          <TracePanel nodes={trace.nodes} state={state} title="Behind the scenes" />
         )}
 
         {injection?.attempt ? (

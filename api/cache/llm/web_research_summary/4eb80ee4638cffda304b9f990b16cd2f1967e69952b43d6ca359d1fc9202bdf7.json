@@ -1,0 +1,32 @@
+{
+  "created_at": "2026-10-24T23:38:53+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "sentences": [
+      {
+        "sources": [
+          1,
+          4,
+          7
+        ],
+        "text": "Diesel mechanics inspect, diagnose, maintain, and repair diesel engines, brakes, transmissions, fuel systems, vehicles, and machinery."
+      },
+      {
+        "sources": [
+          2
+        ],
+        "text": "Job listings report 270 diesel mechanic openings in Stockton."
+      },
+      {
+        "sources": [
+          6
+        ],
+        "text": "TLG offers a paid diesel technician apprenticeship; its location is not specified."
+      }
+    ]
+  },
+  "schema": "ResearchSummary",
+  "task": "web_research_summary"
+}

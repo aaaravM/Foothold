@@ -12,7 +12,7 @@ export function ClosingCta() {
   return (
     <section aria-labelledby="closing-title" className="page-container py-[18svh]">
       <div className="flex flex-col items-start gap-8">
-        <SplitWords id="closing-title" text="Your first shift takes ten minutes." accent={[4, 5]} className="max-w-[16ch] type-display-lg text-ink" />
+        <SplitWords id="closing-title" text="Start your first shift." accent={[3]} className="max-w-[16ch] type-display-lg text-ink" />
         <Reveal delay={0.2} className="flex flex-wrap items-center gap-3">
           <Magnetic>
             <Link href={signedIn ? homeFor(account) : "/signup"} className="btn-primary group">

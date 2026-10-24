@@ -4,7 +4,7 @@ import * as React from "react";
 import { toast } from "sonner";
 import { Clock3, Users } from "lucide-react";
 import { useAccount } from "@/components/auth/auth-provider";
-import { QuietLabel as MonoLabel } from "@/components/sim/fx";
+import { QuietLabel as MonoLabel, TabBar, TabPanel } from "@/components/sim/fx";
 import { postJSON } from "@/lib/api";
 import { cn } from "@/lib/utils";
 import {
@@ -16,7 +16,6 @@ import {
   inputClass,
   Panel,
   primaryButtonClass,
-  secondaryButtonClass,
   usePolling,
 } from "@/components/employers/shared";
 import { CoachPanel } from "./coach-panel";
@@ -49,6 +48,14 @@ interface CreatePostResponse {
   crisis_payload: CrisisPayload | null;
 }
 
+type CircleTab = "circles" | "coach" | "practice";
+const TABS = [
+  { id: "circles", label: "Circles" },
+  { id: "coach", label: "Coach" },
+  { id: "practice", label: "Practice" },
+] as const;
+const BOX = "rounded-3xl border border-line bg-surface/30 p-5 sm:p-7";
+
 export function CircleView() {
   return (
     <AccountGate kind="learner">
@@ -74,6 +81,7 @@ function CircleSheet() {
     }
   });
   const [active, setActive] = React.useState<string | null>(null);
+  const [tab, setTab] = React.useState<CircleTab>("circles");
 
   const toggleJoin = (id: string) => {
     setJoined((prev) => {
@@ -93,58 +101,59 @@ function CircleSheet() {
 
   return (
     <div className="grid gap-6">
-      <p className="max-w-2xl text-lg text-ink-muted">Small groups of people in the same spot as you. Every post is checked before others see it.</p>
+      <TabBar tabs={TABS} value={tab} onChange={setTab} label="Circle sections" idBase="circle" />
 
-      <Panel label="Circles" title="Find your people">
-        {circles.error && !circles.data ? <ErrorNote>{circles.error}</ErrorNote> : null}
-        {!circles.data && !circles.error ? <MonoLabel as="p">Loading circles…</MonoLabel> : null}
-        <ul className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-          {list.map((c) => {
-            const isJoined = joined.includes(c.id);
-            const isActive = c.id === activeId;
-            return (
-              <li key={c.id} className={cn("grid content-start gap-2 rounded-2xl border p-5 transition-colors duration-300", isActive ? "border-accent/70 bg-accent-wash" : "border-line hover:border-line-strong")}>
-                <p className="font-medium text-ink">{c.name}</p>
-                {c.topic ? <MonoLabel>{c.topic}</MonoLabel> : null}
-                {c.description ? <p className="text-sm text-ink-muted">{c.description}</p> : null}
-                <p className="flex items-center gap-3 text-xs text-ink-faint">
-                  <span>{c.post_count} posts</span>
-                  {typeof c.member_count === "number" ? (
-                    <span className="flex items-center gap-1">
-                      <Users aria-hidden="true" className="size-3.5" /> {c.member_count} members
-                    </span>
-                  ) : null}
-                </p>
-                <div className="mt-1 flex flex-wrap gap-2">
-                  <button type="button" className={cn(isJoined ? secondaryButtonClass : primaryButtonClass, "h-9")} aria-pressed={isJoined} onClick={() => toggleJoin(c.id)}>
-                    {isJoined ? "Joined" : "Join"}
-                  </button>
-                  <button
-                    type="button"
-                    className={cn(secondaryButtonClass, "h-9")}
-                    aria-current={isActive ? "true" : undefined}
-                    onClick={() => setActive(c.id)}
-                  >
-                    {isActive ? "Viewing" : "Open thread"}
-                  </button>
-                </div>
-              </li>
-            );
-          })}
-        </ul>
-      </Panel>
-
-      <div className="grid gap-6 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]">
-        {activeCircle ? <Thread key={activeCircle.id} circle={activeCircle} joined={joined.includes(activeCircle.id)} onJoin={() => toggleJoin(activeCircle.id)} /> : <div />}
-        <div className="grid content-start gap-6">
-          <Panel label="Coach" title="Talk something through">
+      <TabPanel idBase="circle" tab={tab}>
+        {tab === "circles" ? (
+          <div className="grid gap-6 lg:grid-cols-[minmax(0,18rem)_minmax(0,1fr)]">
+            <div className="grid content-start gap-2">
+              {circles.error && !circles.data ? <ErrorNote>{circles.error}</ErrorNote> : null}
+              {!circles.data && !circles.error ? <MonoLabel as="p">Loading circles…</MonoLabel> : null}
+              <ul className="grid gap-2">
+                {list.map((c) => {
+                  const isJoined = joined.includes(c.id);
+                  const isActive = c.id === activeId;
+                  return (
+                    <li key={c.id}>
+                      <button
+                        type="button"
+                        aria-current={isActive ? "true" : undefined}
+                        onClick={() => setActive(c.id)}
+                        className={cn(
+                          "grid w-full gap-1 rounded-2xl border p-4 text-left transition-colors duration-300 focus-visible:outline-2 focus-visible:outline-accent",
+                          isActive ? "border-accent/70 bg-accent-wash" : "border-line hover:border-line-strong",
+                        )}
+                      >
+                        <span className="font-medium text-ink">{c.name}</span>
+                        <span className="flex items-center gap-3 text-xs text-ink-faint">
+                          {typeof c.member_count === "number" ? (
+                            <span className="flex items-center gap-1">
+                              <Users aria-hidden="true" className="size-3.5" /> {c.member_count}
+                            </span>
+                          ) : null}
+                          <span>{c.post_count} posts</span>
+                          {isJoined ? <span className="text-accent">Joined</span> : null}
+                        </span>
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+            {activeCircle ? <Thread key={activeCircle.id} circle={activeCircle} joined={joined.includes(activeCircle.id)} onJoin={() => toggleJoin(activeCircle.id)} /> : <div />}
+          </div>
+        ) : null}
+        {tab === "coach" ? (
+          <div className={BOX}>
             <CoachPanel />
-          </Panel>
-          <Panel label="EQ practice" title="Practice a hard conversation">
+          </div>
+        ) : null}
+        {tab === "practice" ? (
+          <div className={BOX}>
             <EqPractice />
-          </Panel>
-        </div>
-      </div>
+          </div>
+        ) : null}
+      </TabPanel>
     </div>
   );
 }
@@ -192,7 +201,7 @@ function Thread({ circle, joined, onJoin }: { circle: Circle; joined: boolean; o
               value={text}
               maxLength={1000}
               onChange={(e) => setText(e.target.value)}
-              placeholder="What's on your mind? Posts with phone numbers or emails are held for review."
+              placeholder="What's on your mind?"
             />
             <button type="submit" className={cn(primaryButtonClass, "w-fit")} disabled={busy || !text.trim()}>
               {busy ? "Checking your post…" : "Post"}
@@ -201,14 +210,14 @@ function Thread({ circle, joined, onJoin }: { circle: Circle; joined: boolean; o
           </form>
         ) : (
           <div className="flex flex-wrap items-center justify-between gap-3 border border-dashed border-line-strong p-3 rounded-2xl">
-            <p className="text-sm text-ink-muted">Join this circle to post. Joining is opt-in and you can leave anytime.</p>
+            <p className="text-sm text-ink-muted">Join to post.</p>
             <button type="button" className={cn(primaryButtonClass, "h-9")} onClick={onJoin}>
               Join circle
             </button>
           </div>
         )}
         {posts.error && !posts.data ? <ErrorNote>{posts.error}</ErrorNote> : null}
-        {posts.data && !list.length ? <EmptyNote>No posts yet. Be the first to say hello.</EmptyNote> : null}
+        {posts.data && !list.length ? <EmptyNote>No posts yet.</EmptyNote> : null}
         <ul className="grid gap-2">
           {list.map((p) => (
             <li key={p.id} className={cn("grid gap-1 rounded-2xl p-4", p.status === "held" ? "border border-dashed border-warning/60" : "bg-surface/50")}>

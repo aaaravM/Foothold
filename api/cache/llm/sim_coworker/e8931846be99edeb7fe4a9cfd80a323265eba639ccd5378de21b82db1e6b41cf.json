@@ -1,0 +1,13 @@
+{
+  "created_at": "2026-10-24T23:30:48+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "line": "Good—let’s pin down exactly what he saw. Then we can test against the district feed before changing code.",
+    "mood_delta": 0,
+    "reaction": "neutral"
+  },
+  "schema": "CoworkerReaction",
+  "task": "sim_coworker"
+}

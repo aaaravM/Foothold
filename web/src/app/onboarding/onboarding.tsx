@@ -22,10 +22,10 @@ const LEARNER_STEPS: StepId[] = ["place", "week", "interests", "visible"];
 const EMPLOYER_STEPS: StepId[] = ["place"];
 
 const TITLES: Record<StepId, { title: string; lead: string }> = {
-  place: { title: "Where's home?", lead: "We'll show programs, jobs and circles closest to you." },
-  week: { title: "What does your week look like?", lead: "Plans only use the time and money you actually have." },
-  interests: { title: "What sounds interesting?", lead: "Pick a few. You can try any career later." },
-  visible: { title: "Let employers find you?", lead: "They see your skills, never your name, until you say yes." },
+  place: { title: "Where's home?", lead: "We'll keep things close." },
+  week: { title: "Your week?", lead: "Plans use only your real time." },
+  interests: { title: "What interests you?", lead: "Pick a few." },
+  visible: { title: "Let employers find you?", lead: "Skills only, never your name." },
 };
 
 function money(n: number) {
@@ -150,7 +150,7 @@ export function Onboarding() {
             <div className="mt-10">
               {step === "place" ? (
                 placesError ? (
-                  <p className="text-ink-muted">Towns couldn&rsquo;t load right now. You can set your place later from the top bar.</p>
+                  <p className="text-ink-muted">Towns didn&rsquo;t load. Set it later.</p>
                 ) : places.length ? (
                   <PlacePicker places={places} value={placeId} onChange={setPlaceId} />
                 ) : (

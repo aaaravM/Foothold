@@ -58,8 +58,7 @@ function Inbox() {
       <div className="grid content-start gap-6">
         <Panel
           label="Consent requests"
-          title={pending.length ? `${pending.length} waiting for your answer` : "Nothing waiting"}
-          aside={<MonoLabel>checks every few seconds</MonoLabel>}
+          title={pending.length ? `${pending.length} waiting` : "Nothing waiting"}
         >
           {!data.card ? (
             <OptIn onDone={refresh} />
@@ -72,13 +71,14 @@ function Inbox() {
               </AnimatePresence>
             </ul>
           ) : (
-            <EmptyNote>No new requests. Employers only see your blind card; when one asks to contact you, it shows up here.</EmptyNote>
+            <EmptyNote>No new requests.</EmptyNote>
           )}
         </Panel>
 
         {decided.length ? (
-          <Panel label="History" title="Answered requests">
-            <ul className="grid gap-2">
+          <details className="rounded-2xl border border-line p-5">
+            <summary className="cursor-pointer text-sm text-ink-muted hover:text-ink">Answered ({decided.length})</summary>
+            <ul className="mt-3 grid gap-2">
               {decided.map((r) => (
                 <li key={r.id} className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-line p-3 text-sm">
                   <span className="text-ink">
@@ -92,7 +92,7 @@ function Inbox() {
                 </li>
               ))}
             </ul>
-          </Panel>
+          </details>
         ) : null}
       </div>
 
@@ -101,17 +101,14 @@ function Inbox() {
           <p className="flex items-center gap-2 font-medium text-ink">
             <ShieldCheck aria-hidden="true" className="size-4 text-success" /> You decide who sees you
           </p>
-          <p className="text-sm text-ink-muted">
-            Accepting shares your contact details with that one employer only. Other employers keep seeing the blind card. Declining tells them no, and your identity stays hidden.
-          </p>
         </div>
         {data.card ? (
-          <div className="grid gap-3 rounded-2xl border border-line p-5">
-            <div className="flex items-center justify-between gap-2">
-              <MonoLabel>What employers always see</MonoLabel>
+          <details className="rounded-2xl border border-line p-5">
+            <summary className="cursor-pointer text-sm text-ink-muted hover:text-ink">What employers see</summary>
+            <div className="mt-3">
+              <BlindFields card={data.card} />
             </div>
-            <BlindFields card={data.card} />
-          </div>
+          </details>
         ) : null}
       </aside>
     </div>
@@ -171,7 +168,7 @@ function RequestItem({ request, shared, onDecided }: { request: InboxRequest; sh
           ))}
         </dl>
         <p className="flex items-center gap-2 text-xs text-ink-muted">
-          <EyeOff aria-hidden="true" className="size-3.5" /> Only this employer sees these details. Nobody else does.
+          <EyeOff aria-hidden="true" className="size-3.5" /> Nobody else sees these.
         </p>
       </div>
       {error ? <ErrorNote>{error}</ErrorNote> : null}
@@ -193,7 +190,7 @@ function OptIn({ onDone }: { onDone: () => Promise<void> }) {
   const [err, setErr] = React.useState<string | null>(null);
   return (
     <div className="grid gap-3">
-      <p className="text-ink-muted">Employers can&apos;t find you yet. Turn on your blind card: they see your skills and progress, never your name, until you say yes.</p>
+      <p className="text-ink-muted">Turn on your blind card. Your name stays hidden until you say yes.</p>
       {err ? <ErrorNote>{err}</ErrorNote> : null}
       <button
         type="button"

@@ -1,0 +1,13 @@
+{
+  "created_at": "2026-10-24T23:31:03+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "line": "A quick prototype could make the possibilities tangible. Let’s capture the idea as a ticket and be clear that it doesn’t prove anyone’s job is changing.",
+    "mood_delta": 2,
+    "reaction": "neutral"
+  },
+  "schema": "CoworkerReaction",
+  "task": "sim_coworker"
+}

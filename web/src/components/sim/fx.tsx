@@ -193,3 +193,80 @@ export function QuietLabel({
     </Comp>
   );
 }
+
+/** Pill tab bar: one tab visible at a time. Pair with <TabPanel>. */
+export function TabBar<T extends string>({
+  tabs,
+  value,
+  onChange,
+  label,
+  idBase,
+  className,
+}: {
+  tabs: readonly { id: T; label: string; badge?: React.ReactNode }[];
+  value: T;
+  onChange: (id: T) => void;
+  label: string;
+  idBase: string;
+  className?: string;
+}) {
+  const refs = React.useRef<(HTMLButtonElement | null)[]>([]);
+  const onKey = (e: React.KeyboardEvent, i: number) => {
+    const d = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
+    if (!d) return;
+    e.preventDefault();
+    const n = (i + d + tabs.length) % tabs.length;
+    onChange(tabs[n].id);
+    refs.current[n]?.focus();
+  };
+  return (
+    <div role="tablist" aria-label={label} className={cn("flex gap-1 overflow-x-auto rounded-full border border-line p-1 sm:w-fit", className)}>
+      {tabs.map((t, i) => {
+        const on = t.id === value;
+        return (
+          <button
+            key={t.id}
+            ref={(el) => {
+              refs.current[i] = el;
+            }}
+            type="button"
+            role="tab"
+            id={`${idBase}-tab-${t.id}`}
+            aria-selected={on}
+            aria-controls={`${idBase}-panel`}
+            tabIndex={on ? 0 : -1}
+            onClick={() => onChange(t.id)}
+            onKeyDown={(e) => onKey(e, i)}
+            className={cn(
+              "relative flex h-9 shrink-0 items-center gap-2 rounded-full px-4 text-sm whitespace-nowrap transition-colors duration-300 focus-visible:outline-2 focus-visible:outline-accent",
+              on ? "text-accent-ink" : "text-ink-muted hover:text-ink",
+            )}
+          >
+            {on ? <motion.span layoutId={`${idBase}-pill`} className="absolute inset-0 rounded-full bg-accent" transition={{ duration: 0.45, ease: EASE }} /> : null}
+            <span className="relative">{t.label}</span>
+            {t.badge ? <span className="relative font-mono text-xs">{t.badge}</span> : null}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+/** The visible tab's body, with a soft cross-fade between tabs. */
+export function TabPanel({ idBase, tab, children, className }: { idBase: string; tab: string; children: React.ReactNode; className?: string }) {
+  const reduce = useReducedMotion();
+  return (
+    <motion.div
+      key={tab}
+      role="tabpanel"
+      id={`${idBase}-panel`}
+      aria-labelledby={`${idBase}-tab-${tab}`}
+      initial={reduce ? { opacity: 0 } : { opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: EASE }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
+}

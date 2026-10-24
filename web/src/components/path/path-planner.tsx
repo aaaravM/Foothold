@@ -3,19 +3,17 @@
 import * as React from "react";
 import { useSearchParams } from "next/navigation";
 import { drawLinkClass } from "@/components/auth/parts";
-import { QuietLabel as MonoLabel, primaryPill } from "@/components/sim/fx";
-import { ProvenanceBadge } from "@/components/foothold/provenance-badge";
-import { SourceLink } from "@/components/foothold/source-link";
+import { ghostPill, QuietLabel as MonoLabel, primaryPill } from "@/components/sim/fx";
 import { TracePanel } from "@/components/foothold/trace-panel";
 import { errorMessage, useTappedTrace } from "@/components/sim/use-tapped-trace";
 import { getJSON, postJSON } from "@/lib/api";
 import type { Account } from "@/lib/auth";
-import type { Provenance, TraceEvent } from "@/lib/types";
+import type { TraceEvent } from "@/lib/types";
 import { cn } from "@/lib/utils";
-import { motion } from "motion/react";
-import { Kicker, Reveal } from "@/components/sim/fx";
+import { AnimatePresence, motion } from "motion/react";
 import { NearbyPrograms, PlacePicker, usePlaces } from "./nearby";
 import { PathKanban } from "./path-kanban";
+import { PickedForYou } from "./picked-for-you";
 import { usePersona } from "./use-persona";
 
 /* ------------------------------------------------------------------ */
@@ -141,10 +139,6 @@ const SLIDERS: { key: keyof Inputs; label: string; min: number; max: number; ste
   { key: "current_credits", label: "College credits already earned", min: 0, max: 60, step: 1, fmt: (n) => `${n} units` },
 ];
 
-function prov(status: unknown): Provenance {
-  const s = String(status ?? "").split(" ")[0].toUpperCase();
-  return s === "REAL" || s === "SAMPLE" || s === "SYNTHETIC" || s === "FICTIONAL" ? (s as Provenance) : "SAMPLE";
-}
 const usd = (n: number) => `$${Math.round(n).toLocaleString("en-US")}`;
 const ruleKey = (r: Rule) => JSON.stringify({ ...r, label: undefined });
 
@@ -172,7 +166,6 @@ function RuleChip({ rule, onRemove }: { rule: Rule; onRemove?: () => void }) {
 
 function RouteColumn({ plan, best, selected, onSelect, index = 0 }: { plan: RoutePlan; best: boolean; selected: boolean; onSelect: () => void; index?: number }) {
   const wage = plan.expected_wage;
-  const passed = plan.checks?.filter((c) => c.ok).length ?? 0;
   return (
     <motion.section
       aria-label={`${plan.label} route`}
@@ -191,120 +184,84 @@ function RouteColumn({ plan, best, selected, onSelect, index = 0 }: { plan: Rout
       </div>
       <h3 className="font-display text-xl text-ink">{plan.label}</h3>
       {plan.program ? (
-        <div className="text-sm">
-          <p className="text-ink">{plan.program.name}</p>
-          <p className="text-ink-muted">{plan.program.provider}</p>
-          {plan.commute?.minutes_one_way != null ? (
-            <p className="mt-1 text-ink-muted">
-              <span className="font-mono text-ink tabular-nums">{plan.commute.minutes_one_way}</span> min drive
-              {plan.commute.campus ? ` to ${plan.commute.campus}` : ""}
-            </p>
-          ) : null}
-          <div className="mt-1 flex flex-wrap items-center gap-2">
-            <ProvenanceBadge status={prov(plan.program.status)} href={plan.program.source?.url} />
-            {plan.program.url ? <SourceLink href={plan.program.url} label="Program page" /> : null}
-          </div>
-        </div>
+        <p className="text-sm text-ink-muted">
+          {plan.program.url ? (
+            <a href={plan.program.url} target="_blank" rel="noreferrer" className="link-draw text-ink">
+              {plan.program.name}
+            </a>
+          ) : (
+            <span className="text-ink">{plan.program.name}</span>
+          )}
+          {plan.commute?.minutes_one_way != null ? ` · ${plan.commute.minutes_one_way} min drive` : ""}
+        </p>
       ) : null}
 
       {plan.feasible ? (
-        <dl className="grid grid-cols-2 gap-x-3 gap-y-2 text-sm">
+        <dl className="grid grid-cols-3 gap-x-3 text-sm">
           <div>
             <MonoLabel as="dt">Time</MonoLabel>
             <dd className="font-mono text-lg text-ink tabular-nums">{plan.months ?? "–"} mo</dd>
           </div>
           <div>
-            <MonoLabel as="dt">Listed cost</MonoLabel>
+            <MonoLabel as="dt">Cost</MonoLabel>
             <dd className="font-mono text-lg text-ink tabular-nums">{plan.cost_usd != null ? usd(plan.cost_usd) : "–"}</dd>
           </div>
           <div>
-            <MonoLabel as="dt">Peak load</MonoLabel>
-            <dd className="font-mono text-ink tabular-nums">{plan.peak_hours_per_week ?? "–"} h/wk</dd>
-          </div>
-          <div>
-            <MonoLabel as="dt">Terms</MonoLabel>
-            <dd className="text-ink">
-              {plan.start_term} → {plan.finish_term}
-            </dd>
+            <MonoLabel as="dt">Pay</MonoLabel>
+            <dd className="font-mono text-lg text-ink tabular-nums">{typeof wage?.median_annual === "number" ? `${usd(wage.median_annual / 1000)}k` : "–"}</dd>
           </div>
         </dl>
       ) : (
-        <div className="space-y-2 text-sm">
-          <p className="text-ink">{plan.reason ?? "No schedule satisfies every rule."}</p>
-          {plan.hints && Object.keys(plan.hints).length > 0 ? (
-            <MonoLabel as="p">
-              Would need:{" "}
-              {Object.entries(plan.hints)
-                .map(([k, v]) => `${k.replace(/_/g, " ")} ${String(v)}`)
-                .join(" · ")}
-            </MonoLabel>
-          ) : null}
-        </div>
+        <p className="text-sm text-ink">{plan.reason ?? "No schedule fits every rule."}</p>
       )}
 
-      <div className="border-t border-line pt-3 text-sm">
-        <MonoLabel as="p">Expected wage</MonoLabel>
-        <div className="mt-1 flex flex-wrap items-center gap-2">
-          {typeof wage?.median_annual === "number" ? (
-            <span className="font-mono text-ink tabular-nums">{usd(wage.median_annual)}/yr median</span>
-          ) : (
-            <span className="text-ink-muted">not available</span>
-          )}
-          {wage ? <ProvenanceBadge status={prov(wage.status)} href={wage.source?.url} note={wage.area} /> : null}
-        </div>
-        {typeof plan.starting_wage_hourly === "number" ? (
-          <p className="mt-1 text-ink-muted">Starting pay in plan: ${plan.starting_wage_hourly.toFixed(2)}/h</p>
-        ) : null}
-      </div>
-
-      {plan.greedy ? (
-        <details className="border-t border-line pt-3">
-          <summary className="cursor-pointer list-none text-[13px] text-ink-faint hover:text-ink">Solver vs a simple schedule</summary>
-          <table className="mt-1 w-full text-sm">
-            <caption className="sr-only">Solver comparison for {plan.label}</caption>
-            <thead>
-              <tr className="text-left">
-                <th scope="col" className="font-normal text-ink-muted" />
-                <th scope="col" className="font-mono text-xs font-normal text-ink-muted">CP-SAT</th>
-                <th scope="col" className="font-mono text-xs font-normal text-ink-muted">Greedy</th>
-              </tr>
-            </thead>
-            <tbody className="font-mono tabular-nums">
-              <tr>
-                <th scope="row" className="text-left font-sans font-normal text-ink-muted">Months</th>
-                <td className="text-ink">{plan.feasible ? plan.months : "✕"}</td>
-                <td className="text-ink">{plan.greedy.feasible ? plan.greedy.months : "✕"}</td>
-              </tr>
-              <tr>
-                <th scope="row" className="text-left font-sans font-normal text-ink-muted">Cost</th>
-                <td className="text-ink">{plan.feasible && plan.cost_usd != null ? usd(plan.cost_usd) : "✕"}</td>
-                <td className="text-ink">{plan.greedy.feasible && plan.greedy.cost_usd != null ? usd(plan.greedy.cost_usd) : "✕"}</td>
-              </tr>
-              <tr>
-                <th scope="row" className="text-left font-sans font-normal text-ink-muted">Solve</th>
-                <td className="text-ink">{plan.solve_ms ?? 0} ms</td>
-                <td className="text-ink">{plan.greedy.solve_ms ?? 0} ms</td>
-              </tr>
-            </tbody>
-          </table>
-        </details>
-      ) : null}
-
-      <div className="mt-auto flex items-center justify-between gap-2 pt-2">
-        {plan.checks?.length ? (
-          <MonoLabel tone={plan.verified ? "success" : "warning"}>
-            {passed}/{plan.checks.length} checks
-          </MonoLabel>
-        ) : (
-          <span />
-        )}
-        {plan.feasible ? (
+      {plan.feasible ? (
+        <div className="mt-auto pt-1">
           <button type="button" onClick={onSelect} aria-pressed={selected} className={drawLinkClass}>
-            {selected ? "Showing terms" : "Show terms"}
+            {selected ? "Hide terms" : "Show terms"}
           </button>
-        ) : null}
-      </div>
+        </div>
+      ) : null}
     </motion.section>
+  );
+}
+
+/** A collapsible step: one title, one hint, body revealed on demand. */
+function Step({ title, hint, open, onToggle, children }: { title: string; hint?: string; open: boolean; onToggle: (open: boolean) => void; children: React.ReactNode }) {
+  const id = `path-step-${title.toLowerCase()}`;
+  return (
+    <section className="border-t border-line pt-5">
+      <button
+        type="button"
+        aria-expanded={open}
+        aria-controls={id}
+        onClick={() => onToggle(!open)}
+        className="group flex w-full items-baseline justify-between gap-4 text-left focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+      >
+        <span className="flex items-baseline gap-3">
+          <span className="font-display text-2xl text-ink">{title}</span>
+          {hint ? <MonoLabel>{hint}</MonoLabel> : null}
+        </span>
+        <span aria-hidden="true" className={cn("text-xl text-ink-muted transition-transform duration-300", open && "rotate-45")}>
+          +
+        </span>
+      </button>
+      <AnimatePresence initial={false}>
+        {open ? (
+          <motion.div
+            id={id}
+            key="body"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            className="overflow-hidden"
+          >
+            <div className="pt-6">{children}</div>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
+    </section>
   );
 }
 
@@ -313,9 +270,6 @@ function TermTimeline({ plan }: { plan: RoutePlan }) {
   if (!terms.length) return null;
   return (
     <div>
-      <MonoLabel as="h3" tone="ink" className="mb-3">
-        Term by term · {plan.label}
-      </MonoLabel>
       <div className="relative mb-4 h-px bg-line" aria-hidden="true">
         <motion.div
           key={plan.route_type}
@@ -400,6 +354,9 @@ export function PathPlanner({ account }: { account: Account }) {
   const [agentBusy, setAgentBusy] = React.useState(false);
   const [approved, setApproved] = React.useState(false);
   const [kanbanVersion, setKanbanVersion] = React.useState(0);
+  const [showTerms, setShowTerms] = React.useState(false);
+  const [adjustOpen, setAdjustOpen] = React.useState(false);
+  const [trackOpen, setTrackOpen] = React.useState(false);
   const { places, placeId, save: savePlace } = usePlaces();
   /** a place picked here this session; only then is it sent to the solver (demo personas keep their commute otherwise) */
   const [pickedPlace, setPickedPlace] = React.useState<string | null>(null);
@@ -412,6 +369,7 @@ export function PathPlanner({ account }: { account: Account }) {
       if (r?.approved) {
         setApproved(true);
         setKanbanVersion((v) => v + 1);
+        setTrackOpen(true);
       }
     }
   }, []);
@@ -464,7 +422,7 @@ export function PathPlanner({ account }: { account: Account }) {
     try {
       const r = await postJSON<{ rules: Rule[]; source?: string }>("/api/path/translate", { text: ruleText });
       setProposed(r.rules);
-      if (!r.rules.length) setTranslateError("No rule found in that sentence. Try something like “no classes before 9am” or “weekends off”.");
+      if (!r.rules.length) setTranslateError("No rule found. Try “weekends off”.");
     } catch (e) {
       setTranslateError(errorMessage(e));
     }
@@ -506,21 +464,22 @@ export function PathPlanner({ account }: { account: Account }) {
 
   return (
     <div className="space-y-10">
-      {/* constraints */}
-      <section aria-labelledby="path-constraints" className="grid gap-8 lg:grid-cols-12">
-        <div className="space-y-5 lg:col-span-4">
-          <h2 id="path-constraints">
-            <Kicker>Your week</Kicker>
+      {/* routes first */}
+      <section aria-labelledby="path-routes" aria-busy={solving}>
+        <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+          <h2 id="path-routes" className="font-display text-2xl text-ink">
+            Routes for your week
           </h2>
-          <div className="space-y-2">
-            <MonoLabel as="label" htmlFor="path-career" tone="ink">
+          <div className="flex items-center gap-3">
+            <MonoLabel aria-live="polite">{solving ? "Solving…" : ""}</MonoLabel>
+            <label htmlFor="path-career" className="sr-only">
               Career
-            </MonoLabel>
+            </label>
             <select
               id="path-career"
               value={careerId}
               onChange={(e) => setCareerId(e.target.value)}
-              className="h-11 w-full border border-line-strong bg-bg px-2 text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              className="h-10 rounded-full border border-line-strong bg-bg px-3 text-sm text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
             >
               {!careerId ? <option value="">Choose a career</option> : null}
               {careers.map((c) => (
@@ -530,8 +489,63 @@ export function PathPlanner({ account }: { account: Account }) {
               ))}
             </select>
           </div>
-          {inputs
-            ? SLIDERS.map((s) => (
+        </div>
+        {solveError ? (
+          <p role="alert" className="mb-4 text-danger">
+            {solveError}
+          </p>
+        ) : null}
+        <div className={cn("grid gap-3 sm:grid-cols-2", routes.length > 3 ? "xl:grid-cols-4" : "lg:grid-cols-3", solving && "opacity-70")}>
+          {routes.map((p, i) => (
+            <RouteColumn
+              key={p.route_type}
+              index={i}
+              plan={p}
+              best={solve?.best_route === p.route_type}
+              selected={showTerms && selected === p.route_type}
+              onSelect={() => {
+                if (showTerms && selected === p.route_type) setShowTerms(false);
+                else {
+                  setSelected(p.route_type);
+                  setShowTerms(true);
+                }
+              }}
+            />
+          ))}
+        </div>
+        {showTerms && selPlan?.feasible ? (
+          <div className="mt-6">
+            <TermTimeline plan={selPlan} />
+          </div>
+        ) : null}
+      </section>
+
+      <PickedForYou personaId={account.persona_id} />
+
+      {/* near you, compact */}
+      <section aria-label="Programs near you" className="space-y-4">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <h2 className="font-display text-xl text-ink">
+            Programs near <span className="text-accent">{placeName ?? "you"}</span>
+          </h2>
+          <PlacePicker
+            places={places}
+            value={placeId}
+            onChange={(id) => {
+              setPickedPlace(id);
+              void savePlace(id);
+            }}
+          />
+        </div>
+        <NearbyPrograms placeId={placeId} placeName={placeName} careerId={careerId} hideHeading />
+      </section>
+
+      {/* adjust: sliders, rules, approval */}
+      <Step title="Adjust" hint={approved ? "Plan approved" : "Your week, rules, approval"} open={adjustOpen} onToggle={setAdjustOpen}>
+        <div className="grid gap-8 lg:grid-cols-12">
+          <div className="space-y-5 lg:col-span-4">
+            {inputs ? (
+              SLIDERS.map((s) => (
                 <div key={s.key} className="space-y-1">
                   <div className="flex items-baseline justify-between">
                     <MonoLabel as="label" htmlFor={`path-${s.key}`} tone="ink">
@@ -551,234 +565,144 @@ export function PathPlanner({ account }: { account: Account }) {
                   />
                 </div>
               ))
-            : <MonoLabel as="p">Loading your constraints…</MonoLabel>}
-          {persona ? (
-            <MonoLabel as="p" tone="faint">
-              Prefilled from {persona.display_name ?? account.display_name}&apos;s profile
-            </MonoLabel>
-          ) : null}
-        </div>
-
-        <div className="space-y-4 lg:col-span-8">
-          <h2>
-            <Kicker>Rules in your own words</Kicker>
-          </h2>
-          <div className="space-y-2">
-            <MonoLabel as="label" htmlFor="path-rule-text" tone="ink">
-              Describe your week
-            </MonoLabel>
-            <div className="flex flex-col gap-2 sm:flex-row">
-              <input
-                id="path-rule-text"
-                value={ruleText}
-                onChange={(e) => setRuleText(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                    e.preventDefault();
-                    void translate();
-                  }
-                }}
-                placeholder="I work weekends and can't make class before 9am"
-                className="h-11 flex-1 border border-line-strong bg-bg px-3 text-ink placeholder:text-ink-faint focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-              />
-              <button type="button" onClick={() => void translate()} disabled={translating || !ruleText.trim()} className={cn(primaryPill, "h-11")}>
-                <span>{translating ? "Reading…" : "Turn into rules"}</span>
-              </button>
-            </div>
-            {translateError ? (
-              <p role="alert" className="text-sm text-danger">
-                {translateError}
-              </p>
-            ) : null}
+            ) : (
+              <MonoLabel as="p">Loading…</MonoLabel>
+            )}
           </div>
-          {proposed && proposed.length > 0 ? (
-            <div className="border border-dashed border-accent p-3" aria-live="polite">
-              <MonoLabel as="p">Confirm these rules before they change your plan</MonoLabel>
-              <div className="mt-2 flex flex-wrap gap-2">
-                {proposed.map((r, i) => (
-                  <RuleChip key={ruleKey(r)} rule={r} onRemove={() => setProposed(proposed.filter((_, j) => j !== i))} />
-                ))}
-              </div>
-              <div className="mt-3 flex gap-4">
-                <button type="button" className={drawLinkClass} onClick={applyProposed}>
-                  Apply {proposed.length} rule{proposed.length === 1 ? "" : "s"}
-                </button>
-                <button type="button" className={drawLinkClass} onClick={() => setProposed(null)}>
-                  Discard
-                </button>
-              </div>
-            </div>
-          ) : null}
-          <div>
-            <MonoLabel as="p">Active rules</MonoLabel>
-            <div className="mt-2 flex flex-wrap gap-2">
-              {rules.length ? (
-                rules.map((r, i) => <RuleChip key={ruleKey(r)} rule={r} onRemove={() => setRules(rules.filter((_, j) => j !== i))} />)
-              ) : (
-                <span className="text-sm text-ink-muted">None yet. The sliders still apply.</span>
-              )}
-            </div>
-          </div>
-          <div className="flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-line pt-3 text-sm">
-            <MonoLabel>Check with the colleges</MonoLabel>
-            <SourceLink href="https://programmap.deltacollege.edu/" label="Delta College Program Mapper" />
-            <SourceLink href="https://programmap.mjc.edu/" label="MJC Program Mapper" />
-            <SourceLink href="https://assist.org" label="ASSIST (UC/CSU transfer)" />
-          </div>
-        </div>
-      </section>
 
-      {/* near you */}
-      <Reveal inView>
-        <section aria-label="Programs near you" className="space-y-4">
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <Kicker>Near you</Kicker>
-            <PlacePicker
-              places={places}
-              value={placeId}
-              onChange={(id) => {
-                setPickedPlace(id);
-                void savePlace(id);
-              }}
-            />
-          </div>
-          <NearbyPrograms placeId={placeId} placeName={placeName} careerId={careerId} />
-        </section>
-      </Reveal>
-
-      {/* routes */}
-      <section aria-labelledby="path-routes" aria-busy={solving}>
-        <div className="mb-4 flex flex-wrap items-baseline justify-between gap-3">
-          <h2 id="path-routes" className="font-display text-2xl text-ink">
-            {solve ? `Routes to ${solve.career_title}` : "Routes"}
-          </h2>
-          <MonoLabel aria-live="polite">
-            {solving ? "Solving…" : solve ? (solve.start_term ? `Starts ${solve.start_term}` : "") : ""}
-          </MonoLabel>
-        </div>
-        {solveError ? (
-          <p role="alert" className="mb-4 text-danger">
-            {solveError}
-          </p>
-        ) : null}
-        <div className={cn("grid gap-3 sm:grid-cols-2", routes.length > 3 ? "xl:grid-cols-4" : "lg:grid-cols-3", solving && "opacity-70")}>
-          {routes.map((p, i) => (
-            <RouteColumn key={p.route_type} index={i} plan={p} best={solve?.best_route === p.route_type} selected={selected === p.route_type} onSelect={() => setSelected(p.route_type)} />
-          ))}
-        </div>
-        {solve?.assumptions?.length ? (
-          <details className="mt-3 text-sm text-ink-muted">
-            <summary className="cursor-pointer hover:text-ink focus-visible:outline-2 focus-visible:outline-accent">Planner assumptions</summary>
-            <ul className="mt-2 list-disc space-y-1 pl-5">
-              {solve.assumptions.map((a) => (
-                <li key={a}>{a}</li>
-              ))}
-            </ul>
-          </details>
-        ) : null}
-      </section>
-
-      {selPlan?.feasible ? <TermTimeline plan={selPlan} /> : null}
-
-      {/* agent approval */}
-      <section aria-labelledby="path-agent" className="grid gap-8 lg:grid-cols-12">
-        <div className="space-y-4 lg:col-span-5">
-          <h2 id="path-agent">
-            <Kicker>Get a plan you approve</Kicker>
-          </h2>
-          <p className="text-ink-muted">
-            Foothold retrieves programs, solves, checks every number, then waits for you. Reject it with a reason and that reason becomes a new rule.
-          </p>
-          {!interrupt ? (
-            <button type="button" onClick={() => void startAgent()} disabled={agentBusy || !inputs || !careerId} className={primaryPill}>
-              <span>{agentBusy ? "Working…" : approved ? "Plan again" : "Propose my plan"}</span>
-              <span aria-hidden="true" className="font-mono text-xs">
-                ↵
-              </span>
-            </button>
-          ) : null}
-          {trace.state.error ? (
-            <p role="alert" className="text-danger">
-              {trace.state.error}
-            </p>
-          ) : null}
-          {approved && !interrupt ? (
-            <p role="status" className="text-success">
-              Plan approved. Its steps are on your board below.
-            </p>
-          ) : null}
-        </div>
-        <div className="space-y-4 lg:col-span-7">
-          {interrupt?.kind === "approve_plan" ? (
-            <div className="border border-line-strong p-4" aria-live="polite">
-              <MonoLabel as="p">
-                Proposal · round {interrupt.round ?? 1}
-                {interrupt.best_route ? ` · ${ROUTE_LABEL[interrupt.best_route] ?? interrupt.best_route}` : ""}
+          <div className="space-y-5 lg:col-span-8">
+            <div className="space-y-2">
+              <MonoLabel as="label" htmlFor="path-rule-text" tone="ink">
+                Rules in your words
               </MonoLabel>
-              <p className="mt-2 text-lg text-ink">{interrupt.proposal?.text}</p>
-              {interrupt.proposal?.reasons?.length ? (
-                <ul className="mt-2 list-disc pl-5 text-sm text-ink-muted">
-                  {interrupt.proposal.reasons.map((r) => (
-                    <li key={r}>{r}</li>
-                  ))}
-                </ul>
+              <div className="flex flex-col gap-2 sm:flex-row">
+                <input
+                  id="path-rule-text"
+                  value={ruleText}
+                  onChange={(e) => setRuleText(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      e.preventDefault();
+                      void translate();
+                    }
+                  }}
+                  placeholder="I work weekends and can't make class before 9am"
+                  className="h-11 flex-1 border border-line-strong bg-bg px-3 text-ink placeholder:text-ink-faint focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                />
+                <button type="button" onClick={() => void translate()} disabled={translating || !ruleText.trim()} className={cn(ghostPill, "h-11 justify-center")}>
+                  {translating ? "Reading…" : "Add rules"}
+                </button>
+              </div>
+              {translateError ? (
+                <p role="alert" className="text-sm text-danger">
+                  {translateError}
+                </p>
               ) : null}
-              {interrupt.rules?.length ? (
-                <div className="mt-3 flex flex-wrap items-center gap-2">
-                  <MonoLabel>Rules in this round</MonoLabel>
-                  {interrupt.rules.map((r) => (
-                    <RuleChip key={ruleKey(r)} rule={r} />
+            </div>
+            {proposed && proposed.length > 0 ? (
+              <div className="border border-dashed border-accent p-3" aria-live="polite">
+                <MonoLabel as="p">Confirm these rules</MonoLabel>
+                <div className="mt-2 flex flex-wrap gap-2">
+                  {proposed.map((r, i) => (
+                    <RuleChip key={ruleKey(r)} rule={r} onRemove={() => setProposed(proposed.filter((_, j) => j !== i))} />
                   ))}
                 </div>
-              ) : null}
-              <div className="mt-4 flex flex-col gap-3">
-                <button type="button" onClick={() => void decide(true)} disabled={agentBusy || !interrupt.proposal?.best_route} className={cn(primaryPill, "self-start")}>
-                  <span>Approve this plan</span>
-                </button>
-                <div className="space-y-1">
-                  <MonoLabel as="label" htmlFor="path-reject-reason" tone="ink">
-                    Or tell Foothold what&apos;s wrong
-                  </MonoLabel>
-                  <div className="flex flex-col gap-2 sm:flex-row">
-                    <input
-                      id="path-reject-reason"
-                      value={reason}
-                      onChange={(e) => setReason(e.target.value)}
-                      placeholder="Too long. I also can't do Fridays."
-                      className="h-11 flex-1 border border-line-strong bg-bg px-3 text-ink placeholder:text-ink-faint focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-                    />
-                    <button
-                      type="button"
-                      onClick={() => void decide(false)}
-                      disabled={agentBusy || interrupt.can_retry === false}
-                      className="h-11 border border-line-strong px-4 text-ink hover:bg-surface focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent disabled:opacity-50"
-                    >
-                      Reject and re-solve
-                    </button>
-                  </div>
-                  {interrupt.can_retry === false ? <MonoLabel as="p">Retry limit reached for this run.</MonoLabel> : null}
+                <div className="mt-3 flex gap-4">
+                  <button type="button" className={drawLinkClass} onClick={applyProposed}>
+                    Apply {proposed.length} rule{proposed.length === 1 ? "" : "s"}
+                  </button>
+                  <button type="button" className={drawLinkClass} onClick={() => setProposed(null)}>
+                    Discard
+                  </button>
                 </div>
               </div>
-            </div>
-          ) : null}
-          {interrupt?.kind === "confirm_rules" ? (
-            <div className="border border-dashed border-accent p-4">
-              <MonoLabel as="p">Confirm the rules Foothold read</MonoLabel>
-              <div className="mt-2 flex flex-wrap gap-2">
-                {(interrupt.proposed ?? []).map((r) => (
-                  <RuleChip key={ruleKey(r)} rule={r} />
+            ) : null}
+            {rules.length ? (
+              <div className="flex flex-wrap gap-2">
+                {rules.map((r, i) => (
+                  <RuleChip key={ruleKey(r)} rule={r} onRemove={() => setRules(rules.filter((_, j) => j !== i))} />
                 ))}
               </div>
-              <button type="button" className={cn(drawLinkClass, "mt-3")} onClick={() => void decide(true)} disabled={agentBusy}>
-                Confirm rules
-              </button>
-            </div>
-          ) : null}
-          {trace.state.status !== "idle" ? <TracePanel nodes={trace.nodes} state={trace.state} title="Behind the scenes" /> : null}
-        </div>
-      </section>
+            ) : null}
 
-      <PathKanban version={kanbanVersion} />
+            <div className="space-y-4 border-t border-line pt-5">
+              {!interrupt ? (
+                <button type="button" onClick={() => void startAgent()} disabled={agentBusy || !inputs || !careerId} className={primaryPill}>
+                  <span>{agentBusy ? "Working…" : approved ? "Plan again" : "Propose my plan"}</span>
+                  <span aria-hidden="true" className="font-mono text-xs">
+                    ↵
+                  </span>
+                </button>
+              ) : null}
+              {trace.state.error ? (
+                <p role="alert" className="text-danger">
+                  {trace.state.error}
+                </p>
+              ) : null}
+              {approved && !interrupt ? (
+                <p role="status" className="text-success">
+                  Approved. Steps added to Track.
+                </p>
+              ) : null}
+              {interrupt?.kind === "approve_plan" ? (
+                <div className="border border-line-strong p-4" aria-live="polite">
+                  <MonoLabel as="p">
+                    Proposal{interrupt.round && interrupt.round > 1 ? ` · round ${interrupt.round}` : ""}
+                    {interrupt.best_route ? ` · ${ROUTE_LABEL[interrupt.best_route] ?? interrupt.best_route}` : ""}
+                  </MonoLabel>
+                  <p className="mt-2 text-lg text-ink">{interrupt.proposal?.text}</p>
+                  <div className="mt-4 flex flex-col gap-3">
+                    <button type="button" onClick={() => void decide(true)} disabled={agentBusy || !interrupt.proposal?.best_route} className={cn(primaryPill, "self-start")}>
+                      <span>Approve this plan</span>
+                    </button>
+                    <div className="space-y-1">
+                      <MonoLabel as="label" htmlFor="path-reject-reason" tone="ink">
+                        Or say what&apos;s wrong
+                      </MonoLabel>
+                      <div className="flex flex-col gap-2 sm:flex-row">
+                        <input
+                          id="path-reject-reason"
+                          value={reason}
+                          onChange={(e) => setReason(e.target.value)}
+                          placeholder="Too long. I also can't do Fridays."
+                          className="h-11 flex-1 border border-line-strong bg-bg px-3 text-ink placeholder:text-ink-faint focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => void decide(false)}
+                          disabled={agentBusy || interrupt.can_retry === false}
+                          className="h-11 border border-line-strong px-4 text-ink hover:bg-surface focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent disabled:opacity-50"
+                        >
+                          Reject and re-solve
+                        </button>
+                      </div>
+                      {interrupt.can_retry === false ? <MonoLabel as="p">Retry limit reached.</MonoLabel> : null}
+                    </div>
+                  </div>
+                </div>
+              ) : null}
+              {interrupt?.kind === "confirm_rules" ? (
+                <div className="border border-dashed border-accent p-4">
+                  <MonoLabel as="p">Confirm these rules</MonoLabel>
+                  <div className="mt-2 flex flex-wrap gap-2">
+                    {(interrupt.proposed ?? []).map((r) => (
+                      <RuleChip key={ruleKey(r)} rule={r} />
+                    ))}
+                  </div>
+                  <button type="button" className={cn(drawLinkClass, "mt-3")} onClick={() => void decide(true)} disabled={agentBusy}>
+                    Confirm rules
+                  </button>
+                </div>
+              ) : null}
+              {trace.state.status !== "idle" ? <TracePanel nodes={trace.nodes} state={trace.state} title="Behind the scenes" /> : null}
+            </div>
+          </div>
+        </div>
+      </Step>
+
+      <Step title="Track" hint="Your saved steps" open={trackOpen} onToggle={setTrackOpen}>
+        <PathKanban version={kanbanVersion} />
+      </Step>
     </div>
   );
 }

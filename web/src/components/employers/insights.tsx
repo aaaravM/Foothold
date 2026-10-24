@@ -54,13 +54,10 @@ export function Fairness({ data, error }: { data: FairnessResponse | null; error
               ),
             )}
           </div>
-          {a.method ? <MonoLabel as="p">{a.method}</MonoLabel> : null}
+          
         </>
       )}
-      <p className="border-l-2 border-warning/70 pl-3 text-sm text-ink-muted">
-        {a.note ? `${a.note} ` : ""}
-        Limitation: group labels are used only for this audit and never as a ranking feature. A real audit needs real applicant data and legal review.
-      </p>
+      <p className="text-xs text-ink-faint">Group labels are never used for ranking.</p>
     </div>
   );
 }
@@ -119,7 +116,7 @@ export function GapReportView({ data, error }: { data: GapReport | null; error: 
           </table>
         </div>
       )}
-      <p className="text-xs text-ink-faint">Counts under the minimum group size are suppressed so no individual can be singled out. These aggregates feed learner course recommendations.</p>
+      <p className="text-xs text-ink-faint">Small groups are hidden for privacy.</p>
     </div>
   );
 }

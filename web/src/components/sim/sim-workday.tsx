@@ -5,14 +5,14 @@ import Link from "next/link";
 import { AnimatePresence, motion } from "motion/react";
 import { usePersona } from "@/components/path/use-persona";
 import { NotTrainedYet } from "@/components/foothold/metric-value";
-import { ProvenanceBadge } from "@/components/foothold/provenance-badge";
 import { type StatTone } from "@/components/foothold/stat-bar";
 import { TracePanel } from "@/components/foothold/trace-panel";
 import { TraitRadar } from "@/components/foothold/trait-radar";
 import { getJSON } from "@/lib/api";
 import type { Account } from "@/lib/auth";
-import type { Provenance, TraceEvent } from "@/lib/types";
+import type { TraceEvent } from "@/lib/types";
 import { cn } from "@/lib/utils";
+import { PickedForYou } from "@/components/path/picked-for-you";
 import { EASE, Kicker, Reveal, ScrambleText, SwapArrow, TiltCard, Tween, ghostPill, primaryPill, staggerChild, staggerParent } from "./fx";
 import { errorMessage, useTappedTrace } from "./use-tapped-trace";
 
@@ -134,11 +134,6 @@ function toMin(clock: string | undefined): number | null {
   if (!clock) return null;
   const m = /^(\d{1,2}):(\d{2})/.exec(clock);
   return m ? Number(m[1]) * 60 + Number(m[2]) : null;
-}
-
-function prov(status: unknown): Provenance {
-  const s = String(status ?? "").split(" ")[0].toUpperCase();
-  return s === "REAL" || s === "SAMPLE" || s === "SYNTHETIC" || s === "FICTIONAL" ? (s as Provenance) : "SAMPLE";
 }
 
 const usd = (n: number) => `$${Math.round(n).toLocaleString("en-US")}`;
@@ -440,9 +435,7 @@ export function SimWorkday({ account }: { account: Account }) {
       <div className="pb-28">
         <Reveal className="max-w-2xl">
           <Kicker>Pick a workday</Kicker>
-          <p className="mt-4 text-xl leading-relaxed text-ink sm:text-2xl">
-            One shift, five moments. Choose how you&apos;d handle each one and see where you fit.
-          </p>
+          <p className="mt-4 text-xl leading-relaxed text-ink sm:text-2xl">One shift, five moments.</p>
         </Reveal>
         {loadError ? (
           <p className="mt-6 text-danger" role="alert">
@@ -511,7 +504,6 @@ export function SimWorkday({ account }: { account: Account }) {
                         <span className="flex items-center gap-1.5 font-mono text-sm text-ink tabular-nums">
                           {usd(c.wage.median_annual)}
                           <span className="text-ink-faint">/yr</span>
-                          <ProvenanceBadge plain status={prov(c.wage.status)} note={`median wage, ${c.wage.area ?? "local area"}`} />
                         </span>
                       ) : (
                         <span />
@@ -581,7 +573,7 @@ export function SimWorkday({ account }: { account: Account }) {
               <ScrambleText text={top?.title ?? "pro"} duration={1200} />
             </span>
           </h2>
-          {report.summary?.text ? <p className="mt-6 max-w-2xl text-lg leading-relaxed text-ink-muted">{report.summary.text}</p> : null}
+          {report.summary?.text ? <p className="mt-6 line-clamp-2 max-w-2xl text-lg leading-relaxed text-ink-muted">{report.summary.text}</p> : null}
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <Link href={`/path?career=${encodeURIComponent(focusId)}`} className={primaryPill}>
               <span>Plan my path</span>
@@ -595,7 +587,7 @@ export function SimWorkday({ account }: { account: Account }) {
 
         <div className="grid gap-12 lg:grid-cols-12">
           <Reveal delay={0.25} className="lg:col-span-5">
-            <h3 className="mb-4 text-sm text-ink-muted">Careers that fit how you worked</h3>
+            <h3 className="mb-4 text-sm text-ink-muted">Careers that fit</h3>
             <ol className="space-y-2">
               {report.top_careers.map((t, i) => {
                 const f = report.careers[t.career_id];
@@ -637,7 +629,6 @@ export function SimWorkday({ account }: { account: Account }) {
                               {f.outlook.growth_pct}% growth
                             </span>
                           ) : null}
-                          <ProvenanceBadge plain status={prov(f.wage.status)} note={[f.wage.source?.title, f.wage.area].filter(Boolean).join(", ")} />
                         </span>
                       ) : null}
                     </Link>
@@ -656,10 +647,12 @@ export function SimWorkday({ account }: { account: Account }) {
           </Reveal>
         </div>
 
+        <PickedForYou personaId={account.persona_id} />
+
         <Reveal inView>
           <details className="group rounded-2xl border border-line p-5 open:bg-surface/30">
             <summary className="flex cursor-pointer list-none items-center justify-between text-ink">
-              Your day, moment by moment
+              Your day
               <span aria-hidden="true" className="text-ink-faint transition-transform duration-300 group-open:rotate-45">
                 +
               </span>

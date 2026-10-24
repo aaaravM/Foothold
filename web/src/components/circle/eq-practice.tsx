@@ -146,7 +146,6 @@ export function EqPractice() {
             {result.try_next}
           </p>
           <p className="text-sm text-ink-muted">{result.feedback}</p>
-          <MonoLabel as="p">{result.method}</MonoLabel>
         </div>
       ) : null}
     </div>
