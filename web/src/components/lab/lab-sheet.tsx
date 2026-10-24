@@ -168,7 +168,7 @@ export function LabSheet() {
               Maps the 21 work-style scores a workday reveals to the occupations whose O*NET profiles they match best.
             </AsideBlock>
             <DataNote block={cfB} />
-            <AsideBlock term="How it is measured">Top-1 and top-3 accuracy on held-out synthetic players against a cosine-similarity baseline.</AsideBlock>
+            <AsideBlock term="How it is measured">Top-1 and top-3 accuracy on held-out practice players against a cosine-similarity baseline.</AsideBlock>
           </>
         }
         footer={<FrameFooter block={cfB} model={model("career_fit")} keyName="career_fit" />}
@@ -359,17 +359,17 @@ export function LabSheet() {
         letter="E"
         sheet="06"
         title="Fairness audit"
-        kicker="Selection rates by synthetic group"
+        kicker="Selection rates by group"
         usedOn={{ label: "Employers · fairness", href: "/employers" }}
         status={statusFor(state, [fa.minImpactRatio, fa.rates.length ? { value: 1, path: "rates" } : null])}
         badges={badge(faB, "SYNTHETIC")}
         aside={
           <>
-            <AsideBlock term="What it does">Checks whether blind talent ranking surfaces each synthetic group at similar rates (the four-fifths rule).</AsideBlock>
+            <AsideBlock term="What it does">Checks whether blind talent ranking surfaces each group at similar rates (the four-fifths rule).</AsideBlock>
             <DataNote block={faB} />
             <AsideBlock term="Limitation">
               {fa.note ??
-                "Groups are synthetic labels on synthetic people. Passing here says the ranking code treats these groups alike; it says nothing about real applicants."}
+                "Group labels are assigned for testing only. Passing here says the ranking code treats these groups alike; it says nothing about real applicants."}
             </AsideBlock>
           </>
         }
@@ -383,7 +383,7 @@ export function LabSheet() {
         </div>
         {fa.rates.length ? (
           <BarCompare
-            caption={`Selection rate by synthetic group${fa.k ? ` (top ${fa.k.value})` : ""}`}
+            caption={`Selection rate by group${fa.k ? ` (top ${fa.k.value})` : ""}`}
             percent={isFraction(fa.rates.map((r) => r.rate))}
             max={isFraction(fa.rates.map((r) => r.rate)) ? 1 : undefined}
             rows={fa.rates.map((r) => ({ label: r.group, value: r.rate, sub: r.n !== null ? `n = ${r.n}` : undefined }))}

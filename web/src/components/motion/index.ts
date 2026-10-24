@@ -51,3 +51,5 @@ export {
   useMediaQuery,
   useReducedMotionSafe,
 } from "./use-motion-env";
+export { EASE, EASE_WIPE, Magnetic, Reveal, ScrambleText, ScrollLit, SplitWords, SwapArrow, TextRoll, Tilt } from "./kit";
+export { DotField } from "./dot-field";

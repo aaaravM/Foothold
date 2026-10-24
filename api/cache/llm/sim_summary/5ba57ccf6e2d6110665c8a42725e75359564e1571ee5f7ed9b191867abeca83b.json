@@ -1,0 +1,11 @@
+{
+  "created_at": "2026-10-24T23:23:46+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "paragraph": "You handled a day that moved from a grower’s bug report and an unclear request to code review, automation, and a production outage. Your Initiative, Perseverance, and Adaptability came through as you kept responding to changing needs. Logistics Operations Lead was your strongest career match, with Software Developer and Registered Nurse also appearing among your options. These are practice signals, not a verdict."
+  },
+  "schema": "ReportSummary",
+  "task": "sim_summary"
+}

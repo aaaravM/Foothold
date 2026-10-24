@@ -1,0 +1,29 @@
+{
+  "created_at": "2026-10-24T23:07:45+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "deltas": [
+      {
+        "delta": 0.7,
+        "trait_id": "initiative"
+      },
+      {
+        "delta": 0.8,
+        "trait_id": "cautiousness"
+      },
+      {
+        "delta": 0.8,
+        "trait_id": "attention_to_detail"
+      },
+      {
+        "delta": 0.7,
+        "trait_id": "dependability"
+      }
+    ],
+    "rationale": "Taking responsibility to verify the medication record and pharmacy log before the next dose shows proactive, careful follow-through."
+  },
+  "schema": "TraitTagging",
+  "task": "sim_score_choice"
+}

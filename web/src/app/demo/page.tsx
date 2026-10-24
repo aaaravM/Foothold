@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { DemoChecks } from "@/components/demo/demo-checks";
-import { FictionalTag } from "@/components/foothold/fictional-tag";
 import { MonoLabel } from "@/components/foothold/mono-label";
 import { SheetFrame } from "@/components/foothold/sheet-frame";
 import { DEMO_ACCOUNTS } from "@/lib/auth";
@@ -72,7 +71,6 @@ export default function DemoPage() {
               })}
             </ul>
             <div className="mt-2 flex items-center gap-3">
-              <FictionalTag />
               <MonoLabel tone="faint">The sign-in form opens pre-filled; press Sign in.</MonoLabel>
             </div>
           </section>

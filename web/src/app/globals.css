@@ -100,7 +100,7 @@
   --chart-3: var(--success);
   --chart-4: var(--violet);
   --chart-5: var(--warning);
-  --radius: 0.125rem;
+  --radius: 0.625rem;
   --sidebar: var(--surface);
   --sidebar-foreground: var(--ink);
   --sidebar-primary: var(--ink);
@@ -125,6 +125,8 @@
   --ease-plot: cubic-bezier(0.65, 0, 0.35, 1);
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-snap: cubic-bezier(0.2, 0.9, 0.2, 1.3);
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-wipe: cubic-bezier(0.76, 0, 0.24, 1);
 }
 
 @media (min-width: 640px) {
@@ -293,11 +295,12 @@
 
 /* Mono drawing labels: SHEET 01 / SIM, DWG-001, 01 / 06 */
 @utility label-mono {
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  line-height: 1rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  /* calm small label: sentence case, no tracking (inspiration.md: no uppercase mono on metadata) */
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  line-height: 1.15rem;
+  font-weight: 500;
+  letter-spacing: 0;
   font-variant-numeric: tabular-nums;
 }
 
@@ -307,7 +310,7 @@
   font-size: clamp(3.25rem, 11vw, 9.5rem);
   font-weight: 700;
   line-height: 0.88;
-  letter-spacing: -0.035em;
+  letter-spacing: -0.045em;
 }
 
 @utility type-display-lg {
@@ -315,7 +318,7 @@
   font-size: clamp(2.5rem, 7vw, 5.75rem);
   font-weight: 650;
   line-height: 0.92;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.04em;
 }
 
 @utility type-display-md {
@@ -753,6 +756,24 @@
   }
 }
 
+/* Hero scroll cue: a short light travelling down a hairline. */
+@media (prefers-reduced-motion: no-preference) {
+  .fh-scroll-cue::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: -40%;
+    width: 1px;
+    height: 40%;
+    background: var(--accent);
+    animation: fh-cue 2.2s var(--ease-out) 2.2s infinite;
+  }
+}
+@keyframes fh-cue {
+  0% { top: -40%; }
+  70%, 100% { top: 100%; }
+}
+
 @keyframes fh-rise {
   from {
     opacity: 0;
@@ -812,5 +833,285 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+}
+
+/* ---------------------------------------------------------------- */
+/* Foothold motion language v2 (docs/research/inspiration.md)        */
+/* ---------------------------------------------------------------- */
+
+@layer components {
+  /* Text roll: letters swap upward on hover of the closest .group */
+  .roll {
+    display: inline-flex;
+    overflow: hidden;
+    line-height: 1.2;
+    vertical-align: bottom;
+  }
+  .roll-row {
+    display: inline-flex;
+  }
+  .roll-ch {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+  }
+  .roll-a,
+  .roll-b {
+    display: inline-block;
+    transition: transform 0.5s var(--ease-expo);
+    transition-delay: calc(var(--i, 0) * 18ms);
+  }
+  .roll-b {
+    position: absolute;
+    left: 0;
+    top: 0;
+    transform: translateY(105%);
+  }
+  .group:hover .roll-a,
+  .group:focus-visible .roll-a {
+    transform: translateY(-105%);
+  }
+  .group:hover .roll-b,
+  .group:focus-visible .roll-b {
+    transform: translateY(0);
+  }
+
+  /* Swap arrow: the arrow leaves in its direction, its twin arrives */
+  .swap-arrow {
+    position: relative;
+    display: inline-block;
+    width: 0.9em;
+    height: 0.9em;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .swap-arrow svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.5s var(--ease-expo);
+  }
+  .swap-right svg:last-child {
+    transform: translateX(-120%);
+  }
+  .group:hover .swap-right svg:first-child,
+  .group:focus-visible .swap-right svg:first-child {
+    transform: translateX(120%);
+  }
+  .swap-up-right svg:last-child {
+    transform: translate(-120%, 120%);
+  }
+  .group:hover .swap-up-right svg:first-child,
+  .group:focus-visible .swap-up-right svg:first-child {
+    transform: translate(120%, -120%);
+  }
+  .swap-down svg:last-child {
+    transform: translateY(-120%);
+  }
+  .group:hover .swap-down svg:first-child,
+  .group:focus-visible .swap-down svg:first-child {
+    transform: translateY(120%);
+  }
+  .group:hover .swap-arrow svg:last-child,
+  .group:focus-visible .swap-arrow svg:last-child {
+    transform: none;
+  }
+
+  /* Primary pill: ink slab, fills with gold from the bottom on hover */
+  .btn-primary {
+    position: relative;
+    isolation: isolate;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    height: 3rem;
+    padding: 0 1.4rem 0 1.5rem;
+    border-radius: 999px;
+    background: var(--ink);
+    color: var(--bg);
+    font-weight: 600;
+    font-size: 0.975rem;
+    overflow: hidden;
+    transition: color 0.45s var(--ease-expo), transform 0.45s var(--ease-expo), opacity 0.2s;
+  }
+  .btn-primary::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background: var(--accent);
+    transform: translateY(101%);
+    transition: transform 0.55s var(--ease-expo);
+  }
+  .btn-primary:hover::before,
+  .btn-primary:focus-visible::before {
+    transform: translateY(0);
+  }
+  .btn-primary:hover,
+  .btn-primary:focus-visible {
+    color: var(--accent-ink);
+  }
+  .btn-primary:active {
+    transform: scale(0.97);
+  }
+  .btn-primary:disabled,
+  .btn-primary[aria-disabled="true"] {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    height: 3rem;
+    padding: 0 1.25rem;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    color: var(--ink);
+    font-weight: 500;
+    font-size: 0.975rem;
+    transition: border-color 0.4s var(--ease-expo), background-color 0.4s var(--ease-expo);
+  }
+  .btn-ghost:hover,
+  .btn-ghost:focus-visible {
+    border-color: var(--line-strong);
+    background: color-mix(in oklab, var(--ink) 5%, transparent);
+  }
+
+  /* Kicker: accent dot + word + a hairline that draws in */
+  .kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--ink-muted);
+  }
+  .kicker::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 999px;
+    background: var(--accent);
+    box-shadow: 0 0 0 4px var(--accent-wash);
+  }
+
+  /* Soft card: no boxed grid, one hairline, generous radius */
+  .soft-card {
+    border-radius: 1.25rem;
+    border: 1px solid color-mix(in oklab, var(--ink) 9%, transparent);
+    background: color-mix(in oklab, var(--surface) 82%, transparent);
+    backdrop-filter: blur(6px);
+  }
+
+  /* Tilt card scan: an accent band sweeps across on hover */
+  .tilt {
+    overflow: hidden;
+  }
+  .tilt-scan {
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -30%;
+    width: 25%;
+    background: linear-gradient(90deg, transparent, color-mix(in oklab, var(--accent) 16%, transparent), transparent);
+    transform: translateX(-100%) skewX(-12deg);
+    opacity: 0;
+  }
+  .tilt:hover .tilt-scan {
+    opacity: 1;
+    transform: translateX(620%) skewX(-12deg);
+    transition: transform 1.1s var(--ease-expo), opacity 0.2s;
+  }
+
+  /* Form fields */
+  .field {
+    height: 3.25rem;
+    width: 100%;
+    border-radius: 0.875rem;
+    border: 1px solid color-mix(in oklab, var(--ink) 14%, transparent);
+    background: color-mix(in oklab, var(--surface) 70%, transparent);
+    padding: 0 1rem;
+    font-size: 1rem;
+    color: var(--ink);
+    transition: border-color 0.3s var(--ease-expo), box-shadow 0.3s var(--ease-expo);
+  }
+  .field::placeholder {
+    color: var(--ink-faint);
+  }
+  .field:hover {
+    border-color: color-mix(in oklab, var(--ink) 26%, transparent);
+  }
+  .field:focus-visible {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px var(--accent-wash);
+  }
+
+  /* Edge fade under the sticky header */
+  .nav-blur {
+    background: color-mix(in oklab, var(--bg) 72%, transparent);
+    backdrop-filter: blur(14px) saturate(1.2);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .fh-pulse {
+    animation: fh-pulse 2.4s var(--ease-expo) infinite;
+  }
+}
+
+@keyframes fh-pulse {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in oklab, var(--accent) 55%, transparent);
+  }
+  70%,
+  100% {
+    box-shadow: 0 0 0 10px transparent;
+  }
+}
+
+/* old drawing-set corner brackets are retired */
+.bk {
+  display: none !important;
+}
+
+/* Page title mask-wipe + soft blur-lift (server-rendered pages; CSS so it starts at first paint) */
+@media (prefers-reduced-motion: no-preference) {
+  .fh-mask-in {
+    animation: fh-mask-in 1.3s var(--ease-expo) both;
+  }
+  .fh-soft-in {
+    animation: fh-soft-in 1.1s var(--ease-expo) both;
+    animation-delay: var(--d, 0.18s);
+  }
+}
+
+@keyframes fh-mask-in {
+  from {
+    clip-path: inset(0 0 100% 0);
+    transform: translateY(0.35em);
+  }
+  to {
+    clip-path: inset(-10% -5% -20% -5%);
+    transform: none;
+  }
+}
+
+@keyframes fh-soft-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+    filter: blur(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: none;
   }
 }

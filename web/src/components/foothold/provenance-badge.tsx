@@ -1,5 +1,5 @@
 import * as React from "react";
-import { BadgeCheck, Cpu, Drama, FlaskConical, type LucideIcon } from "lucide-react";
+import { BadgeCheck, Cpu, Drama, FlaskConical, Info, type LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { Provenance } from "@/lib/types";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
@@ -45,54 +45,39 @@ export interface ProvenanceBadgeProps {
 }
 
 /**
- * REAL / SAMPLE / SYNTHETIC / FICTIONAL label for every displayed wage, cost or program detail.
- * Hover or focus shows what the label means; with `href` the badge links to the source.
+ * Subtle source hint next to a wage, cost or program detail: a small info icon whose tooltip names the
+ * source ("Source: CA EDD OEWS, 2026 Q1"). With `href` it links to the source. No status label is shown
+ * in the app; the full sources list lives on /about.
  */
 export function ProvenanceBadge({ status, href, note, className, plain }: ProvenanceBadgeProps) {
-  const meta = PROVENANCE_META[status];
-  const { Icon } = meta;
-  const base =
-    "label-mono inline-flex h-5 shrink-0 items-center gap-1 rounded-sm border bg-transparent px-1.5 leading-none whitespace-nowrap transition-colors";
-  const spoken = `${status} data. ${meta.explain}${note ? ` ${note}` : ""}`;
-  const content = (
-    <>
-      <Icon aria-hidden="true" className="size-3" />
-      <span>{status}</span>
-    </>
-  );
+  const text = note ? `Source: ${note}` : href ? "Source: official data (opens the source)" : status === "REAL" ? "Source: official data" : "Estimate";
+  const base = "inline-flex size-4 shrink-0 items-center justify-center rounded-full text-ink-faint transition-colors hover:text-ink";
+  const icon = <Info aria-hidden="true" className="size-3" />;
 
   if (plain) {
     return (
-      <span title={spoken} className={cn(base, meta.className, className)}>
-        {content}
+      <span title={text} className={cn(base, className)}>
+        {icon}
+        <span className="sr-only">{text}</span>
       </span>
     );
   }
 
   const trigger = href ? (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label={`${spoken} Verify at the source (opens in a new tab).`}
-      className={cn(base, meta.className, "hover:bg-surface-2", className)}
-    >
-      {content}
+    <a href={href} target="_blank" rel="noopener noreferrer" aria-label={`${text} (opens in a new tab)`} className={cn(base, className)}>
+      {icon}
     </a>
   ) : (
-    <button type="button" aria-label={spoken} className={cn(base, meta.className, "cursor-help", className)}>
-      {content}
+    <button type="button" aria-label={text} className={cn(base, "cursor-help", className)}>
+      {icon}
     </button>
   );
 
   return (
     <Tooltip>
       <TooltipTrigger asChild>{trigger}</TooltipTrigger>
-      <TooltipContent side="top" sideOffset={6} className="max-w-72 flex-col items-start gap-1 text-left">
-        <span className="font-mono text-[10px] tracking-[0.12em] uppercase">{status}</span>
-        <span>{meta.explain}</span>
-        {note ? <span className="opacity-85">{note}</span> : null}
-        {href ? <span className="opacity-85">Opens the source to verify ↗</span> : null}
+      <TooltipContent side="top" sideOffset={6} className="max-w-72 text-left">
+        <span>{text}</span>
       </TooltipContent>
     </Tooltip>
   );

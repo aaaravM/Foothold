@@ -2,20 +2,18 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { Brackets, techButtonClass, drawLinkClass } from "@/components/auth/parts";
+import { AnimatePresence, motion } from "motion/react";
 import { usePersona } from "@/components/path/use-persona";
-import { FictionalTag } from "@/components/foothold/fictional-tag";
 import { NotTrainedYet } from "@/components/foothold/metric-value";
-import { MonoLabel } from "@/components/foothold/mono-label";
 import { ProvenanceBadge } from "@/components/foothold/provenance-badge";
-import { SourceLink } from "@/components/foothold/source-link";
-import { StatBar, type StatTone } from "@/components/foothold/stat-bar";
+import { type StatTone } from "@/components/foothold/stat-bar";
 import { TracePanel } from "@/components/foothold/trace-panel";
 import { TraitRadar } from "@/components/foothold/trait-radar";
 import { getJSON } from "@/lib/api";
 import type { Account } from "@/lib/auth";
 import type { Provenance, TraceEvent } from "@/lib/types";
 import { cn } from "@/lib/utils";
+import { EASE, Kicker, Reveal, ScrambleText, SwapArrow, TiltCard, Tween, ghostPill, primaryPill, staggerChild, staggerParent } from "./fx";
 import { errorMessage, useTappedTrace } from "./use-tapped-trace";
 
 /* ------------------------------------------------------------------ */
@@ -164,79 +162,94 @@ const REACTION_TONE: Record<string, string> = {
 /* Pieces                                                              */
 /* ------------------------------------------------------------------ */
 
-function DayTimeline({ history, current }: { history: HistoryEntry[]; current?: string }) {
-  const pct = (clock: string | undefined) => {
-    const m = toMin(clock);
-    if (m === null) return null;
-    return Math.min(100, Math.max(0, ((m - DAY_START) / (DAY_END - DAY_START)) * 100));
-  };
-  const cur = pct(current);
+const STAT_BAR: Record<StatTone, string> = {
+  success: "bg-success",
+  info: "bg-info",
+  accent: "bg-accent",
+  danger: "bg-danger",
+  warning: "bg-warning",
+  ink: "bg-ink",
+};
+
+function StatsRow({ stats, deltas }: { stats: Stats; deltas?: Partial<Stats> }) {
   return (
-    <div className="space-y-2">
-      <div className="flex justify-between">
-        <MonoLabel>07:00</MonoLabel>
-        <MonoLabel>12:00</MonoLabel>
-        <MonoLabel>17:00</MonoLabel>
-      </div>
-      <div className="relative h-6" role="img" aria-label={`Workday timeline: ${history.length} events done${current ? `, now ${current}` : ""}`}>
-        <div className="absolute inset-x-0 top-1/2 h-px bg-line-strong" />
-        {Array.from({ length: 11 }, (_, i) => (
-          <span key={i} className="absolute top-1/2 h-2 w-px -translate-y-1/2 bg-line-strong" style={{ left: `${i * 10}%` }} />
-        ))}
-        {cur !== null ? <div className="absolute top-1/2 left-0 h-0.5 -translate-y-1/2 bg-accent" style={{ width: `${cur}%` }} /> : null}
-        {history.map((h) => {
-          const p = pct(h.clock);
-          return p === null ? null : (
-            <span
-              key={`${h.event_id}-${h.clock}`}
-              title={`${h.clock} ${h.title}`}
-              className={cn("absolute top-1/2 size-2.5 -translate-x-1/2 -translate-y-1/2 border", h.crunch ? "border-danger bg-danger" : "border-ink bg-ink")}
-              style={{ left: `${p}%` }}
-            />
-          );
-        })}
-        {cur !== null ? (
-          <span className="absolute top-1/2 size-3.5 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-accent bg-bg" style={{ left: `${cur}%` }} />
-        ) : null}
-      </div>
-    </div>
+    <dl className="grid grid-cols-2 gap-x-6 gap-y-5 sm:grid-cols-4">
+      {STAT_META.map((s) => {
+        const v = Math.max(0, Math.min(100, stats[s.id] ?? 0));
+        const d = deltas?.[s.id] ?? 0;
+        const good = s.invert ? d < 0 : d > 0;
+        return (
+          <div key={s.id}>
+            <dt className="text-xs text-ink-faint">{s.label}</dt>
+            <dd className="mt-1 flex items-baseline gap-2">
+              <Tween value={v} className="font-mono text-lg text-ink" />
+              <AnimatePresence mode="popLayout">
+                {d ? (
+                  <motion.span
+                    key={`${s.id}-${d}-${v}`}
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.5, ease: EASE }}
+                    className={cn("font-mono text-xs tabular-nums", good ? "text-success" : "text-danger")}
+                  >
+                    {d > 0 ? "+" : ""}
+                    {d}
+                  </motion.span>
+                ) : null}
+              </AnimatePresence>
+            </dd>
+            <div className="mt-2 h-1 overflow-hidden rounded-full bg-line">
+              <motion.div
+                className={cn("h-full origin-left rounded-full", STAT_BAR[s.tone] ?? "bg-ink")}
+                initial={{ scaleX: 0 }}
+                animate={{ scaleX: v / 100 }}
+                transition={{ duration: 0.9, ease: EASE }}
+              />
+            </div>
+          </div>
+        );
+      })}
+    </dl>
   );
 }
 
-function StatsBlock({ stats, deltas }: { stats: Stats; deltas?: Partial<Stats> }) {
-  return (
-    <div className="space-y-3">
-      {STAT_META.map((s) => (
-        <StatBar key={s.id} label={s.label} value={stats[s.id] ?? 0} max={100} tone={s.tone} delta={deltas?.[s.id] ?? null} invertDelta={s.invert} />
-      ))}
-    </div>
-  );
+function initialsOf(name: string) {
+  return name
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((p) => p[0]?.toUpperCase() ?? "")
+    .join("");
 }
 
-function CoworkerCard({ cw, reaction }: { cw: Coworker; reaction?: Reaction }) {
+function Avatar({ name, tone, small }: { name: string; tone?: string; small?: boolean }) {
   return (
-    <div className="border border-line p-3">
-      <div className="flex items-start justify-between gap-2">
-        <div className="min-w-0">
-          <p className="truncate text-sm text-ink">{cw.name}</p>
-          <p className="truncate text-xs text-ink-muted">{cw.role}</p>
-        </div>
-        <FictionalTag compact />
-      </div>
-      {reaction ? (
-        <div className="mt-3 space-y-1">
-          <p className="text-sm text-ink">&ldquo;{reaction.line}&rdquo;</p>
-          <MonoLabel as="p" className={REACTION_TONE[reaction.reaction] ?? "text-ink-muted"}>
-            {reaction.reaction} · mood {reaction.mood_delta >= 0 ? "+" : ""}
-            {reaction.mood_delta}
-          </MonoLabel>
-        </div>
-      ) : (
-        <MonoLabel as="p" className="mt-3">
-          mood {cw.mood} · {cw.mood_label ?? ""}
-        </MonoLabel>
+    <span
+      aria-hidden="true"
+      className={cn(
+        "grid shrink-0 place-items-center rounded-full border border-line-strong bg-surface font-mono text-ink",
+        small ? "size-7 text-[10px]" : "size-9 text-xs",
+        tone,
       )}
-    </div>
+    >
+      {initialsOf(name)}
+    </span>
+  );
+}
+
+function TypingDots() {
+  return (
+    <span aria-hidden="true" className="flex gap-1">
+      {[0, 1, 2].map((i) => (
+        <motion.span
+          key={i}
+          className="size-1.5 rounded-full bg-ink-faint"
+          animate={{ opacity: [0.3, 1, 0.3], y: [0, -2, 0] }}
+          transition={{ duration: 1, repeat: Infinity, delay: i * 0.15 }}
+        />
+      ))}
+    </span>
   );
 }
 
@@ -245,6 +258,24 @@ function CoworkerCard({ cw, reaction }: { cw: Coworker; reaction?: Reaction }) {
 /* ------------------------------------------------------------------ */
 
 type Phase = "pick" | "play" | "done";
+
+/** Short, readable radar axis labels (the radar upper-cases them). */
+const SHORT_TRAIT: Record<string, string> = {
+  "Achievement Orientation": "Drive",
+  "Intellectual Curiosity": "Curiosity",
+  "Tolerance for Ambiguity": "Ambiguity",
+  "Self-Confidence": "Confidence",
+  "Leadership Orientation": "Leading",
+  "Social Orientation": "Social",
+  "Attention to Detail": "Detail",
+  "Stress Tolerance": "Calm",
+  "Self-Control": "Composure",
+  Cautiousness: "Caution",
+  Perseverance: "Grit",
+  Dependability: "Reliable",
+  Adaptability: "Adapting",
+  Cooperation: "Teamwork",
+};
 
 export function SimWorkday({ account }: { account: Account }) {
   const persona = usePersona(account.persona_id);
@@ -261,6 +292,10 @@ export function SimWorkday({ account }: { account: Account }) {
   const [report, setReport] = React.useState<Report | null>(null);
   const [error, setError] = React.useState<string | null>(null);
   const [busy, setBusy] = React.useState(false);
+  const [selected, setSelected] = React.useState<string | null>(null);
+  const [hovered, setHovered] = React.useState<string | null>(null);
+  /** after a choice, hold the reactions on screen until the player continues */
+  const [afterOpen, setAfterOpen] = React.useState(false);
 
   const onTap = React.useCallback((ev: TraceEvent) => {
     if (ev.type === "state") {
@@ -319,6 +354,7 @@ export function SimWorkday({ account }: { account: Account }) {
       setLastDeltas(undefined);
       setReport(null);
       setError(null);
+      setAfterOpen(false);
       trace.reset();
       setBusy(true);
       await run("/api/sim/start", { career_id: careerId });
@@ -332,6 +368,7 @@ export function SimWorkday({ account }: { account: Account }) {
       if (!threadId || !pending || busy) return;
       setLastEvent(pending);
       setChosen(choice);
+      setAfterOpen(true);
       setPending(null);
       setReactions([]);
       setError(null);
@@ -363,7 +400,7 @@ export function SimWorkday({ account }: { account: Account }) {
 
   // keys 1/2/3 pick a choice
   React.useEffect(() => {
-    if (!pending || busy) return;
+    if (!pending || busy || afterOpen) return;
     const onKey = (e: KeyboardEvent) => {
       const t = e.target as HTMLElement | null;
       if (t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA" || t.isContentEditable)) return;
@@ -377,376 +414,468 @@ export function SimWorkday({ account }: { account: Account }) {
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [pending, busy, choose]);
+  }, [pending, busy, choose, afterOpen]);
+
+  // Enter continues once the next moment (or the report) is ready
+  const canContinue = afterOpen && (!!pending || !!report);
+  React.useEffect(() => {
+    if (!canContinue) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Enter" && !(e.target instanceof HTMLButtonElement)) {
+        e.preventDefault();
+        setAfterOpen(false);
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [canContinue]);
 
   /* ---------------- pick ---------------- */
   if (phase === "pick") {
     const target = persona?.target_career ?? null;
     const interests = new Set(persona?.interests_careers ?? []);
+    const list = careers?.careers ?? [];
+    const sel = list.find((c) => c.id === selected) ?? null;
     return (
-      <div className="space-y-8">
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-          <div className="max-w-2xl">
-            <MonoLabel as="p" tone="accent">
-              Step 1 · Pick a workday
-            </MonoLabel>
-            <p className="mt-2 text-lg text-ink">
-              Spend one shift, 07:00 to 17:00, in a Central Valley job. Five moments, three choices each. Your coworkers react, and the
-              sim learns how you work.
-            </p>
-          </div>
-          <button type="button" className={cn(techButtonClass, "shrink-0")} onClick={() => void start(null)} disabled={!careers?.available}>
-            <span>Let Foothold choose</span>
-            <span aria-hidden="true" className="font-mono text-xs">
-              ↵
-            </span>
-            <Brackets offset={5} />
-          </button>
-        </div>
-        {loadError ? <p className="text-danger" role="alert">{loadError}</p> : null}
-        {careers && !careers.available ? (
-          <p className="text-warning" role="status">
-            Sim events are not loaded on the server yet.
+      <div className="pb-28">
+        <Reveal className="max-w-2xl">
+          <Kicker>Pick a workday</Kicker>
+          <p className="mt-4 text-xl leading-relaxed text-ink sm:text-2xl">
+            One shift, five moments. Choose how you&apos;d handle each one and see where you fit.
+          </p>
+        </Reveal>
+        {loadError ? (
+          <p className="mt-6 text-danger" role="alert">
+            {loadError}
           </p>
         ) : null}
-        {!careers && !loadError ? <MonoLabel as="p">Loading careers…</MonoLabel> : null}
-        <ul className="grid gap-px border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
-          {(careers?.careers ?? []).map((c) => {
+        {careers && !careers.available ? (
+          <p className="mt-6 text-warning" role="status">
+            Workdays aren&apos;t ready on the server yet.
+          </p>
+        ) : null}
+        {!careers && !loadError ? (
+          <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4" aria-label="Loading careers">
+            {Array.from({ length: 8 }, (_, i) => (
+              <div key={i} className="h-40 animate-pulse rounded-2xl bg-surface/60" />
+            ))}
+          </div>
+        ) : null}
+        <motion.ul
+          className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4"
+          variants={staggerParent(0.05, 0.15)}
+          initial="hidden"
+          animate={list.length ? "show" : "hidden"}
+          role="listbox"
+          aria-label="Careers"
+        >
+          {list.map((c) => {
             const mark = c.id === target ? "Your goal" : interests.has(c.id) ? "Interest" : null;
+            const on = selected === c.id;
             return (
-              <li key={c.id} className="bg-bg">
-                <button
-                  type="button"
-                  disabled={c.events === 0}
-                  onClick={() => void start(c.id)}
-                  className="group/bracket relative flex h-full w-full flex-col gap-3 p-4 text-left hover:bg-surface focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-accent disabled:opacity-50"
-                >
-                  <div className="flex items-center justify-between gap-2">
-                    <MonoLabel>{c.events} events</MonoLabel>
-                    {mark ? <MonoLabel tone="accent">{mark}</MonoLabel> : null}
-                  </div>
-                  <span className="font-display text-lg leading-snug text-ink">{c.title}</span>
-                  {c.summary ? <span className="line-clamp-3 text-sm text-ink-muted">{c.summary}</span> : null}
-                  <span className="mt-auto flex flex-wrap items-center gap-2 pt-2">
-                    {c.wage?.median_annual ? (
-                      <>
-                        <span className="font-mono text-sm text-ink tabular-nums">{usd(c.wage.median_annual)}/yr</span>
-                        <ProvenanceBadge plain status={prov(c.wage.status)} note={c.wage.area} />
-                      </>
-                    ) : null}
-                  </span>
-                  <MonoLabel tone="faint">Median wage · {c.wage?.area ?? "local area"}</MonoLabel>
-                  <Brackets />
-                </button>
-              </li>
+              <motion.li key={c.id} variants={staggerChild} role="option" aria-selected={on}>
+                <TiltCard className="h-full">
+                  <button
+                    type="button"
+                    disabled={c.events === 0}
+                    onClick={() => setSelected(c.id)}
+                    onDoubleClick={() => void start(c.id)}
+                    onMouseEnter={() => setHovered(c.id)}
+                    className={cn(
+                      "group relative flex h-full min-h-40 w-full flex-col overflow-hidden rounded-2xl border p-5 text-left transition-[border-color,background-color] duration-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent disabled:opacity-40",
+                      on ? "border-accent/70 bg-accent-wash" : "border-line bg-surface/30 hover:border-line-strong hover:bg-surface/70",
+                    )}
+                  >
+                    {/* accent sweep on hover */}
+                    <span
+                      aria-hidden="true"
+                      className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/4 -skew-x-12 bg-gradient-to-r from-transparent via-accent/10 to-transparent opacity-0 transition-[transform,opacity] duration-[1100ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-[620%] group-hover:opacity-100"
+                    />
+                    <span className="flex items-start justify-between gap-3">
+                      <span className="font-display text-lg leading-snug text-ink">
+                        <ScrambleText text={c.title} replayKey={hovered === c.id ? c.id : null} duration={700} />
+                      </span>
+                      <span
+                        aria-hidden="true"
+                        className={cn(
+                          "mt-1 grid size-5 shrink-0 place-items-center rounded-full border transition-colors duration-300",
+                          on ? "border-accent bg-accent" : "border-line-strong",
+                        )}
+                      >
+                        {on ? <motion.span layoutId="sim-pick-dot" className="size-1.5 rounded-full bg-accent-ink" /> : null}
+                      </span>
+                    </span>
+                    {c.summary ? <span className="mt-2 line-clamp-2 text-sm text-ink-muted">{c.summary}</span> : null}
+                    <span className="mt-auto flex items-center justify-between gap-2 pt-5">
+                      {c.wage?.median_annual ? (
+                        <span className="flex items-center gap-1.5 font-mono text-sm text-ink tabular-nums">
+                          {usd(c.wage.median_annual)}
+                          <span className="text-ink-faint">/yr</span>
+                          <ProvenanceBadge plain status={prov(c.wage.status)} note={`median wage, ${c.wage.area ?? "local area"}`} />
+                        </span>
+                      ) : (
+                        <span />
+                      )}
+                      {mark ? <span className="rounded-full bg-accent-wash px-2 py-0.5 text-xs text-accent">{mark}</span> : null}
+                    </span>
+                  </button>
+                </TiltCard>
+              </motion.li>
             );
           })}
-        </ul>
+        </motion.ul>
+
+        {/* start bar */}
+        <motion.div
+          initial={{ y: 40, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.9, ease: EASE, delay: 0.5 }}
+          className="fixed inset-x-0 bottom-0 z-30 flex justify-center px-4 pb-5"
+        >
+          <div className="flex w-full max-w-xl items-center gap-3 rounded-full border border-line bg-bg/85 p-2 pl-5 shadow-[0_20px_60px_-20px_rgba(0,0,0,0.6)] backdrop-blur-md">
+            <span className="min-w-0 flex-1 truncate text-sm text-ink-muted" aria-live="polite">
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.span
+                  key={sel?.id ?? "none"}
+                  initial={{ y: 10, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  exit={{ y: -10, opacity: 0 }}
+                  transition={{ duration: 0.35, ease: EASE }}
+                  className="block truncate"
+                >
+                  {sel ? <span className="text-ink">{sel.title}</span> : "Pick a career, or let Foothold choose"}
+                </motion.span>
+              </AnimatePresence>
+            </span>
+            {sel ? (
+              <button type="button" className={cn(primaryPill, "shrink-0")} onClick={() => void start(sel.id)} disabled={!careers?.available}>
+                <span>Start workday</span>
+                <SwapArrow />
+              </button>
+            ) : (
+              <button type="button" className={cn(primaryPill, "shrink-0")} onClick={() => void start(null)} disabled={!careers?.available}>
+                <span>Let Foothold choose</span>
+                <SwapArrow />
+              </button>
+            )}
+          </div>
+        </motion.div>
       </div>
     );
   }
 
   /* ---------------- done ---------------- */
-  if (phase === "done" && report) {
+  if (phase === "done" && report && !afterOpen) {
     const focusId = report.top_careers[0]?.career_id ?? report.career_id ?? "";
-    const trained = report.model.source === "career_fit" && report.model.trained;
+    const top = report.top_careers[0];
     const probabilityBasis =
       report.probability_basis ?? report.model.probability_basis ?? report.top_careers[0]?.probability_basis ?? "share among the Foothold careers";
+    const maxP = Math.max(0.0001, ...report.top_careers.map((t) => t.probability));
     return (
-      <div className="space-y-10">
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <MonoLabel as="p" tone="accent">
-              End of day · report
-            </MonoLabel>
-            <h2 className="mt-2 font-display text-3xl text-ink">Here&apos;s how you worked today.</h2>
-          </div>
-          <div className="flex flex-wrap gap-4">
-            <Link href={`/path?career=${encodeURIComponent(focusId)}`} className={techButtonClass}>
-              <span>Plan a route to this career</span>
-              <span aria-hidden="true" className="font-mono text-xs">
-                →
-              </span>
-              <Brackets offset={5} />
+      <div className="space-y-14">
+        <Reveal>
+          <Kicker>End of your shift</Kicker>
+          <h2 className="mt-4 font-display text-4xl leading-[0.95] tracking-tight text-ink sm:text-6xl">
+            You work like a <br className="hidden sm:block" />
+            <span className="text-accent">
+              <ScrambleText text={top?.title ?? "pro"} duration={1200} />
+            </span>
+          </h2>
+          {report.summary?.text ? <p className="mt-6 max-w-2xl text-lg leading-relaxed text-ink-muted">{report.summary.text}</p> : null}
+          <div className="mt-8 flex flex-wrap items-center gap-3">
+            <Link href={`/path?career=${encodeURIComponent(focusId)}`} className={primaryPill}>
+              <span>Plan my path</span>
+              <SwapArrow />
             </Link>
-            <button type="button" className={drawLinkClass} onClick={() => setPhase("pick")}>
+            <button type="button" className={ghostPill} onClick={() => setPhase("pick")}>
               Try another workday
             </button>
           </div>
-        </div>
+        </Reveal>
 
-        {report.summary?.text ? (
-          <p className="max-w-3xl border-l-2 border-accent pl-4 text-lg text-ink">
-            {report.summary.text}
-            <MonoLabel as="span" className="ml-2 align-middle">
-              {report.summary.source === "openai" ? "LLM" : report.summary.source ?? ""} · numbers verified
-            </MonoLabel>
-          </p>
-        ) : null}
-
-        <div className="grid gap-10 lg:grid-cols-12">
-          <div className="lg:col-span-6">
-            <TraitRadar traits={report.traits} title="Work styles (21 O*NET traits)" />
-            <MonoLabel as="p" className="mt-2">
-              Method · {report.trait_method ?? "player model"}
-            </MonoLabel>
-          </div>
-          <div className="space-y-6 lg:col-span-6">
-            <div>
-              <div className="flex flex-wrap items-center justify-between gap-2">
-                <MonoLabel as="h3" tone="ink">
-                  Top careers for how you worked
-                </MonoLabel>
-                {trained ? (
-                  <span className="flex items-center gap-2">
-                    <MonoLabel tone="success">
-                      Model · {report.model.name}
-                      {typeof report.model.metrics?.careers8?.mlp?.top3 === "number"
-                        ? ` · top-3 acc ${report.model.metrics.careers8.mlp.top3.toFixed(2)}`
-                        : ""}
-                    </MonoLabel>
-                    <ProvenanceBadge status="SYNTHETIC" note="Accuracy on synthetic held-out profiles" />
-                  </span>
-                ) : (
-                  <NotTrainedYet hint={report.model.note ?? undefined} />
-                )}
-              </div>
-              <ol className="mt-3 divide-y divide-line border border-line">
-                {report.top_careers.map((t) => (
-                  <li key={t.career_id} className="flex items-center gap-3 p-3">
-                    <MonoLabel tone="faint">{String(t.rank).padStart(2, "0")}</MonoLabel>
-                    <span className="min-w-0 flex-1">
-                      <span className="block text-ink">{t.title}</span>
-                      {typeof t.p_overall === "number" ? (
-                        <span className="block text-xs text-ink-muted" title="The model's probability for this occupation before narrowing to Foothold's careers">
-                          {fmtPct(t.p_overall)} across all occupations the model knows
+        <div className="grid gap-12 lg:grid-cols-12">
+          <Reveal delay={0.25} className="lg:col-span-5">
+            <h3 className="mb-4 text-sm text-ink-muted">Careers that fit how you worked</h3>
+            <ol className="space-y-2">
+              {report.top_careers.map((t, i) => {
+                const f = report.careers[t.career_id];
+                return (
+                  <motion.li
+                    key={t.career_id}
+                    initial={{ opacity: 0, x: -16 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.7, ease: EASE, delay: 0.4 + i * 0.12 }}
+                  >
+                    <Link
+                      href={`/path?career=${encodeURIComponent(t.career_id)}`}
+                      aria-label={`Plan a route to ${t.title}`}
+                      className="group block rounded-2xl border border-line p-4 transition-colors duration-300 hover:border-line-strong hover:bg-surface/60"
+                    >
+                      <span className="flex items-baseline justify-between gap-3">
+                        <span className="text-ink">{t.title}</span>
+                        <span
+                          className="font-mono text-sm text-ink tabular-nums"
+                          title={`${fmtPct(t.probability)}: ${t.probability_basis ?? probabilityBasis}${typeof t.p_overall === "number" ? `; ${fmtPct(t.p_overall)} overall` : ""}`}
+                        >
+                          {(t.probability * 100).toFixed(0)}%
+                        </span>
+                      </span>
+                      <span className="mt-3 block h-1 overflow-hidden rounded-full bg-line">
+                        <motion.span
+                          className={cn("block h-full origin-left rounded-full", i === 0 ? "bg-accent" : "bg-ink-muted")}
+                          initial={{ scaleX: 0 }}
+                          animate={{ scaleX: t.probability / maxP }}
+                          transition={{ duration: 1.1, ease: EASE, delay: 0.6 + i * 0.12 }}
+                        />
+                      </span>
+                      {f && typeof f.wage?.median_annual === "number" ? (
+                        <span className="mt-3 flex items-center gap-1.5 text-sm text-ink-muted">
+                          <span className="font-mono text-ink tabular-nums">{usd(f.wage.median_annual)}</span>/yr locally
+                          {typeof f.outlook?.growth_pct === "number" ? (
+                            <span>
+                              · {f.outlook.growth_pct > 0 ? "+" : ""}
+                              {f.outlook.growth_pct}% growth
+                            </span>
+                          ) : null}
+                          <ProvenanceBadge plain status={prov(f.wage.status)} note={[f.wage.source?.title, f.wage.area].filter(Boolean).join(", ")} />
                         </span>
                       ) : null}
-                    </span>
-                    <span
-                      className="font-mono text-sm text-ink tabular-nums"
-                      title={`${fmtPct(t.probability)}: ${t.probability_basis ?? probabilityBasis}${typeof t.p_overall === "number" ? `; ${fmtPct(t.p_overall)} overall` : ""}`}
-                    >
-                      {(t.probability * 100).toFixed(0)}%
-                    </span>
-                    <Link href={`/path?career=${encodeURIComponent(t.career_id)}`} className={drawLinkClass} aria-label={`Plan a route to ${t.title}`}>
-                      Plan
                     </Link>
+                  </motion.li>
+                );
+              })}
+            </ol>
+            {!(report.model.source === "career_fit" && report.model.trained) && report.model.note ? (
+              <div className="mt-3">
+                <NotTrainedYet hint={report.model.note} />
+              </div>
+            ) : null}
+          </Reveal>
+          <Reveal delay={0.5} className="lg:col-span-7">
+            <TraitRadar traits={report.traits.map((t) => ({ ...t, short: SHORT_TRAIT[t.name] ?? t.name }))} title="How you work" />
+          </Reveal>
+        </div>
+
+        <Reveal inView>
+          <details className="group rounded-2xl border border-line p-5 open:bg-surface/30">
+            <summary className="flex cursor-pointer list-none items-center justify-between text-ink">
+              Your day, moment by moment
+              <span aria-hidden="true" className="text-ink-faint transition-transform duration-300 group-open:rotate-45">
+                +
+              </span>
+            </summary>
+            <div className="mt-6 grid gap-8 lg:grid-cols-12">
+              <div className="lg:col-span-5">
+                <StatsRow stats={report.stats} />
+              </div>
+              <ol className="space-y-2 text-sm lg:col-span-7">
+                {report.history.map((h) => (
+                  <li key={`${h.event_id}-${h.clock}`} className="flex gap-3">
+                    <span className="font-mono text-ink-faint tabular-nums">{h.clock}</span>
+                    <span className="text-ink">
+                      {h.title}
+                      {h.choice_text ? <span className="text-ink-muted"> · {h.choice_text}</span> : null}
+                    </span>
                   </li>
                 ))}
               </ol>
-              <MonoLabel as="p" className="mt-2">
-                % = {probabilityBasis}
-              </MonoLabel>
-              {!trained && report.model.name ? (
-                <MonoLabel as="p" className="mt-2">
-                  Ranked by {report.model.name}
-                </MonoLabel>
-              ) : null}
             </div>
-
-            {report.top_careers.slice(0, 3).map((t) => {
-              const f = report.careers[t.career_id];
-              if (!f) return null;
-              return (
-                <div key={t.career_id} className="border-t border-line pt-4">
-                  <p className="text-ink">{f.title ?? t.title}</p>
-                  <dl className="mt-2 grid grid-cols-2 gap-3 text-sm">
-                    <div>
-                      <MonoLabel as="dt">Median wage</MonoLabel>
-                      <dd className="mt-1 flex flex-wrap items-center gap-2">
-                        {typeof f.wage?.median_annual === "number" ? (
-                          <span className="font-mono tabular-nums text-ink">{usd(f.wage.median_annual)}/yr</span>
-                        ) : (
-                          <span className="text-ink-muted">not verified</span>
-                        )}
-                        {f.wage ? <ProvenanceBadge status={prov(f.wage.status)} href={f.wage.source?.url} note={f.wage.area} /> : null}
-                      </dd>
-                    </div>
-                    <div>
-                      <MonoLabel as="dt">Outlook</MonoLabel>
-                      <dd className="mt-1 flex flex-wrap items-center gap-2">
-                        {typeof f.outlook?.growth_pct === "number" ? (
-                          <span className="font-mono tabular-nums text-ink">
-                            {f.outlook.growth_pct > 0 ? "+" : ""}
-                            {f.outlook.growth_pct}%
-                          </span>
-                        ) : (
-                          <span className="text-ink-muted">not verified</span>
-                        )}
-                        {typeof f.outlook?.annual_openings === "number" ? (
-                          <span className="text-ink-muted">{f.outlook.annual_openings.toLocaleString("en-US")} openings/yr</span>
-                        ) : null}
-                        {f.outlook ? <ProvenanceBadge status={prov(f.outlook.status)} href={f.outlook.source?.url} note={f.outlook.period} /> : null}
-                      </dd>
-                    </div>
-                  </dl>
-                  {f.wage?.source?.url ? (
-                    <SourceLink href={f.wage.source.url} label={f.wage.source.title ?? "Source"} className="mt-2" />
-                  ) : null}
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
-        <div className="grid gap-8 lg:grid-cols-12">
-          <div className="lg:col-span-5">
-            <MonoLabel as="h3" tone="ink" className="mb-3">
-              Final stats
-            </MonoLabel>
-            <StatsBlock stats={report.stats} />
-          </div>
-          <div className="lg:col-span-7">
-            <MonoLabel as="h3" tone="ink" className="mb-3">
-              Your day
-            </MonoLabel>
-            <ol className="space-y-2 text-sm">
-              {report.history.map((h) => (
-                <li key={`${h.event_id}-${h.clock}`} className="flex gap-3">
-                  <span className="font-mono text-ink-muted tabular-nums">{h.clock}</span>
-                  <span className="text-ink">
-                    {h.title}
-                    {h.choice_text ? <span className="text-ink-muted"> · {h.choice_text}</span> : null}
-                  </span>
-                </li>
-              ))}
-            </ol>
-          </div>
-        </div>
+          </details>
+        </Reveal>
         <TracePanel nodes={trace.nodes} state={trace.state} title="Behind the scenes" />
       </div>
     );
   }
 
   /* ---------------- play ---------------- */
+  const showAfter = afterOpen && !!lastEvent && !!chosen;
+  const scene = showAfter ? null : pending;
   const shown = pending ?? lastEvent;
   const coworkers = shown?.coworkers ?? [];
-  const waitingNext = !pending && busy;
+  const waitingNext = !pending && !report && busy;
+  const total = shown?.total ?? careers?.events_per_day ?? 5;
+  const done = history.length;
+  const clockNow = pending?.clock ?? lastEvent?.clock;
+  const dayPct = (() => {
+    const m = toMin(clockNow);
+    return m === null ? 0 : Math.min(100, Math.max(0, ((m - DAY_START) / (DAY_END - DAY_START)) * 100));
+  })();
+  const evReactions = reactions.filter((r) => !lastEvent || r.event_id === lastEvent.event.event_id);
   return (
-    <div className="space-y-8">
-      <DayTimeline history={history} current={pending?.clock ?? lastEvent?.clock} />
-
-      <div className="grid gap-8 lg:grid-cols-12">
-        <div className="space-y-6 lg:col-span-8">
-          {error ? (
-            <div role="alert" className="flex flex-wrap items-center gap-4 border border-danger p-4 text-danger">
-              <span className="flex-1">{error}</span>
-              {threadId ? (
-                <button type="button" className={drawLinkClass} onClick={() => void resume()}>
-                  Resume
-                </button>
-              ) : null}
-              <button type="button" className={drawLinkClass} onClick={() => setPhase("pick")}>
-                Back to careers
-              </button>
-            </div>
-          ) : null}
-
-          {!shown && !error ? (
-            <MonoLabel as="p" aria-live="polite">
-              Setting up your shift…
-            </MonoLabel>
-          ) : null}
-
-          {pending ? (
-            <section aria-labelledby="sim-event-title" className="relative border border-line-strong p-5 sm:p-6">
-              <div className="flex flex-wrap items-center gap-3">
-                <span className="font-mono text-2xl text-ink tabular-nums">{pending.clock}</span>
-                <MonoLabel>
-                  Moment {pending.index} of {pending.total}
-                </MonoLabel>
-                {pending.event.crunch ? <MonoLabel tone="danger">Crunch</MonoLabel> : null}
-                <ProvenanceBadge status="SYNTHETIC" note="Draft scenario" className="ml-auto" />
-              </div>
-              <h2 id="sim-event-title" className="mt-4 font-display text-2xl leading-tight text-ink sm:text-3xl">
-                {pending.event.title}
-              </h2>
-              <p className="mt-3 max-w-2xl text-ink-muted">{pending.event.text}</p>
-              {pending.error ? <p className="mt-3 text-danger">{pending.error}</p> : null}
-              <ol className="mt-6 space-y-2" aria-label="Your choices (press 1, 2 or 3)">
-                {pending.event.choices.map((c, i) => (
-                  <li key={c.choice_id}>
-                    <button
-                      type="button"
-                      disabled={busy}
-                      onClick={() => void choose(c)}
-                      className="group/bracket relative flex w-full items-start gap-4 border border-line p-4 text-left hover:border-line-strong hover:bg-surface focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent disabled:opacity-60"
-                    >
-                      <kbd className="grid size-7 shrink-0 place-items-center border border-line-strong font-mono text-xs text-ink">{i + 1}</kbd>
-                      <span className="text-ink">{c.text}</span>
-                      <Brackets />
-                    </button>
-                  </li>
-                ))}
-              </ol>
-            </section>
-          ) : null}
-
-          {!pending && lastEvent && chosen ? (
-            <section aria-live="polite" className="border border-line p-5 sm:p-6">
-              <MonoLabel as="p">
-                {lastEvent.clock} · {lastEvent.event.title}
-              </MonoLabel>
-              <p className="mt-2 text-ink">
-                You chose: <span className="text-ink-muted">{chosen.text}</span>
-              </p>
-              {waitingNext ? (
-                <MonoLabel as="p" className="mt-3">
-                  Coworkers are reacting…
-                </MonoLabel>
-              ) : null}
-            </section>
-          ) : null}
-
-          {coworkers.length > 0 ? (
-            <div>
-              <div className="mb-3 flex items-center justify-between">
-                <MonoLabel as="h3" tone="ink">
-                  {pending ? "Your crew" : "Crew reactions"}
-                </MonoLabel>
-                <FictionalTag />
-              </div>
-              <div className="grid gap-3 sm:grid-cols-3">
-                {coworkers.map((cw) => (
-                  <CoworkerCard
-                    key={cw.id}
-                    cw={cw}
-                    reaction={reactions.find((r) => r.coworker_id === cw.id && (!lastEvent || r.event_id === lastEvent.event.event_id))}
-                  />
-                ))}
-              </div>
-            </div>
-          ) : null}
+    <div className="mx-auto max-w-3xl space-y-8">
+      {/* day progress */}
+      <div>
+        <div className="flex items-baseline justify-between gap-3">
+          <span className="font-mono text-3xl text-ink tabular-nums sm:text-4xl">
+            <AnimatePresence mode="popLayout" initial={false}>
+              <motion.span
+                key={clockNow ?? "--"}
+                initial={{ y: 18, opacity: 0, filter: "blur(4px)" }}
+                animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
+                exit={{ y: -18, opacity: 0 }}
+                transition={{ duration: 0.6, ease: EASE }}
+                className="inline-block"
+              >
+                {clockNow ?? "07:00"}
+              </motion.span>
+            </AnimatePresence>
+          </span>
+          <span className="text-sm text-ink-muted tabular-nums">
+            {Math.min(done + (scene ? 1 : 0), total)} of {total}
+          </span>
         </div>
-
-        <aside className="space-y-6 lg:col-span-4">
-          <div>
-            <MonoLabel as="h3" tone="ink" className="mb-3">
-              Shift stats
-            </MonoLabel>
-            {stats ? <StatsBlock stats={stats} deltas={lastDeltas} /> : <MonoLabel as="p">Waiting for the first moment…</MonoLabel>}
-          </div>
-          {history.length > 0 ? (
-            <div>
-              <MonoLabel as="h3" tone="ink" className="mb-2">
-                So far
-              </MonoLabel>
-              <ol className="space-y-1 text-sm">
-                {history.map((h) => (
-                  <li key={`${h.event_id}-${h.clock}`} className="flex gap-2">
-                    <span className="font-mono text-ink-muted tabular-nums">{h.clock}</span>
-                    <span className="truncate text-ink">{h.title}</span>
-                  </li>
-                ))}
-              </ol>
-            </div>
-          ) : null}
-        </aside>
+        <div className="relative mt-3 h-1 rounded-full bg-line" role="progressbar" aria-valuemin={0} aria-valuemax={total} aria-valuenow={done} aria-label="Workday progress">
+          <motion.div className="absolute inset-y-0 left-0 rounded-full bg-accent" animate={{ width: `${dayPct}%` }} transition={{ duration: 1, ease: EASE }} />
+          {history.map((h) => {
+            const m = toMin(h.clock);
+            if (m === null) return null;
+            const p = Math.min(100, Math.max(0, ((m - DAY_START) / (DAY_END - DAY_START)) * 100));
+            return (
+              <span
+                key={`${h.event_id}-${h.clock}`}
+                title={`${h.clock} ${h.title}`}
+                className={cn("absolute top-1/2 size-2 -translate-x-1/2 -translate-y-1/2 rounded-full ring-2 ring-bg", h.crunch ? "bg-danger" : "bg-ink")}
+                style={{ left: `${p}%` }}
+              />
+            );
+          })}
+        </div>
       </div>
 
-      <TracePanel nodes={trace.nodes} state={trace.state} title="Behind the scenes" defaultOpen />
+      {error ? (
+        <div role="alert" className="flex flex-wrap items-center gap-4 rounded-2xl border border-danger/60 p-4 text-danger">
+          <span className="flex-1">{error}</span>
+          {threadId ? (
+            <button type="button" className={ghostPill} onClick={() => void resume()}>
+              Resume
+            </button>
+          ) : null}
+          <button type="button" className={ghostPill} onClick={() => setPhase("pick")}>
+            Back to careers
+          </button>
+        </div>
+      ) : null}
+
+      {!shown && !error ? (
+        <div aria-live="polite" className="space-y-3">
+          <div className="h-8 w-2/3 animate-pulse rounded-lg bg-surface/70" />
+          <div className="h-4 w-full animate-pulse rounded bg-surface/50" />
+          <div className="h-4 w-5/6 animate-pulse rounded bg-surface/50" />
+          <p className="pt-2 text-sm text-ink-muted">Setting up your shift…</p>
+        </div>
+      ) : null}
+
+      <AnimatePresence mode="wait">
+        {scene ? (
+          <motion.section
+            key={`ev-${scene.event.event_id}-${scene.index}`}
+            aria-labelledby="sim-event-title"
+            initial={{ opacity: 0, y: 24, filter: "blur(8px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            exit={{ opacity: 0, y: -16, filter: "blur(6px)" }}
+            transition={{ duration: 0.7, ease: EASE }}
+          >
+            {scene.event.crunch ? <span className="mb-3 inline-block rounded-full bg-danger/15 px-2.5 py-0.5 text-xs text-danger">Crunch time</span> : null}
+            <h2 id="sim-event-title" className="font-display text-3xl leading-tight tracking-tight text-ink sm:text-4xl">
+              {scene.event.title}
+            </h2>
+            <p className="mt-4 text-lg leading-relaxed text-ink-muted">{scene.event.text}</p>
+            {scene.error ? <p className="mt-3 text-danger">{scene.error}</p> : null}
+            <motion.ol
+              className="mt-8 space-y-2.5"
+              aria-label="Your choices (press 1, 2 or 3)"
+              variants={staggerParent(0.08, 0.25)}
+              initial="hidden"
+              animate="show"
+            >
+              {scene.event.choices.map((c, i) => (
+                <motion.li key={c.choice_id} variants={staggerChild}>
+                  <button
+                    type="button"
+                    disabled={busy}
+                    onClick={() => void choose(c)}
+                    className="group flex w-full items-center gap-4 rounded-2xl border border-line bg-surface/30 p-4 text-left transition-[border-color,background-color,transform] duration-300 hover:-translate-y-0.5 hover:border-accent/50 hover:bg-surface/70 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent active:translate-y-0 disabled:opacity-60 sm:p-5"
+                  >
+                    <kbd className="grid size-8 shrink-0 place-items-center rounded-full border border-line-strong font-mono text-xs text-ink-muted transition-colors duration-300 group-hover:border-accent group-hover:bg-accent group-hover:text-accent-ink">
+                      {i + 1}
+                    </kbd>
+                    <span className="flex-1 text-ink">{c.text}</span>
+                    <SwapArrow className="text-ink-faint group-hover:text-accent" />
+                  </button>
+                </motion.li>
+              ))}
+            </motion.ol>
+          </motion.section>
+        ) : showAfter && lastEvent && chosen ? (
+          <motion.section
+            key={`after-${lastEvent.event.event_id}-${lastEvent.index}`}
+            aria-live="polite"
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -12 }}
+            transition={{ duration: 0.6, ease: EASE }}
+          >
+            <p className="text-sm text-ink-faint">{lastEvent.event.title}</p>
+            <p className="mt-2 text-xl text-ink">
+              You chose <span className="text-accent">{chosen.text}</span>
+            </p>
+            <ul className="mt-6 space-y-3">
+              <AnimatePresence initial={false}>
+                {evReactions.map((r) => (
+                  <motion.li
+                    key={`${r.event_id}-${r.coworker_id}`}
+                    initial={{ opacity: 0, x: -16, filter: "blur(4px)" }}
+                    animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+                    transition={{ duration: 0.5, ease: EASE }}
+                    className="flex items-start gap-3"
+                  >
+                    <Avatar name={r.name} tone={REACTION_TONE[r.reaction]} />
+                    <div className="min-w-0 rounded-2xl rounded-tl-sm bg-surface/70 px-4 py-3">
+                      <p className="text-xs text-ink-faint">
+                        {r.name} · <span className={REACTION_TONE[r.reaction] ?? "text-ink-muted"}>{r.reaction}</span>
+                      </p>
+                      <p className="mt-1 text-ink">{r.line}</p>
+                    </div>
+                  </motion.li>
+                ))}
+              </AnimatePresence>
+              {waitingNext && evReactions.length < coworkers.length ? (
+                <li className="flex items-center gap-3 pl-1 text-sm text-ink-faint">
+                  <TypingDots />
+                  {evReactions.length === 0 ? "Your crew is reacting" : "More reactions coming"}
+                </li>
+              ) : null}
+            </ul>
+            <div className="mt-8 flex items-center gap-4">
+              <button type="button" className={primaryPill} disabled={!canContinue} onClick={() => setAfterOpen(false)}>
+                <span>{report ? "See your report" : canContinue ? "Next moment" : "Waiting for your crew"}</span>
+                <SwapArrow />
+              </button>
+              {canContinue ? <span className="hidden text-sm text-ink-faint sm:inline">or press Enter</span> : null}
+            </div>
+          </motion.section>
+        ) : null}
+      </AnimatePresence>
+
+      {scene && coworkers.length > 0 ? (
+        <div className="flex flex-wrap items-center gap-4">
+          <span className="text-sm text-ink-faint">On shift with you</span>
+          <div className="flex flex-wrap gap-3">
+            {coworkers.map((cw) => (
+              <span key={cw.id} className="flex items-center gap-2 text-sm text-ink-muted" title={`${cw.name}, ${cw.role ?? ""} · mood ${cw.mood}`}>
+                <Avatar name={cw.name} small />
+                <span className="hidden sm:inline">{cw.name.split(" ")[0]}</span>
+              </span>
+            ))}
+          </div>
+        </div>
+      ) : null}
+
+      <div className="border-t border-line pt-6">
+        {stats ? <StatsRow stats={stats} deltas={lastDeltas} /> : null}
+      </div>
+
+      <TracePanel nodes={trace.nodes} state={trace.state} title="Behind the scenes" />
     </div>
   );
 }
-

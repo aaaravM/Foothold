@@ -1,12 +1,11 @@
 "use client";
 
 import * as React from "react";
+import { motion, useMotionValue, useMotionValueEvent, useTransform, type MotionValue } from "motion/react";
 import { cn } from "@/lib/utils";
 import { getJSON, isAbortError, isOfflineError, postJSON } from "@/lib/api";
 import { DEMO_ACCOUNTS } from "@/lib/auth";
-import { FictionalTag } from "@/components/foothold/fictional-tag";
 import { MonoLabel } from "@/components/foothold/mono-label";
-import { ProvenanceBadge } from "@/components/foothold/provenance-badge";
 import { PreviewOffline, PreviewPanel } from "./feature-section";
 
 /* ------------------------------------------------------------------ */
@@ -71,17 +70,10 @@ export function TryShiftPreview() {
   const { event, career, coworkers } = res.data;
   const choice = event.choices.find((c) => c.choice_id === picked) ?? null;
   const names = new Map((coworkers ?? []).map((c) => [c.id, c]));
-  const draft = (res.data.events_status ?? event.status ?? "").toLowerCase().includes("draft");
 
   return (
     <PreviewPanel
       label={`${career?.title ?? "Workday"}${event.clock ? ` · ${event.clock}` : ""}`}
-      aside={
-        <>
-          {draft ? <MonoLabel tone="warning">Draft scenario</MonoLabel> : null}
-          <ProvenanceBadge status="SYNTHETIC" note="Scenario written for Foothold; coworkers are fictional." />
-        </>
-      }
     >
       <h3 className="text-lg font-medium text-ink">{event.title}</h3>
       <p className="mt-2 text-[15px] leading-relaxed text-ink-muted">{event.text}</p>
@@ -98,7 +90,7 @@ export function TryShiftPreview() {
                 aria-pressed={on}
                 onClick={() => setPicked(on ? null : c.choice_id)}
                 className={cn(
-                  "grid w-full grid-cols-[1.75rem_1fr] gap-2 border p-3 text-left text-[15px] leading-snug transition-colors",
+                  "grid w-full grid-cols-[1.75rem_1fr] gap-2 rounded-xl border p-3 text-left text-[15px] leading-snug transition-colors",
                   "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent",
                   on ? "border-accent bg-surface text-ink" : "border-line text-ink hover:border-line-strong hover:bg-surface",
                 )}
@@ -121,7 +113,7 @@ export function TryShiftPreview() {
                   <li
                     key={k}
                     className={cn(
-                      "label-mono inline-flex h-6 items-center gap-1.5 border px-2",
+                      "label-mono inline-flex h-6 items-center rounded-full gap-1.5 border px-2",
                       d === 0 ? "border-line text-ink-muted" : statGood(k, d) ? "border-success/50 text-success" : "border-danger/50 text-danger",
                     )}
                   >
@@ -183,7 +175,7 @@ interface SolveResponse {
   solve_ms?: number;
 }
 
-/** Maya's own limits from her (fictional) profile; only the weekly hours move. */
+/** Maya's own limits from her profile; only the weekly hours move. */
 const MAYA = { career_id: "robotics_tech", current_credits: 0, budget_usd: 4000, commute_minutes: 35, dependents: 0 };
 const usd = (n: number) => `$${Math.round(n).toLocaleString("en-US")}`;
 
@@ -211,7 +203,7 @@ export function PathPreview() {
   const order = data ? (data.order ?? Object.keys(data.routes)).filter((k) => data.routes[k]) : [];
 
   return (
-    <PreviewPanel label={`Path · ${data?.career_title ?? "Robotics and Automation Technician"}`} aside={<FictionalTag label="Maya · fictional" />}>
+    <PreviewPanel label={`Path · ${data?.career_title ?? "Robotics and Automation Technician"}`}>
       <p className="text-sm text-ink-muted">
         Maya has a <span className="text-ink">{usd(MAYA.budget_usd)}</span> budget and a <span className="text-ink">{MAYA.commute_minutes}-minute</span> commute. How many hours a
         week can she give it?
@@ -243,7 +235,7 @@ export function PathPreview() {
             const p = data.routes[k];
             const best = data.best_route === k;
             return (
-              <li key={k} className={cn("flex flex-col gap-1 border p-3", best ? "border-accent" : "border-line", !p.feasible && "bg-surface")}>
+              <li key={k} className={cn("flex flex-col gap-1 rounded-xl border p-3", best ? "border-accent" : "border-line", !p.feasible && "bg-surface")}>
                 <span className="flex items-center justify-between gap-2">
                   <MonoLabel tone={p.feasible ? "success" : "danger"}>{p.feasible ? "Fits" : "Doesn't fit"}</MonoLabel>
                   {best ? <MonoLabel tone="accent">Best</MonoLabel> : null}
@@ -276,21 +268,28 @@ export function PathPreview() {
 
 const EXAMPLE_SHOWN = ["Attention to Detail", "Dependability", "Cooperation"];
 
-export function TalentPreview() {
+export function TalentPreview({ progress }: { progress?: MotionValue<number> } = {}) {
   const [consent, setConsent] = React.useState(false);
+  const touched = React.useRef(false);
+  /* On the landing stage, the request is accepted on its own partway through the stage, unless
+     the visitor has already flipped the switch themselves. */
+  const idle = useMotionValue(0);
+  useMotionValueEvent(progress ?? idle, "change", (v) => {
+    if (!touched.current) setConsent(v > 0.5);
+  });
   const luis = DEMO_ACCOUNTS.find((a) => a.persona_id === "luis");
   const name = luis?.display_name ?? "Luis";
   const initials = luis?.initials ?? "L";
 
   return (
-    <PreviewPanel label="What an employer sees" aside={<FictionalTag label="Example · fictional" />}>
+    <PreviewPanel label="What an employer sees">
       <div className="grid gap-4 sm:grid-cols-[1fr_auto] sm:items-start">
         <div className="min-w-0 space-y-3">
           <div className="flex items-center gap-3">
             <span
               aria-hidden="true"
               className={cn(
-                "grid size-11 shrink-0 place-items-center border font-mono text-sm transition-colors",
+                "grid size-11 shrink-0 place-items-center rounded-full border font-mono text-sm transition-colors",
                 consent ? "border-accent text-accent" : "border-dashed border-line-strong text-ink-faint",
               )}
             >
@@ -305,7 +304,7 @@ export function TalentPreview() {
             <MonoLabel as="p">Shown in a simulated workday · Diesel and Heavy-Equipment Mechanic</MonoLabel>
             <ul className="mt-1.5 flex flex-wrap gap-1.5">
               {EXAMPLE_SHOWN.map((s) => (
-                <li key={s} className="label-mono inline-flex h-6 items-center border border-line px-2 text-ink">
+                <li key={s} className="label-mono inline-flex h-6 items-center rounded-full border border-line px-2 text-ink">
                   {s}
                 </li>
               ))}
@@ -322,11 +321,14 @@ export function TalentPreview() {
           type="button"
           role="switch"
           aria-checked={consent}
-          onClick={() => setConsent((v) => !v)}
+          onClick={() => {
+            touched.current = true;
+            setConsent((v) => !v);
+          }}
           className="inline-flex items-center gap-3 text-sm text-ink focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
         >
-          <span className={cn("relative h-6 w-11 border transition-colors", consent ? "border-accent bg-accent" : "border-line-strong bg-surface")}>
-            <span className={cn("absolute top-0.5 size-4 bg-bg transition-[left]", consent ? "left-[1.4rem]" : "left-0.5")} />
+          <span className={cn("relative h-6 w-11 rounded-full border transition-colors", consent ? "border-accent bg-accent" : "border-line-strong bg-surface")}>
+            <span className={cn("absolute top-0.5 size-4 rounded-full bg-bg transition-[left]", consent ? "left-[1.4rem]" : "left-0.5")} />
           </span>
           {consent ? "Shared · tap to take it back" : "Learner: share my name"}
         </button>
@@ -346,20 +348,32 @@ const EXCHANGE: { who: string; initials: string; text: string; self?: boolean }[
   { who: "Ana", initials: "AR", text: "Yes. Library at 3?" },
 ];
 
-export function CirclePreview() {
+function ExchangeRow({ i, progress, children, className }: { i: number; progress?: MotionValue<number>; children: React.ReactNode; className?: string }) {
+  const start = 0.05 + i * 0.16;
+  const idle = useMotionValue(1);
+  const opacity = useTransform(progress ?? idle, (v) => Math.max(0, Math.min(1, (v - start) / 0.12)));
+  const y = useTransform(opacity, [0, 1], [14, 0]);
   return (
-    <PreviewPanel label="Circle · Logistics, Stockton" aside={<FictionalTag label="Fictional people" />}>
+    <motion.li style={{ opacity, y }} className={className}>
+      {children}
+    </motion.li>
+  );
+}
+
+export function CirclePreview({ progress }: { progress?: MotionValue<number> } = {}) {
+  return (
+    <PreviewPanel label="Circle · Logistics, Stockton">
       <ol className="space-y-3">
         {EXCHANGE.map((m, i) => (
-          <li key={i} className={cn("flex items-end gap-2", m.self && "flex-row-reverse")}>
-            <span aria-hidden="true" className="grid size-8 shrink-0 place-items-center border border-line font-mono text-[11px] text-ink-muted">
+          <ExchangeRow key={i} i={i} progress={progress} className={cn("flex items-end gap-2", m.self && "flex-row-reverse")}>
+            <span aria-hidden="true" className="grid size-8 shrink-0 place-items-center rounded-full border border-line font-mono text-[11px] text-ink-muted">
               {m.initials}
             </span>
-            <div className={cn("max-w-[80%] border px-3 py-2", m.self ? "border-accent/60" : "border-line")}>
+            <div className={cn("max-w-[80%] rounded-2xl border px-3.5 py-2", m.self ? "border-accent/60" : "border-line")}>
               <MonoLabel as="p">{m.who}</MonoLabel>
               <p className="text-[15px] leading-snug text-ink">{m.text}</p>
             </div>
-          </li>
+          </ExchangeRow>
         ))}
       </ol>
       <p className="mt-4 border-t border-line pt-3 text-sm text-ink-muted">

@@ -3,13 +3,12 @@
 import * as React from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { Lock, LockOpen, Mail, MapPin, Phone } from "lucide-react";
-import { MonoLabel } from "@/components/foothold/mono-label";
-import { FictionalTag } from "@/components/foothold/fictional-tag";
+import { QuietLabel as MonoLabel, ScrambleText } from "@/components/sim/fx";
 import { getJSON } from "@/lib/api";
 import { BlindFields, EmptyNote, ErrorNote, errorText, fmtTime, StatusPill } from "./shared";
 import type { CandidateResponse, EmployerRequest, Revealed } from "./types";
 
-const EASE = [0.65, 0, 0.35, 1] as const;
+const EASE = [0.16, 1, 0.3, 1] as const;
 
 export function Requests({ requests, error }: { requests: EmployerRequest[] | null; error: string | null }) {
   if (error && !requests) return <ErrorNote>{error}</ErrorNote>;
@@ -53,7 +52,7 @@ function RequestCard({ request }: { request: EmployerRequest }) {
   const revealed = contact ?? (accepted ? request.revealed : null);
 
   return (
-    <li className="grid content-start gap-3 border border-line bg-bg p-4">
+    <li className="grid content-start gap-3 rounded-2xl border border-line bg-bg p-5">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <div className="grid gap-0.5">
           <p className="text-sm font-medium text-ink">{request.posting_title ?? "General outreach"}</p>
@@ -61,24 +60,51 @@ function RequestCard({ request }: { request: EmployerRequest }) {
         </div>
         <StatusPill status={request.status} />
       </div>
-      {request.message ? <p className="border-l-2 border-line-strong pl-3 text-sm text-ink-muted">&ldquo;{request.message}&rdquo;</p> : null}
+      {request.message ? <p className="border-l border-line-strong pl-3 text-sm text-ink-muted">&ldquo;{request.message}&rdquo;</p> : null}
 
       <AnimatePresence initial={false} mode="wait">
         {revealed ? (
           <motion.div
             key="open"
-            className="grid gap-2 border border-success/60 p-3"
-            initial={reduce || !justUnlocked ? false : { opacity: 0, clipPath: "inset(0 100% 0 0)" }}
-            animate={{ opacity: 1, clipPath: "inset(0 0% 0 0)" }}
-            transition={{ duration: 0.6, ease: EASE }}
+            className="relative grid gap-2 overflow-hidden rounded-2xl border border-accent/50 bg-accent-wash p-4"
+            initial={reduce || !justUnlocked ? false : { opacity: 0, scale: 0.96, clipPath: "inset(0 100% 0 0 round 16px)" }}
+            animate={{ opacity: 1, scale: 1, clipPath: "inset(0 0% 0 0 round 16px)" }}
+            transition={{ duration: 0.9, ease: EASE }}
           >
+            {justUnlocked && !reduce ? (
+              <>
+                <motion.span
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-0 rounded-2xl"
+                  initial={{ boxShadow: "0 0 0 0 color-mix(in oklab, var(--accent) 55%, transparent)" }}
+                  animate={{ boxShadow: "0 0 0 18px color-mix(in oklab, var(--accent) 0%, transparent)" }}
+                  transition={{ duration: 1.4, ease: "easeOut", repeat: 2 }}
+                />
+                <motion.span
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 -skew-x-12 bg-gradient-to-r from-transparent via-accent/25 to-transparent"
+                  initial={{ x: "0%" }}
+                  animate={{ x: "450%" }}
+                  transition={{ duration: 1.3, ease: EASE, delay: 0.3 }}
+                />
+              </>
+            ) : null}
             <div className="flex items-center justify-between gap-2">
-              <p className="flex items-center gap-2 text-sm font-medium text-success">
-                <LockOpen aria-hidden="true" className="size-4" /> Unlocked with consent
+              <p className="flex items-center gap-2 text-sm font-medium text-accent">
+                <motion.span
+                  className="inline-flex"
+                  initial={justUnlocked && !reduce ? { rotate: -25, scale: 0.6 } : false}
+                  animate={{ rotate: 0, scale: 1 }}
+                  transition={{ type: "spring", stiffness: 260, damping: 12, delay: 0.2 }}
+                >
+                  <LockOpen aria-hidden="true" className="size-4" />
+                </motion.span>
+                Unlocked with consent
               </p>
-              <FictionalTag compact />
             </div>
-            <p className="text-lg font-semibold text-ink">{revealed.name ?? "Name not provided"}</p>
+            <p className="font-display text-2xl text-ink">
+              {justUnlocked ? <ScrambleText text={revealed.name ?? "Name not provided"} duration={1100} /> : revealed.name ?? "Name not provided"}
+            </p>
             <ul className="grid gap-1 text-sm text-ink">
               {revealed.contact.email ? (
                 <li className="flex items-center gap-2">

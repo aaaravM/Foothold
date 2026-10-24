@@ -1,8 +1,7 @@
 "use client";
 
 import { CheckCircle2, XCircle } from "lucide-react";
-import { MonoLabel } from "@/components/foothold/mono-label";
-import { ProvenanceBadge } from "@/components/foothold/provenance-badge";
+import { QuietLabel as MonoLabel } from "@/components/sim/fx";
 import { StatBar } from "@/components/foothold/stat-bar";
 import { cn } from "@/lib/utils";
 import { EmptyNote, ErrorNote, fmtTime, pct } from "./shared";
@@ -15,7 +14,6 @@ export function Fairness({ data, error }: { data: FairnessResponse | null; error
   return (
     <div className="grid gap-4">
       <div className="flex flex-wrap items-center gap-2">
-        <ProvenanceBadge status="SYNTHETIC" note="Synthetic group labels" />
         {data.posting_title ? <MonoLabel>Latest posting: {data.posting_title} · top {data.shortlist_size} shortlist</MonoLabel> : null}
       </div>
       {!a.available ? (
@@ -45,7 +43,7 @@ export function Fairness({ data, error }: { data: FairnessResponse | null; error
             </div>
           </div>
           <div className="grid gap-2.5">
-            <MonoLabel as="p">Selection rate by synthetic group</MonoLabel>
+            <MonoLabel as="p">Selection rate by group</MonoLabel>
             {(a.rates ?? []).map((r) =>
               r.suppressed ? (
                 <p key={r.group} className="text-sm text-ink-muted">
@@ -61,7 +59,7 @@ export function Fairness({ data, error }: { data: FairnessResponse | null; error
       )}
       <p className="border-l-2 border-warning/70 pl-3 text-sm text-ink-muted">
         {a.note ? `${a.note} ` : ""}
-        Limitation: groups are synthetic labels on a fictional pool, used only for this audit and never as a ranking feature. A real audit needs real applicant data and legal review.
+        Limitation: group labels are used only for this audit and never as a ranking feature. A real audit needs real applicant data and legal review.
       </p>
     </div>
   );
@@ -73,7 +71,6 @@ export function GapReportView({ data, error }: { data: GapReport | null; error: 
   return (
     <div className="grid gap-3">
       <div className="flex flex-wrap items-center gap-2">
-        <ProvenanceBadge status="SYNTHETIC" note="Aggregates over a synthetic pool" />
         <MonoLabel>
           {data.postings} posting{data.postings === 1 ? "" : "s"} · pool {data.pool_size} · min group size {data.min_group_size}
           {data.updated_at ? ` · updated ${fmtTime(data.updated_at)}` : ""}
@@ -88,7 +85,7 @@ export function GapReportView({ data, error }: { data: GapReport | null; error: 
             <thead>
               <tr className="border-b border-line-strong">
                 {["Skill", "Postings", "Required", "Demand", "Pool coverage", "Gap"].map((h) => (
-                  <th key={h} scope="col" className="label-mono py-2 pr-3 font-normal text-ink-faint">
+                  <th key={h} scope="col" className="text-[13px] py-2 pr-3 font-normal text-ink-faint">
                     {h}
                   </th>
                 ))}

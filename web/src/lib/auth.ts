@@ -242,7 +242,7 @@ export function safeNextPath(next: string | null | undefined): string | null {
   try {
     const url = new URL(raw, LOCAL_ORIGIN);
     if (url.origin !== LOCAL_ORIGIN) return null;
-    if (matchesRoute(url.pathname, "/signin")) return null;
+    if (matchesRoute(url.pathname, "/signin") || matchesRoute(url.pathname, "/signup")) return null;
     return `${url.pathname}${url.search}${url.hash}`;
   } catch {
     return null;

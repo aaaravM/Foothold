@@ -1,0 +1,13 @@
+{
+  "created_at": "2026-10-24T23:23:41+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "line": "A hot-fix might preserve the data, but let’s verify that migration path in staging before we touch production.",
+    "mood_delta": -2,
+    "reaction": "uneasy"
+  },
+  "schema": "CoworkerReaction",
+  "task": "sim_coworker"
+}

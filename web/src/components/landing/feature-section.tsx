@@ -4,8 +4,7 @@ import * as React from "react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { useAccount } from "@/components/auth/auth-provider";
-import { Brackets, techButtonClass } from "@/components/auth/parts";
-import { MonoLabel } from "@/components/foothold/mono-label";
+import { Reveal, SplitWords, SwapArrow, TextRoll } from "@/components/motion/kit";
 
 export interface FeatureCtaProps {
   /** where a learner goes */
@@ -16,21 +15,18 @@ export interface FeatureCtaProps {
   employerLabel?: string;
 }
 
-/** One clear call to action: straight into the feature when signed in, through sign-in otherwise. */
+/** One clear call to action: straight into the feature when signed in, through sign-up otherwise. */
 export function FeatureCta({ href, label, employerHref, employerLabel }: FeatureCtaProps) {
   const { account, status } = useAccount();
   const signedIn = status === "signed_in" && !!account;
   const isEmployer = signedIn && account?.kind === "employer";
   const dest = isEmployer ? (employerHref ?? href) : href;
   const text = isEmployer ? (employerLabel ?? label) : label;
-  const target = signedIn ? dest : `/signin?next=${encodeURIComponent(dest)}`;
+  const target = signedIn ? dest : `/signup?next=${encodeURIComponent(dest)}`;
   return (
-    <Link href={target} className={cn(techButtonClass, "h-11")}>
-      <span>{signedIn ? text : `Sign in · ${text}`}</span>
-      <span aria-hidden="true" className="font-mono">
-        →
-      </span>
-      <Brackets offset={5} />
+    <Link href={target} className="btn-ghost group">
+      <TextRoll text={text} />
+      <SwapArrow />
     </Link>
   );
 }
@@ -46,44 +42,49 @@ export interface FeatureSectionProps {
   flip?: boolean;
 }
 
-/** A landing section: what you do in Foothold, with a live preview and one call to action. */
+/** A landing chapter: what you do in Foothold, a live preview, one call to action. */
 export function FeatureSection({ id, step, title, body, cta, children, flip = false }: FeatureSectionProps) {
   return (
-    <section id={id} aria-labelledby={`${id}-title`} className="grid scroll-mt-24 grid-cols-1 gap-6 border-b border-line py-12 lg:grid-cols-12 lg:gap-10">
-      <div className={cn("flex flex-col gap-4 lg:col-span-5", flip && "lg:order-2")}>
-        <MonoLabel as="p" tone="accent">
-          {step}
-        </MonoLabel>
-        <h2 id={`${id}-title`} className="type-display-md text-ink">
-          {title}
-        </h2>
-        <div className="max-w-[52ch] space-y-3 text-[17px] leading-relaxed text-ink-muted">{body}</div>
-        <div className="mt-2">
+    <section id={id} aria-labelledby={`${id}-title`} className="grid scroll-mt-24 grid-cols-1 items-center gap-10 py-[8svh] lg:grid-cols-12 lg:gap-16">
+      <div className={cn("flex flex-col gap-5 lg:col-span-5", flip && "lg:order-2")}>
+        <Reveal>
+          <span className="kicker">{step}</span>
+        </Reveal>
+        <SplitWords id={`${id}-title`} text={title} className="type-display-md text-ink" />
+        <Reveal delay={0.1} className="max-w-[46ch] space-y-3 text-[17px] leading-relaxed text-ink-muted">
+          {body}
+        </Reveal>
+        <Reveal delay={0.2} className="mt-1">
           <FeatureCta {...cta} />
-        </div>
+        </Reveal>
       </div>
-      <div className={cn("min-w-0 lg:col-span-7", flip && "lg:order-1")}>{children}</div>
+      <Reveal delay={0.15} y={36} className={cn("min-w-0 lg:col-span-7", flip && "lg:order-1")}>
+        {children}
+      </Reveal>
     </section>
   );
 }
 
-/** Bordered panel that frames a live preview. */
+/** Soft panel that frames a live preview. */
 export function PreviewPanel({ label, aside, children, className }: { label: string; aside?: React.ReactNode; children: React.ReactNode; className?: string }) {
   return (
-    <div className={cn("border border-line bg-bg", className)}>
-      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-line px-4 py-2">
-        <MonoLabel>{label}</MonoLabel>
+    <div className={cn("soft-card overflow-hidden", className)}>
+      <div className="flex flex-wrap items-center justify-between gap-2 px-5 pt-4">
+        <span className="inline-flex items-center gap-2 text-sm text-ink-muted">
+          <span aria-hidden="true" className="size-1.5 rounded-full bg-accent" />
+          {label}
+        </span>
         {aside ? <span className="flex flex-wrap items-center gap-2">{aside}</span> : null}
       </div>
-      <div className="p-4">{children}</div>
+      <div className="p-5">{children}</div>
     </div>
   );
 }
 
 export function PreviewOffline({ what }: { what: string }) {
   return (
-    <p role="status" className="text-sm text-warning">
-      API offline: the live {what} needs the Foothold API, which isn&rsquo;t reachable right now.
+    <p role="status" className="text-sm text-ink-muted">
+      The live {what} will appear here once Foothold is reachable.
     </p>
   );
 }

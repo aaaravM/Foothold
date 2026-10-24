@@ -4,8 +4,7 @@ import * as React from "react";
 import { toast } from "sonner";
 import { Clock3, Users } from "lucide-react";
 import { useAccount } from "@/components/auth/auth-provider";
-import { MonoLabel } from "@/components/foothold/mono-label";
-import { FictionalTag } from "@/components/foothold/fictional-tag";
+import { QuietLabel as MonoLabel } from "@/components/sim/fx";
 import { postJSON } from "@/lib/api";
 import { cn } from "@/lib/utils";
 import {
@@ -94,12 +93,9 @@ function CircleSheet() {
 
   return (
     <div className="grid gap-6">
-      <p className="border border-line bg-surface px-4 py-3 text-sm text-ink-muted">
-        <span className="font-medium text-ink">Peer support and practice, not therapy.</span> Circles are small groups of people in similar situations. Posts are
-        checked for safety and contact details before anyone else sees them. Everyone here is fictional.
-      </p>
+      <p className="max-w-2xl text-lg text-ink-muted">Small groups of people in the same spot as you. Every post is checked before others see it.</p>
 
-      <Panel label="Circles" title="Find your people" aside={<FictionalTag />}>
+      <Panel label="Circles" title="Find your people">
         {circles.error && !circles.data ? <ErrorNote>{circles.error}</ErrorNote> : null}
         {!circles.data && !circles.error ? <MonoLabel as="p">Loading circles…</MonoLabel> : null}
         <ul className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
@@ -107,7 +103,7 @@ function CircleSheet() {
             const isJoined = joined.includes(c.id);
             const isActive = c.id === activeId;
             return (
-              <li key={c.id} className={cn("grid content-start gap-2 border bg-bg p-4", isActive ? "border-accent" : "border-line")}>
+              <li key={c.id} className={cn("grid content-start gap-2 rounded-2xl border p-5 transition-colors duration-300", isActive ? "border-accent/70 bg-accent-wash" : "border-line hover:border-line-strong")}>
                 <p className="font-medium text-ink">{c.name}</p>
                 {c.topic ? <MonoLabel>{c.topic}</MonoLabel> : null}
                 {c.description ? <p className="text-sm text-ink-muted">{c.description}</p> : null}
@@ -182,7 +178,7 @@ function Thread({ circle, joined, onJoin }: { circle: Circle; joined: boolean; o
 
   const list = posts.data?.posts ?? [];
   return (
-    <Panel label="Thread" title={circle.name} aside={<FictionalTag compact />}>
+    <Panel label="Thread" title={circle.name}>
       <div className="grid gap-4">
         {crisis ? <CrisisPanel payload={crisis} /> : null}
         {joined ? (
@@ -204,7 +200,7 @@ function Thread({ circle, joined, onJoin }: { circle: Circle; joined: boolean; o
             {error ? <ErrorNote>{error}</ErrorNote> : null}
           </form>
         ) : (
-          <div className="flex flex-wrap items-center justify-between gap-3 border border-dashed border-line-strong p-3">
+          <div className="flex flex-wrap items-center justify-between gap-3 border border-dashed border-line-strong p-3 rounded-2xl">
             <p className="text-sm text-ink-muted">Join this circle to post. Joining is opt-in and you can leave anytime.</p>
             <button type="button" className={cn(primaryButtonClass, "h-9")} onClick={onJoin}>
               Join circle
@@ -215,7 +211,7 @@ function Thread({ circle, joined, onJoin }: { circle: Circle; joined: boolean; o
         {posts.data && !list.length ? <EmptyNote>No posts yet. Be the first to say hello.</EmptyNote> : null}
         <ul className="grid gap-2">
           {list.map((p) => (
-            <li key={p.id} className={cn("grid gap-1 border p-3", p.status === "held" ? "border-dashed border-warning/60" : "border-line")}>
+            <li key={p.id} className={cn("grid gap-1 rounded-2xl p-4", p.status === "held" ? "border border-dashed border-warning/60" : "bg-surface/50")}>
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <p className="text-sm font-medium text-ink">
                   {p.handle}
@@ -224,12 +220,10 @@ function Thread({ circle, joined, onJoin }: { circle: Circle; joined: boolean; o
                 <span className="flex items-center gap-2">
                   {p.created_at ? <MonoLabel>{fmtTime(p.created_at)}</MonoLabel> : null}
                   {p.status === "held" ? (
-                    <span className="label-mono flex items-center gap-1 border border-warning/60 px-1.5 py-0.5 text-warning">
+                    <span className="text-[13px] flex items-center gap-1 rounded-full border border-warning/60 px-2 py-0.5 text-warning">
                       <Clock3 aria-hidden="true" className="size-3" /> held
                     </span>
-                  ) : (
-                    <span className="label-mono border border-success/50 px-1.5 py-0.5 text-success">approved</span>
-                  )}
+                  ) : null}
                 </span>
               </div>
               <p className="text-sm text-ink">{p.text}</p>

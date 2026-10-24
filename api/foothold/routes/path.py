@@ -1,7 +1,8 @@
 """Pathway endpoints (CONTRACTS sections 6, 9, 13).
 
 POST /api/path/solve                  public  {career_id, current_credits, hours_per_week, budget_usd,
-                                               commute_minutes, dependents, extra_constraints?} -> all routes
+                                               commute_minutes, dependents, extra_constraints?,
+                                               place_id? | lat?+lon?} -> all routes (+ commute per campus)
 POST /api/path/translate              public  {text} -> {rules:[{type,...,label}], source}
 POST /api/path/start                  learner {career_id, text?, rules?, inputs...} SSE (pathway graph)
 POST /api/path/{thread_id}/decision   learner {approve, reason?, rules?} SSE (resumes the pending interrupt)
@@ -22,7 +23,7 @@ from fastapi import APIRouter, HTTPException, status
 from langgraph.types import Command
 from pydantic import BaseModel, Field
 
-from foothold import data, db, planner, sse
+from foothold import data, db, places, planner, profiles, sse
 from foothold.auth import Account, LearnerAccount, OptionalAccount
 from foothold.graphs import pathway
 
@@ -43,6 +44,10 @@ class SolveBody(BaseModel):
     commute_minutes: float | None = 20
     dependents: int | None = 0
     extra_constraints: Any = None
+    # location: explicit lat/lon or place_id; otherwise the signed-in learner's saved place (if they set one)
+    place_id: str | None = Field(default=None, max_length=40)
+    lat: float | None = None
+    lon: float | None = None
 
 
 class TranslateBody(BaseModel):
@@ -58,6 +63,9 @@ class StartBody(BaseModel):
     dependents: int | None = None
     text: str = Field(default="", max_length=1200)
     rules: list[dict[str, Any]] = Field(default_factory=list)
+    place_id: str | None = Field(default=None, max_length=40)
+    lat: float | None = None
+    lon: float | None = None
 
 
 class DecisionBody(BaseModel):
@@ -68,6 +76,18 @@ class DecisionBody(BaseModel):
 
 class KanbanBody(BaseModel):
     items: list[dict[str, Any]] = Field(default_factory=list, max_length=200)
+
+
+def _origin(body: Any, account: Account | None) -> dict[str, Any] | None:
+    """Explicit place/lat-lon in the body, else the account's saved place (only once the user set one)."""
+    o = places.origin_from(getattr(body, "place_id", None), getattr(body, "lat", None), getattr(body, "lon", None))
+    if o is not None or account is None or account.kind != "learner":
+        return o
+    try:
+        return profiles.saved_origin(account)
+    except Exception as exc:  # noqa: BLE001  (location is a bonus; never fail the plan)
+        log.warning("profile origin unavailable (%s)", type(exc).__name__)
+        return None
 
 
 def _check_career(cid: str) -> None:
@@ -84,7 +104,9 @@ async def solve(body: SolveBody, account: OptionalAccount) -> dict[str, Any]:
                                  commute_minutes=body.commute_minutes, dependents=body.dependents,
                                  current_credits=body.current_credits, rules=rules)
     try:
-        res = await asyncio.wait_for(asyncio.to_thread(planner.solve_routes, body.career_id, c), timeout=SOLVE_TIMEOUT_S + 2)
+        origin = await asyncio.to_thread(_origin, body, account)
+        res = await asyncio.wait_for(asyncio.to_thread(planner.solve_routes, body.career_id, c, origin=origin),
+                                     timeout=SOLVE_TIMEOUT_S + 2)
     except asyncio.TimeoutError:
         raise HTTPException(status.HTTP_504_GATEWAY_TIMEOUT, detail="The planner took too long; try fewer rules.")
     res["rules"] = [{**r, "label": planner.describe_rule(r)} for r in rules]
@@ -149,7 +171,9 @@ async def start(body: StartBody, learner: LearnerAccount):
     _check_career(body.career_id)
     tid = f"path_{uuid.uuid4().hex[:20]}"
     inputs = body.model_dump(include={"current_credits", "hours_per_week", "budget_usd", "commute_minutes", "dependents"})
-    state = pathway.initial_state(learner.id, learner.persona_id, body.career_id, inputs, body.text, body.rules)
+    origin = await asyncio.to_thread(_origin, body, learner)
+    state = pathway.initial_state(learner.id, learner.persona_id, body.career_id, inputs, body.text, body.rules,
+                                  origin=origin)
     _claim(tid)
     return _stream(tid, state)
 

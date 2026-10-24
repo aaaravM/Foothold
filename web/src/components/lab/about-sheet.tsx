@@ -3,7 +3,16 @@
 import * as React from "react";
 import Link from "next/link";
 import { MonoLabel } from "@/components/foothold/mono-label";
-import { ProvenanceBadge, PROVENANCE_META } from "@/components/foothold/provenance-badge";
+import { PROVENANCE_META } from "@/components/foothold/provenance-badge";
+import type { Provenance } from "@/lib/types";
+
+/** Text status label, shown only on this sources page. */
+function StatusLabel({ status, className }: { status: Provenance; className?: string }) {
+  const meta = PROVENANCE_META[status];
+  return (
+    <span className={`label-mono inline-flex h-5 items-center rounded-sm border px-1.5 leading-none ${meta.className} ${className ?? ""}`}>{status}</span>
+  );
+}
 import { SourceLink } from "@/components/foothold/source-link";
 import { useApiResource } from "./use-api";
 
@@ -120,7 +129,7 @@ export function AboutSheet() {
               {(["REAL", "SAMPLE", "SYNTHETIC", "FICTIONAL"] as const).map((p) => (
                 <div key={p} className="space-y-2">
                   <dt>
-                    <ProvenanceBadge status={p} />
+                    <StatusLabel status={p} />
                   </dt>
                   <dd className="text-sm text-ink-muted">{PROVENANCE_META[p].explain}</dd>
                 </div>
@@ -138,7 +147,7 @@ export function AboutSheet() {
                     {[s.publisher, s.license, s.retrieved ? `retrieved ${s.retrieved}` : null].filter(Boolean).join(" · ")}
                   </p>
                 </div>
-                <ProvenanceBadge status={prov(s.status)} href={s.url} className="shrink-0" />
+                <StatusLabel status={prov(s.status)} className="shrink-0" />
               </li>
             ))}
           </ul>

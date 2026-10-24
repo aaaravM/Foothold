@@ -302,6 +302,94 @@ def s_metrics(api: Api) -> str:
     return "6 keys"
 
 
+# --- sign-up, profile and location (self-registered accounts; removed again at the end) ---------------
+
+E2E_DOMAIN = "e2e-signup.example.com"
+
+
+def s_register_learner(api: Api) -> str:
+    email = f"learner.{int(time.time() * 1000)}@{E2E_DOMAIN}"
+    CTX["new_learner_email"] = email
+    r = api.post("/api/auth/register", json={"display_name": "Test Signup", "email": email, "password": "e2e-pass-123",
+                                            "kind": "learner"})
+    out = api.ok(r, "register learner")
+    check(out.get("token") and out["account"]["kind"] == "learner", "register: no token/account")
+    api.tokens["new_learner"] = out["token"]
+    prof = api.ok(api.http.patch("/api/auth/me/profile", headers=api.h("new_learner"),
+                                 json={"place_id": "modesto", "hours_per_week": 20}), "set place")
+    check(prof.get("place_id") == "modesto" and (prof.get("place") or {}).get("name") == "Modesto", "place not saved")
+    return f"{out['account']['persona_id']} @ Modesto"
+
+
+def s_new_learner_path(api: Api) -> str:
+    sol = api.ok(api.post("/api/path/solve", "new_learner", json={"career_id": "logistics_lead", "hours_per_week": 20}),
+                 "path solve (profile place)")
+    check((sol.get("origin") or {}).get("place_id") == "modesto", "solve did not use the saved place")
+    commutes = {rt: r["commute"] for rt, r in sol["routes"].items() if r.get("commute")}
+    check(commutes, "no per-campus commute in routes")
+    rt, cm = next(iter(commutes.items()))
+    return f"{len(commutes)} routes with commute; {rt}: {cm['campus']} {cm['minutes_one_way']} min"
+
+
+def s_new_learner_sim(api: Api) -> str:
+    ev = api.sse("/api/sim/start", "new_learner", {"career_id": "logistics_lead"})
+    intr = last(ev, "interrupt")
+    check(intr and ((intr.get("payload") or {}).get("event") or {}).get("choices"), "sim did not reach a choice")
+    return f"thread {thread_of(ev)}"
+
+
+def s_new_learner_opt_in(api: Api) -> str:
+    api.ok(api.http.patch("/api/auth/me/profile", headers=api.h("new_learner"), json={"talent_opt_in": True}), "opt in")
+    inbox = api.ok(api.get("/api/employer/inbox", "new_learner"), "new learner inbox")
+    pid = inbox.get("candidate_id")
+    check(pid and (inbox.get("card") or {}).get("region", {}).get("label") == "Modesto area", "no blind card after opt-in")
+    view = api.ok(api.get(f"/api/employer/candidates/{pid}", "tri_valley_freight"), "employer views new card")
+    check(not view.get("consented") and "Test Signup" not in json.dumps(view), "new card not blind")
+    talent = api.ok(api.get("/api/employer/talent", "tri_valley_freight", params={"limit": 100, "region": "Modesto"}),
+                    "talent (Modesto)")
+    check(any(c["candidate_id"] == pid for c in talent["cards"]),
+          "opted-in learner missing from talent search")
+    return f"card {pid} in pool of {talent['pool_size']}"
+
+
+def s_register_employer(api: Api) -> str:
+    email = f"hiring.{int(time.time() * 1000)}@{E2E_DOMAIN}"
+    out = api.ok(api.post("/api/auth/register", json={"display_name": "Valley Parts Hiring", "email": email,
+                                                     "password": "e2e-pass-456", "kind": "employer",
+                                                     "org_name": "Valley Parts", "place_id": "fresno"}), "register employer")
+    api.tokens["new_employer"] = out["token"]
+    text = ("Valley Parts is hiring a warehouse associate in Fresno. Required: forklift safety, inventory systems, "
+            "shipping and receiving. Preferred: spreadsheets. 20 hours a week.")
+    ev = api.sse("/api/employer/postings", "new_employer", {"title": "Warehouse Associate", "text": text})
+    intr = last(ev, "interrupt")
+    check(intr and (intr.get("payload") or {}).get("kind") == "pick_candidates", "new employer: no pick_candidates")
+    near = api.ok(api.get("/api/employer/talent", "new_employer", params={"limit": 100, "max_km": 80}), "talent near")
+    check((near.get("origin") or {}).get("place_id") == "fresno", "talent search ignored employer place")
+    return f"org {out['account']['org']}; posting ok; {near['eligible']} within 80 km"
+
+
+def s_duplicate_email(api: Api) -> str:
+    r = api.post("/api/auth/register", json={"display_name": "Again", "email": CTX["new_learner_email"].upper(),
+                                            "password": "e2e-pass-123", "kind": "learner"})
+    check(r.status_code == 409, f"duplicate email gave HTTP {r.status_code}")
+    return "409"
+
+
+def cleanup_signups() -> int:
+    """Remove the accounts (and opt-in cards) this run registered."""
+    from foothold import db
+
+    rows = db.query("SELECT id, persona_id FROM accounts WHERE email LIKE ?", (f"%@{E2E_DOMAIN}",))
+    for r in rows:
+        try:
+            db.execute("DELETE FROM user_talent_cards WHERE account_id = ?", (r["id"],))
+        except Exception:  # noqa: BLE001  (table may not exist yet)
+            pass
+        db.execute("DELETE FROM progress_log WHERE learner_id = ?", (r["persona_id"],))
+        db.execute("DELETE FROM accounts WHERE id = ?", (r["id"],))
+    return len(rows)
+
+
 STEPS: list[tuple[str, Callable[[Api], str], tuple[str, ...]]] = [
     ("login x4", s_login, ()),
     ("luis sim diesel -> report", s_luis_sim, ("login x4",)),
@@ -319,6 +407,12 @@ STEPS: list[tuple[str, Callable[[Api], str], tuple[str, ...]]] = [
     ("EQ feedback rubric", s_eq, ("login x4",)),
     ("graph recommend 3x3", s_graph, ("login x4",)),
     ("metrics 6 keys", s_metrics, ()),
+    ("signup learner + place", s_register_learner, ()),
+    ("signup path uses place commute", s_new_learner_path, ("signup learner + place",)),
+    ("signup sim start", s_new_learner_sim, ("signup learner + place",)),
+    ("signup opt in -> talent pool", s_new_learner_opt_in, ("signup learner + place", "login x4")),
+    ("signup employer -> posting", s_register_employer, ()),
+    ("signup duplicate email 409", s_duplicate_email, ("signup learner + place",)),
 ]
 
 
@@ -362,6 +456,11 @@ def main(argv: list[str] | None = None) -> int:
 
     if not args.keep:
         import reset_demo
+
+        try:
+            print(f"removed {cleanup_signups()} sign-up test account(s)")
+        except Exception as exc:  # noqa: BLE001
+            print(f"sign-up cleanup skipped ({type(exc).__name__})")
 
         print()
         reset_demo.reset()

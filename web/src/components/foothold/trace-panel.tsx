@@ -158,7 +158,7 @@ function headline(state: TraceState): { text: string; tone: string } {
  * Nodes in order, parallel groups side by side, the active node pulses, each node shows
  * ms, its LLM source (openai / cache / mock) and a short summary; interrupts read "waiting for you".
  */
-export function TracePanel({ nodes, state, title = "Behind the scenes", defaultOpen = true, className }: TracePanelProps) {
+export function TracePanel({ nodes, state, title = "Behind the scenes", defaultOpen = false, className }: TracePanelProps) {
   const [open, setOpen] = React.useState(defaultOpen);
   const bodyId = React.useId();
   const rows = React.useMemo(() => traceRows(nodes), [nodes]);

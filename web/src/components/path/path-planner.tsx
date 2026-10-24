@@ -2,8 +2,8 @@
 
 import * as React from "react";
 import { useSearchParams } from "next/navigation";
-import { Brackets, drawLinkClass, techButtonClass } from "@/components/auth/parts";
-import { MonoLabel } from "@/components/foothold/mono-label";
+import { drawLinkClass } from "@/components/auth/parts";
+import { QuietLabel as MonoLabel, primaryPill } from "@/components/sim/fx";
 import { ProvenanceBadge } from "@/components/foothold/provenance-badge";
 import { SourceLink } from "@/components/foothold/source-link";
 import { TracePanel } from "@/components/foothold/trace-panel";
@@ -12,6 +12,9 @@ import { getJSON, postJSON } from "@/lib/api";
 import type { Account } from "@/lib/auth";
 import type { Provenance, TraceEvent } from "@/lib/types";
 import { cn } from "@/lib/utils";
+import { motion } from "motion/react";
+import { Kicker, Reveal } from "@/components/sim/fx";
+import { NearbyPrograms, PlacePicker, usePlaces } from "./nearby";
 import { PathKanban } from "./path-kanban";
 import { usePersona } from "./use-persona";
 
@@ -85,6 +88,7 @@ interface RoutePlan {
     source?: SourceRef | null;
   } | null;
   starting_wage_hourly?: number | null;
+  commute?: { campus_id?: string; campus?: string; distance_km?: number; minutes_one_way?: number; approximate?: boolean } | null;
   program?: { id: string; name: string; provider?: string; credential?: string; url?: string; status?: string; source?: SourceRef | null } | null;
 }
 interface SolveResponse {
@@ -166,23 +170,36 @@ function RuleChip({ rule, onRemove }: { rule: Rule; onRemove?: () => void }) {
 /* Route column                                                        */
 /* ------------------------------------------------------------------ */
 
-function RouteColumn({ plan, best, selected, onSelect }: { plan: RoutePlan; best: boolean; selected: boolean; onSelect: () => void }) {
+function RouteColumn({ plan, best, selected, onSelect, index = 0 }: { plan: RoutePlan; best: boolean; selected: boolean; onSelect: () => void; index?: number }) {
   const wage = plan.expected_wage;
   const passed = plan.checks?.filter((c) => c.ok).length ?? 0;
   return (
-    <section
+    <motion.section
       aria-label={`${plan.label} route`}
-      className={cn("flex flex-col gap-3 border p-4", selected ? "border-accent" : "border-line", !plan.feasible && "bg-surface")}
+      initial={{ opacity: 0, y: 18, filter: "blur(6px)" }}
+      animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: index * 0.07 }}
+      className={cn(
+        "relative flex flex-col gap-3 rounded-2xl border p-5 transition-colors duration-500",
+        selected ? "border-accent/70 bg-accent-wash" : "border-line hover:border-line-strong",
+        !plan.feasible && "opacity-70",
+      )}
     >
       <div className="flex items-center justify-between gap-2">
         <MonoLabel tone={best ? "accent" : "muted"}>{best ? "Best fit" : ROUTE_LABEL[plan.route_type] ?? plan.route_type}</MonoLabel>
-        <MonoLabel tone={plan.feasible ? "success" : "danger"}>{plan.feasible ? "Feasible" : "Doesn't fit"}</MonoLabel>
+        <MonoLabel tone={plan.feasible ? "muted" : "danger"}>{plan.feasible ? "Fits your week" : "Doesn't fit"}</MonoLabel>
       </div>
       <h3 className="font-display text-xl text-ink">{plan.label}</h3>
       {plan.program ? (
         <div className="text-sm">
           <p className="text-ink">{plan.program.name}</p>
           <p className="text-ink-muted">{plan.program.provider}</p>
+          {plan.commute?.minutes_one_way != null ? (
+            <p className="mt-1 text-ink-muted">
+              <span className="font-mono text-ink tabular-nums">{plan.commute.minutes_one_way}</span> min drive
+              {plan.commute.campus ? ` to ${plan.commute.campus}` : ""}
+            </p>
+          ) : null}
           <div className="mt-1 flex flex-wrap items-center gap-2">
             <ProvenanceBadge status={prov(plan.program.status)} href={plan.program.source?.url} />
             {plan.program.url ? <SourceLink href={plan.program.url} label="Program page" /> : null}
@@ -241,8 +258,8 @@ function RouteColumn({ plan, best, selected, onSelect }: { plan: RoutePlan; best
       </div>
 
       {plan.greedy ? (
-        <div className="border-t border-line pt-3">
-          <MonoLabel as="p">CP-SAT vs greedy</MonoLabel>
+        <details className="border-t border-line pt-3">
+          <summary className="cursor-pointer list-none text-[13px] text-ink-faint hover:text-ink">Solver vs a simple schedule</summary>
           <table className="mt-1 w-full text-sm">
             <caption className="sr-only">Solver comparison for {plan.label}</caption>
             <thead>
@@ -270,7 +287,7 @@ function RouteColumn({ plan, best, selected, onSelect }: { plan: RoutePlan; best
               </tr>
             </tbody>
           </table>
-        </div>
+        </details>
       ) : null}
 
       <div className="mt-auto flex items-center justify-between gap-2 pt-2">
@@ -287,7 +304,7 @@ function RouteColumn({ plan, best, selected, onSelect }: { plan: RoutePlan; best
           </button>
         ) : null}
       </div>
-    </section>
+    </motion.section>
   );
 }
 
@@ -299,9 +316,25 @@ function TermTimeline({ plan }: { plan: RoutePlan }) {
       <MonoLabel as="h3" tone="ink" className="mb-3">
         Term by term · {plan.label}
       </MonoLabel>
-      <ol className="grid gap-px border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
-        {terms.map((t) => (
-          <li key={t.index} className="bg-bg p-3">
+      <div className="relative mb-4 h-px bg-line" aria-hidden="true">
+        <motion.div
+          key={plan.route_type}
+          className="absolute inset-y-0 left-0 origin-left bg-accent"
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: 1 }}
+          style={{ width: "100%" }}
+          transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
+        />
+      </div>
+      <ol key={plan.route_type} className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        {terms.map((t, i) => (
+          <motion.li
+            key={t.index}
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.15 + i * 0.08 }}
+            className="rounded-2xl border border-line p-4"
+          >
             <div className="flex items-baseline justify-between gap-2">
               <span className="text-ink">{t.term}</span>
               <MonoLabel>
@@ -310,7 +343,7 @@ function TermTimeline({ plan }: { plan: RoutePlan }) {
             </div>
             <ul className="mt-2 space-y-2 text-sm">
               {t.steps.map((s) => (
-                <li key={s.step} className="border-l-2 border-line-strong pl-2">
+                <li key={s.step} className="border-l border-accent/40 pl-3">
                   <p className="text-ink">{s.title}</p>
                   <MonoLabel as="p">
                     {[s.days?.join(" "), s.start && s.end && !(s.start === "00:00" && s.end === "23:59") ? `${s.start}–${s.end}` : null, s.modality?.replace("_", " "), s.paid ? "paid" : null]
@@ -321,7 +354,7 @@ function TermTimeline({ plan }: { plan: RoutePlan }) {
                 </li>
               ))}
             </ul>
-          </li>
+          </motion.li>
         ))}
       </ol>
     </div>
@@ -367,6 +400,11 @@ export function PathPlanner({ account }: { account: Account }) {
   const [agentBusy, setAgentBusy] = React.useState(false);
   const [approved, setApproved] = React.useState(false);
   const [kanbanVersion, setKanbanVersion] = React.useState(0);
+  const { places, placeId, save: savePlace } = usePlaces();
+  /** a place picked here this session; only then is it sent to the solver (demo personas keep their commute otherwise) */
+  const [pickedPlace, setPickedPlace] = React.useState<string | null>(null);
+  const placeName = places.find((p) => p.id === placeId)?.name;
+  const where = pickedPlace ? { place_id: pickedPlace } : {};
 
   const onTap = React.useCallback((ev: TraceEvent) => {
     if (ev.type === "done") {
@@ -399,7 +437,7 @@ export function PathPlanner({ account }: { account: Account }) {
     const ctrl = new AbortController();
     const t = setTimeout(() => {
       setSolving(true);
-      postJSON<SolveResponse>("/api/path/solve", { career_id: careerId, ...inputs, extra_constraints: rules }, { signal: ctrl.signal })
+      postJSON<SolveResponse>("/api/path/solve", { career_id: careerId, ...inputs, ...where, extra_constraints: rules }, { signal: ctrl.signal })
         .then((r) => {
           setSolve(r);
           setSolveError(null);
@@ -416,7 +454,8 @@ export function PathPlanner({ account }: { account: Account }) {
       clearTimeout(t);
       ctrl.abort();
     };
-  }, [inputs, careerId, rules]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [inputs, careerId, rules, pickedPlace]);
 
   const translate = async () => {
     if (!ruleText.trim()) return;
@@ -447,7 +486,7 @@ export function PathPlanner({ account }: { account: Account }) {
     setApproved(false);
     setAgentBusy(true);
     trace.reset();
-    await run("/api/path/start", { career_id: careerId, ...inputs, rules });
+    await run("/api/path/start", { career_id: careerId, ...inputs, ...where, rules });
     setAgentBusy(false);
   };
 
@@ -470,9 +509,9 @@ export function PathPlanner({ account }: { account: Account }) {
       {/* constraints */}
       <section aria-labelledby="path-constraints" className="grid gap-8 lg:grid-cols-12">
         <div className="space-y-5 lg:col-span-4">
-          <MonoLabel as="h2" id="path-constraints" tone="accent">
-            Step 1 · Your constraints
-          </MonoLabel>
+          <h2 id="path-constraints">
+            <Kicker>Your week</Kicker>
+          </h2>
           <div className="space-y-2">
             <MonoLabel as="label" htmlFor="path-career" tone="ink">
               Career
@@ -515,15 +554,15 @@ export function PathPlanner({ account }: { account: Account }) {
             : <MonoLabel as="p">Loading your constraints…</MonoLabel>}
           {persona ? (
             <MonoLabel as="p" tone="faint">
-              Prefilled from {persona.display_name ?? account.display_name}&apos;s profile (fictional)
+              Prefilled from {persona.display_name ?? account.display_name}&apos;s profile
             </MonoLabel>
           ) : null}
         </div>
 
         <div className="space-y-4 lg:col-span-8">
-          <MonoLabel as="h2" tone="accent">
-            Step 2 · Rules in your own words
-          </MonoLabel>
+          <h2>
+            <Kicker>Rules in your own words</Kicker>
+          </h2>
           <div className="space-y-2">
             <MonoLabel as="label" htmlFor="path-rule-text" tone="ink">
               Describe your week
@@ -542,9 +581,8 @@ export function PathPlanner({ account }: { account: Account }) {
                 placeholder="I work weekends and can't make class before 9am"
                 className="h-11 flex-1 border border-line-strong bg-bg px-3 text-ink placeholder:text-ink-faint focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
               />
-              <button type="button" onClick={() => void translate()} disabled={translating || !ruleText.trim()} className={cn(techButtonClass, "h-11")}>
+              <button type="button" onClick={() => void translate()} disabled={translating || !ruleText.trim()} className={cn(primaryPill, "h-11")}>
                 <span>{translating ? "Reading…" : "Turn into rules"}</span>
-                <Brackets offset={5} />
               </button>
             </div>
             {translateError ? (
@@ -590,6 +628,24 @@ export function PathPlanner({ account }: { account: Account }) {
         </div>
       </section>
 
+      {/* near you */}
+      <Reveal inView>
+        <section aria-label="Programs near you" className="space-y-4">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <Kicker>Near you</Kicker>
+            <PlacePicker
+              places={places}
+              value={placeId}
+              onChange={(id) => {
+                setPickedPlace(id);
+                void savePlace(id);
+              }}
+            />
+          </div>
+          <NearbyPrograms placeId={placeId} placeName={placeName} careerId={careerId} />
+        </section>
+      </Reveal>
+
       {/* routes */}
       <section aria-labelledby="path-routes" aria-busy={solving}>
         <div className="mb-4 flex flex-wrap items-baseline justify-between gap-3">
@@ -597,7 +653,7 @@ export function PathPlanner({ account }: { account: Account }) {
             {solve ? `Routes to ${solve.career_title}` : "Routes"}
           </h2>
           <MonoLabel aria-live="polite">
-            {solving ? "Solving…" : solve ? `OR-Tools CP-SAT · ${solve.solve_ms} ms · starts ${solve.start_term ?? ""}` : ""}
+            {solving ? "Solving…" : solve ? (solve.start_term ? `Starts ${solve.start_term}` : "") : ""}
           </MonoLabel>
         </div>
         {solveError ? (
@@ -605,9 +661,9 @@ export function PathPlanner({ account }: { account: Account }) {
             {solveError}
           </p>
         ) : null}
-        <div className={cn("grid gap-3 sm:grid-cols-2 xl:grid-cols-4", solving && "opacity-70")}>
-          {routes.map((p) => (
-            <RouteColumn key={p.route_type} plan={p} best={solve?.best_route === p.route_type} selected={selected === p.route_type} onSelect={() => setSelected(p.route_type)} />
+        <div className={cn("grid gap-3 sm:grid-cols-2", routes.length > 3 ? "xl:grid-cols-4" : "lg:grid-cols-3", solving && "opacity-70")}>
+          {routes.map((p, i) => (
+            <RouteColumn key={p.route_type} index={i} plan={p} best={solve?.best_route === p.route_type} selected={selected === p.route_type} onSelect={() => setSelected(p.route_type)} />
           ))}
         </div>
         {solve?.assumptions?.length ? (
@@ -627,19 +683,18 @@ export function PathPlanner({ account }: { account: Account }) {
       {/* agent approval */}
       <section aria-labelledby="path-agent" className="grid gap-8 lg:grid-cols-12">
         <div className="space-y-4 lg:col-span-5">
-          <MonoLabel as="h2" id="path-agent" tone="accent">
-            Step 3 · Get a plan you approve
-          </MonoLabel>
+          <h2 id="path-agent">
+            <Kicker>Get a plan you approve</Kicker>
+          </h2>
           <p className="text-ink-muted">
             Foothold retrieves programs, solves, checks every number, then waits for you. Reject it with a reason and that reason becomes a new rule.
           </p>
           {!interrupt ? (
-            <button type="button" onClick={() => void startAgent()} disabled={agentBusy || !inputs || !careerId} className={techButtonClass}>
+            <button type="button" onClick={() => void startAgent()} disabled={agentBusy || !inputs || !careerId} className={primaryPill}>
               <span>{agentBusy ? "Working…" : approved ? "Plan again" : "Propose my plan"}</span>
               <span aria-hidden="true" className="font-mono text-xs">
                 ↵
               </span>
-              <Brackets offset={5} />
             </button>
           ) : null}
           {trace.state.error ? (
@@ -677,9 +732,8 @@ export function PathPlanner({ account }: { account: Account }) {
                 </div>
               ) : null}
               <div className="mt-4 flex flex-col gap-3">
-                <button type="button" onClick={() => void decide(true)} disabled={agentBusy || !interrupt.proposal?.best_route} className={cn(techButtonClass, "self-start")}>
+                <button type="button" onClick={() => void decide(true)} disabled={agentBusy || !interrupt.proposal?.best_route} className={cn(primaryPill, "self-start")}>
                   <span>Approve this plan</span>
-                  <Brackets offset={5} />
                 </button>
                 <div className="space-y-1">
                   <MonoLabel as="label" htmlFor="path-reject-reason" tone="ink">
@@ -720,7 +774,7 @@ export function PathPlanner({ account }: { account: Account }) {
               </button>
             </div>
           ) : null}
-          {trace.state.status !== "idle" ? <TracePanel nodes={trace.nodes} state={trace.state} title="Behind the scenes" defaultOpen /> : null}
+          {trace.state.status !== "idle" ? <TracePanel nodes={trace.nodes} state={trace.state} title="Behind the scenes" /> : null}
         </div>
       </section>
 

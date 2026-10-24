@@ -28,6 +28,8 @@ export type AuthState = {
   expiresAt: number | null;
   /** POST /api/auth/login; resolves with the account or throws an ApiError (401 wrong credentials) */
   signIn: (email: string, password: string) => Promise<Account>;
+  /** POST /api/auth/register; signs this tab in with the new account (throws ApiError 409/422) */
+  signUp: (input: SignUpInput) => Promise<Account>;
   /** ends this tab's session only (other tabs stay signed in) */
   signOut: () => Promise<void>;
   /** re-check the session with GET /api/auth/me now */
@@ -39,6 +41,15 @@ interface LoginResponse {
   token_type?: string;
   account: Account;
   expires_at?: string;
+}
+
+export interface SignUpInput {
+  display_name: string;
+  email: string;
+  password: string;
+  kind: "learner" | "employer";
+  org_name?: string;
+  place_id?: string;
 }
 
 interface MeResponse {
@@ -201,6 +212,17 @@ async function signIn(email: string, password: string): Promise<Account> {
   return res.account;
 }
 
+async function signUp(input: SignUpInput): Promise<Account> {
+  const res = await postJSON<LoginResponse>("/api/auth/register", input, { auth: false });
+  if (!res || typeof res.token !== "string" || !isAccount(res.account)) {
+    throw new Error("Unexpected response from sign-up");
+  }
+  lastCheckedToken = res.token;
+  lastCheckedAt = Date.now();
+  setSession({ token: res.token, account: res.account, expires_at: res.expires_at });
+  return res.account;
+}
+
 async function signOut(): Promise<void> {
   const token = getSession()?.token ?? null;
   clearSession();
@@ -250,6 +272,7 @@ export function useAccount(): AuthState {
       token: session?.token ?? null,
       expiresAt: session ? sessionExpiresAt(session) : null,
       signIn,
+      signUp,
       signOut,
       refresh,
     };

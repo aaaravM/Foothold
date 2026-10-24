@@ -1,0 +1,28 @@
+{
+  "created_at": "2026-10-24T22:59:08+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "events": [
+      {
+        "event_id": "log_01",
+        "text": "It is 7:00 at Valley Parts, where two refrigerated trucks arrive at the same time with shipments scheduled for receiving. Only one dock door has a working seal, and one driver is close to his hours-of-service limit and wants to drop the trailer and go.\nChoices: Decide on the spot: unload the driver near his hours limit first and tell the other carrier to wait 40 minutes. | Call both carriers' dispatchers, lay out the constraint, and let them agree on an order before anything moves. | Hold both trucks until maintenance confirms whether the other dock door's seal can be patched safely.",
+        "title": "Two trucks, one dock door"
+      },
+      {
+        "event_id": "log_02",
+        "text": "At Valley Parts, Darnell's cycle count shows 14 pallets of inventory missing from a lane the system says is full. A customer pickup for those pallets is scheduled at noon. Nobody has touched the lane since the night shift.\nChoices: Walk the lane yourself with Darnell, pallet by pallet, before telling the customer anything. | Call the customer now, explain there may be a shortfall, and offer to substitute from another lot. | Ask Tou to pull the night shift scanner logs while you start building the order from overflow stock.",
+        "title": "The count is off"
+      },
+      {
+        "event_id": "log_03",
+        "text": "The dock thermometer at Valley Parts reads 104°F, and the afternoon is forecast to get hotter. Two temps in their first week are skipping water breaks to keep up with the line rate you set this morning.\nChoices: Cut the line rate for the afternoon and enforce a shade break every hour, even if outbound slips. | Keep the rate but pair each new temp with a veteran who will make sure they take breaks. | Talk to the two temps quietly yourself, then check on them every 30 minutes.",
+        "title": "Heat on the dock"
+      }
+    ],
+    "setting": "Valley Parts"
+  },
+  "schema": "SimVariantOut",
+  "task": "employer.sim_variant"
+}

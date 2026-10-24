@@ -10,9 +10,9 @@ import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { homeFor, roleLabel, signInHref, type Account } from "@/lib/auth";
 import { sheetForPath } from "@/lib/sheets";
-import { FictionalTag } from "@/components/foothold/fictional-tag";
 import { useAccount } from "./auth-provider";
-import { Brackets, Initials, PLOT_EASE } from "./parts";
+import { Initials } from "./parts";
+import { EASE, SwapArrow, TextRoll } from "@/components/motion/kit";
 
 /* ------------------------------------------------------------------ */
 /* Signed out: "Sign in" (returns here afterwards)                     */
@@ -20,19 +20,19 @@ import { Brackets, Initials, PLOT_EASE } from "./parts";
 
 function SignInLink({ href, className }: { href: string; className?: string }) {
   return (
-    <Link
-      href={href}
-      className={cn(
-        "group/bracket label-mono relative inline-flex h-8 items-center gap-2 border border-line px-3 text-ink transition-colors hover:border-line-strong",
-        className,
-      )}
-    >
-      <Brackets />
-      <span>Sign in</span>
-      <span aria-hidden="true" className="text-ink-faint transition-transform duration-150 group-hover/bracket:translate-x-0.5">
-        →
-      </span>
-    </Link>
+    <span className={cn("inline-flex items-center gap-1", className)}>
+      <Link href={href} className="group inline-flex h-9 items-center rounded-full px-3 text-[0.9rem] font-medium text-ink-muted transition-colors hover:text-ink">
+        <TextRoll text="Sign in" />
+      </Link>
+      <Link
+        href="/signup"
+        className="group relative isolate inline-flex h-9 items-center gap-1.5 overflow-hidden rounded-full bg-ink pr-3 pl-3.5 text-[0.9rem] font-semibold text-bg transition-colors duration-500 hover:text-accent-ink"
+      >
+        <span aria-hidden="true" className="absolute inset-0 -z-10 translate-y-full rounded-full bg-accent transition-transform duration-500 [transition-timing-function:var(--ease-expo)] group-hover:translate-y-0" />
+        <TextRoll text="Sign up" />
+        <SwapArrow className="size-3" />
+      </Link>
+    </span>
   );
 }
 
@@ -51,12 +51,8 @@ const itemClass =
   "before:absolute before:top-1/2 before:left-0 before:h-4 before:w-0.5 before:-translate-y-1/2 before:bg-accent before:opacity-0 " +
   "before:transition-opacity data-[highlighted]:before:opacity-100";
 
-function formatClock(ms: number): string {
-  return new Intl.DateTimeFormat(undefined, { hour: "numeric", minute: "2-digit" }).format(ms);
-}
-
 function AccountMenu({ account, className }: { account: Account; className?: string }) {
-  const { signOut, expiresAt } = useAccount();
+  const { signOut } = useAccount();
   const router = useRouter();
   const reduce = useReducedMotion();
   const [open, setOpen] = React.useState(false);
@@ -76,12 +72,11 @@ function AccountMenu({ account, className }: { account: Account; className?: str
           type="button"
           aria-label={`Account: ${account.display_name}, ${role}. Open account menu`}
           className={cn(
-            "group/bracket relative inline-flex h-9 items-center gap-2.5 pr-2 pl-1 text-ink transition-colors outline-none",
+            "group/bracket relative inline-flex h-9 items-center gap-2 rounded-full pr-2.5 pl-1 text-ink transition-colors outline-none",
             "hover:bg-surface-2 data-[state=open]:bg-surface-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent",
             className,
           )}
         >
-          <Brackets active={open} />
           <Initials account={account} />
           <span className="hidden max-w-[18ch] truncate text-sm font-medium sm:inline">{account.display_name}</span>
           <ChevronDown
@@ -95,56 +90,36 @@ function AccountMenu({ account, className }: { account: Account; className?: str
           align="end"
           sideOffset={8}
           collisionPadding={12}
-          className="z-50 w-[20rem] max-w-[calc(100vw-1.5rem)] border border-line bg-surface text-ink outline-none"
+          className="z-50 w-[19rem] max-w-[calc(100vw-1.5rem)] overflow-hidden rounded-2xl border border-line bg-surface text-ink shadow-2xl shadow-black/40 outline-none"
         >
           <motion.div
-            initial={reduce ? false : { clipPath: "inset(0 0 100% 0)" }}
-            animate={{ clipPath: "inset(0 0 0% 0)" }}
-            transition={{ duration: 0.26, ease: PLOT_EASE }}
+            initial={reduce ? false : { opacity: 0, y: -6, filter: "blur(6px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            transition={{ duration: 0.45, ease: EASE }}
           >
-            <div className="flex items-center justify-between border-b border-line px-4 py-2">
-              <span className="label-mono text-ink-faint">Account</span>
-              <span className="label-mono text-ink-faint">This tab</span>
-            </div>
 
             <div className="flex items-start gap-3 px-4 pt-4 pb-3">
               <Initials account={account} size="md" />
               <div className="min-w-0 flex-1 space-y-1">
                 <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
                   <span className="truncate font-display text-base leading-tight font-semibold">{account.display_name}</span>
-                  <FictionalTag compact />
                 </div>
                 <p className="truncate font-mono text-[0.7rem] text-ink-muted">{account.email}</p>
               </div>
             </div>
 
-            <dl className="mx-4 mb-3 divide-y divide-line border-y border-line text-sm">
-              <div className="flex items-baseline justify-between gap-4 py-2">
-                <dt className="label-mono text-ink-faint">Role</dt>
-                <dd className="truncate text-right text-ink">{role}</dd>
-              </div>
-              <div className="flex items-baseline justify-between gap-4 py-2">
-                <dt className="label-mono text-ink-faint">Session</dt>
-                <dd className="text-right text-ink-muted tabular-nums">
-                  {expiresAt ? `Until ${formatClock(expiresAt)}` : "Active"}
-                </dd>
-              </div>
-            </dl>
+            <p className="mx-4 mb-3 text-sm text-ink-muted">{role}</p>
 
             <div className="border-t border-line py-1">
               <Menu.Item asChild>
                 <Link href={home.href} className={itemClass}>
                   <ArrowUpRight aria-hidden="true" className="size-4 text-ink-faint" />
-                  <span className="flex-1">Open your home sheet</span>
-                  <span className="label-mono text-ink-faint">
-                    {home.sheet} / {home.code}
-                  </span>
+                  <span className="flex-1">Go to {home.navLabel ?? home.title}</span>
                 </Link>
               </Menu.Item>
               <Menu.Item className={itemClass} onSelect={onSignOut}>
                 <LogOut aria-hidden="true" className="size-4 text-ink-faint" />
                 <span className="flex-1">Sign out</span>
-                <span className="label-mono text-ink-faint">This tab</span>
               </Menu.Item>
             </div>
           </motion.div>

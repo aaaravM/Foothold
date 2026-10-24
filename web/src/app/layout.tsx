@@ -5,6 +5,7 @@ import { Nav } from "@/components/foothold/nav";
 import { Providers } from "@/components/foothold/providers";
 import { SiteFooter } from "@/components/foothold/site-footer";
 import { ThemeScript } from "@/components/foothold/theme-script";
+import { DotField } from "@/components/motion/dot-field";
 
 // Body: Mona Sans. Display: Hubot Sans (width axis for wide/condensed headings). Labels and numbers: Martian Mono.
 const monaSans = Mona_Sans({
@@ -53,10 +54,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Providers>
           <a
             href="#main"
-            className="label-mono sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:rounded-sm focus:bg-accent focus:px-3 focus:py-2 focus:text-accent-foreground"
+            className="sr-only text-sm font-medium focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:rounded-full focus:bg-accent focus:px-3 focus:py-2 focus:text-accent-foreground"
           >
             Skip to content
           </a>
+          <DotField />
           <Nav />
           <main id="main" tabIndex={-1} className="flex flex-1 flex-col outline-none">
             {children}

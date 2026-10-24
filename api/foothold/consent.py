@@ -185,7 +185,7 @@ def public_id(card_id: str) -> str:
 
 def pool() -> list[dict[str, Any]]:
     """Raw talent-pool cards that have an id (server side; never return these directly)."""
-    return [c for c in data.talent_pool() if isinstance(c, dict) and auth.card_id(c)]
+    return [c for c in auth.talent_pool() if isinstance(c, dict) and auth.card_id(c)]
 
 
 def _index() -> dict[str, dict[str, Any]]:

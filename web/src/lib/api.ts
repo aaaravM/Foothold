@@ -283,7 +283,7 @@ async function readBody(res: Response): Promise<unknown> {
   }
 }
 
-async function requestJSON<T>(method: "GET" | "POST" | "PUT", path: string, body: unknown, options: RequestOptions = {}): Promise<T> {
+async function requestJSON<T>(method: "GET" | "POST" | "PUT" | "PATCH", path: string, body: unknown, options: RequestOptions = {}): Promise<T> {
   const base = await resolveApiBase();
   const url = apiUrl(path, base);
   const token = sessionTokenFor(url, base, options.auth);
@@ -348,6 +348,32 @@ export function postJSON<T>(path: string, body: unknown, options?: RequestOption
 /** PUT a JSON body and parse the JSON response. Throws `ApiError`. */
 export function putJSON<T>(path: string, body: unknown, options?: RequestOptions): Promise<T> {
   return requestJSON<T>("PUT", path, body, options);
+}
+
+/** PATCH a JSON body and parse the JSON response. Throws `ApiError`. */
+export function patchJSON<T>(path: string, body: unknown, options?: RequestOptions): Promise<T> {
+  return requestJSON<T>("PATCH", path, body, options);
+}
+
+/** Readable message from an API error's `detail` (FastAPI 422/409), or null. */
+export function apiDetail(err: unknown): string | null {
+  if (!isApiError(err)) return null;
+  const body = err.body;
+  let parsed: unknown = body;
+  if (typeof body === "string") {
+    try {
+      parsed = JSON.parse(body);
+    } catch {
+      return null;
+    }
+  }
+  const detail = (parsed as { detail?: unknown } | null)?.detail;
+  if (typeof detail === "string") return detail;
+  if (Array.isArray(detail) && detail.length) {
+    const first = detail[0] as { msg?: unknown };
+    if (typeof first?.msg === "string") return first.msg.replace(/^Value error, /, "");
+  }
+  return null;
 }
 
 /* ------------------------------------------------------------------ */

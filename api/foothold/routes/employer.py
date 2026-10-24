@@ -5,7 +5,8 @@ Employer account (token) only:
                                               the request_consent interrupt (payload.kind = "pick_candidates").
   POST /api/employer/postings/{thread_id}/contact {candidate_ids:[...], message?} -> SSE resume -> done.
   GET  /api/employer/postings                 the employer's postings (id, title, created_at, profile summary).
-  GET  /api/employer/talent?posting_id=&limit=&min_hours=&region=   blind cards ranked for that posting
+  GET  /api/employer/talent?posting_id=&limit=&min_hours=&region=&max_km=   blind cards ranked for that posting
+                                              (max_km: distance from the employer's profile place)
                                               (+ request status per card). Without posting_id: unranked.
   POST /api/employer/consent-requests         {candidate_id, posting_id?, message}
   GET  /api/employer/requests                 {requests:[...], counts:{pending, accepted, declined, total, acceptance_rate}}
@@ -30,7 +31,7 @@ from fastapi import APIRouter, HTTPException, Query, status
 from langgraph.types import Command
 from pydantic import BaseModel
 
-from foothold import consent, data, db, sse
+from foothold import consent, data, db, profiles, sse
 from foothold.auth import Account, EmployerAccount, LearnerAccount
 from foothold.graphs import employer as eg
 
@@ -176,6 +177,7 @@ def talent(
     limit: int = Query(20, ge=1, le=100),
     min_hours: int | None = Query(None, ge=1, le=80),
     region: str | None = Query(None, max_length=60),
+    max_km: float | None = Query(None, gt=0, le=1000),
 ):
     profile = None
     if posting_id:
@@ -183,7 +185,9 @@ def talent(
         if row is None:
             raise HTTPException(status.HTTP_404_NOT_FOUND, detail="Posting not found")
         profile = db.jloads(row["profile_json"], {}) or {}
-    res = eg.rank_pool(profile, min_hours=min_hours or (profile or {}).get("min_hours_per_week"), region=region, limit=limit)
+    origin = profiles.origin_for(employer)
+    res = eg.rank_pool(profile, min_hours=min_hours or (profile or {}).get("min_hours_per_week"), region=region, limit=limit,
+                       origin=origin, max_km=max_km)
     statuses = consent.request_status_by_candidate(employer)
     cards = [{**c, "request": statuses.get(c["candidate_id"])} for c in res["cards"]]
     return {
@@ -191,6 +195,8 @@ def talent(
         "pool_size": res["pool_size"], "eligible": res["eligible"], "filtered_out": res["filtered_out"],
         "recommender": res["recommender"], "weights": res["weights"],
         "provenance": "SYNTHETIC", "fictional": True,
+        "origin": {"place_id": origin.get("place_id"), "name": origin.get("name")} if origin else None,
+        "max_km": max_km if origin else None,
         "cards": cards,
     }
 

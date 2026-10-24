@@ -33,7 +33,6 @@ import {
   SidebarRail,
   useSidebar,
 } from "@/components/ui/sidebar";
-import { FictionalTag } from "@/components/foothold/fictional-tag";
 import { type DashboardOrg, type NavigationGroup, type NavigationItem } from "../../data";
 import { cn } from "@/lib/utils";
 
@@ -191,7 +190,7 @@ export function DashboardSidebar({ groups, org, brand, accountSlot }: DashboardS
             <span className="truncate text-sm leading-none text-ink">{org.name}</span>
             <span className="flex items-center gap-2">
               {org.role ? <span className="label-mono text-ink-faint">{org.role}</span> : null}
-              {org.fictional ? <FictionalTag compact /> : null}
+              
             </span>
           </div>
         </div>

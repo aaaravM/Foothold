@@ -3,12 +3,11 @@
 import * as React from "react";
 import Link from "next/link";
 import { Minus, Plus, RotateCcw } from "lucide-react";
+import { motion, useReducedMotion } from "motion/react";
 import { cn } from "@/lib/utils";
 import { getJSON, isApiError, isOfflineError } from "@/lib/api";
 import { useAccount } from "@/components/auth/auth-provider";
-import { MonoLabel } from "@/components/foothold/mono-label";
-import { ProvenanceBadge } from "@/components/foothold/provenance-badge";
-import { FictionalTag } from "@/components/foothold/fictional-tag";
+import { QuietLabel as MonoLabel } from "@/components/sim/fx";
 import { NotTrainedYet } from "@/components/foothold/metric-value";
 import { useApiResource } from "@/components/lab/use-api";
 import { asBlock, isFraction, readRecommender, type RecModel } from "@/components/lab/metrics";
@@ -72,7 +71,7 @@ const MODELS: { id: RecModel; label: string }[] = [
 ];
 
 const TYPE_STYLE: Record<string, { cls: string; label: string; r: number }> = {
-  learner: { cls: "fill-ink stroke-ink", label: "Learner (synthetic)", r: 4 },
+  learner: { cls: "fill-ink-muted stroke-ink-muted", label: "Learner", r: 3 },
   career: { cls: "fill-accent stroke-accent", label: "Target career", r: 7 },
   neighborhood: { cls: "fill-bg stroke-ink-muted", label: "Neighborhood", r: 6 },
   skill: { cls: "fill-info stroke-info", label: "Skill", r: 5 },
@@ -187,6 +186,17 @@ export function GraphExplorer() {
   const learners = nodes.filter((n) => n.type === "learner");
   const types = Array.from(new Set(nodes.map((n) => n.type)));
   const hovered = hover ? byId.get(hover) : null;
+  const reduce = useReducedMotion();
+  // neighbours of the hovered node, so hovering lights up its local web
+  const near = React.useMemo(() => {
+    if (!hover || !data) return null;
+    const ids = new Set<string>([hover]);
+    data.links.forEach((l) => {
+      if (l.source === hover) ids.add(l.target);
+      if (l.target === hover) ids.add(l.source);
+    });
+    return ids;
+  }, [hover, data]);
   const labelFor = (n: GNode) => (youId && n.learner_id === youId ? "You" : n.label);
   const pct = isFraction([rec.value("gnn", "recall", "overall")?.value, rec.value("mf", "recall", "overall")?.value]);
 
@@ -194,14 +204,14 @@ export function GraphExplorer() {
     <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
       <div className="space-y-4 lg:col-span-8">
         <div className="flex flex-wrap items-center gap-3">
-          <div role="group" aria-label="View" className="inline-flex border border-line">
+          <div role="group" aria-label="View" className="inline-flex overflow-hidden rounded-full border border-line p-0.5">
             {(["map", "list"] as const).map((v) => (
               <button
                 key={v}
                 type="button"
                 aria-pressed={view === v}
                 onClick={() => setView(v)}
-                className={cn("label-mono h-8 px-3 transition-colors focus-visible:outline-2 focus-visible:outline-accent", view === v ? "bg-ink text-bg" : "text-ink-muted hover:text-ink")}
+                className={cn("text-[13px] h-7 rounded-full px-3 transition-colors focus-visible:outline-2 focus-visible:outline-accent", view === v ? "bg-ink text-bg" : "text-ink-muted hover:text-ink")}
               >
                 {v === "map" ? "Graph" : "List"}
               </button>
@@ -214,7 +224,7 @@ export function GraphExplorer() {
                 { icon: Minus, label: "Zoom out", on: () => zoom(1.25) },
                 { icon: RotateCcw, label: "Reset view", on: () => setVb({ x: 0, y: 0, w: W, h: H }) },
               ].map(({ icon: Icon, label, on }) => (
-                <button key={label} type="button" aria-label={label} onClick={on} className="inline-flex size-8 items-center justify-center border border-line text-ink-muted hover:text-ink focus-visible:outline-2 focus-visible:outline-accent">
+                <button key={label} type="button" aria-label={label} onClick={on} className="inline-flex size-8 items-center justify-center rounded-full border border-line transition-colors hover:border-line-strong text-ink-muted hover:text-ink focus-visible:outline-2 focus-visible:outline-accent">
                   <Icon aria-hidden="true" className="size-3.5" />
                 </button>
               ))}
@@ -224,34 +234,30 @@ export function GraphExplorer() {
             <button
               type="button"
               onClick={() => setSelected("me")}
-              className="label-mono h-8 border border-accent px-3 text-ink hover:bg-accent/10 focus-visible:outline-2 focus-visible:outline-accent"
+              className="text-[13px] h-8 border border-accent px-3 text-ink hover:bg-accent/10 focus-visible:outline-2 focus-visible:outline-accent rounded-full"
             >
               My recommendations
             </button>
           ) : null}
-          <span className="ml-auto inline-flex items-center gap-2">
-            <ProvenanceBadge status="SYNTHETIC" />
-            <FictionalTag />
-          </span>
         </div>
 
         {sample.state === "loading" ? (
-          <p className="label-mono text-ink-faint">Reading the learner graph…</p>
+          <p className="text-[13px] text-ink-faint">Reading the learner graph…</p>
         ) : sample.state === "offline" ? (
           <p role="status" className="border border-warning/50 px-4 py-3 text-sm text-warning">API offline: the graph is read live from the Foothold API.</p>
         ) : !data?.available ? (
-          <div className="space-y-3 border border-dashed border-line-strong p-6">
+          <div className="space-y-3 border border-dashed border-line-strong p-6 rounded-2xl">
             <MonoLabel as="p">Graph not built yet</MonoLabel>
-            <p className="text-sm text-ink-muted">{data?.reason ?? "The synthetic learner sample is not available."} Recommendations for your own account still work below.</p>
+            <p className="text-sm text-ink-muted">{data?.reason ?? "The learner sample is not available."} Recommendations for your own account still work below.</p>
           </div>
         ) : view === "map" ? (
-          <div className="relative border border-line">
+          <div className="relative overflow-hidden rounded-2xl border border-line bg-[radial-gradient(ellipse_at_50%_40%,color-mix(in_oklab,var(--accent)_7%,transparent),transparent_65%)]">
             <svg
               ref={svgRef}
               viewBox={`${vb.x} ${vb.y} ${vb.w} ${vb.h}`}
               className="h-auto w-full cursor-grab touch-none select-none active:cursor-grabbing"
               role="img"
-              aria-label={`Learner graph: ${learners.length} synthetic learners and ${nodes.length - learners.length} other nodes. Use the List view to browse with a keyboard.`}
+              aria-label={`Learner graph: ${learners.length} learners and ${nodes.length - learners.length} other nodes. Use the List view to browse with a keyboard.`}
               onPointerDown={(e) => {
                 drag.current = { px: e.clientX, py: e.clientY, vx: vb.x, vy: vb.y };
                 (e.currentTarget as SVGSVGElement).setPointerCapture(e.pointerId);
@@ -271,7 +277,22 @@ export function GraphExplorer() {
                   const b = pos.get(l.target);
                   if (!a || !b) return null;
                   const on = highlight.has(l.source) && highlight.has(l.target);
-                  return <line key={i} x1={a[0]} y1={a[1]} x2={b[0]} y2={b[1]} className={on ? "stroke-accent" : "stroke-line"} strokeWidth={on ? 2.5 : 1} />;
+                  const lit = !!near && (l.source === hover || l.target === hover);
+                  return (
+                    <motion.line
+                      key={i}
+                      x1={a[0]}
+                      y1={a[1]}
+                      x2={b[0]}
+                      y2={b[1]}
+                      className={cn("transition-[stroke,opacity] duration-300", on ? "stroke-accent" : lit ? "stroke-ink-muted" : "stroke-line")}
+                      strokeWidth={on ? 2.5 : lit ? 1.5 : 1}
+                      style={{ opacity: near && !lit && !on ? 0.35 : 1 }}
+                      initial={reduce ? false : { pathLength: 0 }}
+                      animate={{ pathLength: 1 }}
+                      transition={{ duration: 0.9, delay: 0.25 + (i % 40) * 0.012, ease: [0.16, 1, 0.3, 1] }}
+                    />
+                  );
                 })}
               </g>
               <g>
@@ -282,10 +303,13 @@ export function GraphExplorer() {
                   const isYou = !!youId && n.learner_id === youId;
                   const on = highlight.has(n.id);
                   const clickable = n.type === "learner";
+                  const dim = !!near && !near.has(n.id) && !on && !isYou;
+                  const showLabel = isYou || on || n.type === "career" || (!!near && near.has(n.id) && n.type !== "learner") || hover === n.id;
                   return (
                     <g
                       key={n.id}
                       transform={`translate(${p[0]},${p[1]})`}
+                      style={{ opacity: dim ? 0.3 : 1, transition: "opacity 300ms" }}
                       onPointerEnter={() => setHover(n.id)}
                       onPointerLeave={() => setHover((h) => (h === n.id ? null : h))}
                       onPointerDown={(e) => clickable && e.stopPropagation()}
@@ -293,13 +317,26 @@ export function GraphExplorer() {
                       className={clickable ? "cursor-pointer" : undefined}
                     >
                       {on || isYou ? <circle r={s.r + 5} className="fill-none stroke-accent" strokeWidth={1.5} /> : null}
-                      {n.type === "career" ? (
-                        <rect x={-s.r} y={-s.r} width={s.r * 2} height={s.r * 2} className={s.cls} strokeWidth={1} />
-                      ) : (
-                        <circle r={clickable ? s.r + 2 : s.r} className={s.cls} strokeWidth={1} />
-                      )}
-                      {n.type !== "learner" || isYou || n.persona || on ? (
-                        <text x={s.r + 6} y={3} className={cn("font-mono", isYou || on ? "fill-ink" : "fill-ink-muted")} style={{ fontSize: 10 }}>
+                      <motion.g
+                        initial={reduce ? false : { scale: 0, opacity: 0 }}
+                        animate={{ scale: hover === n.id ? 1.35 : 1, opacity: 1 }}
+                        transition={{ type: "spring", stiffness: 260, damping: 20, delay: reduce ? 0 : hover ? 0 : Math.min(0.9, (p[0] / W) * 0.6 + (n.type === "career" ? 0.3 : 0)) }}
+                      >
+                        {n.type === "career" ? (
+                          <rect x={-s.r} y={-s.r} width={s.r * 2} height={s.r * 2} rx={2} className={s.cls} strokeWidth={1} />
+                        ) : (
+                          <circle r={isYou ? s.r + 3 : clickable ? s.r + 1 : s.r} className={isYou ? "fill-accent stroke-accent" : s.cls} strokeWidth={1} />
+                        )}
+                        {/* generous invisible hit area for small learner dots */}
+                        {clickable ? <circle r={10} className="fill-transparent" /> : null}
+                      </motion.g>
+                      {showLabel ? (
+                        <text
+                          x={s.r + 6}
+                          y={3.5}
+                          className={cn("pointer-events-none", isYou || on || n.type === "career" ? "fill-ink" : "fill-ink-muted")}
+                          style={{ fontSize: n.type === "career" ? 11 : 10, paintOrder: "stroke", stroke: "var(--bg)", strokeWidth: 3, strokeLinejoin: "round" }}
+                        >
                           {labelFor(n)}
                         </text>
                       ) : null}
@@ -309,7 +346,7 @@ export function GraphExplorer() {
               </g>
             </svg>
             {hovered ? (
-              <div className="pointer-events-none absolute top-3 left-3 border border-line bg-bg px-3 py-2">
+              <div className="pointer-events-none absolute top-3 left-3 rounded-xl border border-line bg-bg/90 px-3 py-2 backdrop-blur">
                 <MonoLabel as="p" tone="faint">
                   {styleOf(hovered.type).label}
                 </MonoLabel>
@@ -319,7 +356,7 @@ export function GraphExplorer() {
             ) : null}
             <div className="flex flex-wrap gap-x-4 gap-y-1 border-t border-line px-3 py-2">
               {types.map((t) => (
-                <span key={t} className="label-mono inline-flex items-center gap-1.5 text-ink-muted">
+                <span key={t} className="text-[13px] inline-flex items-center gap-1.5 text-ink-muted">
                   <svg width="12" height="12" aria-hidden="true">
                     {t === "career" ? <rect x="2" y="2" width="8" height="8" className={styleOf(t).cls} /> : <circle cx="6" cy="6" r="4" className={styleOf(t).cls} />}
                   </svg>
@@ -327,11 +364,11 @@ export function GraphExplorer() {
                   {data.stats?.[t] !== undefined ? ` (${data.stats[t]})` : ""}
                 </span>
               ))}
-              {data.layout ? <span className="label-mono ml-auto text-ink-faint">{data.layout}</span> : null}
+              <span className="text-[13px] ml-auto text-ink-faint">Drag to pan, scroll to zoom, click a dot</span>
             </div>
           </div>
         ) : (
-          <ul className="max-h-[560px] divide-y divide-line overflow-y-auto border border-line" aria-label="Synthetic learners">
+          <ul className="max-h-[560px] divide-y divide-line overflow-y-auto rounded-2xl border border-line" aria-label="Learners">
             {learners.map((n) => (
               <li key={n.id}>
                 <button
@@ -341,7 +378,7 @@ export function GraphExplorer() {
                   className={cn("flex w-full items-center justify-between gap-3 px-4 py-2.5 text-left hover:bg-ink/5 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-accent", selected === n.learner_id && "bg-accent/10")}
                 >
                   <span className="text-sm text-ink">{labelFor(n)}</span>
-                  <span className="label-mono text-ink-faint">{n.skills ?? 0} skills</span>
+                  <span className="text-[13px] text-ink-faint">{n.skills ?? 0} skills</span>
                 </button>
               </li>
             ))}
@@ -352,7 +389,7 @@ export function GraphExplorer() {
       <aside className="space-y-6 lg:col-span-4" aria-live="polite">
         <div className="space-y-3">
           <MonoLabel as="h2">Model</MonoLabel>
-          <div role="radiogroup" aria-label="Recommender model" className="grid grid-cols-3 border border-line">
+          <div role="radiogroup" aria-label="Recommender model" className="grid grid-cols-3 overflow-hidden rounded-full border border-line p-0.5">
             {MODELS.map((mo) => (
               <button
                 key={mo.id}
@@ -360,7 +397,7 @@ export function GraphExplorer() {
                 role="radio"
                 aria-checked={model === mo.id}
                 onClick={() => setModel(mo.id)}
-                className={cn("label-mono h-9 transition-colors focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-accent", model === mo.id ? "bg-ink text-bg" : "text-ink-muted hover:text-ink")}
+                className={cn("text-[13px] h-8 rounded-full transition-colors focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-accent", model === mo.id ? "bg-ink text-bg" : "text-ink-muted hover:text-ink")}
               >
                 {mo.label}
               </button>
@@ -370,14 +407,14 @@ export function GraphExplorer() {
             {(["recall", "ndcg"] as const).map((k) => {
               const p = rec.value(model, k, "overall");
               return (
-                <div key={k} className="border border-line px-3 py-2">
-                  <dt className="label-mono text-ink-faint">{k === "recall" ? "Recall@10" : "NDCG@10"}</dt>
+                <div key={k} className="rounded-xl border border-line px-3 py-2">
+                  <dt className="text-[13px] text-ink-faint">{k === "recall" ? "Recall@10" : "NDCG@10"}</dt>
                   <dd className="font-mono text-lg text-ink tabular-nums">{p ? fmtValue(p.value, pct) : <NotTrainedYet className="text-xs" />}</dd>
                 </div>
               );
             })}
           </dl>
-          <Link href="/lab#recommender" className="label-mono text-ink-muted underline decoration-line-strong underline-offset-4 hover:text-ink">
+          <Link href="/lab#recommender" className="text-[13px] text-ink-muted underline decoration-line-strong underline-offset-4 hover:text-ink">
             How these are measured →
           </Link>
         </div>
@@ -387,7 +424,7 @@ export function GraphExplorer() {
           {result.state === "idle" ? (
             <p className="text-sm text-ink-muted">{youId ? "Pick yourself or any learner in the graph." : "Click a learner in the graph (or use the List view)."}</p>
           ) : result.state === "loading" ? (
-            <p className="label-mono text-ink-faint">Ranking…</p>
+            <p className="text-[13px] text-ink-faint">Ranking…</p>
           ) : result.state === "error" ? (
             <p role="alert" className="text-sm text-danger">{result.error}</p>
           ) : result.data ? (
@@ -413,7 +450,7 @@ export function GraphExplorer() {
                     >
                       <span className="flex items-baseline justify-between gap-2">
                         <span className="text-sm text-ink">{it.title ?? it.id}</span>
-                        <span className="label-mono shrink-0 text-ink-faint">{it.kind}</span>
+                        <span className="text-[13px] shrink-0 text-ink-faint">{it.kind}</span>
                       </span>
                       <span className="mt-1 block font-mono text-[11px] text-ink-muted tabular-nums">
                         score {it.score.toFixed(3)}
@@ -422,14 +459,14 @@ export function GraphExplorer() {
                       </span>
                       {activeItem === i && it.path.length ? (
                         <span className="mt-2 block text-xs text-ink-muted">
-                          <span className="label-mono text-accent">Why · </span>
+                          <span className="text-[13px] text-accent">Why · </span>
                           {it.path.map((p) => (p.type === "learner" && (p.id === youId || selected === "me") ? "You" : p.label ?? p.id)).join(" → ")}
                         </span>
                       ) : null}
                       {activeItem === i && it.demand_boost ? <span className="mt-1 block text-xs text-ink-faint">{it.demand_boost.label}</span> : null}
                     </button>
                     {activeItem === i && it.url ? (
-                      <a href={it.url} target="_blank" rel="noreferrer" className="label-mono mt-1 inline-block text-ink-muted underline underline-offset-4 hover:text-ink">
+                      <a href={it.url} target="_blank" rel="noreferrer" className="text-[13px] mt-1 inline-block text-ink-muted underline underline-offset-4 hover:text-ink">
                         {it.provider ?? "Course page"} ↗
                       </a>
                     ) : null}

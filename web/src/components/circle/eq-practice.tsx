@@ -1,9 +1,8 @@
 "use client";
 
 import * as React from "react";
-import { MonoLabel } from "@/components/foothold/mono-label";
+import { QuietLabel as MonoLabel } from "@/components/sim/fx";
 import { StatBar } from "@/components/foothold/stat-bar";
-import { FictionalTag } from "@/components/foothold/fictional-tag";
 import { postJSON } from "@/lib/api";
 import { cn } from "@/lib/utils";
 import { ErrorNote, errorText, inputClass, primaryButtonClass, usePolling } from "@/components/employers/shared";
@@ -100,10 +99,9 @@ export function EqPractice() {
         </select>
       </div>
       {current ? (
-        <div className="grid gap-2 border border-line bg-bg p-3">
+        <div className="grid gap-2 border border-line bg-bg p-3 rounded-2xl">
           <div className="flex flex-wrap items-center justify-between gap-2">
             {current.counterpart ? <MonoLabel>With {current.counterpart}</MonoLabel> : <span />}
-            <FictionalTag compact />
           </div>
           <p className="text-sm text-ink">{current.setup ?? current.situation ?? current.text}</p>
           {current.persona_line ? <p className="border-l-2 border-line-strong pl-3 text-sm text-ink-muted">{current.persona_line}</p> : null}
@@ -122,7 +120,7 @@ export function EqPractice() {
       {error ? <ErrorNote>{error}</ErrorNote> : null}
       {result?.crisis ? <CrisisPanel payload={result.crisis_payload} /> : null}
       {result && !result.crisis ? (
-        <div className="grid gap-3 border border-line p-4" aria-live="polite">
+        <div className="grid gap-3 border border-line p-4 rounded-2xl" aria-live="polite">
           <div className="grid gap-2.5">
             {ORDER.map((id) => {
               const dim = rubric.find((d) => d.id === id);

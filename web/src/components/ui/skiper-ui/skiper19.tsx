@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, type MotionValue } from "framer-motion";
 import React, { useRef } from "react";
 
 const Skiper19 = () => {
@@ -64,7 +64,7 @@ const LinePath = ({
   scrollYProgress,
 }: {
   className: string;
-  scrollYProgress: any;
+  scrollYProgress: MotionValue<number>;
 }) => {
   const pathLength = useTransform(scrollYProgress, [0, 1], [0.5, 1]);
 

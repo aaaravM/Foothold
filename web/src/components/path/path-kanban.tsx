@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { MonoLabel } from "@/components/foothold/mono-label";
+import { QuietLabel as MonoLabel } from "@/components/sim/fx";
 import { getJSON, putJSON } from "@/lib/api";
 import { cn } from "@/lib/utils";
 import { errorMessage } from "@/components/sim/use-tapped-trace";
@@ -120,7 +120,7 @@ export function PathKanban({ version }: { version: number }) {
                         disabled={ci === 0 || saving}
                         onClick={() => move(it.id, -1)}
                         aria-label={`Move “${it.title}” to ${COLUMNS[ci - 1]?.label ?? ""}`}
-                        className="h-7 border border-line px-2 font-mono text-xs text-ink-muted hover:text-ink focus-visible:outline-2 focus-visible:outline-accent disabled:opacity-30"
+                        className="h-7 border border-line px-2 font-mono text-xs text-ink-muted hover:text-ink focus-visible:outline-2 focus-visible:outline-accent disabled:opacity-30 rounded-full"
                       >
                         ←
                       </button>
@@ -129,7 +129,7 @@ export function PathKanban({ version }: { version: number }) {
                         disabled={ci === 2 || saving}
                         onClick={() => move(it.id, 1)}
                         aria-label={`Move “${it.title}” to ${COLUMNS[ci + 1]?.label ?? ""}`}
-                        className="h-7 border border-line px-2 font-mono text-xs text-ink-muted hover:text-ink focus-visible:outline-2 focus-visible:outline-accent disabled:opacity-30"
+                        className="h-7 border border-line px-2 font-mono text-xs text-ink-muted hover:text-ink focus-visible:outline-2 focus-visible:outline-accent disabled:opacity-30 rounded-full"
                       >
                         →
                       </button>
@@ -157,9 +157,9 @@ export function PathKanban({ version }: { version: number }) {
               }
             }}
             placeholder="Add your own step (e.g. Ask counselor about FAFSA)"
-            className="h-10 flex-1 border border-line-strong bg-bg px-3 text-sm text-ink placeholder:text-ink-faint focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+            className="h-10 flex-1 border border-line-strong bg-bg px-3 text-sm text-ink placeholder:text-ink-faint focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent rounded-full"
           />
-          <button type="button" onClick={add} disabled={!draft.trim() || saving} className="h-10 border border-line-strong px-3 text-sm text-ink hover:bg-surface focus-visible:outline-2 focus-visible:outline-accent disabled:opacity-50">
+          <button type="button" onClick={add} disabled={!draft.trim() || saving} className="h-10 border border-line-strong px-3 text-sm text-ink hover:bg-surface focus-visible:outline-2 focus-visible:outline-accent disabled:opacity-50 rounded-full">
             Add
           </button>
         </div>

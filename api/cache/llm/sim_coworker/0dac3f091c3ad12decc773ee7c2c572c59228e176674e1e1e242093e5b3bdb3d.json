@@ -1,0 +1,13 @@
+{
+  "created_at": "2026-10-24T23:23:28+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "line": "That’s a sensible split. Please add the test results to the follow-up ticket so we can pick it up cleanly.",
+    "mood_delta": 2,
+    "reaction": "approves"
+  },
+  "schema": "CoworkerReaction",
+  "task": "sim_coworker"
+}

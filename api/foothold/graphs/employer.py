@@ -506,12 +506,31 @@ def recommender_scores(cards: list[dict[str, Any]], profile: dict[str, Any]) -> 
     return (out or None), ("recommender scores" if out else "recommender returned no scores")
 
 
+def _with_distance(cards: list[dict[str, Any]], origin: dict[str, Any] | None) -> list[dict[str, Any]]:
+    """Adds region-level distance (place centroid of the card's region label; never an exact location)."""
+    if not origin:
+        return cards
+    from foothold import places
+
+    out = []
+    for c in cards:
+        p = places.place_from_text((c.get("region") or {}).get("label"))
+        out.append({**c, "distance_km": places.leg(origin, p["lat"], p["lon"])["distance_km"] if p else None})
+    return out
+
+
 def rank_pool(profile: dict[str, Any] | None, *, min_hours: int | None = None, region: str | None = None,
-              limit: int | None = None) -> dict[str, Any]:
-    """Blind cards ranked for a profile. Group labels never enter the result."""
+              limit: int | None = None, origin: dict[str, Any] | None = None,
+              max_km: float | None = None) -> dict[str, Any]:
+    """Blind cards ranked for a profile. Group labels never enter the result.
+
+    ``origin`` ({lat, lon}) adds ``distance_km`` per card; ``max_km`` then drops cards farther than that
+    (cards with an unknown region are kept)."""
     weights = consent.profile_weights(profile)
-    cards = [consent.blind_card(c) for c in consent.pool()]
+    cards = _with_distance([consent.blind_card(c) for c in consent.pool()], origin)
     eligible = [c for c in cards if consent.passes_filters(c, min_hours=min_hours, region=region)]
+    if origin and max_km:
+        eligible = [c for c in eligible if c.get("distance_km") is None or c["distance_km"] <= max_km]
     rec, rec_note = recommender_scores(eligible, profile or {}) if eligible and weights else (None, "no skills to match")
     ranked: list[dict[str, Any]] = []
     for c in eligible:
@@ -563,6 +582,11 @@ def fairness_audit(selected_ids: list[str], *, min_hours: int | None = None, reg
     }
     if not eligible:
         return {**base, "reason": "talent pool not available yet"}
+    labelled = [(pid, g) for pid, g in eligible if g is not None]
+    if labelled and len(labelled) < len(eligible):
+        # self-registered learners carry no synthetic group label: audit the labelled pool only
+        eligible = labelled
+        base["pool"] = len(eligible)
     if any(g is None for _, g in eligible):
         return {**base, "reason": "talent pool has no synthetic group labels"}
     chosen = set(selected_ids)

@@ -3,9 +3,9 @@
 import * as React from "react";
 import { toast } from "sonner";
 import { Eye, EyeOff, ShieldCheck } from "lucide-react";
-import { MonoLabel } from "@/components/foothold/mono-label";
-import { FictionalTag } from "@/components/foothold/fictional-tag";
-import { postJSON } from "@/lib/api";
+import { EASE, QuietLabel as MonoLabel } from "@/components/sim/fx";
+import { AnimatePresence, motion } from "motion/react";
+import { patchJSON, postJSON } from "@/lib/api";
 import { cn } from "@/lib/utils";
 import {
   AccountGate,
@@ -62,12 +62,14 @@ function Inbox() {
           aside={<MonoLabel>checks every few seconds</MonoLabel>}
         >
           {!data.card ? (
-            <EmptyNote>Your talent card isn&apos;t in the pool yet, so employers can&apos;t find you. It appears once your sim and pathway results are recorded.</EmptyNote>
+            <OptIn onDone={refresh} />
           ) : pending.length ? (
             <ul className="grid gap-4">
-              {pending.map((r) => (
-                <RequestItem key={r.id} request={r} shared={data.shared_on_accept} onDecided={refresh} />
-              ))}
+              <AnimatePresence initial={false}>
+                {pending.map((r) => (
+                  <RequestItem key={r.id} request={r} shared={data.shared_on_accept} onDecided={refresh} />
+                ))}
+              </AnimatePresence>
             </ul>
           ) : (
             <EmptyNote>No new requests. Employers only see your blind card; when one asks to contact you, it shows up here.</EmptyNote>
@@ -78,7 +80,7 @@ function Inbox() {
           <Panel label="History" title="Answered requests">
             <ul className="grid gap-2">
               {decided.map((r) => (
-                <li key={r.id} className="flex flex-wrap items-center justify-between gap-2 border border-line p-3 text-sm">
+                <li key={r.id} className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-line p-3 text-sm">
                   <span className="text-ink">
                     {r.employer.name}
                     {r.posting_title ? <span className="text-ink-muted"> · {r.posting_title}</span> : null}
@@ -95,7 +97,7 @@ function Inbox() {
       </div>
 
       <aside className="grid content-start gap-4">
-        <div className="grid gap-2 border border-line bg-surface p-4">
+        <div className="grid gap-2 rounded-2xl border border-line p-5">
           <p className="flex items-center gap-2 font-medium text-ink">
             <ShieldCheck aria-hidden="true" className="size-4 text-success" /> You decide who sees you
           </p>
@@ -104,10 +106,9 @@ function Inbox() {
           </p>
         </div>
         {data.card ? (
-          <div className="grid gap-3 border border-line bg-surface p-4">
+          <div className="grid gap-3 rounded-2xl border border-line p-5">
             <div className="flex items-center justify-between gap-2">
               <MonoLabel>What employers always see</MonoLabel>
-              <FictionalTag compact />
             </div>
             <BlindFields card={data.card} />
           </div>
@@ -137,7 +138,15 @@ function RequestItem({ request, shared, onDecided }: { request: InboxRequest; sh
   }
 
   return (
-    <li aria-labelledby={headingId} className="grid gap-3 border border-line bg-bg p-4">
+    <motion.li
+      layout
+      aria-labelledby={headingId}
+      initial={{ opacity: 0, y: 16, filter: "blur(6px)" }}
+      animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+      exit={{ opacity: 0, x: 40, transition: { duration: 0.4, ease: EASE } }}
+      transition={{ duration: 0.8, ease: EASE }}
+      className="grid gap-4 rounded-2xl border border-line bg-bg p-5"
+    >
       <div className="flex flex-wrap items-start justify-between gap-2">
         <div className="grid gap-0.5">
           <p id={headingId} className="text-lg font-semibold text-ink">
@@ -147,10 +156,9 @@ function RequestItem({ request, shared, onDecided }: { request: InboxRequest; sh
             {request.posting_title ?? "General outreach"} · {fmtTime(request.created_at)}
           </MonoLabel>
         </div>
-        <FictionalTag label="Fictional employer" />
       </div>
-      {request.message ? <p className="border-l-2 border-accent pl-3 text-ink">&ldquo;{request.message}&rdquo;</p> : null}
-      <div className="grid gap-2 border border-dashed border-line-strong p-3">
+      {request.message ? <p className="border-l border-accent pl-3 text-lg text-ink">&ldquo;{request.message}&rdquo;</p> : null}
+      <div className="grid gap-2 rounded-xl bg-surface/50 p-4">
         <p className="flex items-center gap-2 text-sm font-medium text-ink">
           <Eye aria-hidden="true" className="size-4" /> If you accept, {request.employer.name} sees exactly:
         </p>
@@ -175,6 +183,38 @@ function RequestItem({ request, shared, onDecided }: { request: InboxRequest; sh
           {busy === "decline" ? "Declining…" : "Decline"}
         </button>
       </div>
-    </li>
+    </motion.li>
+  );
+}
+
+/** New accounts: one tap puts a blind card in the pool (PATCH profile talent_opt_in). */
+function OptIn({ onDone }: { onDone: () => Promise<void> }) {
+  const [busy, setBusy] = React.useState(false);
+  const [err, setErr] = React.useState<string | null>(null);
+  return (
+    <div className="grid gap-3">
+      <p className="text-ink-muted">Employers can&apos;t find you yet. Turn on your blind card: they see your skills and progress, never your name, until you say yes.</p>
+      {err ? <ErrorNote>{err}</ErrorNote> : null}
+      <button
+        type="button"
+        className={cn(primaryButtonClass, "w-fit")}
+        disabled={busy}
+        onClick={async () => {
+          setBusy(true);
+          setErr(null);
+          try {
+            await patchJSON("/api/auth/me/profile", { talent_opt_in: true });
+            toast.success("Your blind card is live.");
+            await onDone();
+          } catch (e) {
+            setErr(errorText(e));
+          } finally {
+            setBusy(false);
+          }
+        }}
+      >
+        {busy ? "Turning on…" : "Let employers find me"}
+      </button>
+    </div>
   );
 }

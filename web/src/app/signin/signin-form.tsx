@@ -4,23 +4,19 @@ import * as React from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useAccount } from "@/components/auth/auth-provider";
-import { Brackets, Initials, drawLinkClass, techButtonClass } from "@/components/auth/parts";
-import { FictionalTag } from "@/components/foothold/fictional-tag";
-import { MonoLabel } from "@/components/foothold/mono-label";
+import { Initials } from "@/components/auth/parts";
+import { FieldLabel } from "@/components/auth/auth-shell";
+import { SwapArrow, TextRoll } from "@/components/motion/kit";
 import { isApiError, isOfflineError } from "@/lib/api";
-import { DEMO_ACCOUNTS, destinationFor, roleLabel } from "@/lib/auth";
+import { DEMO_ACCOUNTS, destinationFor } from "@/lib/auth";
 import { cn } from "@/lib/utils";
-
-const fieldClass =
-  "h-12 w-full border border-line-strong bg-bg px-3 text-base text-ink placeholder:text-ink-faint " +
-  "focus-visible:border-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent";
 
 export function SignInForm() {
   const router = useRouter();
   const params = useSearchParams();
   const next = params.get("next");
   const { status, account, signIn, signOut } = useAccount();
-  // ?as=<persona_id> pre-fills a fictional demo account (presenter links on /demo)
+  // ?as=<persona_id> pre-fills a demo account (presenter links on /demo)
   const preset = DEMO_ACCOUNTS.find((d) => d.persona_id === params.get("as"));
   const [email, setEmail] = React.useState(preset?.email ?? "");
   const [password, setPassword] = React.useState(preset?.password ?? "");
@@ -56,23 +52,20 @@ export function SignInForm() {
   if (status === "signed_in" && account) {
     return (
       <div className="space-y-6">
-        <div className="flex items-center gap-4 border border-line p-4">
+        <div className="flex items-center gap-4">
           <Initials account={account} size="lg" />
           <div className="min-w-0">
-            <p className="truncate text-lg text-ink">{account.display_name}</p>
-            <MonoLabel as="p">{roleLabel(account)} · signed in on this tab</MonoLabel>
+            <p className="truncate text-lg font-medium text-ink">{account.display_name}</p>
+            <p className="text-sm text-ink-muted">You&rsquo;re signed in.</p>
           </div>
         </div>
-        <div className="flex flex-wrap items-center gap-5">
-          <Link href={destinationFor(account, next)} className={techButtonClass}>
-            <span>Continue</span>
-            <span aria-hidden="true" className="font-mono text-xs">
-              ↵
-            </span>
-            <Brackets offset={5} />
+        <div className="flex flex-wrap items-center gap-4">
+          <Link href={destinationFor(account, next)} className="btn-primary group">
+            <TextRoll text="Continue" />
+            <SwapArrow />
           </Link>
-          <button type="button" className={drawLinkClass} onClick={() => void signOut()}>
-            Sign out of this tab
+          <button type="button" className="text-sm text-ink-muted underline-offset-4 hover:text-ink hover:underline" onClick={() => void signOut()}>
+            Sign out
           </button>
         </div>
       </div>
@@ -80,12 +73,10 @@ export function SignInForm() {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6">
       <form onSubmit={onSubmit} noValidate className="space-y-5" aria-describedby={error ? "signin-error" : undefined}>
-        <div className="space-y-2">
-          <MonoLabel as="label" htmlFor="signin-email" tone="ink">
-            Email
-          </MonoLabel>
+        <div>
+          <FieldLabel htmlFor="signin-email">Email</FieldLabel>
           <input
             ref={emailRef}
             id="signin-email"
@@ -95,14 +86,13 @@ export function SignInForm() {
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className={fieldClass}
+            className="field"
+            placeholder="you@example.com"
             aria-invalid={error ? true : undefined}
           />
         </div>
-        <div className="space-y-2">
-          <MonoLabel as="label" htmlFor="signin-password" tone="ink">
-            Password
-          </MonoLabel>
+        <div>
+          <FieldLabel htmlFor="signin-password">Password</FieldLabel>
           <input
             id="signin-password"
             type="password"
@@ -110,62 +100,24 @@ export function SignInForm() {
             required
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className={fieldClass}
+            className="field"
             aria-invalid={error ? true : undefined}
           />
         </div>
-        <p id="signin-error" role="alert" className={cn("min-h-6 text-sm text-danger", !error && "sr-only")}>
+        <p id="signin-error" role="alert" className={cn("min-h-5 text-sm text-danger", !error && "sr-only")}>
           {error ?? ""}
         </p>
-        <button type="submit" disabled={busy || status === "loading"} className={cn(techButtonClass, "w-full")}>
-          <span>{busy ? "Signing in…" : "Sign in"}</span>
-          <span aria-hidden="true" className="font-mono text-xs">
-            {busy ? "···" : "↵"}
-          </span>
-          <Brackets offset={5} />
+        <button type="submit" disabled={busy || status === "loading"} className="btn-primary group w-full">
+          <TextRoll text={busy ? "Signing in…" : "Sign in"} />
+          <SwapArrow />
         </button>
-        <MonoLabel as="p" tone="faint">
-          This tab only · session lasts 12 h
-        </MonoLabel>
       </form>
-
-      <details className="group border-t border-line pt-4">
-        <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-sm text-ink-muted hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent">
-          <span>Demo accounts (fictional)</span>
-          <span aria-hidden="true" className="font-mono text-xs transition-transform group-open:rotate-45">
-            +
-          </span>
-        </summary>
-        <ul className="mt-3 divide-y divide-line border border-line">
-          {DEMO_ACCOUNTS.map((d) => (
-            <li key={d.persona_id}>
-              <button
-                type="button"
-                onClick={() => {
-                  setEmail(d.email);
-                  setPassword(d.password);
-                  setError(null);
-                  emailRef.current?.focus();
-                }}
-                className="flex w-full items-center gap-3 px-3 py-2.5 text-left hover:bg-surface-2 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-accent"
-              >
-                <Initials account={d} />
-                <span className="min-w-0 flex-1">
-                  <span className="block truncate text-sm text-ink">{d.display_name}</span>
-                  <span className="block truncate text-xs text-ink-muted">{d.note}</span>
-                </span>
-                <MonoLabel tone="faint" className="hidden sm:inline">
-                  {d.kind === "employer" ? "Employer" : "Learner"}
-                </MonoLabel>
-              </button>
-            </li>
-          ))}
-        </ul>
-        <div className="mt-2 flex items-center justify-between gap-3">
-          <FictionalTag />
-          <MonoLabel tone="faint">Click to fill</MonoLabel>
-        </div>
-      </details>
+      <p className="text-center text-sm text-ink-muted">
+        New to Foothold?{" "}
+        <Link href={next ? `/signup?next=${encodeURIComponent(next)}` : "/signup"} className="font-medium text-ink underline decoration-accent decoration-2 underline-offset-4 hover:text-accent">
+          Create an account
+        </Link>
+      </p>
     </div>
   );
 }

@@ -53,6 +53,7 @@ class PathState(TypedDict, total=False):
     approved: bool
     kanban: list[dict[str, Any]] | None
     translate_source: str | None
+    origin: dict[str, Any] | None
 
 
 # ---------------------------------------------------------------------------
@@ -228,6 +229,14 @@ DEFAULT_INPUTS = {"current_credits": 0, "hours_per_week": 12, "budget_usd": 2000
 
 def persona_defaults(persona_id: str | None) -> dict[str, Any]:
     p = data.get_persona(persona_id) if persona_id else None
+    if not isinstance(p, dict) and persona_id and persona_id.startswith("u_"):
+        try:  # self-registered learner: their saved profile
+            from foothold import auth, profiles
+
+            acct = auth.get_account_by_persona(persona_id)
+            p = profiles.get_profile(acct) if acct else None
+        except Exception:  # noqa: BLE001
+            p = None
     if not isinstance(p, dict):
         return {}
     src = p.get("constraints") if isinstance(p.get("constraints"), dict) else p
@@ -284,7 +293,8 @@ def _solve_sync(state: PathState, rules: list[dict[str, Any]]) -> dict[str, Any]
     inp = state.get("inputs") or DEFAULT_INPUTS
     c = planner.make_constraints(rules=rules, **inp)
     ids = [r["program_id"] for r in state.get("retrieved") or []] or None
-    return planner.solve_routes(state["career_id"], c, program_ids=ids, time_limit_s=SOLVE_TIME_LIMIT_S)
+    return planner.solve_routes(state["career_id"], c, program_ids=ids, time_limit_s=SOLVE_TIME_LIMIT_S,
+                                origin=state.get("origin"))
 
 
 def _any_feasible(res: dict[str, Any]) -> bool:
@@ -600,12 +610,12 @@ def public_state(values: dict[str, Any]) -> dict[str, Any]:
 
 
 def initial_state(learner_id: str, persona_id: str, career_id: str, inputs: dict[str, Any], text: str,
-                  rules: list[dict[str, Any]]) -> PathState:
+                  rules: list[dict[str, Any]], origin: dict[str, Any] | None = None) -> PathState:
     return {"learner_id": learner_id, "persona_id": persona_id, "career_id": career_id,
             "inputs": {k: v for k, v in inputs.items() if k in DEFAULT_INPUTS and v is not None},
             "text": text or "", "rules": planner.dedupe_rules(rules or []), "proposed_rules": [], "retrieved": [],
             "result": None, "verification": None, "proposal": None, "rejections": [], "round": 0, "approved": False,
-            "kanban": None, "translate_source": None}
+            "kanban": None, "translate_source": None, "origin": origin}
 
 
 __all__ = ["GRAPH_NAME", "build_graph", "get_graph", "initial_state", "load_kanban", "project", "public_state",

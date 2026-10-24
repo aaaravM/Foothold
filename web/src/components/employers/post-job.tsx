@@ -4,8 +4,7 @@ import * as React from "react";
 import { ShieldAlert } from "lucide-react";
 import { TracePanel } from "@/components/foothold/trace-panel";
 import { useTrace } from "@/components/foothold/use-trace";
-import { MonoLabel } from "@/components/foothold/mono-label";
-import { FictionalTag } from "@/components/foothold/fictional-tag";
+import { QuietLabel as MonoLabel } from "@/components/sim/fx";
 import { cn } from "@/lib/utils";
 import {
   BlindFields,
@@ -190,7 +189,7 @@ export function PostJob({ onChanged }: { onChanged: (postingId?: string) => void
           <details className="group border border-line p-3" open>
             <summary className="flex cursor-pointer list-none flex-wrap items-center justify-between gap-2 focus-visible:outline-2 focus-visible:outline-accent">
               <span className="font-medium text-ink">Sim variant preview</span>
-              <span className="label-mono border border-warning/60 px-2 py-0.5 text-warning">Needs human review</span>
+              <span className="text-[13px] border border-warning/60 px-2 py-0.5 text-warning">Needs human review</span>
             </summary>
             <div className="mt-3 grid gap-3">
               <MonoLabel as="p">Setting: {variant.setting}</MonoLabel>
@@ -212,12 +211,11 @@ export function PostJob({ onChanged }: { onChanged: (postingId?: string) => void
           <div className="grid gap-3 border border-accent/60 p-3">
             <div className="flex flex-wrap items-center justify-between gap-2">
               <p className="font-medium text-ink">Pick who to contact</p>
-              <FictionalTag />
             </div>
             <p className="text-sm text-ink-muted">{pick.prompt}</p>
             {data.pool ? (
               <MonoLabel as="p">
-                {data.pool.shortlisted} shortlisted of {data.pool.eligible} eligible ({data.pool.pool_size} in the synthetic pool)
+                {data.pool.shortlisted} shortlisted of {data.pool.eligible} eligible ({data.pool.pool_size} in the pool)
               </MonoLabel>
             ) : null}
             {shortlist.length ? (

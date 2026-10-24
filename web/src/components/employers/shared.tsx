@@ -3,7 +3,7 @@
 import * as React from "react";
 import { Lock } from "lucide-react";
 import { RequireAccount } from "@/components/auth/require-account";
-import { MonoLabel } from "@/components/foothold/mono-label";
+import { QuietLabel as MonoLabel } from "@/components/sim/fx";
 import { getJSON, isAbortError, isApiError, isOfflineError } from "@/lib/api";
 import type { AccountKind } from "@/lib/auth";
 import { cn } from "@/lib/utils";
@@ -87,17 +87,17 @@ export function Panel({
 }) {
   const headingId = id ? `${id}-h` : undefined;
   return (
-    <section id={id} aria-labelledby={headingId} className={cn("scroll-mt-24 border border-line bg-surface", className)}>
-      <header className="flex flex-wrap items-end justify-between gap-3 border-b border-line px-4 py-3 sm:px-5">
+    <section id={id} aria-labelledby={headingId} className={cn("scroll-mt-24 rounded-3xl border border-line bg-surface/30", className)}>
+      <header className="flex flex-wrap items-end justify-between gap-3 px-5 pt-6 pb-2 sm:px-7">
         <div className="grid gap-1">
-          <MonoLabel>{label}</MonoLabel>
-          <h2 id={headingId} className="text-lg font-semibold tracking-tight text-ink">
+          <span className="sr-only">{label}</span>
+          <h2 id={headingId} className="font-display text-2xl tracking-tight text-ink">
             {title}
           </h2>
         </div>
         {aside ? <div className="flex flex-wrap items-center gap-2">{aside}</div> : null}
       </header>
-      <div className="p-4 sm:p-5">{children}</div>
+      <div className="p-5 sm:p-7">{children}</div>
     </section>
   );
 }
@@ -107,7 +107,7 @@ export function Chip({ children, tone = "plain", title }: { children: React.Reac
     <span
       title={title}
       className={cn(
-        "inline-flex items-center gap-1 border px-2 py-0.5 text-xs leading-5",
+        "inline-flex items-center gap-1 rounded-full border px-2.5 py-0.5 text-xs leading-5",
         tone === "plain" && "border-line-strong text-ink",
         tone === "accent" && "border-accent/60 bg-accent-wash text-ink",
         tone === "muted" && "border-dashed border-line-strong text-ink-muted",
@@ -126,7 +126,7 @@ const STATUS_TONE: Record<RequestStatus, string> = {
 };
 
 export function StatusPill({ status }: { status: RequestStatus }) {
-  return <span className={cn("label-mono inline-flex h-6 items-center border px-2", STATUS_TONE[status])}>{status}</span>;
+  return <span className={cn("inline-flex h-6 items-center rounded-full border px-2.5 text-xs capitalize", STATUS_TONE[status])}>{status}</span>;
 }
 
 export function ErrorNote({ children }: { children: React.ReactNode }) {
@@ -153,15 +153,15 @@ export function pct(v: number | null | undefined, digits = 0): string {
 }
 
 export const inputClass =
-  "w-full border border-line-strong bg-bg px-3 py-2 text-sm text-ink placeholder:text-ink-faint " +
+  "w-full rounded-xl border border-line-strong bg-bg px-3 py-2 text-sm text-ink placeholder:text-ink-faint " +
   "focus-visible:border-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent";
 
 export const primaryButtonClass =
-  "inline-flex h-10 items-center justify-center gap-2 bg-ink px-4 text-sm font-medium text-bg transition-colors hover:bg-ink/90 " +
+  "inline-flex h-10 items-center justify-center gap-2 rounded-full bg-accent px-5 text-sm font-medium text-accent-ink transition-[box-shadow,transform] duration-500 hover:shadow-[0_0_0_5px_color-mix(in_oklab,var(--accent)_18%,transparent)] active:scale-[0.98] " +
   "disabled:cursor-not-allowed disabled:opacity-60 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent";
 
 export const secondaryButtonClass =
-  "inline-flex h-10 items-center justify-center gap-2 border border-line-strong px-4 text-sm text-ink transition-colors hover:bg-surface-2 " +
+  "inline-flex h-10 items-center justify-center gap-2 rounded-full border border-line-strong px-5 text-sm text-ink transition-colors hover:bg-surface-2 " +
   "disabled:cursor-not-allowed disabled:opacity-60 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent";
 
 /** The blind fields of a talent card (skills, sim bands, pathway progress, availability, region) + locked fields. */

@@ -1835,8 +1835,15 @@ def solve_routes(
     workers: int = DEFAULT_WORKERS,
     weights: Mapping[str, float] | None = None,
     program_ids: Sequence[str] | None = None,
+    origin: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
-    """Solve every route type for a career (best of up to 3 candidate programs per route)."""
+    """Solve every route type for a career (best of up to 3 candidate programs per route).
+
+    ``origin`` ({lat, lon, place_id?, name?}): each program is solved with the one-way commute from the
+    origin to its campus (approximate drive time, see foothold.places) instead of the flat
+    ``c.commute_minutes``, nearer programs are tried first, and every route gets a ``commute`` block.
+    Programs without a fixed campus (online / local employers) keep ``c.commute_minutes``."""
+    from . import places as fplaces
     t0 = time.perf_counter()
     today = today or date.today()
     career = fdata.get_career(career_id)
@@ -1849,9 +1856,24 @@ def solve_routes(
         rts = [rt for rt in ROUTE_TYPES if rt in set((career or {}).get("path_types") or []) or any(p.route_type == rt for p in progs)]
     if not rts:
         rts = list(ROUTE_TYPES)
-    jobs: dict[str, list[Program]] = {rt: [p for p in progs if p.route_type == rt][:MAX_CANDIDATES_PER_ROUTE] for rt in rts}
+    commutes: dict[str, dict[str, Any] | None] = {p.id: fplaces.program_commute(p, origin) for p in progs} if origin else {}
+
+    def _near_key(p: Program) -> float:
+        cm = commutes.get(p.id)
+        return cm["distance_km"] if cm else 0.0
+
+    by_rt = {rt: [p for p in progs if p.route_type == rt] for rt in rts}
+    if origin:  # prefer nearer providers (stable: data order breaks ties)
+        by_rt = {rt: sorted(ps, key=_near_key) for rt, ps in by_rt.items()}
+    jobs: dict[str, list[Program]] = {rt: ps[:MAX_CANDIDATES_PER_ROUTE] for rt, ps in by_rt.items()}
+
+    def _c_for(p: Program) -> Constraints:
+        cm = commutes.get(p.id)
+        return replace(c, commute_minutes=float(min(240, cm["minutes_one_way"]))) if cm else c
+
     futures = {
-        (rt, p.id): _POOL.submit(solve_program, p, c, today=today, time_limit_s=time_limit_s, workers=workers, weights=weights)
+        (rt, p.id): _POOL.submit(solve_program, p, _c_for(p), today=today, time_limit_s=time_limit_s, workers=workers,
+                                 weights=weights)
         for rt, ps in jobs.items() if rt not in c.avoid_routes for p in ps
     }
     wage = expected_wage(career)
@@ -1876,7 +1898,7 @@ def solve_routes(
             best_p, best = results[0]
         alts = [
             {"program": program_public(p), "feasible": bool(r.get("feasible")), "months": r.get("months"),
-             "cost_usd": r.get("cost_usd"), "reason": r.get("reason")}
+             "cost_usd": r.get("cost_usd"), "reason": r.get("reason"), "commute": commutes.get(p.id)}
             for p, r in results if p.id != best_p.id
         ]
         routes[rt] = {
@@ -1886,6 +1908,7 @@ def solve_routes(
             "program": program_public(best_p),
             "starting_wage_hourly": _paid_start_wage(best_p),
             "alternatives": alts,
+            "commute": commutes.get(best_p.id),
         }
     ranked = sorted(
         [rt for rt in rts if routes[rt].get("feasible")],
@@ -1908,7 +1931,9 @@ def solve_routes(
         "order": rts,
         "best_route": ranked[0] if ranked else None,
         "solve_ms": int(round((time.perf_counter() - t0) * 1000)),
-        "assumptions": assumptions,
+        "assumptions": assumptions + ([f"Commute times from {origin.get('name') or 'your location'}: "
+                                       + fplaces.DRIVE_ASSUMPTION] if origin else []),
+        "origin": ({"place_id": origin.get("place_id"), "name": origin.get("name")} if origin else None),
         "data_status": {
             "programs": "ok" if progs else ("missing" if not fdata.programs() else "none_for_career"),
             "wage": "ok" if wage else "missing",

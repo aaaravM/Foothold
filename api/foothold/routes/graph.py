@@ -169,7 +169,7 @@ def _learner_profile(learner_id: str) -> dict[str, Any] | None:
             return {"id": learner_id, "skills": skills, "career_id": _career(rec) or _career(card)}
     card = auth.candidate_for_persona(learner_id)
     if card is None:
-        card = next((c for c in data.talent_pool() if isinstance(c, dict) and auth.card_id(c) == learner_id), None)
+        card = next((c for c in auth.talent_pool() if isinstance(c, dict) and auth.card_id(c) == learner_id), None)
     if card:
         return {"id": learner_id, "skills": _skill_ids(card), "career_id": _career(card)}
     if auth.get_account_by_persona(learner_id):

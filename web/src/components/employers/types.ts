@@ -65,6 +65,7 @@ export interface RequestStatusRef {
 export type RequestStatus = "pending" | "accepted" | "declined";
 
 export interface TalentCard extends BlindCard {
+  distance_km?: number | null;
   match?: CardMatch;
   request?: RequestStatusRef | null;
 }
@@ -78,6 +79,8 @@ export interface TalentResponse {
   weights: { skill_match: number; recommender: number };
   provenance: string;
   fictional: boolean;
+  origin?: { place_id?: string; name?: string } | null;
+  max_km?: number | null;
   cards: TalentCard[];
 }
 

@@ -3,7 +3,7 @@
 import * as React from "react";
 import { TracePanel } from "@/components/foothold/trace-panel";
 import { useTrace } from "@/components/foothold/use-trace";
-import { MonoLabel } from "@/components/foothold/mono-label";
+import { QuietLabel as MonoLabel } from "@/components/sim/fx";
 import { cn } from "@/lib/utils";
 import { ErrorNote, inputClass, primaryButtonClass } from "@/components/employers/shared";
 import { CrisisPanel, type CrisisPayload } from "./crisis-panel";
@@ -67,9 +67,9 @@ export function CoachPanel() {
         {shown.map((t, i) => (
           <li
             key={i}
-            className={cn("max-w-[85%] border px-3 py-2 text-sm", t.role === "you" ? "justify-self-end border-line-strong bg-surface-2 text-ink" : "border-line bg-bg text-ink")}
+            className={cn("max-w-[85%] rounded-2xl px-4 py-2.5 text-sm", t.role === "you" ? "justify-self-end rounded-br-sm bg-accent-wash text-ink" : "rounded-bl-sm bg-surface/70 text-ink")}
           >
-            <span className="label-mono mb-1 block text-ink-faint">{t.role === "you" ? "You" : "Coach"}</span>
+            <span className="text-[13px] mb-1 block text-ink-faint">{t.role === "you" ? "You" : "Coach"}</span>
             {t.text}
           </li>
         ))}
@@ -103,7 +103,7 @@ export function CoachPanel() {
       </form>
       {state.error ? <ErrorNote>{state.error}</ErrorNote> : null}
       {state.status !== "idle" ? <TracePanel nodes={trace.nodes} state={state} title="Coach graph" defaultOpen={false} /> : null}
-      <MonoLabel as="p">Session {sessionId} · contact details you type are redacted before anything is stored</MonoLabel>
+      <MonoLabel as="p">Contact details you type are removed before anything is stored.</MonoLabel>
     </div>
   );
 }

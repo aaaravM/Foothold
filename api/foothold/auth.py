@@ -178,6 +178,9 @@ def ensure_schema() -> None:
         return
     with db.connect() as conn:
         conn.executescript(SCHEMA)
+        cols = {r[1] for r in conn.execute("PRAGMA table_info(accounts)").fetchall()}
+        if "profile_json" not in cols:  # safe additive migration (profiles + sign-up)
+            conn.execute("ALTER TABLE accounts ADD COLUMN profile_json TEXT")
     _schema_ready.add(key)
 
 
@@ -694,9 +697,16 @@ def card_id(card: dict[str, Any]) -> str | None:
     return None
 
 
+def talent_pool() -> list[dict[str, Any]]:
+    """Synthetic talent pool plus opted-in cards of self-registered learners."""
+    from . import profiles  # lazy: profiles imports auth
+
+    return list(data.talent_pool()) + profiles.user_cards()
+
+
 def candidate_for_persona(persona_id: str) -> dict[str, Any] | None:
-    """The talent-pool card whose persona_id matches (data/processed/synthetic/talent_pool.json), else None."""
-    for card in data.talent_pool():
+    """The talent-pool card whose persona_id matches (synthetic pool or a registered learner's card), else None."""
+    for card in talent_pool():
         if isinstance(card, dict) and _card_persona(card) == persona_id:
             return card
     return None
@@ -715,7 +725,7 @@ def candidate_id_for(account: Account) -> str | None:
 
 
 def persona_for_candidate(candidate_id: str) -> str | None:
-    for card in data.talent_pool():
+    for card in talent_pool():
         if isinstance(card, dict) and card_id(card) == candidate_id:
             return _card_persona(card)
     return None
@@ -759,5 +769,6 @@ __all__ = [
     "require_kind",
     "revoke",
     "seed_accounts",
+    "talent_pool",
     "verify_password",
 ]

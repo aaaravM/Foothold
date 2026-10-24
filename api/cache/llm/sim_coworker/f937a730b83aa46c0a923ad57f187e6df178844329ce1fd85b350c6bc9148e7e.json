@@ -1,0 +1,13 @@
+{
+  "created_at": "2026-10-24T23:07:43+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "line": "Thanks for taking that on. I can head out knowing you’re checking the handoff before the next dose.",
+    "mood_delta": 9,
+    "reaction": "approves"
+  },
+  "schema": "CoworkerReaction",
+  "task": "sim_coworker"
+}

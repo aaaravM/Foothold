@@ -90,6 +90,12 @@ def _save_report(learner: Account, thread_id: str, values: dict[str, Any]) -> No
         "visibility": "learner_only_until_consent",
     }
     db.insert("progress_log", {"learner_id": learner.persona_id, "kind": "sim_report", "payload_json": payload})
+    try:  # opted-in self-registered learners: refresh their blind talent card from this report
+        from foothold import profiles
+
+        profiles.sync_card(learner)
+    except Exception as exc:  # noqa: BLE001
+        log.warning("talent card not refreshed (%s)", type(exc).__name__)
 
 
 def _result_for(learner: Account, thread_id: str):
