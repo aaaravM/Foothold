@@ -1,0 +1,30 @@
+{
+  "created_at": "2026-10-24T23:52:33+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "sentences": [
+      {
+        "sources": [
+          7
+        ],
+        "text": "Registered nurses assess patients, coordinate care, give medicines, and educate and support patients and families."
+      },
+      {
+        "sources": [
+          5
+        ],
+        "text": "Job listings show RN openings in Modesto, including employers such as Emanuel Medical Center."
+      },
+      {
+        "sources": [
+          3
+        ],
+        "text": "A California RN specialty apprenticeship is available in the Los Angeles region, not Modesto."
+      }
+    ]
+  },
+  "schema": "ResearchSummary",
+  "task": "web_research_summary"
+}

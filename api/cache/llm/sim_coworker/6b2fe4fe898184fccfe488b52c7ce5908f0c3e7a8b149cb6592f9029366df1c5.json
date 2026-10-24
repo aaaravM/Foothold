@@ -1,0 +1,13 @@
+{
+  "created_at": "2026-10-24T23:47:57+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "line": "Good to make the call quickly, but we should’ve checked the door schedule first. I’ll tell the other carrier to hold.",
+    "mood_delta": -3,
+    "reaction": "uneasy"
+  },
+  "schema": "CoworkerReaction",
+  "task": "sim_coworker"
+}

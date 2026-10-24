@@ -1,0 +1,13 @@
+{
+  "created_at": "2026-10-24T23:47:10+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "line": "Good. Pull the codes and run the diagnostic first—then give him an estimate we can stand behind.",
+    "mood_delta": 7,
+    "reaction": "approves"
+  },
+  "schema": "CoworkerReaction",
+  "task": "sim_coworker"
+}

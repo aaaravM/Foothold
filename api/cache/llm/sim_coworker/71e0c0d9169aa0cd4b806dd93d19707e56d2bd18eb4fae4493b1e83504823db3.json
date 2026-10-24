@@ -1,0 +1,13 @@
+{
+  "created_at": "2026-10-24T23:47:57+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "line": "A rough mockup is a good first step. Make the assumptions visible, and note how we’ll test it with farm managers.",
+    "mood_delta": 4,
+    "reaction": "approves"
+  },
+  "schema": "CoworkerReaction",
+  "task": "sim_coworker"
+}

@@ -1,0 +1,26 @@
+{
+  "created_at": "2026-10-24T23:48:14+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "choices": [
+      {
+        "choice_id": "a",
+        "text": "Point out the undercut directly and show Kayla how to adjust her travel angle."
+      },
+      {
+        "choice_id": "b",
+        "text": "Praise what’s good first, then ask Kayla what she sees along the toe."
+      },
+      {
+        "choice_id": "c",
+        "text": "Let Arman catch it at inspection; Kayla will learn more from the reject."
+      }
+    ],
+    "text": "In Stockton, Kayla shows you a fillet weld she’s proud of. It looks good, but you can see undercut along one toe that will fail inspection.",
+    "title": "Kayla’s weld"
+  },
+  "schema": "PersonalizedEvent",
+  "task": "sim_personalize"
+}

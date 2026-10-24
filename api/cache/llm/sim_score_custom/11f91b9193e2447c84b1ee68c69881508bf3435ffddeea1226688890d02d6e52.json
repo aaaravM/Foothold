@@ -1,0 +1,45 @@
+{
+  "created_at": "2026-10-24T23:46:49+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "coworker_hints": [
+      {
+        "coworker_id": "gen_cw_1",
+        "hint": "Appreciates you checking in and consulting the dentist."
+      },
+      {
+        "coworker_id": "gen_cw_2",
+        "hint": "Reassured that you pause and check before proceeding."
+      },
+      {
+        "coworker_id": "gen_cw_3",
+        "hint": "Feels supported by your patient-focused approach."
+      }
+    ],
+    "rationale": "You acknowledge the patient's unease and check with the dentist before proceeding, supporting comfort and safe care with a small delay.",
+    "stat_deltas": {
+      "output": -1,
+      "safety": 4,
+      "stress": -2,
+      "team_trust": 3
+    },
+    "trait_deltas": [
+      {
+        "delta": 0.7,
+        "trait_id": "empathy"
+      },
+      {
+        "delta": 0.5,
+        "trait_id": "cautiousness"
+      },
+      {
+        "delta": 0.4,
+        "trait_id": "cooperation"
+      }
+    ]
+  },
+  "schema": "CustomAnswerScore",
+  "task": "sim_score_custom"
+}

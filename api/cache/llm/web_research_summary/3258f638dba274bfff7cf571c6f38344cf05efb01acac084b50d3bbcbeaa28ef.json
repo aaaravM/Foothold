@@ -1,0 +1,32 @@
+{
+  "created_at": "2026-10-24T23:40:38+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "sentences": [
+      {
+        "sources": [
+          1
+        ],
+        "text": "Day to day, mechanics inspect, troubleshoot, and repair heavy machinery, including diesel engines, transmissions, hydraulic systems, and brakes."
+      },
+      {
+        "sources": [
+          2,
+          8
+        ],
+        "text": "Stockton listings include diesel mechanic and heavy equipment mechanic openings."
+      },
+      {
+        "sources": [
+          3,
+          6
+        ],
+        "text": "Delta College offers a diesel technician apprenticeship combining classroom learning with hands-on experience; Hawthorne Cat also has a technician apprenticeship program."
+      }
+    ]
+  },
+  "schema": "ResearchSummary",
+  "task": "web_research_summary"
+}

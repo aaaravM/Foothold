@@ -1,0 +1,26 @@
+{
+  "created_at": "2026-10-24T23:47:33+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "choices": [
+      {
+        "choice_id": "a",
+        "text": "Build a rough prototype from your best guess and show Marcus tomorrow."
+      },
+      {
+        "choice_id": "b",
+        "text": "Write five questions and ask Marcus for 20 minutes before building anything."
+      },
+      {
+        "choice_id": "c",
+        "text": "Wait for Priya on Thursday to agree on the architecture."
+      }
+    ],
+    "text": "As a software developer in Manteca, you hear Marcus ask for a dashboard for farm managers by Friday, with no other detail. Priya is out until Thursday.",
+    "title": "A vague feature request in Manteca"
+  },
+  "schema": "PersonalizedEvent",
+  "task": "sim_personalize"
+}

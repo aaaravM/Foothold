@@ -1,0 +1,128 @@
+{
+  "created_at": "2026-10-24T23:46:43+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "choices": [
+      {
+        "choice_id": "a",
+        "coworker_hints": [
+          {
+            "coworker_id": "gen_cw_1",
+            "hint": "Appreciates the patient-centered check-in."
+          },
+          {
+            "coworker_id": "gen_cw_2",
+            "hint": "Wants you to keep the appointment on track."
+          },
+          {
+            "coworker_id": "gen_cw_3",
+            "hint": "Feels reassured by your calm approach."
+          }
+        ],
+        "stat_deltas": {
+          "output": -2,
+          "safety": 1,
+          "stress": -1,
+          "team_trust": 1
+        },
+        "text": "Pause and ask what is making the patient uneasy before explaining each step.",
+        "trait_deltas": [
+          {
+            "delta": 0.8,
+            "trait_id": "empathy"
+          },
+          {
+            "delta": 0.5,
+            "trait_id": "social_orientation"
+          },
+          {
+            "delta": 0.3,
+            "trait_id": "cooperation"
+          }
+        ]
+      },
+      {
+        "choice_id": "b",
+        "coworker_hints": [
+          {
+            "coworker_id": "gen_cw_1",
+            "hint": "Likes that you flag the chart review."
+          },
+          {
+            "coworker_id": "gen_cw_2",
+            "hint": "Approves of checking the record first."
+          },
+          {
+            "coworker_id": "gen_cw_3",
+            "hint": "Learns from seeing a careful check."
+          }
+        ],
+        "stat_deltas": {
+          "output": -1,
+          "safety": 3,
+          "stress": 1,
+          "team_trust": 1
+        },
+        "text": "Confirm the medical history and planned cleaning steps with Dana before you begin.",
+        "trait_deltas": [
+          {
+            "delta": 0.8,
+            "trait_id": "cautiousness"
+          },
+          {
+            "delta": 0.7,
+            "trait_id": "attention_to_detail"
+          },
+          {
+            "delta": 0.4,
+            "trait_id": "dependability"
+          }
+        ]
+      },
+      {
+        "choice_id": "c",
+        "coworker_hints": [
+          {
+            "coworker_id": "gen_cw_1",
+            "hint": "Wants you to keep an eye on the patient's comfort."
+          },
+          {
+            "coworker_id": "gen_cw_2",
+            "hint": "May prefer clearer consent before starting."
+          },
+          {
+            "coworker_id": "gen_cw_3",
+            "hint": "Feels encouraged by your confident start."
+          }
+        ],
+        "stat_deltas": {
+          "output": 2,
+          "safety": -1,
+          "stress": 1,
+          "team_trust": 0
+        },
+        "text": "Tell the patient the cleaning is routine, then begin gently while watching for signs they need a pause.",
+        "trait_deltas": [
+          {
+            "delta": 0.5,
+            "trait_id": "sincerity"
+          },
+          {
+            "delta": 0.5,
+            "trait_id": "self_confidence"
+          },
+          {
+            "delta": 0.4,
+            "trait_id": "optimism"
+          }
+        ]
+      }
+    ],
+    "text": "At 8:00 in a Stockton dental clinic, your first patient grips the chair as you prepare for a cleaning. Dana is reviewing the chart nearby, while Kim watches you set out the instruments.",
+    "title": "A Hesitant Patient"
+  },
+  "schema": "GeneratedMoment",
+  "task": "sim_generate_event"
+}

@@ -1,0 +1,45 @@
+{
+  "created_at": "2026-10-24T23:47:55+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "coworker_hints": [
+      {
+        "coworker_id": "priya_raman",
+        "hint": "May appreciate a low-commitment visual, but will want its assumptions and testing clarified."
+      },
+      {
+        "coworker_id": "marcus_bell",
+        "hint": "Likely pleased to see something concrete to react to."
+      },
+      {
+        "coworker_id": "sokha_chhim",
+        "hint": "May look for overlooked cases before treating the mockup as a plan."
+      }
+    ],
+    "rationale": "A rough mockup creates an early conversation starter without committing to a full build, though key requirements remain unclear.",
+    "stat_deltas": {
+      "output": 3,
+      "safety": 0,
+      "stress": -1,
+      "team_trust": 1
+    },
+    "trait_deltas": [
+      {
+        "delta": 0.5,
+        "trait_id": "initiative"
+      },
+      {
+        "delta": 0.3,
+        "trait_id": "innovation"
+      },
+      {
+        "delta": 0.3,
+        "trait_id": "tolerance_for_ambiguity"
+      }
+    ]
+  },
+  "schema": "CustomAnswerScore",
+  "task": "sim_score_custom"
+}

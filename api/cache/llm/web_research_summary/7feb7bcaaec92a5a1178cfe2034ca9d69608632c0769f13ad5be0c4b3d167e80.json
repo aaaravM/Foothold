@@ -1,0 +1,34 @@
+{
+  "created_at": "2026-10-24T23:50:18+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "sentences": [
+      {
+        "sources": [
+          1,
+          4,
+          7
+        ],
+        "text": "Pharmacy technicians prepare and fill prescriptions, assist pharmacists, manage inventory, and may process insurance claims; they often stand or walk during the workday."
+      },
+      {
+        "sources": [
+          3,
+          5,
+          8
+        ],
+        "text": "Manteca listings include pharmacy technician openings at Walmart and a retail location; a Walgreens apprenticeship is listed in nearby Tracy."
+      },
+      {
+        "sources": [
+          9
+        ],
+        "text": "Walgreens offers an earn-while-you-learn apprenticeship to help trainees become certified through the PTCB."
+      }
+    ]
+  },
+  "schema": "ResearchSummary",
+  "task": "web_research_summary"
+}

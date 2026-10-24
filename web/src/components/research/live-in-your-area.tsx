@@ -87,15 +87,30 @@ export function LiveInYourArea({ careerId, title, placeId, className }: LiveInYo
     if (careerId) body.career_id = careerId;
     else if (title) body.title = title.trim();
     if (placeId) body.place_id = placeId;
-    void run("/api/research/stream", body, ctrl.signal, { idleTimeoutMs: 60_000 });
-    return () => ctrl.abort();
+    // short delay coalesces quick prop changes (career / place loading) into one search
+    const go = () => run("/api/research/stream", body, ctrl.signal, { idleTimeoutMs: 60_000 });
+    let retry = 0;
+    const t = window.setTimeout(async () => {
+      // one automatic retry if the stream drops (e.g. the API restarted mid-run)
+      if (!(await go()) && !ctrl.signal.aborted) {
+        retry = window.setTimeout(() => void go(), 1500);
+      }
+    }, 350);
+    return () => {
+      window.clearTimeout(t);
+      window.clearTimeout(retry);
+      ctrl.abort();
+    };
   }, [careerId, title, placeId, nonce, hasSubject, run, reset]);
 
   const { state } = trace;
   const report = (state.status === "done" && state.result && typeof state.result === "object" ? state.result : null) as Report | null;
-  const sources = asSources(report?.sources ?? report?.results ?? state.data.sources).slice(0, MAX_CARDS);
+  const allSources = asSources(report?.sources ?? report?.results ?? state.data.sources);
   const claims = asClaims(report?.claims ?? state.data.claims);
-  const byN = new Map(sources.map((s) => [s.n, s]));
+  const byN = new Map(allSources.map((s) => [s.n, s]));
+  // cards: cited sources first, then the rest, 3-5 total
+  const cited = new Set(claims.flatMap((c) => c.sources));
+  const sources = [...allSources.filter((s) => cited.has(s.n)), ...allSources.filter((s) => !cited.has(s.n))].slice(0, MAX_CARDS);
   const place = report?.place ?? null;
   const live = state.status === "connecting" || state.status === "running";
 
@@ -107,7 +122,7 @@ export function LiveInYourArea({ careerId, title, placeId, className }: LiveInYo
     const q = searching[0].label.replace(/^Search:\s*/, "");
     status = `Searching the web: “${q}”${searching.length > 1 ? ` +${searching.length - 1}` : ""}`;
   } else if (active.length > 0) {
-    status = active[0].id === "summarize" ? `Reading ${sources.length || "the"} sources` : active[0].label;
+    status = active[0].id === "summarize" ? `Writing a summary from ${sources.length || "the"} sources` : active[0].label;
   } else if (state.lastSummary) {
     status = state.lastSummary;
   }

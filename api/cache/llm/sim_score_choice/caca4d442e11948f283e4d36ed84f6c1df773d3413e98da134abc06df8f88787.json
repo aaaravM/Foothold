@@ -1,0 +1,29 @@
+{
+  "created_at": "2026-10-24T23:49:13+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "deltas": [
+      {
+        "delta": 0.8,
+        "trait_id": "adaptability"
+      },
+      {
+        "delta": 0.7,
+        "trait_id": "humility"
+      },
+      {
+        "delta": 0.7,
+        "trait_id": "cooperation"
+      },
+      {
+        "delta": 0.6,
+        "trait_id": "attention_to_detail"
+      }
+    ],
+    "rationale": "The choice carefully incorporates extensive feedback, simplifies the design, and responds appreciatively to Priya."
+  },
+  "schema": "TraitTagging",
+  "task": "sim_score_choice"
+}

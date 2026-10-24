@@ -1,0 +1,26 @@
+{
+  "created_at": "2026-10-24T23:50:12+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "choices": [
+      {
+        "choice_id": "a",
+        "text": "Pull the fault log, trace the cause, and fix it properly."
+      },
+      {
+        "choice_id": "b",
+        "text": "Reset the robot, get the line moving, and investigate at break."
+      },
+      {
+        "choice_id": "c",
+        "text": "Call Mai, who programmed the cell, and work it together."
+      }
+    ],
+    "text": "At a food packaging plant in Manteca, a robotic palletizer stops with a fault code at the start of your shift as a Robotics and Automation Technician. Trevor says the line will back up in 20 minutes.",
+    "title": "Robot arm stopped"
+  },
+  "schema": "PersonalizedEvent",
+  "task": "sim_personalize"
+}

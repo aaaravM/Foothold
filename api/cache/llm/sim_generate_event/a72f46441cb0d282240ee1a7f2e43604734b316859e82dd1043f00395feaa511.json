@@ -1,0 +1,128 @@
+{
+  "created_at": "2026-10-24T23:48:24+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "choices": [
+      {
+        "choice_id": "a",
+        "coworker_hints": [
+          {
+            "coworker_id": "gen_cw_1",
+            "hint": "Appreciates the early check-in"
+          },
+          {
+            "coworker_id": "gen_cw_2",
+            "hint": "Relieved you paused to assess"
+          },
+          {
+            "coworker_id": "gen_cw_3",
+            "hint": "Feels reassured by your calm explanation"
+          }
+        ],
+        "stat_deltas": {
+          "output": -2,
+          "safety": 2,
+          "stress": -1,
+          "team_trust": 1
+        },
+        "text": "Pause, explain what you found, and ask the patient before continuing more gently around the spot.",
+        "trait_deltas": [
+          {
+            "delta": 0.7,
+            "trait_id": "empathy"
+          },
+          {
+            "delta": 0.5,
+            "trait_id": "sincerity"
+          },
+          {
+            "delta": 0.3,
+            "trait_id": "cooperation"
+          }
+        ]
+      },
+      {
+        "choice_id": "b",
+        "coworker_hints": [
+          {
+            "coworker_id": "gen_cw_1",
+            "hint": "Glad you involved her promptly"
+          },
+          {
+            "coworker_id": "gen_cw_2",
+            "hint": "Values the careful escalation"
+          },
+          {
+            "coworker_id": "gen_cw_3",
+            "hint": "Wonders what the finding means"
+          }
+        ],
+        "stat_deltas": {
+          "output": -3,
+          "safety": 3,
+          "stress": 1,
+          "team_trust": 2
+        },
+        "text": "Stop scaling and ask Dana to review the spot with you before deciding how to proceed.",
+        "trait_deltas": [
+          {
+            "delta": 0.7,
+            "trait_id": "humility"
+          },
+          {
+            "delta": 0.6,
+            "trait_id": "cautiousness"
+          },
+          {
+            "delta": 0.4,
+            "trait_id": "cooperation"
+          }
+        ]
+      },
+      {
+        "choice_id": "c",
+        "coworker_hints": [
+          {
+            "coworker_id": "gen_cw_1",
+            "hint": "Expects you to flag it before checkout"
+          },
+          {
+            "coworker_id": "gen_cw_2",
+            "hint": "Wants the finding documented precisely"
+          },
+          {
+            "coworker_id": "gen_cw_3",
+            "hint": "Feels useful keeping the chart ready"
+          }
+        ],
+        "stat_deltas": {
+          "output": 2,
+          "safety": 0,
+          "stress": 1,
+          "team_trust": 0
+        },
+        "text": "Finish the unaffected areas first, then document the tender spot and flag it to Dana before the patient leaves.",
+        "trait_deltas": [
+          {
+            "delta": 0.6,
+            "trait_id": "dependability"
+          },
+          {
+            "delta": 0.7,
+            "trait_id": "attention_to_detail"
+          },
+          {
+            "delta": 0.4,
+            "trait_id": "integrity"
+          }
+        ]
+      }
+    ],
+    "text": "At 9:30 in a Stockton dental room, your patient winces when you find a tender, bleeding spot while scaling. Dana is ready to continue, while Kim waits nearby with the chart open.",
+    "title": "A Change in the Gumline"
+  },
+  "schema": "GeneratedMoment",
+  "task": "sim_generate_event"
+}

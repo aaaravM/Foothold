@@ -1,0 +1,26 @@
+{
+  "created_at": "2026-10-24T23:48:04+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "choices": [
+      {
+        "choice_id": "a",
+        "text": "Walk the blocks with Navdeep at sunrise and set the crew's plan after."
+      },
+      {
+        "choice_id": "b",
+        "text": "Keep Lupe's crew pruning and send Navdeep to scout while work continues."
+      },
+      {
+        "choice_id": "c",
+        "text": "Call the farm advisor and crop insurance agent before anything else."
+      }
+    ],
+    "text": "On a 900-acre farm near Stockton, the overnight low hit 31°F, and you do not yet know whether the young pistachio buds are damaged. Lupe's crew is scheduled to start pruning another block at 7:30.",
+    "title": "Frost overnight near Stockton"
+  },
+  "schema": "PersonalizedEvent",
+  "task": "sim_personalize"
+}

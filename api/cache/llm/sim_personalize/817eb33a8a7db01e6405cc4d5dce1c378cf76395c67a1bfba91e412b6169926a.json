@@ -1,0 +1,26 @@
+{
+  "created_at": "2026-10-24T23:48:27+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "choices": [
+      {
+        "choice_id": "a",
+        "text": "Decide on the spot: unload the driver near his hours limit first and tell the other carrier to wait 40 minutes."
+      },
+      {
+        "choice_id": "b",
+        "text": "Call both carriers' dispatchers, explain the constraint, and let them agree on an order before anything moves."
+      },
+      {
+        "choice_id": "c",
+        "text": "Hold both trucks until maintenance confirms whether Door 4's seal can be patched safely."
+      }
+    ],
+    "text": "It is 7:00 at a distribution center off Highway 99 in Stockton. Two refrigerated trucks of table grapes arrive at once, and only Door 6 has a working dock seal. One driver is close to his hours-of-service limit and wants to drop the trailer and go. As the Logistics Operations Lead from Modesto, you need to decide what happens next.",
+    "title": "Two trucks, one door"
+  },
+  "schema": "PersonalizedEvent",
+  "task": "sim_personalize"
+}

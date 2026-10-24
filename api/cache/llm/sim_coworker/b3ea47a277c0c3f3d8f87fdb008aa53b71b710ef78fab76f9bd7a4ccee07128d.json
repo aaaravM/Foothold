@@ -1,0 +1,13 @@
+{
+  "created_at": "2026-10-24T23:48:16+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "line": "Good to understand what’s bothering them. Keep it brief so we stay on schedule.",
+    "mood_delta": 2,
+    "reaction": "neutral"
+  },
+  "schema": "CoworkerReaction",
+  "task": "sim_coworker"
+}

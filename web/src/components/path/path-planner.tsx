@@ -14,6 +14,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { NearbyPrograms, PlacePicker, usePlaces } from "./nearby";
 import { PathKanban } from "./path-kanban";
 import { PickedForYou } from "./picked-for-you";
+import { LiveInYourArea } from "@/components/research/live-in-your-area";
 import { usePersona } from "./use-persona";
 
 /* ------------------------------------------------------------------ */
@@ -357,7 +358,7 @@ export function PathPlanner({ account }: { account: Account }) {
   const [showTerms, setShowTerms] = React.useState(false);
   const [adjustOpen, setAdjustOpen] = React.useState(false);
   const [trackOpen, setTrackOpen] = React.useState(false);
-  const { places, placeId, save: savePlace } = usePlaces();
+  const { places, placeId, ready: placesReady, save: savePlace } = usePlaces();
   /** a place picked here this session; only then is it sent to the solver (demo personas keep their commute otherwise) */
   const [pickedPlace, setPickedPlace] = React.useState<string | null>(null);
   const placeName = places.find((p) => p.id === placeId)?.name;
@@ -539,6 +540,8 @@ export function PathPlanner({ account }: { account: Account }) {
         </div>
         <NearbyPrograms placeId={placeId} placeName={placeName} careerId={careerId} hideHeading />
       </section>
+
+      <LiveInYourArea careerId={placesReady ? careerId : null} placeId={placeId} />
 
       {/* adjust: sliders, rules, approval */}
       <Step title="Adjust" hint={approved ? "Plan approved" : "Your week, rules, approval"} open={adjustOpen} onToggle={setAdjustOpen}>

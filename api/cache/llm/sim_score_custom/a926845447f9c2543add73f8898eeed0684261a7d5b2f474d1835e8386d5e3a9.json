@@ -1,0 +1,45 @@
+{
+  "created_at": "2026-10-24T23:48:10+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "coworker_hints": [
+      {
+        "coworker_id": "ernesto_ruiz",
+        "hint": "Likely appreciates checking the fit-up before welding."
+      },
+      {
+        "coworker_id": "kayla_brooks",
+        "hint": "May welcome the team discussion, though the pause could test her patience."
+      },
+      {
+        "coworker_id": "arman_petrosyan",
+        "hint": "Likely values verifying the setup before proceeding."
+      }
+    ],
+    "rationale": "Pausing to verify the out-of-tolerance setup with the team protects quality and builds trust, but costs time against the delivery deadline.",
+    "stat_deltas": {
+      "output": -3,
+      "safety": 5,
+      "stress": 2,
+      "team_trust": 4
+    },
+    "trait_deltas": [
+      {
+        "delta": 0.7,
+        "trait_id": "cautiousness"
+      },
+      {
+        "delta": 0.6,
+        "trait_id": "cooperation"
+      },
+      {
+        "delta": 0.5,
+        "trait_id": "attention_to_detail"
+      }
+    ]
+  },
+  "schema": "CustomAnswerScore",
+  "task": "sim_score_custom"
+}

@@ -1,0 +1,128 @@
+{
+  "created_at": "2026-10-24T23:46:58+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "choices": [
+      {
+        "choice_id": "a",
+        "coworker_hints": [
+          {
+            "coworker_id": "gen_cw_1",
+            "hint": "Appreciates the clear early update."
+          },
+          {
+            "coworker_id": "gen_cw_2",
+            "hint": "Reassured by the pause and documentation."
+          },
+          {
+            "coworker_id": "gen_cw_3",
+            "hint": "Glad you made space to check carefully."
+          }
+        ],
+        "stat_deltas": {
+          "output": -2,
+          "safety": 5,
+          "stress": 1,
+          "team_trust": 2
+        },
+        "text": "Pause the cleaning, ask the patient a few focused questions, and document what you observe before telling Dana.",
+        "trait_deltas": [
+          {
+            "delta": 0.7,
+            "trait_id": "attention_to_detail"
+          },
+          {
+            "delta": 0.5,
+            "trait_id": "dependability"
+          },
+          {
+            "delta": 0.4,
+            "trait_id": "empathy"
+          }
+        ]
+      },
+      {
+        "choice_id": "b",
+        "coworker_hints": [
+          {
+            "coworker_id": "gen_cw_1",
+            "hint": "Values being consulted directly."
+          },
+          {
+            "coworker_id": "gen_cw_2",
+            "hint": "Wants the clinical concern documented too."
+          },
+          {
+            "coworker_id": "gen_cw_3",
+            "hint": "Feels supported seeing you ask for help."
+          }
+        ],
+        "stat_deltas": {
+          "output": -1,
+          "safety": 3,
+          "stress": -1,
+          "team_trust": 4
+        },
+        "text": "Ask Dana to take a quick look while you reassure the patient and explain that you want a second opinion.",
+        "trait_deltas": [
+          {
+            "delta": 0.8,
+            "trait_id": "cooperation"
+          },
+          {
+            "delta": 0.5,
+            "trait_id": "humility"
+          },
+          {
+            "delta": 0.4,
+            "trait_id": "social_orientation"
+          }
+        ]
+      },
+      {
+        "choice_id": "c",
+        "coworker_hints": [
+          {
+            "coworker_id": "gen_cw_1",
+            "hint": "May wonder why you waited to flag it."
+          },
+          {
+            "coworker_id": "gen_cw_2",
+            "hint": "Concerned the pause-and-check step was delayed."
+          },
+          {
+            "coworker_id": "gen_cw_3",
+            "hint": "Unsure whether continuing is okay."
+          }
+        ],
+        "stat_deltas": {
+          "output": 3,
+          "safety": -1,
+          "stress": 1,
+          "team_trust": -1
+        },
+        "text": "Finish the gentle section you’re working on, then tell the patient you’ll flag the bleeding for Dana before continuing.",
+        "trait_deltas": [
+          {
+            "delta": 0.6,
+            "trait_id": "cautiousness"
+          },
+          {
+            "delta": 0.5,
+            "trait_id": "self_control"
+          },
+          {
+            "delta": 0.4,
+            "trait_id": "sincerity"
+          }
+        ]
+      }
+    ],
+    "text": "At 9:30 in a Stockton exam room, Kim asks you to check a patient whose gums keep bleeding during the cleaning. Dana is setting up the next room, and the chart has no note about the bleeding.",
+    "title": "A Bleeding Gumline"
+  },
+  "schema": "GeneratedMoment",
+  "task": "sim_generate_event"
+}

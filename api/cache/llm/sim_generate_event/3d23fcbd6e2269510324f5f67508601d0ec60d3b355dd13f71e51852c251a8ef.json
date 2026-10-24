@@ -1,0 +1,128 @@
+{
+  "created_at": "2026-10-24T23:50:25+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "choices": [
+      {
+        "choice_id": "a",
+        "coworker_hints": [
+          {
+            "coworker_id": "gen_cw_1",
+            "hint": "Appreciates the early flag"
+          },
+          {
+            "coworker_id": "gen_cw_2",
+            "hint": "Relieved you paused"
+          },
+          {
+            "coworker_id": "gen_cw_3",
+            "hint": "Glad you caught it"
+          }
+        ],
+        "stat_deltas": {
+          "output": -2,
+          "safety": 5,
+          "stress": 1,
+          "team_trust": 2
+        },
+        "text": "Pause the fill, compare the order and label, then flag the mismatch to Andre before counting.",
+        "trait_deltas": [
+          {
+            "delta": 0.8,
+            "trait_id": "attention_to_detail"
+          },
+          {
+            "delta": 0.7,
+            "trait_id": "cautiousness"
+          },
+          {
+            "delta": 0.3,
+            "trait_id": "dependability"
+          }
+        ]
+      },
+      {
+        "choice_id": "b",
+        "coworker_hints": [
+          {
+            "coworker_id": "gen_cw_1",
+            "hint": "Wants the issue resolved promptly"
+          },
+          {
+            "coworker_id": "gen_cw_2",
+            "hint": "Values a clear handoff"
+          },
+          {
+            "coworker_id": "gen_cw_3",
+            "hint": "Feels supported, not blamed"
+          }
+        ],
+        "stat_deltas": {
+          "output": -3,
+          "safety": 3,
+          "stress": -1,
+          "team_trust": 5
+        },
+        "text": "Ask Kim to walk you through what she saw, then bring the order and label to Andre together.",
+        "trait_deltas": [
+          {
+            "delta": 0.7,
+            "trait_id": "cooperation"
+          },
+          {
+            "delta": 0.5,
+            "trait_id": "humility"
+          },
+          {
+            "delta": 0.4,
+            "trait_id": "empathy"
+          }
+        ]
+      },
+      {
+        "choice_id": "c",
+        "coworker_hints": [
+          {
+            "coworker_id": "gen_cw_1",
+            "hint": "Likes the steady workflow"
+          },
+          {
+            "coworker_id": "gen_cw_2",
+            "hint": "Wants to review it before resuming"
+          },
+          {
+            "coworker_id": "gen_cw_3",
+            "hint": "Reassured the basket is set aside"
+          }
+        ],
+        "stat_deltas": {
+          "output": 3,
+          "safety": 2,
+          "stress": -1,
+          "team_trust": 0
+        },
+        "text": "Set the basket aside with a note about the mismatch, and move to another ready prescription while Andre is available.",
+        "trait_deltas": [
+          {
+            "delta": 0.6,
+            "trait_id": "initiative"
+          },
+          {
+            "delta": 0.4,
+            "trait_id": "dependability"
+          },
+          {
+            "delta": 0.4,
+            "trait_id": "self_control"
+          }
+        ]
+      }
+    ],
+    "text": "At 8:00 a.m. in a Manteca pharmacy, Kim notices the tablet count on a prescription label doesn’t match the quantity in the order. Dana is filling another basket, and Andre is checking the pharmacist’s queue.",
+    "title": "A Dose Doesn't Match"
+  },
+  "schema": "GeneratedMoment",
+  "task": "sim_generate_event"
+}

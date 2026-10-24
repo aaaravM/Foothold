@@ -1,0 +1,11 @@
+{
+  "created_at": "2026-10-24T23:47:46+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "paragraph": "You worked through a truck down on the 99, an intermittent fault, someone else’s brake job, a weld-or-replace decision, and a new scan tool in Manteca with cautiousness, dependability, and integrity. Your end-of-day output was {output}, safety was {safety}, stress was {stress}, and team trust was {team_trust}. Logistics Operations Lead is your current best-fit career signal at {top1_pct}, with Registered Nurse and Electrician (Apprenticeship Route) also appearing in the model. These are practice signals, not a verdict, and they don’t promise a particular job or outcome."
+  },
+  "schema": "ReportSummary",
+  "task": "sim_summary"
+}

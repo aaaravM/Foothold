@@ -240,6 +240,42 @@ def s_maya_adaptive(api: Api) -> str:
     return f"adaptive thread {tid[:12]}..; 1 choice ok"
 
 
+def s_sim_custom(api: Api) -> str:
+    ev = api.sse("/api/sim/start", "maya", {"career_id": "welder"})
+    tid = thread_of(ev)
+    check(last(ev, "interrupt"), "sim did not reach a choice")
+    ev = api.sse(f"/api/sim/{tid}/choose", "maya",
+                 {"choice_id": "custom", "text": "I'd stop and double check the setup with the team before starting."})
+    ends = {e.get("node"): e for e in ev if e.get("type") == "node" and e.get("status") == "end"}
+    check("score_custom" in ends, "no score_custom node")
+    check(sum(1 for n in ends if str(n).startswith("coworker:")) == 3, "coworkers did not react")
+    check(last(ev, "interrupt") or last(ev, "done"), "no next moment after custom answer")
+    return f"{ends['score_custom'].get('summary')} ({ends['score_custom'].get('llm')})"
+
+
+def s_careers_search(api: Api) -> str:
+    rows = api.ok(api.get("/api/careers/search", params={"q": "dental"}), "careers search")
+    check(isinstance(rows, list) and rows and any("Dental" in r.get("title", "") for r in rows), "no dental results")
+    CTX["any_soc"] = next(r["onet_soc"] for r in rows if not r.get("career_id"))
+    return f"{len(rows)} results; first {rows[0]['title']}"
+
+
+def s_any_career(api: Api) -> str:
+    soc = CTX.get("any_soc") or "29-1292.00"
+    ev = api.sse("/api/sim/start", "maya", {"onet_soc": soc})
+    tid = thread_of(ev)
+    intr = last(ev, "interrupt")
+    check(intr, f"no first generated moment ({[e.get('type') for e in ev][-3:]})")
+    p = intr.get("payload") or {}
+    check(p.get("mode") == "occupation" and len((p.get("event") or {}).get("choices") or []) == 3, "bad generated moment")
+    ends = {e.get("node"): e for e in ev if e.get("type") == "node" and e.get("status") == "end"}
+    research = (ends.get("research_role") or {}).get("summary")
+    ev = api.sse(f"/api/sim/{tid}/choose", "maya", {"choice_id": "a"})
+    nxt = last(ev, "interrupt")
+    check(nxt and (nxt.get("payload") or {}).get("index") == 2, "no second generated moment")
+    return f"{p['event']['title']!r} -> {nxt['payload']['event']['title']!r}; {research}"
+
+
 def s_dev_path(api: Api) -> str:
     sol = api.ok(api.post("/api/path/solve", "dev", json={"career_id": "robotics_tech", "hours_per_week": 45}), "dev solve")
     routes = sol.get("routes") or {}
@@ -401,6 +437,9 @@ STEPS: list[tuple[str, Callable[[Api], str], tuple[str, ...]]] = [
     ("employer sees contact", s_employer_contact, ("luis inbox -> accept",)),
     ("maya cannot see request", s_maya_isolation, ("luis inbox -> accept",)),
     ("maya adaptive sim (1 choice)", s_maya_adaptive, ("login x4",)),
+    ("sim custom answer", s_sim_custom, ("login x4",)),
+    ("careers search dental", s_careers_search, ()),
+    ("any-career sim + 1 choice", s_any_career, ("login x4", "careers search dental")),
     ("dev path solve 45 h/wk", s_dev_path, ("login x4",)),
     ("coach crisis -> 988", s_coach_crisis, ("login x4",)),
     ("coach normal reply", s_coach_normal, ("login x4",)),

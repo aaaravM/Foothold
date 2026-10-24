@@ -1,0 +1,26 @@
+{
+  "created_at": "2026-10-24T23:48:00+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "choices": [
+      {
+        "choice_id": "a",
+        "text": "Read every comment, rewrite it the simpler way, and thank Priya."
+      },
+      {
+        "choice_id": "b",
+        "text": "Reply to each comment with your reasoning and ask Priya for a quick call."
+      },
+      {
+        "choice_id": "c",
+        "text": "Merge the parts Priya agreed with and move the rest into a follow-up ticket."
+      }
+    ],
+    "text": "As a software developer in Manteca, you see Priya left 23 comments on your pull request before she left, several saying your approach is overcomplicated. You spent two days on it and are proud of the design.",
+    "title": "Code review feedback"
+  },
+  "schema": "PersonalizedEvent",
+  "task": "sim_personalize"
+}

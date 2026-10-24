@@ -34,6 +34,7 @@ from __future__ import annotations
 import asyncio
 import hashlib
 import importlib
+import inspect
 import json
 import logging
 import math
@@ -556,11 +557,24 @@ def present_and_wait(state: SimState) -> dict[str, Any]:
     ev = state.get("current_event") or {}
     by_id = {c["choice_id"]: c for c in ev.get("choices") or []}
     answer = interrupt(payload)
-    while str(answer) not in by_id:  # route validates first; this guards direct graph use
+    while not _custom_answer(answer) and str(answer) not in by_id:  # route validates first; guards direct use
         answer = interrupt({**payload, "error": "Pick one of the listed choices."})
+    custom = _custom_answer(answer)
+    if custom is not None:
+        note(summary=f"wrote their own answer on {ev.get('event_id')}")
+        return {"last_choice": {"event_id": ev.get("event_id"), "choice_id": CUSTOM_ID, "text": custom, "custom": True,
+                                "trait_deltas": {}, "stat_deltas": {}, "coworker_hints": {}}}
     choice = by_id[str(answer)]
     note(summary=f"chose {choice['choice_id']} on {ev.get('event_id')}")
     return {"last_choice": {"event_id": ev.get("event_id"), **choice}}
+
+
+def _custom_answer(answer: Any) -> str | None:
+    """Sanitized free text when ``answer`` is ``{"choice_id": "custom", "text": ...}``, else None."""
+    if not isinstance(answer, dict) or answer.get("choice_id") != CUSTOM_ID:
+        return None
+    text = safety.sanitize_untrusted(str(answer.get("text") or ""), "sim_answer", CUSTOM_MAX_CHARS)["text"]
+    return text or None
 
 
 def fan_out(state: SimState) -> list[Send] | str:
@@ -574,7 +588,7 @@ def fan_out(state: SimState) -> list[Send] | str:
             "coworker": cw, "mood": int(moods.get(cw["id"], initial_mood(cw))),
             "event": {"event_id": ev.get("event_id"), "title": ev.get("title"), "text": ev.get("text")},
             "choice": {"choice_id": choice.get("choice_id"), "text": choice.get("text"),
-                       "stat_deltas": choice.get("stat_deltas") or {}},
+                       "stat_deltas": choice.get("stat_deltas") or {}, "custom": bool(choice.get("custom"))},
             "hint": hints.get(cw["id"]),
             "_trace_id": f"coworker:{cw['id']}",
         }))
@@ -600,10 +614,12 @@ async def coworker(task: CoworkerTask) -> dict[str, Any]:
     user = json.dumps({
         "coworker": {"name": cw.get("name"), "role": cw.get("role"), "style": cw.get("style"), "mood": mood_label(mood)},
         "scene": {"title": ev.get("title"), "text": ev.get("text")},
-        "player_choice": choice.get("text"),
+        "player_choice": (safety.wrap_untrusted(str(choice.get("text") or ""), "sim_answer", CUSTOM_MAX_CHARS)
+                          if choice.get("custom") else choice.get("text")),
         "tendency": task.get("hint") or "no strong opinion either way",
     }, ensure_ascii=False, sort_keys=True)
-    obj, meta = await llm.astructured(f"sim_coworker", COWORKER_SYSTEM, user, CoworkerReaction, mock=lambda: mock_reaction(task))
+    system = COWORKER_SYSTEM + (" " + safety.UNTRUSTED_NOTE if choice.get("custom") else "")
+    obj, meta = await llm.astructured(f"sim_coworker", system, user, CoworkerReaction, mock=lambda: mock_reaction(task))
     delta = int(_clamp(int(obj.mood_delta), -15, 15))
     line = " ".join(str(obj.line).replace('"', "").split())[:160] or _stable_pick(LINES[obj.reaction], cw.get("id", ""))
     name = str(cw.get("name") or cw.get("id") or "coworker").split()[0]
@@ -636,8 +652,11 @@ async def score_choice(state: SimState) -> dict[str, Any]:
     def mock() -> Any:
         return {"deltas": [{"trait_id": k, "delta": v} for k, v in pre.items()], "rationale": "precomputed deltas"}
 
-    obj, meta = await llm.astructured("sim_score_choice", SCORE_SYSTEM, user, schema, mock=mock)
-    tagged = validate_tagging(obj) if meta["source"] != "mock" else dict(pre)
+    if choice.get("custom"):
+        tagged, meta = dict(pre), {"source": choice.get("score_source") or "mock"}
+    else:
+        obj, meta = await llm.astructured("sim_score_choice", SCORE_SYSTEM, user, schema, mock=mock)
+        tagged = validate_tagging(obj) if meta["source"] != "mock" else dict(pre)
     blended = blend(pre, tagged)
     top = sorted(blended.items(), key=lambda kv: -abs(kv[1]))[:2]
     note(summary=", ".join(f"{k.replace('_', ' ')} {v:+.2f}" for k, v in top) or "no trait signal")
@@ -665,12 +684,14 @@ def update_state(state: SimState) -> dict[str, Any]:
             moods[cid] = int(_clamp(base + int(r.get("mood_delta", 0)), 0, 100))
 
     sel_adapter = selector()
-    sel = sel_adapter.update(state.get("selector_state") or {}, ev, str(choice.get("choice_id")), scored.get("blended") or {})
+    sel_event = _augmented_event(ev, choice) if choice.get("custom") else ev
+    sel = sel_adapter.update(state.get("selector_state") or {}, sel_event, str(choice.get("choice_id")), scored.get("blended") or {})
     traits, post, method = sel_adapter.summary(sel)
 
     entry = {
         "event_id": ev.get("event_id"), "title": ev.get("title"), "clock": ev.get("_clock"), "crunch": bool(ev.get("crunch")),
         "workplace": ev.get("_workplace"), "choice_id": choice.get("choice_id"), "choice_text": choice.get("text"),
+        "custom": bool(choice.get("custom")),
         "stat_deltas": deltas, "trait_deltas": scored.get("blended") or {},
         "reactions": [{k: r.get(k) for k in ("coworker_id", "name", "reaction", "mood_delta", "line")} for r in reacts],
         "gain_bits": (state.get("selection") or {}).get("gain_bits"),
@@ -685,6 +706,10 @@ def update_state(state: SimState) -> dict[str, Any]:
 
 def route_after_update(state: SimState) -> str:
     stats = state.get("stats") or {}
+    if state.get("occupation"):  # any-career runs generate each moment on the fly
+        regular = sum(1 for h in (state.get("history") or []) if not h.get("crunch"))
+        crunch_due = stats.get("stress", 0) >= CRUNCH_STRESS and not state.get("crunch_used")
+        return "generate_event" if regular < EVENTS_PER_DAY or crunch_due else "report"
     if stats.get("stress", 0) >= CRUNCH_STRESS and not state.get("crunch_used"):
         if any(e.get("crunch") and e["event_id"] not in set(state.get("played") or []) for e in all_events()):
             return "inject_crunch"
@@ -695,7 +720,584 @@ def route_after_update(state: SimState) -> str:
 
 
 def route_after_select(state: SimState) -> str:
-    return "present_and_wait" if state.get("current_event") else "report"
+    return "personalize_event" if state.get("current_event") else "report"
+
+
+# ---------------------------------------------------------------------------
+# Personalization, free-text answers, any-career generation
+# ---------------------------------------------------------------------------
+
+CUSTOM_ID = "custom"
+CUSTOM_MAX_CHARS = 400
+GEN_SLOTS = ("08:00", "09:30", "11:00", "13:30", "15:00")
+RESEARCH_TIMEOUT_S = 25.0
+_PERSONAL_CACHE: dict[str, dict[str, Any]] = {}
+
+_GEN_PEOPLE = (
+    ("Marisol Reyes", "she/her"), ("Jamal Carter", "he/him"), ("Kim Nguyen", "she/her"), ("Harpreet Sandhu", "he/him"),
+    ("Dana Okafor", "they/them"), ("Luis Ortega", "he/him"), ("Priya Shah", "she/her"), ("Ben Thao", "he/him"),
+    ("Grace Molina", "she/her"), ("Andre Wallace", "he/him"), ("Mai Lor", "she/her"), ("Sam Ruiz", "they/them"),
+)
+_GEN_ROLES = (
+    ("Lead {t}", "Direct; expects you to own your part and flag problems early.", "steady"),
+    ("Supervisor", "Careful and by-the-book; gets tense when steps are skipped or safety is ignored.", "skeptical"),
+    ("Coworker, two months in", "Friendly and eager; nervous about making mistakes.", "upbeat"),
+)
+
+
+def coworkers_in(state: SimState, ev: dict[str, Any] | None = None) -> list[dict[str, Any]]:
+    """Generated coworkers on any-career runs, else the workplace career's three coworkers."""
+    gen = state.get("gen_coworkers") or []
+    if gen:
+        return [c for c in gen if isinstance(c, dict) and c.get("id")][:3]
+    return coworkers_for((ev or state.get("current_event") or {}).get("_workplace"))
+
+
+def coworkers_for_state(values: dict[str, Any]) -> list[dict[str, Any]]:
+    return coworkers_in(values, values.get("current_event") or {})  # type: ignore[arg-type]
+
+
+def _occ_public(occ: dict[str, Any] | None) -> dict[str, Any] | None:
+    if not occ:
+        return None
+    return {"onet_soc": occ.get("onet_soc"), "title": occ.get("title"), "in_fit_classes": bool(occ.get("in_fit_classes"))}
+
+
+def _short_title(title: str) -> str:
+    """'Dental Hygienists' -> 'dental hygienist' (for prose)."""
+    t = str(title or "").split(",")[0].strip()
+    if t.endswith("ies"):
+        t = t[:-3] + "y"
+    elif t.endswith("s") and not t.endswith("ss"):
+        t = t[:-1]
+    return t.lower()
+
+
+def make_coworkers(occ: dict[str, Any]) -> list[dict[str, Any]]:
+    """Three FICTIONAL coworkers for a generated workplace (deterministic per occupation)."""
+    soc = str(occ.get("onet_soc") or "x")
+    h = int(hashlib.sha256(soc.encode()).hexdigest()[:8], 16)
+    short = _short_title(occ.get("title") or "worker")
+    out = []
+    for i, (role, style, mood) in enumerate(_GEN_ROLES):
+        name, pron = _GEN_PEOPLE[(h + i * 5) % len(_GEN_PEOPLE)]
+        out.append({"id": f"gen_cw_{i + 1}", "name": name, "pronouns": pron, "role": role.format(t=short),
+                    "style": style, "base_mood": mood, "fictional": True})
+    return out
+
+
+def _context_hash(*parts: Any) -> str:
+    return hashlib.sha256(json.dumps(parts, sort_keys=True, ensure_ascii=False, default=str).encode()).hexdigest()[:16]
+
+
+# -- personalize_event --------------------------------------------------------
+
+
+class PersonalChoice(BaseModel):
+    choice_id: str
+    text: str
+
+
+class PersonalizedEvent(BaseModel):
+    title: str
+    text: str
+    choices: list[PersonalChoice]
+
+
+PERSONALIZE_SYSTEM = (
+    "You lightly rewrite one moment of a workday simulation so it feels like this player's day. Keep the "
+    "situation, the stakes and what each choice does EXACTLY the same; only make the wording concrete for "
+    "them: use the town name, the job, and the coworkers' first names where natural, and refer to an earlier "
+    "choice in one short clause only if it fits. Keep each piece about the same length as the original "
+    "(never more than 30% longer). Plain words, second person, no slogans, no exclamation marks, no new "
+    "numbers. Return the same choice_id values in the same order."
+)
+
+
+def _personal_context(state: SimState, ev: dict[str, Any]) -> dict[str, Any]:
+    work = ev.get("_workplace")
+    career = data.get_career(work) if work else None
+    hist = [h for h in (state.get("history") or []) if h.get("choice_text")]
+    prev = hist[-1] if hist else None
+    return {
+        "town": state.get("place_name"),
+        "job": (career or {}).get("title"),
+        "coworkers": [{"name": c.get("name"), "role": c.get("role")} for c in coworkers_in(state, ev)],
+        "earlier": None if not prev else {"moment": prev.get("title"), "you_chose": prev.get("choice_text")},
+    }
+
+
+def _len_ok(new: str, old: str) -> bool:
+    n, o = len(new.strip()), len(old.strip())
+    return bool(n) and o * 0.5 <= n <= max(o * 1.4, o + 40)
+
+
+def apply_personalization(ev: dict[str, Any], obj: Any) -> tuple[dict[str, Any], int]:
+    """Merge rewritten wording into ``ev``: same choice ids, same deltas; pieces failing the length
+    check keep the original. Returns (event, pieces changed)."""
+    out = {**ev, "choices": [dict(c) for c in ev.get("choices") or []]}
+    changed = 0
+    title, text = str(getattr(obj, "title", "") or ""), str(getattr(obj, "text", "") or "")
+    if title and _len_ok(title, str(ev.get("title") or "")) and title != ev.get("title"):
+        out["title"] = " ".join(title.split())
+        changed += 1
+    if text and _len_ok(text, str(ev.get("text") or "")) and text != ev.get("text"):
+        out["text"] = " ".join(text.split())
+        changed += 1
+    by_id = {str(getattr(c, "choice_id", "")): str(getattr(c, "text", "") or "") for c in getattr(obj, "choices", None) or []}
+    for c in out["choices"]:
+        new = by_id.get(str(c.get("choice_id")), "")
+        if new and _len_ok(new, str(c.get("text") or "")) and new != c.get("text"):
+            c["text"] = " ".join(new.split())
+            changed += 1
+    return out, changed
+
+
+async def personalize_event(state: SimState) -> dict[str, Any]:
+    ev = state.get("current_event") or {}
+    if not ev or not ev.get("choices"):
+        return {}
+    ctx = _personal_context(state, ev)
+    key = f"{ev.get('event_id')}:{_context_hash(ctx)}"
+    cached = _PERSONAL_CACHE.get(key)
+    if cached is not None:
+        note(summary=f"Rewrote '{cached.get('title')}' for you (cached)")
+        return {"current_event": {**ev, **{k: cached[k] for k in ("title", "text", "choices")}}}
+    original = {"title": ev.get("title"), "text": ev.get("text"),
+                "choices": [{"choice_id": c["choice_id"], "text": c["text"]} for c in ev.get("choices") or []]}
+    user = json.dumps({"player": ctx, "moment": original}, ensure_ascii=False, sort_keys=True)
+    obj, meta = await llm.astructured("sim_personalize", PERSONALIZE_SYSTEM, user, PersonalizedEvent, mock=lambda: original)
+    new_ev, changed = apply_personalization(ev, obj)
+    if meta["source"] != "mock":
+        _PERSONAL_CACHE[key] = {k: new_ev[k] for k in ("title", "text", "choices")}
+        if len(_PERSONAL_CACHE) > 500:
+            _PERSONAL_CACHE.pop(next(iter(_PERSONAL_CACHE)))
+    town = ctx.get("town")
+    note(summary=("Rewrote this moment for you" + (f" in {town}" if town else "") + f" ({changed} parts)")
+         if changed else "Kept the original wording")
+    return {"current_event": new_ev}
+
+
+# -- free-text answers ("Something else") -------------------------------------
+
+
+class StatDeltas(BaseModel):
+    safety: int
+    output: int
+    team_trust: int
+    stress: int
+
+
+class CoworkerHint(BaseModel):
+    coworker_id: str
+    hint: str
+
+
+_TRAIT_KEYWORDS: dict[str, tuple[str, ...]] = {
+    "cooperation": ("team", "together", "help", "ask", "coworker", "everyone", " we ", "share", "pitch in"),
+    "empathy": ("feel", "listen", "understand", "upset", "sorry", "comfort", "kind", "care about"),
+    "attention_to_detail": ("check", "double", "inspect", "verify", "review", "detail", "measure", "count", "label"),
+    "cautiousness": ("safe", "careful", "wait", "stop", "slow", "risk", "lockout", "hold off", "pause"),
+    "initiative": ("myself", "right away", "start", "take charge", "fix it", "jump", "volunteer", "on my own"),
+    "leadership_orientation": ("lead", "assign", "organize", "delegate", "direct", "plan", "in charge"),
+    "integrity": ("honest", "report", "truth", "admit", "rule", "policy", "right thing", "tell the"),
+    "dependability": ("finish", "on time", "promise", "deadline", "follow through", "stay late", "cover"),
+    "stress_tolerance": ("calm", "breathe", "focus", "pressure", "handle it", "keep going"),
+    "adaptability": ("adjust", "change", "switch", "flexible", "another way", "work around", "improvise"),
+    "innovation": ("new way", "idea", "improve", "better way", "creative", "invent", "try something"),
+    "achievement_orientation": ("faster", "goal", "target", "best", "quota", "get it done", "productive"),
+    "social_orientation": ("talk", "chat", "call", "meet", "people", "friendly"),
+    "self_control": ("ignore", "stay quiet", "let it go", "not react", "keep my cool", "patient"),
+    "intellectual_curiosity": ("learn", "why", "research", "look up", "understand how", "manual", "question"),
+    "humility": ("my mistake", "i was wrong", "ask for help", "not sure", "learn from"),
+    "sincerity": ("straight", "openly", "be clear", "upfront"),
+    "perseverance": ("keep trying", "again", "don't give up", "stick with", "push through"),
+    "self_confidence": ("i can", "trust myself", "confident", "decide", "my call"),
+    "optimism": ("it'll be fine", "positive", "good side", "work out", "upbeat"),
+    "tolerance_for_ambiguity": ("figure it out", "unclear", "not sure yet", "go with it", "see what happens"),
+}
+_STAT_KEYWORDS: dict[str, tuple[tuple[str, ...], int]] = {
+    "safety+": (("safe", "careful", "inspect", "lockout", "check", "stop", "wait", "slow"), 5),
+    "safety-": (("skip", "rush", "shortcut", "ignore the", "anyway", "risk it"), -6),
+    "output+": (("fast", "quick", "right away", "finish", "get it done", "keep moving"), 5),
+    "output-": (("wait", "stop", "slow", "pause", "hold off"), -3),
+    "team_trust+": (("ask", "team", "together", "help", "listen", "include", "thank"), 5),
+    "team_trust-": (("myself", "alone", "ignore", "blame", "without telling"), -4),
+    "stress+": (("rush", "stay late", "everything", "all at once", "pressure"), 5),
+    "stress-": (("calm", "breathe", "break", "ask for help", "plan"), -3),
+}
+
+
+def mock_custom_score(text: str, coworkers: list[dict[str, Any]]) -> dict[str, Any]:
+    """Keyword heuristic: 2-4 traits in [-1, 1], stat ints in [-15, 15], one hint per coworker."""
+    t = f" {str(text or '').lower()} "
+    valid = set(trait_ids())
+    hits = sorted(((sum(k in t for k in kws), tid) for tid, kws in _TRAIT_KEYWORDS.items() if tid in valid),
+                  key=lambda x: (-x[0], x[1]))
+    chosen = [(n, tid) for n, tid in hits if n > 0][:4]
+    for tid in ("adaptability", "initiative"):
+        if len(chosen) >= 2:
+            break
+        if tid in valid and tid not in {c[1] for c in chosen}:
+            chosen.append((0, tid))
+    deltas = [{"trait_id": tid, "delta": round(min(0.9, 0.35 + 0.2 * n), 2)} for n, tid in chosen]
+    stats = {k: 0 for k in STAT_IDS}
+    stats["stress"] = 2
+    for key, (kws, step) in _STAT_KEYWORDS.items():
+        if any(k in t for k in kws):
+            stats[key[:-1]] += step
+    stats = {k: int(_clamp(v, -15, 15)) for k, v in stats.items()}
+    hints = []
+    for cw in coworkers:
+        style = str(cw.get("style") or "").lower()
+        if "safety" in style and stats["safety"] < 0:
+            h = "Worried this cuts a corner on safety."
+        elif stats["team_trust"] > 0:
+            h = "Appreciates that you thought about the team."
+        elif stats["safety"] > 0:
+            h = "Glad you are being careful."
+        elif stats["output"] > 0:
+            h = "Happy the work keeps moving."
+        elif stats["team_trust"] < 0:
+            h = "Annoyed you did not check with anyone first."
+        else:
+            h = "No strong opinion either way."
+        hints.append({"coworker_id": cw.get("id"), "hint": h})
+    return {"trait_deltas": deltas, "stat_deltas": stats, "coworker_hints": hints,
+            "rationale": "keyword heuristic (mock)"}
+
+
+def _custom_schema() -> type[BaseModel]:
+    lit = _trait_literal()
+
+    class TraitDeltaStrict(BaseModel):
+        trait_id: lit  # type: ignore[valid-type]
+        delta: float
+
+    class CustomAnswerScore(BaseModel):
+        trait_deltas: list[TraitDeltaStrict]
+        stat_deltas: StatDeltas
+        coworker_hints: list[CoworkerHint]
+        rationale: str
+
+    return CustomAnswerScore
+
+
+class _Deltas:
+    def __init__(self, deltas: Any) -> None:
+        self.deltas = deltas or []
+
+
+def _hints(items: Any, coworkers: list[dict[str, Any]]) -> dict[str, str]:
+    ids = {c.get("id") for c in coworkers}
+    out = {}
+    for h in items or []:
+        cid = getattr(h, "coworker_id", None)
+        if cid in ids:
+            out[cid] = " ".join(str(getattr(h, "hint", "") or "").split())[:160]
+    return out
+
+
+def _stats(sd: Any) -> dict[str, int]:
+    out = {}
+    for k in STAT_IDS:
+        try:
+            out[k] = int(_clamp(int(getattr(sd, k, 0) or 0), -15, 15))
+        except (TypeError, ValueError):
+            out[k] = 0
+    return out
+
+
+def validate_custom_score(obj: Any, coworkers: list[dict[str, Any]]) -> dict[str, Any]:
+    """Valid trait ids only, values clamped to [-1, 1], at most 4 traits; stats ints in [-15, 15]."""
+    return {"trait_deltas": validate_tagging(_Deltas(getattr(obj, "trait_deltas", None))),
+            "stat_deltas": _stats(getattr(obj, "stat_deltas", None)),
+            "coworker_hints": _hints(getattr(obj, "coworker_hints", None), coworkers)}
+
+
+CUSTOM_SYSTEM = (
+    "A player in a workday simulation wrote their own answer instead of picking a listed option. Judge ONLY "
+    "what their answer would do in this scene. trait_deltas: 2 to 4 O*NET work styles from the provided list "
+    "(ids exactly) with a signed strength from -1 to 1. stat_deltas: integers from -15 to 15 for safety, output, "
+    "team_trust and stress (stress goes up when the choice adds pressure). coworker_hints: for each coworker id, "
+    "one short phrase on how that person (given their style) probably feels about it. rationale: one short sentence. "
+    + safety.UNTRUSTED_NOTE
+)
+
+
+def after_choice(state: SimState) -> list[Send] | str:
+    if (state.get("last_choice") or {}).get("custom"):
+        return "score_custom"
+    return fan_out(state)
+
+
+async def score_custom(state: SimState) -> dict[str, Any]:
+    ev = state.get("current_event") or {}
+    choice = dict(state.get("last_choice") or {})
+    cws = coworkers_in(state, ev)
+    text = str(choice.get("text") or "")
+    user = json.dumps({
+        "traits": [{"id": t["id"], "name": t.get("name")} for t in traits_meta()],
+        "scene": {"title": ev.get("title"), "text": ev.get("text")},
+        "listed_options": [c.get("text") for c in ev.get("choices") or []],
+        "coworkers": [{"id": c["id"], "name": c.get("name"), "style": c.get("style")} for c in cws],
+        "player_answer": safety.wrap_untrusted(text, "sim_answer", CUSTOM_MAX_CHARS),
+    }, ensure_ascii=False, sort_keys=True)
+    mock = mock_custom_score(text, cws)
+    schema = _custom_schema()
+    obj, meta = await llm.astructured("sim_score_custom", CUSTOM_SYSTEM, user, schema, mock=lambda: mock)
+    scored = validate_custom_score(obj, cws)
+    if len(scored["trait_deltas"]) < 2:  # too little signal from the model: use the heuristic
+        scored = validate_custom_score(schema.model_validate(mock), cws)
+    choice.update(trait_deltas=scored["trait_deltas"], stat_deltas=scored["stat_deltas"],
+                  coworker_hints=scored["coworker_hints"], score_source=meta["source"])
+    top = sorted(scored["trait_deltas"].items(), key=lambda kv: -abs(kv[1]))[:2]
+    note(summary="Read your answer: " + ", ".join(f"{k.replace('_', ' ')} {v:+.1f}" for k, v in top))
+    return {"last_choice": choice}
+
+
+def _augmented_event(ev: dict[str, Any], choice: dict[str, Any]) -> dict[str, Any]:
+    """The event plus the player's own answer as an extra observed option (for the selector)."""
+    extra = {"choice_id": CUSTOM_ID, "text": choice.get("text"), "trait_deltas": dict(choice.get("trait_deltas") or {})}
+    return {**ev, "choices": [*(c for c in ev.get("choices") or [] if c.get("choice_id") != CUSTOM_ID), extra]}
+
+
+# -- any career: research + generated moments ---------------------------------
+
+
+def _research_digest(rep: Any) -> dict[str, Any]:
+    if not isinstance(rep, dict):
+        return {"used": False, "queries": [], "sources": [], "summary": "", "snippets": []}
+    sources = []
+    for s in (rep.get("sources") or rep.get("results") or [])[:6]:
+        if isinstance(s, dict) and str(s.get("url") or "").startswith(("http://", "https://")):
+            sources.append({"title": safety.sanitize_untrusted(str(s.get("title") or ""), "web", 140)["text"],
+                            "url": str(s["url"])[:300], "source_domain": s.get("source_domain")})
+    snippets = [safety.sanitize_untrusted(str(r.get("snippet") or ""), "web", 300)["text"]
+                for r in (rep.get("results") or [])[:5] if isinstance(r, dict) and r.get("snippet")]
+    queries = [str(q.get("q") or "") for q in rep.get("queries") or [] if isinstance(q, dict) and q.get("q")]
+    return {"used": bool(sources or snippets), "queries": queries[:3], "sources": sources,
+            "summary": safety.sanitize_untrusted(str(rep.get("summary") or ""), "web", 600)["text"], "snippets": snippets}
+
+
+async def research_role(state: SimState) -> dict[str, Any]:
+    occ = state.get("occupation") or {}
+    title = _short_title(occ.get("title") or "")
+    place = state.get("place_name")
+    mod = _module("foothold.websearch")
+    raw: Any = None
+    if mod is not None and hasattr(mod, "research_career"):
+        try:
+            res = mod.research_career(title, place)
+            raw = await asyncio.wait_for(res, RESEARCH_TIMEOUT_S) if inspect.isawaitable(res) else res
+        except Exception as exc:  # timeout / network: carry on without web context
+            log.warning("research_career failed (%s)", type(exc).__name__)
+    dig = _research_digest(raw)
+    q = dig["queries"][0] if dig["queries"] else f"{title} {place or ''}".strip()
+    if dig["used"]:
+        note(summary=f"Searched the web: '{q}' · read {len(dig['sources']) or len(dig['snippets'])} sources")
+    else:
+        note(summary=f"No web results · using the O*NET profile for {title}")
+    return {"research": dig}
+
+
+def _gen_schema() -> type[BaseModel]:
+    lit = _trait_literal()
+
+    class TraitDeltaStrict(BaseModel):
+        trait_id: lit  # type: ignore[valid-type]
+        delta: float
+
+    class GenChoice(BaseModel):
+        choice_id: Literal["a", "b", "c"]
+        text: str
+        trait_deltas: list[TraitDeltaStrict]
+        stat_deltas: StatDeltas
+        coworker_hints: list[CoworkerHint]
+
+    class GeneratedMoment(BaseModel):
+        title: str
+        text: str
+        choices: list[GenChoice]
+
+    return GeneratedMoment
+
+
+GEN_SYSTEM = (
+    "You write ONE moment of a realistic workday for Foothold, a simulation that lets people in California's "
+    "Central Valley try a job for a day. The moment must be something people in this occupation really face, "
+    "grounded in the O*NET work-style profile and (if given) the web notes. title: at most 6 words. text: 2-3 "
+    "plain sentences, second person, concrete (place, time, people), at most 320 characters, no slogans. "
+    "Exactly 3 choices with choice_id a, b, c; each a realistic action in at most 160 characters; no option is "
+    "obviously right, and the three lean on DIFFERENT work styles. trait_deltas per choice: 2-4 work styles from "
+    "the list (ids exactly), each -1 to 1. stat_deltas: integers -15 to 15 (safety, output, team_trust, stress). "
+    "coworker_hints: one short phrase per coworker id on how they feel about that choice. Do not repeat earlier "
+    "moments; you may refer back to the player's earlier choice. Workplace-appropriate, fictional people only. "
+    + safety.UNTRUSTED_NOTE
+)
+
+_MOCK_MOMENTS: tuple[tuple[Any, ...], ...] = (
+    ("A rush before 9", "It is {clock}{where}. {lead} says a priority job has to be done before 9, but the usual "
+     "checklist for a {short} takes longer than that.",
+     ("Run the full checklist anyway and tell {lead} it will be a few minutes late.",
+      {"attention_to_detail": 0.7, "cautiousness": 0.6, "achievement_orientation": -0.3}, {"safety": 6, "output": -4, "team_trust": 1, "stress": 3}),
+     ("Skip the steps you think are low risk so it is done on time.",
+      {"achievement_orientation": 0.7, "initiative": 0.5, "cautiousness": -0.5}, {"safety": -6, "output": 7, "team_trust": -1, "stress": 5}),
+     ("Ask {new} to split the checklist with you so it gets done right and fast.",
+      {"cooperation": 0.7, "leadership_orientation": 0.4, "initiative": 0.2}, {"safety": 2, "output": 3, "team_trust": 5, "stress": 2})),
+    ("Something does not add up", "At {clock} you notice a mistake in work that {lead} signed off on yesterday. Nobody "
+     "else seems to have caught it, and fixing it means redoing part of the job.",
+     ("Tell {lead} privately and offer to help fix it.", {"integrity": 0.7, "empathy": 0.4, "cooperation": 0.3},
+      {"safety": 4, "output": -2, "team_trust": 4, "stress": 3}),
+     ("Quietly fix it yourself so nobody looks bad.", {"initiative": 0.6, "self_control": 0.3, "sincerity": -0.4},
+      {"safety": 3, "output": -3, "team_trust": -1, "stress": 4}),
+     ("Log it in the system the way policy says and keep going.", {"dependability": 0.6, "integrity": 0.4, "empathy": -0.3},
+      {"safety": 3, "output": 1, "team_trust": -3, "stress": 1})),
+    ("The new person is stuck", "At {clock}, {new} is stuck on a task you know well and looks embarrassed to ask "
+     "again. You have your own work due by lunch.",
+     ("Walk them through it step by step, even if your work slips.", {"empathy": 0.7, "cooperation": 0.5, "achievement_orientation": -0.3},
+      {"safety": 2, "output": -3, "team_trust": 6, "stress": 3}),
+     ("Show them where the instructions are and get back to your work.", {"dependability": 0.5, "self_control": 0.3, "empathy": -0.3},
+      {"safety": 0, "output": 3, "team_trust": -2, "stress": 1}),
+     ("Ask {sup} to pair them with someone for the afternoon.", {"leadership_orientation": 0.5, "adaptability": 0.4, "initiative": 0.3},
+      {"safety": 1, "output": 1, "team_trust": 2, "stress": 0})),
+    ("The system goes down", "At {clock} the main system you rely on stops working. {sup} is in a meeting and the "
+     "next deadline is in an hour.",
+     ("Switch to the paper backup and keep the work moving.", {"adaptability": 0.7, "stress_tolerance": 0.5, "cautiousness": -0.2},
+      {"safety": 0, "output": 5, "team_trust": 2, "stress": 4}),
+     ("Pause everything until it is fixed so nothing gets recorded wrong.", {"cautiousness": 0.7, "attention_to_detail": 0.5, "initiative": -0.3},
+      {"safety": 4, "output": -6, "team_trust": 0, "stress": 2}),
+     ("Look up the error and try to fix it yourself.", {"intellectual_curiosity": 0.7, "innovation": 0.5, "initiative": 0.4},
+      {"safety": -1, "output": 2, "team_trust": 0, "stress": 5})),
+    ("An unhappy customer", "At {clock} a customer is upset that their job is not finished and asks for whoever is in "
+     "charge. {lead} is busy and looks at you.",
+     ("Listen, apologize for the wait, and give them an honest time.", {"empathy": 0.6, "sincerity": 0.6, "self_control": 0.4},
+      {"safety": 0, "output": 1, "team_trust": 4, "stress": 3}),
+     ("Promise it today and push the team to make it happen.", {"achievement_orientation": 0.6, "self_confidence": 0.5, "cautiousness": -0.4},
+      {"safety": -3, "output": 5, "team_trust": -3, "stress": 7}),
+     ("Bring in {sup} so the right person makes the call.", {"humility": 0.5, "dependability": 0.4, "self_confidence": -0.3},
+      {"safety": 1, "output": -1, "team_trust": 1, "stress": 1})),
+)
+_MOCK_HINTS = (("Glad you did it right.", "Worried about the clock.", "Relieved."),
+               ("Frustrated by the shortcut.", "Likes the speed.", "Uneasy about the risk."),
+               ("Appreciates being asked.", "Fine with it.", "Happy to be included."))
+
+
+def mock_generated(state: SimState, n: int, crunch: bool) -> dict[str, Any]:
+    occ = state.get("occupation") or {}
+    cws = coworkers_in(state)
+    names = [str(c.get("name") or "").split()[0] for c in cws] + ["your lead", "your supervisor", "the new hire"]
+    fmt = {"clock": GEN_SLOTS[min(n, len(GEN_SLOTS) - 1)], "short": _short_title(occ.get("title") or "worker"),
+           "where": f" in {state['place_name']}" if state.get("place_name") else "",
+           "lead": names[0], "sup": names[1], "new": names[2]}
+    title, text, *choices = _MOCK_MOMENTS[n % len(_MOCK_MOMENTS)]
+    if crunch:
+        title, text = "Everything at once", ("Stress is high. At {clock} two urgent problems land at the same time "
+                                             "and {sup} wants an answer in five minutes.")
+    valid = set(trait_ids())
+    out_choices = []
+    for i, (ctext, traits, stats) in enumerate(choices):
+        out_choices.append({
+            "choice_id": "abc"[i], "text": ctext.format(**fmt),
+            "trait_deltas": [{"trait_id": k, "delta": v} for k, v in traits.items() if k in valid],
+            "stat_deltas": {**stats, "stress": stats["stress"] + (4 if crunch else 0)},
+            "coworker_hints": [{"coworker_id": c["id"], "hint": _MOCK_HINTS[i][j % 3]} for j, c in enumerate(cws)],
+        })
+    return {"title": title, "text": text.format(**fmt), "choices": out_choices}
+
+
+def validate_generated(obj: Any, coworkers: list[dict[str, Any]]) -> dict[str, Any] | None:
+    """Event-schema check: exactly 3 choices (a, b, c), 2-4 valid traits each in [-1, 1], stat ints
+    in [-15, 15], hints only for known coworkers. None when it cannot be repaired."""
+    choices = list(getattr(obj, "choices", None) or [])
+    title = " ".join(str(getattr(obj, "title", "") or "").split())[:70]
+    text = " ".join(str(getattr(obj, "text", "") or "").split())[:480]
+    if len(choices) < 3 or not title or len(text) < 20:
+        return None
+    out = []
+    for i, c in enumerate(choices[:3]):
+        ctext = " ".join(str(getattr(c, "text", "") or "").split())[:220]
+        traits = validate_tagging(_Deltas(getattr(c, "trait_deltas", None)))
+        if not ctext or len(traits) < 2:
+            return None
+        out.append({"choice_id": "abc"[i], "text": ctext, "trait_deltas": traits,
+                    "stat_deltas": _stats(getattr(c, "stat_deltas", None)),
+                    "coworker_hints": _hints(getattr(c, "coworker_hints", None), coworkers)})
+    return {"title": title, "text": text, "choices": out}
+
+
+async def generate_event(state: SimState) -> dict[str, Any]:
+    occ = state.get("occupation") or {}
+    hist = state.get("history") or []
+    regular = sum(1 for h in hist if not h.get("crunch"))
+    stats = state.get("stats") or START_STATS
+    crunch = stats.get("stress", 0) >= CRUNCH_STRESS and not state.get("crunch_used")
+    cws = coworkers_in(state)
+    names = {t["id"]: t.get("name") for t in traits_meta()}
+    ws = occ.get("work_styles") or {}
+    research = state.get("research") or {}
+    web = ""
+    if research.get("used"):
+        web = safety.wrap_untrusted("\n".join(filter(None, [research.get("summary"), *research.get("snippets", [])])), "web", 1800)
+    slot = GEN_SLOTS[min(regular, len(GEN_SLOTS) - 1)]
+    user = json.dumps({
+        "occupation": {"title": occ.get("title"), "description": str(occ.get("description") or "")[:500],
+                       "most_distinctive_work_styles": [names.get(t, t) for t in (occ.get("distinctive") or [])[:6]],
+                       "high_work_styles": [names.get(t, t) for t, _ in sorted(ws.items(), key=lambda kv: -kv[1])[:5]],
+                       "low_work_styles": [names.get(t, t) for t, _ in sorted(ws.items(), key=lambda kv: kv[1])[:3]]},
+        "town": state.get("place_name"), "clock": slot, "moment_number": regular + (0 if crunch else 1),
+        "of": EVENTS_PER_DAY, "crunch": crunch, "stats_now": stats,
+        "coworkers": [{"id": c["id"], "name": c.get("name"), "role": c.get("role"), "style": c.get("style")} for c in cws],
+        "earlier_moments": [{"title": h.get("title"), "player_chose": h.get("choice_text")} for h in hist[-4:]],
+        "traits": [{"id": t["id"], "name": t.get("name")} for t in traits_meta()],
+        "web_notes": web or None,
+    }, ensure_ascii=False, sort_keys=True)
+    mock = mock_generated(state, regular, crunch)
+    schema = _gen_schema()
+    obj, meta = await llm.astructured("sim_generate_event", GEN_SYSTEM, user, schema, mock=lambda: mock)
+    ev_body = validate_generated(obj, cws)
+    source = meta["source"]
+    if ev_body is None:
+        ev_body, source = validate_generated(schema.model_validate(mock), cws), "mock"
+    soc_slug = re.sub(r"[^0-9]", "", str(occ.get("onet_soc") or "0"))
+    ev = {**(ev_body or {}), "event_id": f"gen_{soc_slug}_{len(hist) + 1}{'_crunch' if crunch else ''}",
+          "career_ids": [], "clock": slot, "crunch": crunch, "status": "GENERATED", "generated": True,
+          "onet_soc": occ.get("onet_soc")}
+    clock = _display_clock(state, ev, crunch=crunch)
+    gain = selector().gain(state.get("selector_state") or {}, ev)
+    selection = {"event_id": ev["event_id"], "gain_bits": None if gain is None else round(gain, 3),
+                 "method": "generated for this occupation" + (f" (crunch, stress ≥ {CRUNCH_STRESS})" if crunch else ""),
+                 "candidates": 1, "source": source}
+    gtxt = f" · gain {gain:.2f} bits" if gain is not None else ""
+    note(summary=(f"Wrote a crunch moment: '{ev['title']}'" if crunch
+                  else f"Wrote moment {regular + 1} of {EVENTS_PER_DAY}: '{ev['title']}'") + gtxt)
+    out: dict[str, Any] = {"current_event": {**ev, "_workplace": None, "_clock": clock}, "selection": selection, "clock": clock}
+    if crunch:
+        out["crunch_used"] = True
+    return out
+
+
+def route_start(state: SimState) -> str:
+    return "research_role" if state.get("occupation") else "select_event"
+
+
+def occupation_fit(traits: dict[str, float], occ: dict[str, Any], fit: dict[str, Any] | None) -> dict[str, Any]:
+    """How well this run's trait estimate matches the tried occupation, and which method said so."""
+    soc = occ.get("onet_soc")
+    rows = (fit or {}).get("occupations") or []
+    if occ.get("in_fit_classes") and rows:
+        idx = next((i for i, r in enumerate(rows) if r.get("onet_soc") == soc), None)
+        if idx is not None:
+            return {"method": "career_fit", "model": (fit or {}).get("model"), "trained": bool((fit or {}).get("trained")),
+                    "probability": rows[idx].get("probability"), "similarity": None, "rank": idx + 1, "of": len(rows),
+                    "basis": "career-fit model share over its 42 O*NET occupations"}
+    from .. import occupations_index
+
+    cr = occupations_index.cosine_rank(traits, str(soc)) or {}
+    return {"method": "cosine", "model": "cosine similarity to O*NET work styles", "trained": False,
+            "probability": None, "similarity": cr.get("similarity"), "rank": cr.get("rank"), "of": cr.get("of"),
+            "basis": "cosine similarity between your trait estimate and this occupation's O*NET work-style "
+                     "percentiles (both centred at 0.5), ranked among all O*NET occupations with Work Styles data"}
 
 
 # ---------------------------------------------------------------------------
@@ -874,6 +1476,12 @@ async def report(state: SimState) -> dict[str, Any]:
         "history": state.get("history") or [], "events_played": len(state.get("history") or []),
         "crunch_used": bool(state.get("crunch_used")), "moods": state.get("moods") or {},
     }
+    occ = state.get("occupation")
+    if occ:
+        rep["occupation"] = {**_occ_public(occ), "fit": occupation_fit(traits, occ, fit),
+                             "sources": (state.get("research") or {}).get("sources") or [],
+                             "coworkers": [public_coworker(c, int((state.get("moods") or {}).get(c["id"], initial_mood(c))))
+                                           for c in coworkers_in(state)]}
     label = f"top-3 via {model['name']}" if model.get("name") else "career-fit model not available yet"
     if model.get("source") == "career_fit":
         label += " (trained)" if model.get("trained") else " (untrained baseline)"
@@ -1007,7 +1615,14 @@ async def summarize(state: SimState) -> dict[str, Any]:
         "crunch_happened": bool(rep.get("crunch_used")),
         "moments": [h.get("title") for h in rep.get("history") or []],
     }, ensure_ascii=False, sort_keys=True)
+    occ_rep = rep.get("occupation") or {}
+    if occ_rep.get("title"):
+        payload = json.loads(user)
+        payload["role_tried_today"] = occ_rep["title"]
+        user = json.dumps(payload, ensure_ascii=False, sort_keys=True)
     fallback = mock_summary(rep, vals)
+    if occ_rep.get("title"):
+        fallback = f"You tried a day as {_short_title(occ_rep['title'])}. " + fallback
     obj, meta = await llm.astructured("sim_summary", SUMMARY_SYSTEM, user, ReportSummary, mock=lambda: {"paragraph": fallback})
     template = str(obj.paragraph)
     problems = verifier.placeholder_problems(template, allowed)
@@ -1041,14 +1656,22 @@ def build_graph(checkpointer: Any) -> Any:
     b.add_node("report", report)
     b.add_node("verify", verify)
     b.add_node("summarize", summarize)
+    b.add_node("personalize_event", personalize_event)
+    b.add_node("score_custom", score_custom)
+    b.add_node("research_role", research_role)
+    b.add_node("generate_event", generate_event)
 
-    b.add_edge(START, "select_event")
-    b.add_conditional_edges("select_event", route_after_select, ["present_and_wait", "report"])
-    b.add_conditional_edges("present_and_wait", fan_out, ["coworker", "score_choice"])
+    b.add_conditional_edges(START, route_start, ["research_role", "select_event"])
+    b.add_conditional_edges("select_event", route_after_select, ["personalize_event", "report"])
+    b.add_edge("personalize_event", "present_and_wait")
+    b.add_edge("research_role", "generate_event")
+    b.add_edge("generate_event", "present_and_wait")
+    b.add_conditional_edges("present_and_wait", after_choice, ["coworker", "score_choice", "score_custom"])
+    b.add_conditional_edges("score_custom", fan_out, ["coworker", "score_choice"])
     b.add_edge("coworker", "score_choice")
     b.add_edge("score_choice", "update_state")
-    b.add_conditional_edges("update_state", route_after_update, ["inject_crunch", "select_event", "report"])
-    b.add_conditional_edges("inject_crunch", route_after_select, ["present_and_wait", "report"])
+    b.add_conditional_edges("update_state", route_after_update, ["inject_crunch", "select_event", "generate_event", "report"])
+    b.add_conditional_edges("inject_crunch", route_after_select, ["personalize_event", "report"])
     b.add_edge("report", "verify")
     b.add_edge("verify", "summarize")
     b.add_edge("summarize", END)
@@ -1068,14 +1691,22 @@ def get_graph() -> Any:
     return _graph
 
 
-def initial_state(learner_id: str, career_id: str | None) -> SimState:
+def initial_state(learner_id: str, career_id: str | None, *, occupation: dict[str, Any] | None = None,
+                  place_name: str | None = None) -> SimState:
+    """``occupation`` (an occupations_index record) starts an any-career run with generated moments."""
     cids = data.career_ids()
     sel = selector()
     sel_state = sel.initial(cids)
     traits, post, method = sel.summary(sel_state)
     moods = {cid: initial_mood(cw) for cid, cw in all_coworkers().items()}
+    gen_cws = make_coworkers(occupation) if occupation else []
+    moods.update({c["id"]: initial_mood(c) for c in gen_cws})
+    mode = "occupation" if occupation else "career" if career_id else "adaptive"
+    occ = None if not occupation else {k: occupation.get(k) for k in (
+        "onet_soc", "title", "description", "work_styles", "distinctive", "in_fit_classes")}
     return {
-        "learner_id": learner_id, "career_id": career_id, "mode": "career" if career_id else "adaptive",
+        "place_name": place_name, "occupation": occ, "gen_coworkers": gen_cws, "research": None,
+        "learner_id": learner_id, "career_id": None if occupation else career_id, "mode": mode,
         "started_at": _now_iso(), "clock": DAY_START, "stats": dict(START_STATS), "moods": moods,
         "trait_estimate": traits, "trait_method": method, "posterior": post, "selector_state": sel_state,
         "history": [], "played": [], "reactions": [], "current_event": None, "selection": None,
@@ -1083,14 +1714,20 @@ def initial_state(learner_id: str, career_id: str | None) -> SimState:
     }
 
 
-def trace_nodes(coworkers: list[dict[str, Any]]) -> list[dict[str, Any]]:
+def trace_nodes(coworkers: list[dict[str, Any]], mode: str | None = None) -> list[dict[str, Any]]:
+    occupation = mode == "occupation"
+    first = ([trace_node("research_role", "Researching the role", "llm"),
+              trace_node("generate_event", "Writing your next moment", "llm")] if occupation else
+             [trace_node("select_event", "Pick next event", "model"),
+              trace_node("personalize_event", "Personalize moment", "llm")])
     nodes = [
-        trace_node("select_event", "Pick next event", "model"),
+        *first,
         trace_node("present_and_wait", "Your choice", "human"),
+        trace_node("score_custom", "Read your answer", "llm"),
         *[trace_node(f"coworker:{c['id']}", str(c.get("name") or c["id"]), "llm", group="coworkers_react") for c in coworkers],
         trace_node("score_choice", "Tag work styles", "llm"),
         trace_node("update_state", "Update player model", "model"),
-        trace_node("inject_crunch", "Crunch check", "logic"),
+        *([] if occupation else [trace_node("inject_crunch", "Crunch check", "logic")]),
         trace_node("report", "Career fit", "model"),
         trace_node("verify", "Verify facts", "logic"),
         trace_node("summarize", "Write debrief", "llm"),
@@ -1107,11 +1744,22 @@ def node_id(name: str, inp: Any) -> str | None:
 
 def project(name: str, update: dict[str, Any]) -> dict[str, Any] | None:
     """UI-safe partial state for each finished node (CONTRACTS section 6 ``state`` events)."""
-    if name == "select_event" or name == "inject_crunch":
+    if name in ("select_event", "inject_crunch", "generate_event"):
         return {"selection": update.get("selection"), "clock": update.get("clock")}
+    if name == "personalize_event":
+        ev = update.get("current_event") or {}
+        return {"personalized": {"event_id": ev.get("event_id"), "title": ev.get("title")}}
+    if name == "research_role":
+        r = update.get("research") or {}
+        return {"research": {"used": bool(r.get("used")), "queries": r.get("queries") or [], "sources": r.get("sources") or []}}
+    if name == "score_custom":
+        lc = update.get("last_choice") or {}
+        return {"custom": {"event_id": lc.get("event_id"), "trait_deltas": lc.get("trait_deltas"),
+                           "stat_deltas": lc.get("stat_deltas"), "source": lc.get("score_source")}}
     if name == "present_and_wait":
         lc = update.get("last_choice") or {}
-        return {"choice": {"event_id": lc.get("event_id"), "choice_id": lc.get("choice_id"), "text": lc.get("text")}}
+        return {"choice": {"event_id": lc.get("event_id"), "choice_id": lc.get("choice_id"), "text": lc.get("text"),
+                           "custom": bool(lc.get("custom"))}}
     if name == "coworker":
         return {"reactions": update.get("reactions") or []}
     if name == "score_choice":
@@ -1134,7 +1782,9 @@ def public_state(values: dict[str, Any]) -> dict[str, Any]:
         "stats": values.get("stats"), "moods": values.get("moods"), "trait_estimate": values.get("trait_estimate"),
         "trait_method": values.get("trait_method"), "posterior": values.get("posterior"),
         "history": values.get("history") or [], "crunch_used": bool(values.get("crunch_used")),
-        "started_at": values.get("started_at"),
+        "started_at": values.get("started_at"), "occupation": _occ_public(values.get("occupation")),
+        "place_name": values.get("place_name"),
+        "research_sources": (values.get("research") or {}).get("sources") or [],
     }
 
 

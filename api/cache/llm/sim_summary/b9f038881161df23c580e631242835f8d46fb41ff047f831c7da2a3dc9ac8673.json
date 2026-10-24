@@ -1,0 +1,11 @@
+{
+  "created_at": "2026-10-24T23:49:33+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "paragraph": "You worked through a grower’s bug report, an unclear feature request and review feedback in Manteca, then tackled automation and a production outage. Your empathy, cooperation and social orientation helped you stay attentive to people while responding to practical problems. Your strongest career signal currently points toward Registered Nurse ({top1_pct}), with logistics operations and software development also in view. These are practice signals, not a verdict."
+  },
+  "schema": "ReportSummary",
+  "task": "sim_summary"
+}

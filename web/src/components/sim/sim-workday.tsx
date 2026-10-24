@@ -13,6 +13,9 @@ import type { Account } from "@/lib/auth";
 import type { TraceEvent } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { PickedForYou } from "@/components/path/picked-for-you";
+import { CrisisPanel, type CrisisPayload } from "@/components/circle/crisis-panel";
+import { LiveInYourArea } from "@/components/research/live-in-your-area";
+import { CareerSearch, type CareerHit } from "./career-search";
 import { EASE, Kicker, Reveal, ScrambleText, SwapArrow, TiltCard, Tween, ghostPill, primaryPill, staggerChild, staggerParent } from "./fx";
 import { errorMessage, useTappedTrace } from "./use-tapped-trace";
 
@@ -62,6 +65,8 @@ interface InterruptPayload {
   career_id: string | null;
   mode?: string;
   error?: string;
+  custom_allowed?: boolean;
+  occupation?: { title?: string | null; onet_soc?: string | null } | null;
 }
 type Stats = { safety: number; output: number; team_trust: number; stress: number };
 interface Reaction {
@@ -118,6 +123,7 @@ interface Report {
   history: HistoryEntry[];
   events_played: number;
   summary?: { text: string; source?: string };
+  occupation?: { title?: string | null; onet_soc?: string | null } | null;
 }
 
 const STAT_META: { id: keyof Stats; label: string; tone: StatTone; invert?: boolean }[] = [
@@ -248,6 +254,33 @@ function TypingDots() {
   );
 }
 
+/** Server crisis payload -> CrisisPanel props (resources get stable ids; the panel keys and styles by id). */
+function toCrisisPayload(raw: object): CrisisPayload {
+  const r = raw as { resources?: unknown };
+  const resources = Array.isArray(r.resources)
+    ? r.resources
+        .filter((x): x is { id?: string; label: string; href: string } => !!x && typeof x.label === "string" && typeof x.href === "string")
+        .map((x) => ({
+          id: x.id ?? (x.href === "tel:988" ? "call_988" : x.href === "sms:988" ? "text_988" : x.href.startsWith("sms:") ? `text_${x.href.slice(4)}` : `call_${x.href.replace(/\W+/g, "")}`),
+          label: x.label,
+          href: x.href,
+        }))
+    : undefined;
+  return { crisis: true, resources };
+}
+
+/** A crisis signal anywhere in an event payload -> the 988 panel payload (else null). */
+function crisisOf(x: unknown): CrisisPayload | null {
+  if (!x || typeof x !== "object") return null;
+  const o = x as { crisis?: unknown; crisis_payload?: unknown };
+  if (o.crisis_payload && typeof o.crisis_payload === "object") return toCrisisPayload(o.crisis_payload);
+  if (o.crisis === true) return { crisis: true };
+  if (o.crisis && typeof o.crisis === "object" && (o.crisis as { crisis?: unknown }).crisis !== false) return toCrisisPayload(o.crisis);
+  return null;
+}
+
+const CUSTOM_ID = "custom";
+
 /* ------------------------------------------------------------------ */
 /* Main                                                                */
 /* ------------------------------------------------------------------ */
@@ -291,8 +324,17 @@ export function SimWorkday({ account }: { account: Account }) {
   const [hovered, setHovered] = React.useState<string | null>(null);
   /** after a choice, hold the reactions on screen until the player continues */
   const [afterOpen, setAfterOpen] = React.useState(false);
+  const [customOpen, setCustomOpen] = React.useState(false);
+  const [customText, setCustomText] = React.useState("");
+  const [crisis, setCrisis] = React.useState<CrisisPayload | null>(null);
+  const crisisRef = React.useRef(false);
 
   const onTap = React.useCallback((ev: TraceEvent) => {
+    const c = crisisOf(ev.type === "state" ? ev.data : ev.type === "interrupt" ? ev.payload : ev.type === "done" ? ev.result : null);
+    if (c) {
+      crisisRef.current = true;
+      setCrisis(c);
+    }
     if (ev.type === "state") {
       const d = ev.data as { reactions?: Reaction[]; stats?: Stats; last?: HistoryEntry | null };
       if (Array.isArray(d.reactions)) {
@@ -316,9 +358,11 @@ export function SimWorkday({ account }: { account: Account }) {
       if (p?.stats) setStats(p.stats);
     } else if (ev.type === "done") {
       const r = (ev.result as { report?: Report })?.report ?? null;
-      setReport(r);
       setPending(null);
-      setPhase("done");
+      if (r) {
+        setReport(r);
+        setPhase("done");
+      }
     } else if (ev.type === "error") {
       setError(ev.message);
     }
@@ -338,7 +382,7 @@ export function SimWorkday({ account }: { account: Account }) {
   }, []);
 
   const start = React.useCallback(
-    async (careerId: string | null) => {
+    async (careerId: string | null, onetSoc?: string) => {
       setPhase("play");
       setPending(null);
       setLastEvent(null);
@@ -350,9 +394,12 @@ export function SimWorkday({ account }: { account: Account }) {
       setReport(null);
       setError(null);
       setAfterOpen(false);
+      setCustomOpen(false);
+      setCustomText("");
+      setCrisis(null);
       trace.reset();
       setBusy(true);
-      await run("/api/sim/start", { career_id: careerId });
+      await run("/api/sim/start", onetSoc ? { onet_soc: onetSoc } : { career_id: careerId });
       setBusy(false);
     },
     [run, trace],
@@ -367,8 +414,21 @@ export function SimWorkday({ account }: { account: Account }) {
       setPending(null);
       setReactions([]);
       setError(null);
+      setCrisis(null);
+      crisisRef.current = false;
+      setCustomOpen(false);
       setBusy(true);
-      await run(`/api/sim/${threadId}/choose`, { choice_id: choice.choice_id });
+      const asked = pending;
+      const body = choice.choice_id === CUSTOM_ID ? { choice_id: CUSTOM_ID, text: choice.text } : { choice_id: choice.choice_id };
+      await run(`/api/sim/${threadId}/choose`, body);
+      if (crisisRef.current) {
+        // The day pauses on the same moment; the 988 panel shows above it.
+        setAfterOpen(false);
+        setChosen(null);
+        setPending((p) => p ?? asked);
+      } else {
+        setCustomText("");
+      }
       setBusy(false);
     },
     [threadId, pending, busy, run],
@@ -400,7 +460,12 @@ export function SimWorkday({ account }: { account: Account }) {
       const t = e.target as HTMLElement | null;
       if (t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA" || t.isContentEditable)) return;
       if (e.metaKey || e.ctrlKey || e.altKey) return;
-      const i = ["1", "2", "3"].indexOf(e.key);
+      const i = ["1", "2", "3", "4"].indexOf(e.key);
+      if (i >= 0 && i === pending.event.choices.length && pending.custom_allowed !== false) {
+        e.preventDefault();
+        setCustomOpen(true);
+        return;
+      }
       const c = pending.event.choices[i];
       if (c) {
         e.preventDefault();
@@ -437,6 +502,11 @@ export function SimWorkday({ account }: { account: Account }) {
           <Kicker>Pick a workday</Kicker>
           <p className="mt-4 text-xl leading-relaxed text-ink sm:text-2xl">One shift, five moments.</p>
         </Reveal>
+        <CareerSearch
+          className="mt-8 max-w-xl"
+          disabled={careers ? !careers.available : false}
+          onPick={(h: CareerHit) => void (h.career_id && list.some((c) => c.id === h.career_id) ? start(h.career_id) : start(null, h.onet_soc))}
+        />
         {loadError ? (
           <p className="mt-6 text-danger" role="alert">
             {loadError}
@@ -563,6 +633,7 @@ export function SimWorkday({ account }: { account: Account }) {
     const probabilityBasis =
       report.probability_basis ?? report.model.probability_basis ?? report.top_careers[0]?.probability_basis ?? "share among the Foothold careers";
     const maxP = Math.max(0.0001, ...report.top_careers.map((t) => t.probability));
+    const list8 = new Set((careers?.careers ?? []).map((c) => c.id));
     return (
       <div className="space-y-14">
         <Reveal>
@@ -646,6 +717,11 @@ export function SimWorkday({ account }: { account: Account }) {
             <TraitRadar traits={report.traits.map((t) => ({ ...t, short: SHORT_TRAIT[t.name] ?? t.name }))} title="How you work" />
           </Reveal>
         </div>
+
+        <LiveInYourArea
+          careerId={list8.has(focusId) ? focusId : null}
+          title={list8.has(focusId) ? null : (top?.title ?? report.occupation?.title ?? null)}
+        />
 
         <PickedForYou personaId={account.persona_id} />
 
@@ -749,6 +825,8 @@ export function SimWorkday({ account }: { account: Account }) {
         </div>
       ) : null}
 
+      {crisis ? <CrisisPanel payload={crisis} /> : null}
+
       {!shown && !error ? (
         <div aria-live="polite" className="space-y-3">
           <div className="h-8 w-2/3 animate-pulse rounded-lg bg-surface/70" />
@@ -776,7 +854,7 @@ export function SimWorkday({ account }: { account: Account }) {
             {scene.error ? <p className="mt-3 text-danger">{scene.error}</p> : null}
             <motion.ol
               className="mt-8 space-y-2.5"
-              aria-label="Your choices (press 1, 2 or 3)"
+              aria-label="Your choices (press a number)"
               variants={staggerParent(0.08, 0.25)}
               initial="hidden"
               animate="show"
@@ -797,6 +875,55 @@ export function SimWorkday({ account }: { account: Account }) {
                   </button>
                 </motion.li>
               ))}
+              {scene.custom_allowed !== false ? (
+                <motion.li key="custom" variants={staggerChild}>
+                  {customOpen ? (
+                    <form
+                      className="flex w-full items-center gap-4 rounded-2xl border border-accent/50 bg-surface/50 p-3 sm:p-4"
+                      onSubmit={(e) => {
+                        e.preventDefault();
+                        const text = customText.trim();
+                        if (text) void choose({ choice_id: CUSTOM_ID, text });
+                      }}
+                    >
+                      <kbd className="grid size-8 shrink-0 place-items-center rounded-full border border-accent bg-accent font-mono text-xs text-accent-ink">
+                        {scene.event.choices.length + 1}
+                      </kbd>
+                      <label className="sr-only" htmlFor="sim-custom">
+                        What would you do?
+                      </label>
+                      <input
+                        id="sim-custom"
+                        autoFocus
+                        maxLength={400}
+                        value={customText}
+                        disabled={busy}
+                        onChange={(e) => setCustomText(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === "Escape") setCustomOpen(false);
+                        }}
+                        placeholder="What would you do?"
+                        className="min-w-0 flex-1 bg-transparent text-ink placeholder:text-ink-faint focus:outline-none"
+                      />
+                      <button type="submit" disabled={busy || !customText.trim()} aria-label="Send" className="shrink-0 text-ink-faint transition-colors hover:text-accent disabled:opacity-40">
+                        <SwapArrow />
+                      </button>
+                    </form>
+                  ) : (
+                    <button
+                      type="button"
+                      disabled={busy}
+                      onClick={() => setCustomOpen(true)}
+                      className="group flex w-full items-center gap-4 rounded-2xl border border-dashed border-line p-4 text-left transition-[border-color,background-color] duration-300 hover:border-accent/50 hover:bg-surface/50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent disabled:opacity-60 sm:p-5"
+                    >
+                      <kbd className="grid size-8 shrink-0 place-items-center rounded-full border border-line-strong font-mono text-xs text-ink-muted transition-colors duration-300 group-hover:border-accent group-hover:text-accent">
+                        {scene.event.choices.length + 1}
+                      </kbd>
+                      <span className="flex-1 text-ink-muted">Something else…</span>
+                    </button>
+                  )}
+                </motion.li>
+              ) : null}
             </motion.ol>
           </motion.section>
         ) : showAfter && lastEvent && chosen ? (
@@ -835,7 +962,11 @@ export function SimWorkday({ account }: { account: Account }) {
               {waitingNext && evReactions.length < coworkers.length ? (
                 <li className="flex items-center gap-3 pl-1 text-sm text-ink-faint">
                   <TypingDots />
-                  {evReactions.length === 0 ? "Your crew is reacting" : "More reactions coming"}
+                  {evReactions.length === 0
+                    ? chosen.choice_id === CUSTOM_ID
+                      ? "Reading your answer"
+                      : "Your crew is reacting"
+                    : "More reactions coming"}
                 </li>
               ) : null}
             </ul>

@@ -1,9 +1,13 @@
 """Career Sim endpoints (CONTRACTS sections 6, 9, 13).
 
-POST /api/sim/start               {career_id | null}  learner only; SSE until the first interrupt.
+POST /api/sim/start               {career_id | null} or {onet_soc} / {title} for ANY O*NET occupation
+                                  (non-core occupations get moments generated on the fly). SSE until the
+                                  first interrupt.
                                   The thread is bound to the signed-in learner (from the token).
-POST /api/sim/{thread_id}/choose  {choice_id}         learner who owns the thread; SSE until the next
-                                  interrupt, or ``done`` with the end-of-day report.
+POST /api/sim/{thread_id}/choose  {choice_id} or {choice_id: "custom", text}  learner who owns the thread;
+                                  SSE until the next interrupt, or ``done`` with the end-of-day report.
+                                  A crisis signal in ``text`` ends the turn with the 988 panel (the moment
+                                  stays open).
 POST /api/sim/{thread_id}/continue                    resume a run whose stream was cut mid-step.
 GET  /api/sim/{thread_id}/state                       owner only: status, pending event, public state, report.
 GET  /api/sim/careers                                 public: the 8 careers with their sim event counts.
@@ -26,7 +30,7 @@ from fastapi import APIRouter, HTTPException, Query, status
 from langgraph.types import Command
 from pydantic import BaseModel
 
-from foothold import data, db, sse
+from foothold import data, db, safety, sse
 from foothold.auth import Account, LearnerAccount, OptionalAccount
 from foothold.graphs import sim
 
@@ -40,11 +44,14 @@ _busy: set[str] = set()  # threads with a stream in flight (single uvicorn worke
 
 class StartBody(BaseModel):
     career_id: str | None = None
+    onet_soc: str | None = None  # any O*NET occupation (see GET /api/careers/search)
+    title: str | None = None  # free title, matched to the closest O*NET occupation
     persona_id: str | None = None  # accepted for contract compatibility; identity comes from the token
 
 
 class ChooseBody(BaseModel):
     choice_id: str = ""
+    text: str | None = None  # with choice_id "custom": the learner's own answer (max 400 chars)
 
 
 def _graph() -> Any:
@@ -86,6 +93,7 @@ def _save_report(learner: Account, thread_id: str, values: dict[str, Any]) -> No
         "trait_method": rep.get("trait_method"),
         "events_played": rep.get("events_played"),
         "crunch_used": rep.get("crunch_used"),
+        "occupation": {k: (rep.get("occupation") or {}).get(k) for k in ("onet_soc", "title")} if rep.get("occupation") else None,
         "completed_at": db.now_iso(),
         "visibility": "learner_only_until_consent",
     }
@@ -125,18 +133,54 @@ def _claim(thread_id: str) -> None:
     _busy.add(thread_id)
 
 
-def _stream(thread_id: str, learner: Account, input: Any, coworkers: list[dict[str, Any]]):
+def _stream(thread_id: str, learner: Account, input: Any, coworkers: list[dict[str, Any]], mode: str | None = None):
     events = sse.stream_graph(
         _graph(), graph_name=sim.GRAPH_NAME, thread_id=thread_id, input=input,
-        nodes=sim.trace_nodes(coworkers), projector=sim.project, result=_result_for(learner, thread_id),
+        nodes=sim.trace_nodes(coworkers, mode), projector=sim.project, result=_result_for(learner, thread_id),
         node_id=sim.node_id, config=RUN_CONFIG,
     )
     return sse.sse_response(_guarded(thread_id, events))
 
 
+def _place_name(learner: Account) -> str | None:
+    try:
+        from foothold import profiles
+
+        return ((profiles.get_profile(learner) or {}).get("place") or {}).get("name")
+    except Exception as exc:  # noqa: BLE001  (personalization is optional)
+        log.debug("no place for sim (%s)", type(exc).__name__)
+        return None
+
+
+def _occupation_for(body: StartBody) -> dict[str, Any] | None:
+    from foothold import occupations_index
+
+    if body.onet_soc:
+        occ = occupations_index.get(body.onet_soc)
+        if occ is None:
+            raise HTTPException(status.HTTP_400_BAD_REQUEST, detail="Unknown occupation.")
+        return occ
+    title = " ".join(str(body.title or "").split())[:80]
+    occ = occupations_index.find_title(title) if title else None
+    if occ is None:
+        raise HTTPException(status.HTTP_400_BAD_REQUEST, detail="No matching occupation. Try another title.")
+    return occ
+
+
 @router.post("/start")
 async def start(body: StartBody, learner: LearnerAccount):
     career_id = body.career_id or None
+    occupation = None
+    if career_id is None and (body.onet_soc or body.title):
+        occupation = await asyncio.to_thread(_occupation_for, body)
+        if occupation.get("career_id") in data.career_ids():
+            career_id, occupation = occupation["career_id"], None  # a core career: play its authored day
+    place_name = await asyncio.to_thread(_place_name, learner)
+    if occupation is not None:
+        thread_id = f"sim_{uuid.uuid4().hex[:20]}"
+        _claim(thread_id)
+        state = await asyncio.to_thread(sim.initial_state, learner.id, None, occupation=occupation, place_name=place_name)
+        return _stream(thread_id, learner, state, state["gen_coworkers"], "occupation")
     if career_id is not None and career_id not in data.career_ids():
         raise HTTPException(status.HTTP_400_BAD_REQUEST, detail="Unknown career.")
     if not sim.events_available():
@@ -145,7 +189,7 @@ async def start(body: StartBody, learner: LearnerAccount):
         raise HTTPException(status.HTTP_503_SERVICE_UNAVAILABLE, detail="This career has no sim events yet.")
     thread_id = f"sim_{uuid.uuid4().hex[:20]}"
     _claim(thread_id)
-    state = await asyncio.to_thread(sim.initial_state, learner.id, career_id)
+    state = await asyncio.to_thread(sim.initial_state, learner.id, career_id, place_name=place_name)
     return _stream(thread_id, learner, state, sim.coworkers_for(career_id) if career_id else [])
 
 
@@ -159,10 +203,37 @@ async def choose(thread_id: str, body: ChooseBody, learner: LearnerAccount):
         raise HTTPException(status.HTTP_409_CONFLICT, detail="This workday is already finished.")
     payload = pending[0]["payload"] or {}
     allowed = [c.get("choice_id") for c in ((payload.get("event") or {}).get("choices") or [])]
+    coworkers, mode = payload.get("coworkers") or [], payload.get("mode")
+    if body.choice_id == sim.CUSTOM_ID:
+        raw = str(body.text or "")
+        if not raw.strip():
+            raise HTTPException(status.HTTP_400_BAD_REQUEST, detail="Write your answer first.")
+        if len(raw) > 2000:
+            raise HTTPException(status.HTTP_400_BAD_REQUEST, detail="Keep your answer under 400 characters.")
+        if safety.detect_crisis(raw)["crisis"]:  # the moment stays open; nothing is stored
+            return sse.sse_response(_crisis_events(thread_id, payload))
+        clean = safety.sanitize_untrusted(raw, "sim_answer", sim.CUSTOM_MAX_CHARS)["text"]
+        if not clean:
+            raise HTTPException(status.HTTP_400_BAD_REQUEST, detail="Write your answer first.")
+        _claim(thread_id)
+        return _stream(thread_id, learner, Command(resume={"choice_id": sim.CUSTOM_ID, "text": clean}), coworkers, mode)
     if body.choice_id not in allowed:
         raise HTTPException(status.HTTP_400_BAD_REQUEST, detail="Pick one of the listed choices.")
     _claim(thread_id)
-    return _stream(thread_id, learner, Command(resume=body.choice_id), payload.get("coworkers") or [])
+    return _stream(thread_id, learner, Command(resume=body.choice_id), coworkers, mode)
+
+
+async def _crisis_events(thread_id: str, payload: dict[str, Any]) -> AsyncIterator[dict[str, Any]]:
+    """meta -> safety_check node -> state {crisis} -> the same moment again (with ``crisis``). No ``done``."""
+    g = sim.GRAPH_NAME
+    crisis = safety.crisis_response()
+    yield {"type": "meta", "graph": g, "thread_id": thread_id,
+           "nodes": [dict(sse.trace_node("safety_check", "Safety check", "logic"))]}
+    yield {"type": "node", "graph": g, "node": "safety_check", "status": "start", "ts": sse._now_ms()}
+    yield {"type": "node", "graph": g, "node": "safety_check", "status": "end", "ts": sse._now_ms(), "ms": 0,
+           "summary": "crisis signal · 988 message shown, turn ended"}
+    yield {"type": "state", "graph": g, "data": {"crisis": crisis}}
+    yield {"type": "interrupt", "graph": g, "node": "present_and_wait", "payload": {**payload, "crisis": crisis}}
 
 
 @router.post("/{thread_id}/continue")
@@ -172,8 +243,7 @@ async def continue_run(thread_id: str, learner: LearnerAccount):
         raise HTTPException(status.HTTP_409_CONFLICT, detail="Nothing to continue.")
     _claim(thread_id)
     values = snapshot.values or {}
-    work = (values.get("current_event") or {}).get("_workplace")
-    return _stream(thread_id, learner, None, sim.coworkers_for(work))
+    return _stream(thread_id, learner, None, sim.coworkers_for_state(values), values.get("mode"))
 
 
 @router.get("/{thread_id}/state")

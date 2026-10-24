@@ -1,0 +1,13 @@
+{
+  "created_at": "2026-10-24T23:49:26+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "line": "Thanks for owning the migration and working the rollback with Priya. I’ll turn the follow-up into clear tickets.",
+    "mood_delta": 2,
+    "reaction": "neutral"
+  },
+  "schema": "CoworkerReaction",
+  "task": "sim_coworker"
+}

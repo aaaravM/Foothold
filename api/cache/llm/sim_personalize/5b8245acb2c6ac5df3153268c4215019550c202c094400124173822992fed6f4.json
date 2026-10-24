@@ -1,0 +1,26 @@
+{
+  "created_at": "2026-10-24T23:46:52+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "choices": [
+      {
+        "choice_id": "a",
+        "text": "Add logging around the district feed and dig through yesterday’s records until you find the cause."
+      },
+      {
+        "choice_id": "b",
+        "text": "Call the grower to hear exactly what he saw before writing any code."
+      },
+      {
+        "choice_id": "c",
+        "text": "Ship a quick in-app warning when district data looks out of range while you investigate."
+      }
+    ],
+    "text": "At your small ag-tech company in Manteca, a grower says the irrigation scheduling app showed the wrong water allocation for his almond block yesterday. The data came from the irrigation district’s feed, and you can’t reproduce it.",
+    "title": "Grower’s bug report"
+  },
+  "schema": "PersonalizedEvent",
+  "task": "sim_personalize"
+}

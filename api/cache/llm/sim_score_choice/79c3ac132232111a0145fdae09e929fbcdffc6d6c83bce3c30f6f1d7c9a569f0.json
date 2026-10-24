@@ -1,0 +1,29 @@
+{
+  "created_at": "2026-10-24T23:49:29+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "deltas": [
+      {
+        "delta": 0.8,
+        "trait_id": "integrity"
+      },
+      {
+        "delta": 0.7,
+        "trait_id": "dependability"
+      },
+      {
+        "delta": 0.7,
+        "trait_id": "cooperation"
+      },
+      {
+        "delta": 0.6,
+        "trait_id": "initiative"
+      }
+    ],
+    "rationale": "The choice openly owns the migration and promptly works with the team to restore service."
+  },
+  "schema": "TraitTagging",
+  "task": "sim_score_choice"
+}

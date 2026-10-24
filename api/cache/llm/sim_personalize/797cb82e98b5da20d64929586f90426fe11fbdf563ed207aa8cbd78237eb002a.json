@@ -1,0 +1,26 @@
+{
+  "created_at": "2026-10-24T23:48:07+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "choices": [
+      {
+        "choice_id": "a",
+        "text": "Stop and tell Ernesto the parts are out of tolerance before welding anything."
+      },
+      {
+        "choice_id": "b",
+        "text": "Build up the gap with extra weld passes and grind to fit."
+      },
+      {
+        "choice_id": "c",
+        "text": "Re-cut the parts yourself from stock; it costs an hour but keeps to the print."
+      }
+    ],
+    "text": "At your fabrication shop in Stockton, you are welding brackets for a dairy's feed-handling frame. The saw-cut parts are 1/8 inch short, which the print does not allow. The delivery truck leaves at 2:00.",
+    "title": "Fit-up is off"
+  },
+  "schema": "PersonalizedEvent",
+  "task": "sim_personalize"
+}
