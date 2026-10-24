@@ -1,0 +1,9 @@
+{
+  "created_at": "2026-10-24T22:41:35+00:00",
+  "format": 1,
+  "kind": "text",
+  "model": "gpt-6-luna",
+  "response": "Starting a new warehouse job can feel nerve-racking, and asking questions is a good way to learn safely and show you’re paying attention. You could keep it simple: “I’m new—could you show me the right way to do this?” What part of the first week feels most uncertain?",
+  "schema": null,
+  "task": "circle.coach.listening"
+}

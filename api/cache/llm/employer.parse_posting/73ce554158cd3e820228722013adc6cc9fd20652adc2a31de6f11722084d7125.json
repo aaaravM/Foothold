@@ -1,0 +1,54 @@
+{
+  "created_at": "2026-10-24T22:41:28+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "career_id": "diesel_mechanic",
+    "injection_attempt": false,
+    "injection_note": null,
+    "min_hours_per_week": 15,
+    "role_title": "Diesel Technician (entry)",
+    "shift": "evening",
+    "skills": [
+      {
+        "evidence": "air brakes",
+        "importance": "required",
+        "skill_id": "air_brakes"
+      },
+      {
+        "evidence": "hydraulics",
+        "importance": "required",
+        "skill_id": "hydraulics"
+      },
+      {
+        "evidence": "troubleshooting diesel engines",
+        "importance": "required",
+        "skill_id": "diesel_diagnostics"
+      },
+      {
+        "evidence": "preventive maintenance",
+        "importance": "required",
+        "skill_id": "equipment_maintenance"
+      },
+      {
+        "evidence": "repairing trucks",
+        "importance": "required",
+        "skill_id": "repairing"
+      },
+      {
+        "evidence": "OSHA safety",
+        "importance": "required",
+        "skill_id": "osha_safety"
+      },
+      {
+        "evidence": "Preferred: MIG welding",
+        "importance": "preferred",
+        "skill_id": "mig_welding"
+      }
+    ],
+    "summary": "An entry-level diesel technician performs preventive maintenance, troubleshooting, and truck repairs part-time."
+  },
+  "schema": "PostingProfile",
+  "task": "employer.parse_posting"
+}

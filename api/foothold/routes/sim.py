@@ -239,9 +239,12 @@ def sample_event(account: OptionalAccount, career_id: str | None = Query(default
             "career_ids": ev.get("career_ids") or [], "status": ev.get("status"),
             "choices": [{"choice_id": c["choice_id"], "text": c["text"],
                          "trait_deltas": [{"id": t, "name": names.get(t, t), "delta": d} for t, d in sim.precomputed_deltas(c).items()],
-                         "stat_deltas": c.get("stat_deltas") or {}} for c in ev.get("choices") or []],
+                         "stat_deltas": c.get("stat_deltas") or {},
+                         "coworker_hints": c.get("coworker_hints") or {}} for c in ev.get("choices") or []],
         },
         "career": None if not career else {"id": career.get("id"), "title": career.get("title")},
+        "coworkers": [{"id": w.get("id"), "name": w.get("name"), "role": w.get("role")}
+                      for w in ((career or {}).get("coworkers") or [])],
         "traits": [{"id": t["id"], "name": t.get("name"), "group": t.get("group")} for t in sim.traits_meta()],
         "events_status": data.events().get("status"),
         "provenance": "SYNTHETIC",

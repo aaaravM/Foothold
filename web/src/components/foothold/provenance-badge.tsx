@@ -40,13 +40,15 @@ export interface ProvenanceBadgeProps {
   /** extra context for the tooltip, e.g. "BLS OEWS May 2025, Fresno MSA" */
   note?: string;
   className?: string;
+  /** render a non-interactive label (no tooltip/button), for use inside another button or link */
+  plain?: boolean;
 }
 
 /**
  * REAL / SAMPLE / SYNTHETIC / FICTIONAL label for every displayed wage, cost or program detail.
  * Hover or focus shows what the label means; with `href` the badge links to the source.
  */
-export function ProvenanceBadge({ status, href, note, className }: ProvenanceBadgeProps) {
+export function ProvenanceBadge({ status, href, note, className, plain }: ProvenanceBadgeProps) {
   const meta = PROVENANCE_META[status];
   const { Icon } = meta;
   const base =
@@ -58,6 +60,14 @@ export function ProvenanceBadge({ status, href, note, className }: ProvenanceBad
       <span>{status}</span>
     </>
   );
+
+  if (plain) {
+    return (
+      <span title={spoken} className={cn(base, meta.className, className)}>
+        {content}
+      </span>
+    );
+  }
 
   const trigger = href ? (
     <a

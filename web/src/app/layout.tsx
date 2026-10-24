@@ -40,7 +40,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html
+    <html data-scroll-behavior="smooth"
       lang="en"
       data-theme="dark"
       suppressHydrationWarning

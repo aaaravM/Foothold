@@ -1,0 +1,35 @@
+---
+config:
+  flowchart:
+    curve: linear
+---
+graph TD;
+	__start__([<p>__start__</p>]):::first
+	select_event(select_event)
+	present_and_wait(present_and_wait)
+	coworker(coworker)
+	score_choice(score_choice)
+	update_state(update_state)
+	inject_crunch(inject_crunch)
+	report(report)
+	verify(verify)
+	summarize(summarize)
+	__end__([<p>__end__</p>]):::last
+	__start__ --> select_event;
+	coworker --> score_choice;
+	inject_crunch -.-> present_and_wait;
+	inject_crunch -.-> report;
+	present_and_wait -.-> coworker;
+	present_and_wait -.-> score_choice;
+	report --> verify;
+	score_choice --> update_state;
+	select_event -.-> present_and_wait;
+	select_event -.-> report;
+	update_state -.-> inject_crunch;
+	update_state -.-> report;
+	update_state -.-> select_event;
+	verify --> summarize;
+	summarize --> __end__;
+	classDef default fill:#f2f0ff,line-height:1.2
+	classDef first fill-opacity:0
+	classDef last fill:#bfb6fc

@@ -5,6 +5,8 @@ import { animate, motion, useMotionValue, useMotionValueEvent, useTransform, typ
 import { cn } from "@/lib/utils";
 import { EASE_PLOT, useLatest, useReducedMotionSafe } from "./use-motion-env";
 
+const noopSubscribe = () => () => {};
+
 export interface PlotterPathProps {
   /** SVG path data in the parent <svg>'s user units. */
   d: string;
@@ -58,6 +60,8 @@ export function PlotterPath({
   penClassName,
 }: PlotterPathProps) {
   const reduced = useReducedMotionSafe();
+  // The pen head depends on the client's reduced-motion setting: render it only after hydration.
+  const hydrated = React.useSyncExternalStore(noopSubscribe, () => true, () => false);
   const pathRef = React.useRef<SVGPathElement>(null);
   const lengthRef = React.useRef(0);
   const own = useMotionValue(0);
@@ -125,7 +129,7 @@ export function PlotterPath({
         className={className}
         style={{ pathLength: p, opacity: strokeOpacity }}
       />
-      {penHead && !reduced ? (
+      {penHead && hydrated && !reduced ? (
         <motion.g aria-hidden="true" className={cn("pointer-events-none", penClassName)} style={{ opacity: penOpacity }}>
           <motion.circle cx={penX} cy={penY} r={penRadius * 2.6} fill="var(--accent)" fillOpacity={0.18} />
           <motion.circle cx={penX} cy={penY} r={penRadius} fill="var(--accent)" />

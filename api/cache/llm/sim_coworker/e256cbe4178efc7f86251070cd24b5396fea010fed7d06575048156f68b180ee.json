@@ -1,0 +1,13 @@
+{
+  "created_at": "2026-10-24T22:37:01+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "line": "That keeps pruning on schedule while I check the buds. I’ll map any damage and bring back the numbers.",
+    "mood_delta": 3,
+    "reaction": "approves"
+  },
+  "schema": "CoworkerReaction",
+  "task": "sim_coworker"
+}

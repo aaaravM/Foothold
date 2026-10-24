@@ -1,0 +1,13 @@
+{
+  "created_at": "2026-10-24T22:41:16+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "line": "That works for today. We’ll get these trucks through, then explore the tablet when the shop slows down.",
+    "mood_delta": 5,
+    "reaction": "approves"
+  },
+  "schema": "CoworkerReaction",
+  "task": "sim_coworker"
+}

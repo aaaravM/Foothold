@@ -1,0 +1,17 @@
+{
+  "created_at": "2026-10-24T22:41:37+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "assertiveness": 4,
+    "empathy": 3,
+    "feedback": "Your response sounds collaborative, but it addresses a schedule change rather than the labeling and shipping error your supervisor raised. Acknowledge the mistake directly and propose a practical next step, such as reviewing the labeling process together.",
+    "listening": 2,
+    "repair": 2,
+    "strength": "You acknowledge frustration and make a clear, respectful request to review the shift list together.",
+    "try_next": "Reflect that two pallets were mislabeled and the order went to the wrong store, then own your part and suggest a concrete check to prevent a repeat."
+  },
+  "schema": "EQFeedbackOut",
+  "task": "circle.eq_feedback"
+}

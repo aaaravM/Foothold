@@ -21,3 +21,4 @@ api/.runtime/
 # OS
 .DS_Store
 Thumbs.db
+.netlify/

@@ -1,0 +1,13 @@
+{
+  "created_at": "2026-10-24T22:41:15+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "line": "Fair enough. You laid out why the new part is safer; now make sure the farmer understands the week’s delay.",
+    "mood_delta": 2,
+    "reaction": "neutral"
+  },
+  "schema": "CoworkerReaction",
+  "task": "sim_coworker"
+}

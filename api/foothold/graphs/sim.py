@@ -776,6 +776,10 @@ def _metrics_block() -> dict[str, Any] | None:
     return m if isinstance(m, dict) else None
 
 
+PROB_BASIS_CAREERS = "share among the 8 Foothold careers (career-fit model output renormalized over these 8)"
+PROB_BASIS_OVERALL = "share among all O*NET occupations the career-fit model scores (not renormalized)"
+
+
 def cosine_top3(traits: dict[str, float]) -> list[dict[str, Any]]:
     """Untrained baseline: cosine between centred trait estimate and centred career work styles."""
     ids = trait_ids()
@@ -806,26 +810,48 @@ async def report(state: SimState) -> dict[str, Any]:
     fit = await asyncio.to_thread(career_fit().predict, traits)
     model: dict[str, Any]
     top: list[dict[str, Any]] = []
+    basis: str
+    p_overall_basis: str | None = None
     if fit and fit.get("top"):
+        is_mlp = fit.get("model") == "mlp"
+        basis = (PROB_BASIS_CAREERS if is_mlp
+                 else "ranking score (softmax of cosine similarity), not a calibrated probability")
+        p_overall_basis = PROB_BASIS_OVERALL if is_mlp else None
         for i, row in enumerate(fit["top"][:3]):
             cid = row.get("career_id")
             if cid in data.career_ids():
+                po = row.get("p_overall")
                 top.append({"rank": i + 1, "career_id": cid, "title": (data.get_career(cid) or {}).get("title"),
-                            "probability": round(float(row.get("probability", 0.0)), 4)})
+                            "probability": round(float(row.get("probability", 0.0)), 4),
+                            "p_overall": round(float(po), 4) if isinstance(po, (int, float)) else None,
+                            "probability_basis": basis})
         model = {"source": "career_fit", "name": fit.get("model"), "trained": bool(fit.get("trained")),
                  "note": fit.get("note"), "metrics": _metrics_block()}
     elif state.get("posterior"):
+        basis = "selector posterior over the 8 Foothold careers"
         post = state["posterior"] or {}
         ranked = sorted(post.items(), key=lambda kv: -kv[1])[:3]
-        top = [{"rank": i + 1, "career_id": cid, "title": (data.get_career(cid) or {}).get("title"), "probability": round(p, 4)}
+        top = [{"rank": i + 1, "career_id": cid, "title": (data.get_career(cid) or {}).get("title"), "probability": round(p, 4),
+                "p_overall": None, "probability_basis": basis}
                for i, (cid, p) in enumerate(ranked)]
         model = {"source": "selector_posterior", "name": "Bayesian player model", "trained": False,
                  "note": "career-fit model not available yet; showing the selector's posterior", "metrics": None}
     else:
-        top = cosine_top3(traits)
+        basis = "ranking score (softmax of cosine similarity), not a calibrated probability"
+        top = [{**t, "p_overall": None, "probability_basis": basis} for t in cosine_top3(traits)]
         model = {"source": "cosine_fallback", "name": "cosine similarity to O*NET work styles", "trained": False,
                  "note": "career-fit model not available yet; ranked by cosine similarity between your trait estimate "
                          "and each career's O*NET work-style profile", "metrics": None}
+    sel_post = state.get("posterior") or {}
+    selector_posterior = None
+    if sel_post:
+        ranked_post = sorted(sel_post.items(), key=lambda kv: -float(kv[1]))
+        selector_posterior = {
+            "basis": "Bayesian selector posterior over the 8 Foothold careers, from your choices in this run",
+            "top": [{"rank": i + 1, "career_id": cid, "title": (data.get_career(cid) or {}).get("title"),
+                     "probability": round(float(p), 4)} for i, (cid, p) in enumerate(ranked_post[:3])],
+            "posterior": {cid: round(float(p), 4) for cid, p in ranked_post},
+        }
 
     focus = [t["career_id"] for t in top]
     if state.get("career_id") and state["career_id"] not in focus:
@@ -838,6 +864,7 @@ async def report(state: SimState) -> dict[str, Any]:
                    for t in tmeta],
         "trait_method": state.get("trait_method") or SelectorAdapter.FALLBACK_METHOD,
         "top_careers": top, "model": model, "careers": facts,
+        "probability_basis": basis, "p_overall_basis": p_overall_basis, "selector_posterior": selector_posterior,
         "history": state.get("history") or [], "events_played": len(state.get("history") or []),
         "crunch_used": bool(state.get("crunch_used")), "moods": state.get("moods") or {},
     }

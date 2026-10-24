@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { MonoLabel } from "@/components/foothold/mono-label";
-import { API_URL, getJSON } from "@/lib/api";
+import { getJSON, resolveApiBaseInfo, type ApiBaseInfo } from "@/lib/api";
 import { errorMessage } from "@/components/sim/use-tapped-trace";
 
 interface Health {
@@ -37,6 +37,17 @@ export function DemoChecks() {
   const [metrics, setMetrics] = React.useState<Record<string, unknown> | null>(null);
   const [error, setError] = React.useState<string | null>(null);
   const [at, setAt] = React.useState<string>("");
+  const [base, setBase] = React.useState<ApiBaseInfo | null>(null);
+
+  React.useEffect(() => {
+    let live = true;
+    void resolveApiBaseInfo().then((b) => {
+      if (live) setBase(b);
+    });
+    return () => {
+      live = false;
+    };
+  }, []);
 
   React.useEffect(() => {
     let live = true;
@@ -75,7 +86,11 @@ export function DemoChecks() {
         </p>
       ) : null}
       <dl>
-        <Row label="API" ok={health ? health.ok : error ? false : null} value={API_URL.replace(/^https?:\/\//, "")} />
+        <Row
+          label="API base"
+          ok={health ? health.ok : error ? false : null}
+          value={base ? `${base.url.replace(/^https?:\/\//, "")} · via ${base.source}` : "resolving…"}
+        />
         <Row
           label="LLM"
           ok={health ? health.llm?.mode === "openai" || !!health.demo_mode : null}

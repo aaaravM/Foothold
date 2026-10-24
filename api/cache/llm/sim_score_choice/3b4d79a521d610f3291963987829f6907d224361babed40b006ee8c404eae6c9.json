@@ -1,0 +1,29 @@
+{
+  "created_at": "2026-10-24T22:41:19+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "deltas": [
+      {
+        "delta": 0.5,
+        "trait_id": "dependability"
+      },
+      {
+        "delta": 0.3,
+        "trait_id": "cautiousness"
+      },
+      {
+        "delta": -0.3,
+        "trait_id": "adaptability"
+      },
+      {
+        "delta": -0.2,
+        "trait_id": "initiative"
+      }
+    ],
+    "rationale": "The choice keeps work moving with a familiar setup and schedules learning later, showing reliability and caution but some delay in adapting."
+  },
+  "schema": "TraitTagging",
+  "task": "sim_score_choice"
+}

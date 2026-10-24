@@ -1,0 +1,29 @@
+{
+  "created_at": "2026-10-24T22:41:13+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "deltas": [
+      {
+        "delta": 0.8,
+        "trait_id": "initiative"
+      },
+      {
+        "delta": 0.8,
+        "trait_id": "dependability"
+      },
+      {
+        "delta": 0.7,
+        "trait_id": "integrity"
+      },
+      {
+        "delta": 0.6,
+        "trait_id": "empathy"
+      }
+    ],
+    "rationale": "You proactively correct a safety-related error, take responsibility for the customer’s well-being, and do so without charging them."
+  },
+  "schema": "TraitTagging",
+  "task": "sim_score_choice"
+}

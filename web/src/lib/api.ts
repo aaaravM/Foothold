@@ -17,7 +17,124 @@
 import { getSessionToken, requestSessionCheck } from "./auth";
 import type { TraceEvent } from "./types";
 
+/** Build-time fallback base (NEXT_PUBLIC_API_URL, else localhost). Prefer `resolveApiBase()`. */
 export const API_URL: string = (process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000").replace(/\/+$/, "");
+
+/* ------------------------------------------------------------------ */
+/* Runtime API discovery                                               */
+/* ------------------------------------------------------------------ */
+
+export type ApiBaseSource = "query" | "localStorage" | "supabase" | "env" | "default";
+export interface ApiBaseInfo {
+  url: string;
+  source: ApiBaseSource;
+}
+
+const API_STORAGE_KEY = "foothold.api";
+const SUPABASE_URL = (process.env.NEXT_PUBLIC_SUPABASE_URL || "").replace(/\/+$/, "");
+const SUPABASE_KEY = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY || "";
+const SUPABASE_TIMEOUT_MS = 2_000;
+
+let resolvedBase: ApiBaseInfo | null = null;
+let resolvingBase: Promise<ApiBaseInfo> | null = null;
+
+function cleanBase(value: string | null | undefined): string | null {
+  const v = (value ?? "").trim().replace(/\/+$/, "");
+  return /^https?:\/\/[^\s/]+/i.test(v) ? v : null;
+}
+
+function readStoredBase(): string | null {
+  try {
+    return cleanBase(window.localStorage.getItem(API_STORAGE_KEY));
+  } catch {
+    return null;
+  }
+}
+
+/** ?api=<url> saves an override for this browser; ?api=clear removes it. Returns the override, if any. */
+function readQueryBase(): string | null {
+  let param: string | null = null;
+  try {
+    param = new URLSearchParams(window.location.search).get("api");
+  } catch {
+    return null;
+  }
+  if (param === null) return null;
+  if (param.trim().toLowerCase() === "clear") {
+    try {
+      window.localStorage.removeItem(API_STORAGE_KEY);
+    } catch {
+      // storage blocked: nothing to clear
+    }
+    return null;
+  }
+  const url = cleanBase(param);
+  if (url) {
+    try {
+      window.localStorage.setItem(API_STORAGE_KEY, url);
+    } catch {
+      // storage blocked: the override still applies to this page load
+    }
+  }
+  return url;
+}
+
+/** The API's current public URL from Supabase public_config (key 'api_url'). Null on any failure. */
+async function readSupabaseBase(): Promise<string | null> {
+  if (!SUPABASE_URL || !SUPABASE_KEY || process.env.NODE_ENV === "development") return null;
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), SUPABASE_TIMEOUT_MS);
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/public_config?key=eq.api_url&select=value`, {
+      headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}`, Accept: "application/json" },
+      signal: controller.signal,
+      cache: "no-store",
+    });
+    if (!res.ok) return null;
+    const rows = (await res.json()) as { value?: unknown }[];
+    const value = Array.isArray(rows) && rows[0] && typeof rows[0].value === "string" ? rows[0].value : null;
+    return cleanBase(value);
+  } catch {
+    return null;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+/**
+ * Where the Foothold API lives, resolved once per page load:
+ * ?api=<url> (saved to localStorage 'foothold.api'; ?api=clear removes it) -> localStorage ->
+ * Supabase public_config 'api_url' (2 s timeout; skipped in development) -> NEXT_PUBLIC_API_URL -> http://localhost:8000.
+ */
+export function resolveApiBaseInfo(): Promise<ApiBaseInfo> {
+  if (resolvedBase) return Promise.resolve(resolvedBase);
+  if (typeof window === "undefined") return Promise.resolve({ url: API_URL, source: process.env.NEXT_PUBLIC_API_URL ? "env" : "default" });
+  if (!resolvingBase) {
+    resolvingBase = (async (): Promise<ApiBaseInfo> => {
+      const fromQuery = readQueryBase();
+      if (fromQuery) return { url: fromQuery, source: "query" };
+      const stored = readStoredBase();
+      if (stored) return { url: stored, source: "localStorage" };
+      const remote = await readSupabaseBase();
+      if (remote) return { url: remote, source: "supabase" };
+      return { url: API_URL, source: process.env.NEXT_PUBLIC_API_URL ? "env" : "default" };
+    })().then((info) => {
+      resolvedBase = info;
+      return info;
+    });
+  }
+  return resolvingBase;
+}
+
+/** The resolved API base URL (memoized). */
+export async function resolveApiBase(): Promise<string> {
+  return (await resolveApiBaseInfo()).url;
+}
+
+/** Best current guess without waiting (the resolved base once known, else the build-time fallback). */
+export function currentApiBase(): string {
+  return resolvedBase?.url ?? API_URL;
+}
 
 export const DEFAULT_TIMEOUT_MS = 15_000;
 
@@ -81,9 +198,9 @@ export function isAbortError(err: unknown): boolean {
 }
 
 /** Absolute URL for an API path ("/api/meta/careers" or "/health"). Absolute URLs pass through. */
-export function apiUrl(path: string): string {
+export function apiUrl(path: string, base: string = currentApiBase()): string {
   if (/^https?:\/\//i.test(path)) return path;
-  return `${API_URL}${path.startsWith("/") ? path : `/${path}`}`;
+  return `${base}${path.startsWith("/") ? path : `/${path}`}`;
 }
 
 export interface RequestOptions {
@@ -91,14 +208,14 @@ export interface RequestOptions {
   timeoutMs?: number;
   signal?: AbortSignal;
   headers?: Record<string, string>;
-  /** attach this tab's session token (default true; only ever sent to API_URL) */
+  /** attach this tab's session token (default true; only ever sent to the resolved API base) */
   auth?: boolean;
 }
 
 /** This tab's session token, for requests to our own API only. */
-function sessionTokenFor(url: string, enabled: boolean | undefined): string | null {
+function sessionTokenFor(url: string, base: string, enabled: boolean | undefined): string | null {
   if (enabled === false) return null;
-  if (url !== API_URL && !url.startsWith(`${API_URL}/`)) return null;
+  if (url !== base && !url.startsWith(`${base}/`)) return null;
   return getSessionToken();
 }
 
@@ -167,8 +284,9 @@ async function readBody(res: Response): Promise<unknown> {
 }
 
 async function requestJSON<T>(method: "GET" | "POST" | "PUT", path: string, body: unknown, options: RequestOptions = {}): Promise<T> {
-  const url = apiUrl(path);
-  const token = sessionTokenFor(url, options.auth);
+  const base = await resolveApiBase();
+  const url = apiUrl(path, base);
+  const token = sessionTokenFor(url, base, options.auth);
   const link = linkAbort(options.signal, options.timeoutMs ?? DEFAULT_TIMEOUT_MS);
   try {
     let res: Response;
@@ -188,7 +306,7 @@ async function requestJSON<T>(method: "GET" | "POST" | "PUT", path: string, body
     } catch (cause) {
       if (link.timedOut()) throw new ApiError("timeout", `Request timed out: ${method} ${path}`, url, { cause });
       if (options.signal?.aborted) throw new ApiError("aborted", "Request cancelled", url, { cause });
-      throw new ApiError("network", `API unreachable at ${API_URL}`, url, { cause });
+      throw new ApiError("network", `API unreachable at ${base}`, url, { cause });
     }
 
     if (!res.ok) {
@@ -335,7 +453,7 @@ export interface StreamOptions {
   /** max silence between chunks once streaming (default 90 000 ms; 0 disables) */
   idleTimeoutMs?: number;
   headers?: Record<string, string>;
-  /** attach this tab's session token (default true; only ever sent to API_URL) */
+  /** attach this tab's session token (default true; only ever sent to the resolved API base) */
   auth?: boolean;
 }
 
@@ -353,8 +471,9 @@ export async function streamSSE(
   signal?: AbortSignal,
   options: StreamOptions = {},
 ): Promise<void> {
-  const url = apiUrl(path);
-  const token = sessionTokenFor(url, options.auth);
+  const base = await resolveApiBase();
+  const url = apiUrl(path, base);
+  const token = sessionTokenFor(url, base, options.auth);
   const connectTimeout = options.connectTimeoutMs ?? DEFAULT_TIMEOUT_MS;
   const idleTimeout = options.idleTimeoutMs ?? 90_000;
   const link = linkAbort(signal, connectTimeout);
@@ -372,7 +491,7 @@ export async function streamSSE(
     } catch (cause) {
       if (signal?.aborted) return;
       if (link.timedOut()) throw new ApiError("timeout", `No response from ${path}`, url, { cause });
-      throw new ApiError("network", `API unreachable at ${API_URL}`, url, { cause });
+      throw new ApiError("network", `API unreachable at ${base}`, url, { cause });
     }
     // Headers arrived: the connect timeout no longer applies (the idle timeout below takes over).
     link.disarm();

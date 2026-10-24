@@ -310,8 +310,59 @@ class SupabaseRest:
             headers={"Prefer": "return=representation"},
         ))
 
+    def delete_in(self, table: str, column: str, values: Sequence[Any]) -> list[dict[str, Any]]:
+        """DELETE rows where ``column`` is one of ``values`` (returns the deleted rows)."""
+        vals = [str(v) for v in values if v not in (None, "")]
+        if not vals:
+            return []
+        quoted = ",".join('"' + v.replace('"', "") + '"' for v in vals)
+        return self._check(self._http.delete(
+            f"/{_ident(table)}", params={_ident(column): f"in.({quoted})"},
+            headers={"Prefer": "return=representation"},
+        )) or []
+
     def close(self) -> None:
         self._http.close()
+
+
+def remote_client(transport: Any = None) -> "SupabaseRest | None":
+    """A fresh PostgREST client from .env settings, or None when Supabase is not configured."""
+    cfg = supabase_settings()
+    return SupabaseRest(*cfg, transport=transport) if cfg else None
+
+
+PUBLIC_CONFIG_TABLE = "public_config"
+
+
+def set_public_config(key: str, value: str, transport: Any = None) -> tuple[bool, str]:
+    """Upsert ``public_config`` (key, value) with the secret key. (ok, reason); never raises, never logs keys."""
+    client = remote_client(transport)
+    if client is None:
+        return False, "Supabase not configured (SUPABASE_URL / SUPABASE_SECRET_KEY)"
+    try:
+        client.upsert(PUBLIC_CONFIG_TABLE, {"key": key, "value": value, "updated_at": now_iso()}, "key")
+        return True, "ok"
+    except Exception as exc:
+        msg = str(exc)[:40] if isinstance(exc, RuntimeError) else type(exc).__name__
+        if "404" in msg:
+            msg += " (public_config missing: run supabase/schema.sql)"
+        return False, msg
+    finally:
+        client.close()
+
+
+def delete_public_config(key: str, transport: Any = None) -> tuple[bool, str]:
+    client = remote_client(transport)
+    if client is None:
+        return False, "Supabase not configured (SUPABASE_URL / SUPABASE_SECRET_KEY)"
+    try:
+        client.delete_in(PUBLIC_CONFIG_TABLE, "key", [key])
+        return True, "ok"
+    except Exception as exc:
+        msg = str(exc)[:40] if isinstance(exc, RuntimeError) else type(exc).__name__
+        return False, msg
+    finally:
+        client.close()
 
 
 def backend_status() -> dict[str, Any]:

@@ -87,9 +87,9 @@ export function Hero() {
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-4">
             <PrimaryAction />
-            <Link href="/lab" className={drawLinkClass}>
-              See the measured models →
-            </Link>
+            <a href="#try" className={drawLinkClass}>
+              Try it here first ↓
+            </a>
           </div>
         </div>
 

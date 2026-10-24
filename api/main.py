@@ -14,6 +14,7 @@ import asyncio
 import contextlib
 import importlib
 import logging
+import os
 import pkgutil
 import sys
 from contextlib import asynccontextmanager
@@ -102,6 +103,24 @@ async def _background_key_check() -> None:
         log.warning("LLM key check did not complete: %s", type(exc).__name__)
 
 
+def _register_public_url() -> None:
+    """FOOTHOLD_PUBLIC_API_URL -> Supabase public_config 'api_url' (secret key, 5 s timeout). Never raises."""
+    url = os.environ.get("FOOTHOLD_PUBLIC_API_URL", "").strip().rstrip("/")
+    if not url or "PYTEST_CURRENT_TEST" in os.environ:
+        return
+    if not url.startswith("https://"):
+        log.warning("FOOTHOLD_PUBLIC_API_URL ignored: it must start with https://")
+        return
+    try:
+        ok, reason = db.set_public_config("api_url", url)
+    except Exception as exc:  # noqa: BLE001
+        ok, reason = False, type(exc).__name__
+    if ok:
+        log.info("public_config api_url registered: %s", url)
+    else:
+        log.warning("public_config api_url not registered: %s", reason)
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncIterator[None]:
     try:
@@ -110,11 +129,13 @@ async def lifespan(app: FastAPI) -> AsyncIterator[None]:
         log.warning("init_db failed: %s", type(exc).__name__)
     task = asyncio.create_task(_background_key_check())
     db_task = asyncio.create_task(asyncio.to_thread(db.remote_startup))  # Supabase probe/sync, never blocks startup
+    url_task = asyncio.create_task(asyncio.to_thread(_register_public_url))
     try:
         yield
     finally:
         task.cancel()
         db_task.cancel()
+        url_task.cancel()
         with contextlib.suppress(BaseException):
             await task
 
@@ -132,6 +153,7 @@ def create_app(routes_package: str = ROUTES_PACKAGE) -> FastAPI:
         allow_methods=["*"],
         allow_headers=["*"],
         allow_credentials=False,
+        allow_private_network=True,  # Netlify page (public) -> API on the presenter's laptop (localhost)
     )
     loaded, errors = include_routes(app, routes_package)
     app.state.routes_loaded = loaded

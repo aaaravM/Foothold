@@ -1,0 +1,28 @@
+{
+  "created_at": "2026-10-24T22:41:32+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "events": [
+      {
+        "event_id": "dsl_01",
+        "text": "At 7:00 p.m., a fruit hauler limps into Tri-Valley Freight’s Central Valley shop with a check-engine light and low power. The driver has a load of peaches due in Los Angeles by morning. Brenda has already promised him a quick look.",
+        "title": "Truck down on the 99"
+      },
+      {
+        "event_id": "dsl_02",
+        "text": "At 9:30 p.m., a trailer’s lift-gate controller keeps cutting out, but the fault will not repeat in the shop. You have spent two hours on it, and dispatch needs the trailer back in service before the overnight runs pick up.",
+        "title": "The intermittent fault"
+      },
+      {
+        "event_id": "dsl_03",
+        "text": "At 11:30 p.m., during a routine inspection, you notice the brake chambers on a customer’s truck were installed with the wrong part. Another technician at Tri-Valley Freight did that job last month. The customer only asked for a quick check tonight.",
+        "title": "A brake job someone else did"
+      }
+    ],
+    "setting": "Tri-Valley Freight, evening shift"
+  },
+  "schema": "SimVariantOut",
+  "task": "employer.sim_variant"
+}

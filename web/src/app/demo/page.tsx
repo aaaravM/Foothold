@@ -26,6 +26,17 @@ const RUN: { time: string; tab: string; step: string }[] = [
   { time: "4:40", tab: "Tab 4 · Dev", step: "CIRCLE: support circle and the coach. Close on LAB: every model with its metrics and data provenance." },
 ];
 
+const SETUP: { label: string; cmd: string; note: string }[] = [
+  { label: "Reset demo state", cmd: "python scripts/reset_demo.py", note: "Run from the repo root before each run-through to put the demo accounts back to their starting state." },
+  { label: "Tunnel (open network)", cmd: "bash scripts/tunnel.sh", note: "Opens a public HTTPS tunnel to the API on :8000. Leave it running; register the URL it prints (next step) if the script does not do it for you." },
+  {
+    label: "Register a URL by hand",
+    cmd: "bash scripts/register_api_url.sh https://<your-tunnel-host>",
+    note: "Writes the URL to Supabase public_config 'api_url'; every open copy of the site picks it up on its next load. No rebuild needed.",
+  },
+  { label: "Override in one browser", cmd: "?api=https://<host>   ·   ?api=clear", note: "Add to any page URL; saved in this browser until cleared." },
+];
+
 export default function DemoPage() {
   return (
     <SheetFrame {...sheetFrameProps("demo")} description={getSheet("demo").description}>
@@ -85,8 +96,22 @@ export default function DemoPage() {
             </ol>
           </section>
         </div>
-        <aside className="lg:col-span-5">
+        <aside className="space-y-8 lg:col-span-5">
           <DemoChecks />
+          <section aria-labelledby="demo-setup">
+            <MonoLabel as="h2" id="demo-setup" tone="ink" className="mb-3">
+              Setup · reset and tunnel
+            </MonoLabel>
+            <ol className="space-y-4">
+              {SETUP.map((s) => (
+                <li key={s.label} className="space-y-1">
+                  <MonoLabel as="p">{s.label}</MonoLabel>
+                  <code className="block overflow-x-auto border border-line bg-surface px-3 py-2 font-mono text-sm whitespace-pre text-ink">{s.cmd}</code>
+                  <p className="text-sm text-ink-muted">{s.note}</p>
+                </li>
+              ))}
+            </ol>
+          </section>
           <MonoLabel as="p" tone="faint" className="mt-6">
             Unlinked presenter page · not indexed
           </MonoLabel>

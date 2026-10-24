@@ -4,7 +4,8 @@
 #   scripts/tunnel.sh --check    # only download/verify cloudflared, then exit
 #   TUNNEL_PROVIDER=ssh scripts/tunnel.sh   # fallback: localhost.run over plain ssh (no download)
 # Leave it running while the Netlify site is in use; Ctrl+C stops the tunnel.
-# The URL changes every time the tunnel restarts -> rebuild + redeploy the static site.
+# The URL changes every time the tunnel restarts; it is upserted into Supabase public_config 'api_url'
+# (scripts/register_api_url.sh; TUNNEL_REGISTER=0 skips it) so the static site can pick it up.
 set -euo pipefail
 TARGET="${TUNNEL_TARGET:-http://127.0.0.1:8000}"
 
@@ -54,6 +55,10 @@ done
 if [ -z "$PUBLIC" ]; then echo "no tunnel URL after 60 s:" >&2; tail -20 "$LOG" >&2; exit 1; fi
 echo
 echo "TUNNEL_URL=$PUBLIC"
+# Publish the URL for the Netlify site (Supabase public_config api_url); failures do not stop the tunnel.
+if [ "${TUNNEL_REGISTER:-1}" = "1" ]; then
+  bash "$(dirname "${BASH_SOURCE[0]}")/register_api_url.sh" "$PUBLIC" || echo "(api_url not registered; the tunnel keeps running)" >&2
+fi
 echo "Next: scripts/build_web_static.sh $PUBLIC   (then deploy web/out to Netlify)"
 echo "Keep this window open. Ctrl+C stops the tunnel."
 [ "${TUNNEL_ONESHOT:-0}" = "1" ] && { sleep 8; curl -fsS --max-time 15 "$PUBLIC/health" | head -c 200; echo; exit 0; }

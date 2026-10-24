@@ -1,0 +1,29 @@
+{
+  "created_at": "2026-10-24T22:36:56+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "deltas": [
+      {
+        "delta": 0.6,
+        "trait_id": "initiative"
+      },
+      {
+        "delta": 0.5,
+        "trait_id": "leadership_orientation"
+      },
+      {
+        "delta": 0.5,
+        "trait_id": "empathy"
+      },
+      {
+        "delta": 0.4,
+        "trait_id": "stress_tolerance"
+      }
+    ],
+    "rationale": "The choice promptly prioritizes the driver nearing his legal hours limit and gives the other carrier a clear wait time."
+  },
+  "schema": "TraitTagging",
+  "task": "sim_score_choice"
+}

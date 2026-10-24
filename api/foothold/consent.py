@@ -320,22 +320,58 @@ def _progress(card: dict[str, Any]) -> dict[str, Any] | None:
     return out or None
 
 
+# "10 h/week", "20 hours/week", "about 12 hrs a week", "15 hours". Clock times ("2:30 pm")
+# and bare numbers are never read as hours.
+_HOURS_RE = re.compile(
+    r"(?<![\d:.])(\d{1,2}(?:\.\d+)?)\s*(?:h|hr|hrs|hour|hours)\b(?![-\s]*(?:shifts?|days?))(?:\s*(?:/|per|a|an|each)\s*(?:wk|week))?",
+    re.IGNORECASE,
+)
+_AVAIL_HOURS_KEYS = ("availability_hours_per_week", "available_hours_per_week", "availability_hours", "hours_available")
+
+
+def parse_hours_per_week(text: Any) -> int | None:
+    """Hours per week from free text, only for explicit "N h/week" / "N hours" patterns; else None."""
+    if not isinstance(text, str):
+        return None
+    m = _HOURS_RE.search(text)
+    if not m:
+        return None
+    try:
+        val = float(m.group(1))
+    except ValueError:
+        return None
+    return int(round(val)) if 1 <= val <= 80 else None
+
+
+def _explicit_hours(value: Any) -> int | None:
+    if isinstance(value, bool):
+        return None
+    if isinstance(value, (int, float)):
+        return int(value) if 1 <= value <= 80 else None
+    return parse_hours_per_week(value) if isinstance(value, str) else None
+
+
 def _availability(card: dict[str, Any]) -> dict[str, Any] | None:
     raw = _pick(card, ("availability", "available"), _BLIND_NESTS)
+    explicit = _explicit_hours(_pick(card, _AVAIL_HOURS_KEYS, _BLIND_NESTS))
     if raw in _EMPTY:
-        return None
+        if explicit is None:
+            return None
+        return {"label": None, "hours_per_week": explicit, "shifts": [], "days": []}
     if isinstance(raw, str):
-        hours = _num(raw)
-        return {"label": _clean(raw, 60), "hours_per_week": int(hours) if hours else None, "shifts": [], "days": []}
+        hours = explicit if explicit is not None else parse_hours_per_week(raw)
+        return {"label": _clean(raw, 60), "hours_per_week": hours, "shifts": [], "days": []}
     if not isinstance(raw, dict):
         return None
-    hours = _num(raw.get("hours_per_week", raw.get("hours")))
+    hours = _explicit_hours(raw.get("hours_per_week", raw.get("hours")))
+    if hours is None:
+        hours = explicit
     shifts_raw = raw.get("shifts") or raw.get("shift") or []
     days_raw = raw.get("days") or []
     shifts = [s for s in (_clean(x, 16) for x in (shifts_raw if isinstance(shifts_raw, list) else [shifts_raw])) if s]
     days = [d for d in (_clean(x, 10) for x in (days_raw if isinstance(days_raw, list) else [days_raw])) if d]
     out = {
-        "hours_per_week": int(hours) if hours is not None else None,
+        "hours_per_week": hours,
         "shifts": shifts[:4],
         "days": days[:7],
         "start": _clean(raw.get("start") or raw.get("start_date") or raw.get("available_from"), 24),

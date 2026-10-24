@@ -1,0 +1,13 @@
+{
+  "created_at": "2026-10-24T22:41:08+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "line": "That’s fine if the farmer agrees. Make sure the note’s clear, and don’t send it before you’ve called them.",
+    "mood_delta": 2,
+    "reaction": "neutral"
+  },
+  "schema": "CoworkerReaction",
+  "task": "sim_coworker"
+}

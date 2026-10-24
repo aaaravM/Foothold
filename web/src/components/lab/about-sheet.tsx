@@ -3,7 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { MonoLabel } from "@/components/foothold/mono-label";
-import { ProvenanceBadge } from "@/components/foothold/provenance-badge";
+import { ProvenanceBadge, PROVENANCE_META } from "@/components/foothold/provenance-badge";
 import { SourceLink } from "@/components/foothold/source-link";
 import { useApiResource } from "./use-api";
 
@@ -111,7 +111,22 @@ export function AboutSheet() {
           </h2>
           <p className="mt-2 text-sm text-ink-muted">Read live from the source register. Each badge says how far to trust the data.</p>
         </div>
-        <div className="lg:col-span-8">
+        <div className="space-y-6 lg:col-span-8">
+          <div aria-labelledby="legend">
+            <h3 id="legend" className="label-mono text-ink-faint">
+              Provenance legend
+            </h3>
+            <dl className="mt-3 grid gap-4 sm:grid-cols-2">
+              {(["REAL", "SAMPLE", "SYNTHETIC", "FICTIONAL"] as const).map((p) => (
+                <div key={p} className="space-y-2">
+                  <dt>
+                    <ProvenanceBadge status={p} />
+                  </dt>
+                  <dd className="text-sm text-ink-muted">{PROVENANCE_META[p].explain}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
           {sources.state === "loading" ? <p className="label-mono text-ink-faint">Reading sources…</p> : null}
           {sources.state === "offline" ? <p className="text-sm text-warning">API offline: sources load from the Foothold API.</p> : null}
           <ul className="divide-y divide-line border-y border-line">

@@ -1,0 +1,11 @@
+{
+  "created_at": "2026-10-24T22:41:24+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "paragraph": "You stayed dependable and cautious through a truck down on the 99, an intermittent fault, and a brake job someone else had done. When you weighed whether to weld or replace a part and tried the new scan tool, you showed care with uncertainty and a willingness to check your thinking. These are practice signals, not a verdict, and they offer a useful starting point for exploring logistics, nursing, or an electrical apprenticeship."
+  },
+  "schema": "ReportSummary",
+  "task": "sim_summary"
+}

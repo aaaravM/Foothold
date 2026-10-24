@@ -105,8 +105,11 @@ interface Report {
   stats: Stats;
   traits: { id: string; name: string; group?: string; value: number }[];
   trait_method?: string;
-  top_careers: { rank: number; career_id: string; title: string; probability: number }[];
+  top_careers: { rank: number; career_id: string; title: string; probability: number; p_overall?: number | null; probability_basis?: string | null }[];
+  /** what `probability` is a share of, e.g. "share among the 8 Foothold careers" */
+  probability_basis?: string | null;
   model: {
+    probability_basis?: string | null;
     source: string;
     name?: string | null;
     trained: boolean;
@@ -141,6 +144,13 @@ function prov(status: unknown): Provenance {
 }
 
 const usd = (n: number) => `$${Math.round(n).toLocaleString("en-US")}`;
+/** 0.4213 -> "42%", 0.0123 -> "1.2%", 0.0004 -> "<0.1%" */
+const fmtPct = (p: number) => {
+  const v = p * 100;
+  if (v >= 10) return `${v.toFixed(0)}%`;
+  if (v >= 0.1) return `${v.toFixed(1)}%`;
+  return "<0.1%";
+};
 
 const REACTION_TONE: Record<string, string> = {
   approves: "text-success",
@@ -421,7 +431,7 @@ export function SimWorkday({ account }: { account: Account }) {
                     {c.wage?.median_annual ? (
                       <>
                         <span className="font-mono text-sm text-ink tabular-nums">{usd(c.wage.median_annual)}/yr</span>
-                        <ProvenanceBadge status={prov(c.wage.status)} note={c.wage.area} />
+                        <ProvenanceBadge plain status={prov(c.wage.status)} note={c.wage.area} />
                       </>
                     ) : null}
                   </span>
@@ -440,6 +450,8 @@ export function SimWorkday({ account }: { account: Account }) {
   if (phase === "done" && report) {
     const focusId = report.top_careers[0]?.career_id ?? report.career_id ?? "";
     const trained = report.model.source === "career_fit" && report.model.trained;
+    const probabilityBasis =
+      report.probability_basis ?? report.model.probability_basis ?? report.top_careers[0]?.probability_basis ?? "share among the Foothold careers";
     return (
       <div className="space-y-10">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
@@ -503,14 +515,29 @@ export function SimWorkday({ account }: { account: Account }) {
                 {report.top_careers.map((t) => (
                   <li key={t.career_id} className="flex items-center gap-3 p-3">
                     <MonoLabel tone="faint">{String(t.rank).padStart(2, "0")}</MonoLabel>
-                    <span className="flex-1 text-ink">{t.title}</span>
-                    <span className="font-mono text-sm text-ink tabular-nums">{(t.probability * 100).toFixed(0)}%</span>
+                    <span className="min-w-0 flex-1">
+                      <span className="block text-ink">{t.title}</span>
+                      {typeof t.p_overall === "number" ? (
+                        <span className="block text-xs text-ink-muted" title="The model's probability for this occupation before narrowing to Foothold's careers">
+                          {fmtPct(t.p_overall)} across all occupations the model knows
+                        </span>
+                      ) : null}
+                    </span>
+                    <span
+                      className="font-mono text-sm text-ink tabular-nums"
+                      title={`${fmtPct(t.probability)}: ${t.probability_basis ?? probabilityBasis}${typeof t.p_overall === "number" ? `; ${fmtPct(t.p_overall)} overall` : ""}`}
+                    >
+                      {(t.probability * 100).toFixed(0)}%
+                    </span>
                     <Link href={`/path?career=${encodeURIComponent(t.career_id)}`} className={drawLinkClass} aria-label={`Plan a route to ${t.title}`}>
                       Plan
                     </Link>
                   </li>
                 ))}
               </ol>
+              <MonoLabel as="p" className="mt-2">
+                % = {probabilityBasis}
+              </MonoLabel>
               {!trained && report.model.name ? (
                 <MonoLabel as="p" className="mt-2">
                   Ranked by {report.model.name}

@@ -1,0 +1,29 @@
+{
+  "created_at": "2026-10-24T22:37:10+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "deltas": [
+      {
+        "delta": 0.9,
+        "trait_id": "cautiousness"
+      },
+      {
+        "delta": 0.8,
+        "trait_id": "initiative"
+      },
+      {
+        "delta": 0.7,
+        "trait_id": "integrity"
+      },
+      {
+        "delta": 0.6,
+        "trait_id": "self_control"
+      }
+    ],
+    "rationale": "The choice prioritizes patient safety by holding a potentially dangerous dose and promptly contacting the physician despite the interruption."
+  },
+  "schema": "TraitTagging",
+  "task": "sim_score_choice"
+}

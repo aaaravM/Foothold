@@ -1,0 +1,13 @@
+{
+  "created_at": "2026-10-24T22:41:12+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "line": "I’m not sure how that fits the ticket. Let’s get Manny involved before we promise the customer anything.",
+    "mood_delta": -4,
+    "reaction": "uneasy"
+  },
+  "schema": "CoworkerReaction",
+  "task": "sim_coworker"
+}
