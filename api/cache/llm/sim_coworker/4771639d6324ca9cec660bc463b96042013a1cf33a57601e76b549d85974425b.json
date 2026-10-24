@@ -1,0 +1,13 @@
+{
+  "created_at": "2026-10-24T22:19:29+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "line": "That makes sense if the crack puts the frame at risk. How will we explain the week-long delay to the farmer?",
+    "mood_delta": 0,
+    "reaction": "neutral"
+  },
+  "schema": "CoworkerReaction",
+  "task": "sim_coworker"
+}

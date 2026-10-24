@@ -1,0 +1,13 @@
+{
+  "created_at": "2026-10-24T22:19:26+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "line": "Stop there—the open bay door isn't enough ventilation for galvanized steel. We’ll wait for the fan.",
+    "mood_delta": -10,
+    "reaction": "uneasy"
+  },
+  "schema": "CoworkerReaction",
+  "task": "sim_coworker"
+}

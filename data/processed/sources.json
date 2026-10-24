@@ -1,5 +1,16 @@
 [
   {
+    "id": "foothold_sim_events_draft",
+    "title": "Foothold sim workday events and EQ practice scenarios (events.json, eq_scenarios.json)",
+    "url": "data/processed/events.json",
+    "publisher": "Foothold (hackathon project)",
+    "license": "Project content; fictional scenarios",
+    "retrieved": "2026-10-24",
+    "status": "SYNTHETIC",
+    "attribution": "Drafted by an LLM agent; DRAFT; needs human review. All people, employers and scenes are fictional; trait deltas are design judgments keyed to O*NET Work Styles ids, not measured data.",
+    "producer_file": "sources/events.json"
+  },
+  {
     "id": "onet_31_0",
     "title": "O*NET 31.0 Database: Work Styles, Essential Skills, Transferable Skills, Career Interest Types, Occupation Data, Content Model Reference",
     "url": "https://www.onetcenter.org/database.html",
@@ -264,5 +275,163 @@
     ],
     "producer": "data/build_processed.py",
     "producer_file": "sources/onet.json"
+  },
+  {
+    "id": "edd_oews_2026q1",
+    "title": "CA EDD Occupational Employment and Wage Statistics (OEWS), 2026 Q1 wages, Stockton-Lodi MSA (Sacramento MSA / California for 17-3024)",
+    "url": "https://data.ca.gov/dataset/oews",
+    "publisher": "California Employment Development Department (BLS-EDD cooperative program)",
+    "license": "Public data (data.ca.gov); facts only",
+    "retrieved": "2026-10-24",
+    "status": "REAL",
+    "notes": [
+      "Wages updated by EDD to 2026 Q1 with the Employment Cost Index; employment = May 2025 OEWS estimates.",
+      "Used because BLS hosts blocked scripted requests on 2026-10-24.",
+      "logistics_lead uses SOC 53-1047 (O*NET profile 11-3071); 17-3024 has no Stockton-Lodi row."
+    ],
+    "used_by": [
+      "wages.json",
+      "careers.json",
+      "programs.json"
+    ],
+    "producer": "data/build_programs.py",
+    "producer_file": "sources/programs.json"
+  },
+  {
+    "id": "edd_projections",
+    "title": "CA EDD Long-Term Occupational Employment Projections (Stockton-Lodi 2023-2033; California 2024-2034)",
+    "url": "https://data.ca.gov/dataset/long-term-occupational-employment-projections",
+    "publisher": "California Employment Development Department",
+    "license": "Public data (data.ca.gov); facts only",
+    "retrieved": "2026-10-24",
+    "status": "REAL",
+    "notes": "annual_openings = 10-year total openings / 10 (derived by Foothold).",
+    "used_by": [
+      "wages.json",
+      "careers.json"
+    ],
+    "producer": "data/build_programs.py",
+    "producer_file": "sources/programs.json"
+  },
+  {
+    "id": "sjeti_apprenticeship",
+    "title": "San Joaquin & Calaveras Counties Electrical JATC (SJETI) Inside Wireman apprenticeship; DIR DAS listing",
+    "url": "https://sjeti.org/",
+    "publisher": "SJETI; California Department of Industrial Relations",
+    "license": "Public web pages; facts only",
+    "retrieved": "2026-10-24",
+    "status": "REAL",
+    "notes": "5 years, ~200 h/year related training, tuition-free, starting wage $21.35/h, entry algebra requirement. DIR: https://www.dir.ca.gov/databases/das/results_aigdetail.asp?varOccId=9810",
+    "used_by": [
+      "programs.json"
+    ],
+    "producer": "data/build_programs.py",
+    "producer_file": "sources/programs.json"
+  },
+  {
+    "id": "csu_campus_fees",
+    "title": "CSU campus fee pages, Fall 2026 (Stanislaus, Fresno, Sacramento)",
+    "url": "https://www.csustan.edu/tuition-fees/fee-schedules-deadlines#fall-26",
+    "publisher": "California State University campuses",
+    "license": "Public web pages; facts only",
+    "retrieved": "2026-10-24",
+    "status": "REAL",
+    "used_by": [
+      "programs.json"
+    ],
+    "producer": "data/build_programs.py",
+    "producer_file": "sources/programs.json"
+  },
+  {
+    "id": "uc_tuition",
+    "title": "University of California tuition and cost of attendance (2027-28 new CA resident estimate)",
+    "url": "https://admission.universityofcalifornia.edu/tuition-financial-aid/tuition-cost-of-attendance/",
+    "publisher": "University of California",
+    "license": "Public web page; facts only",
+    "retrieved": "2026-10-24",
+    "status": "REAL",
+    "notes": "UC Merced campus-specific fees ($8,462/semester) are SAMPLE: the campus page blocked our fetch.",
+    "used_by": [
+      "programs.json"
+    ],
+    "producer": "data/build_programs.py",
+    "producer_file": "sources/programs.json"
+  },
+  {
+    "id": "foothold_program_samples",
+    "title": "Foothold sample program schedules (course titles, sections, times, weekly hours, books, on-the-job routes)",
+    "url": "data/build_programs.py",
+    "publisher": "Foothold",
+    "license": "Foothold-made planning placeholders",
+    "retrieved": null,
+    "status": "SAMPLE",
+    "notes": [
+      "Section times and course splits are placeholders for the planner; verify with each college's schedule of classes.",
+      "Books = $80 per course (SAMPLE). Hours per week = 2 x units (SAMPLE); courses over 5 units are split into parts.",
+      "Enrollment fees = units x $46 (REAL, Delta College fee page)."
+    ],
+    "used_by": [
+      "programs.json"
+    ],
+    "producer": "data/build_programs.py",
+    "producer_file": "sources/programs.json"
+  },
+  {
+    "id": "foothold_personas",
+    "title": "Foothold demo personas (Maya, Dev, Luis, Tri-Valley Freight)",
+    "url": "data/build_programs.py",
+    "publisher": "Foothold",
+    "license": "Fictional",
+    "retrieved": null,
+    "status": "FICTIONAL",
+    "used_by": [
+      "personas.json"
+    ],
+    "producer": "data/build_programs.py",
+    "producer_file": "sources/programs.json"
+  },
+  {
+    "id": "foothold_synthetic",
+    "title": "Foothold synthetic learner population and talent pool (seeded)",
+    "url": "data/generate_synthetic.py",
+    "publisher": "Foothold",
+    "license": "Synthetic; generated by Foothold",
+    "retrieved": null,
+    "status": "SYNTHETIC",
+    "notes": "seed=7; archetypes documented in the script.",
+    "used_by": [
+      "synthetic/learners.json",
+      "synthetic/talent_pool.json"
+    ],
+    "producer": "data/generate_synthetic.py",
+    "producer_file": "sources/synthetic.json"
+  },
+  {
+    "id": "foothold_fictional_employers",
+    "title": "Foothold fictional employers (incl. Tri-Valley Freight)",
+    "url": "data/generate_synthetic.py",
+    "publisher": "Foothold",
+    "license": "Fictional",
+    "retrieved": null,
+    "status": "FICTIONAL",
+    "used_by": [
+      "synthetic/employers.json"
+    ],
+    "producer": "data/generate_synthetic.py",
+    "producer_file": "sources/synthetic.json"
+  },
+  {
+    "id": "foothold_fictional_circles",
+    "title": "Foothold fictional support circles and posts",
+    "url": "data/generate_synthetic.py",
+    "publisher": "Foothold",
+    "license": "Fictional",
+    "retrieved": null,
+    "status": "FICTIONAL",
+    "used_by": [
+      "synthetic/circles.json"
+    ],
+    "producer": "data/generate_synthetic.py",
+    "producer_file": "sources/synthetic.json"
   }
 ]

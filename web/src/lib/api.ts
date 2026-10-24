@@ -166,7 +166,7 @@ async function readBody(res: Response): Promise<unknown> {
   }
 }
 
-async function requestJSON<T>(method: "GET" | "POST", path: string, body: unknown, options: RequestOptions = {}): Promise<T> {
+async function requestJSON<T>(method: "GET" | "POST" | "PUT", path: string, body: unknown, options: RequestOptions = {}): Promise<T> {
   const url = apiUrl(path);
   const token = sessionTokenFor(url, options.auth);
   const link = linkAbort(options.signal, options.timeoutMs ?? DEFAULT_TIMEOUT_MS);
@@ -177,11 +177,11 @@ async function requestJSON<T>(method: "GET" | "POST", path: string, body: unknow
         method,
         headers: {
           Accept: "application/json",
-          ...(method === "POST" ? { "Content-Type": "application/json" } : {}),
+          ...(method !== "GET" ? { "Content-Type": "application/json" } : {}),
           ...authHeader(token),
           ...options.headers,
         },
-        body: method === "POST" ? JSON.stringify(body ?? {}) : undefined,
+        body: method !== "GET" ? JSON.stringify(body ?? {}) : undefined,
         signal: link.signal,
         cache: "no-store",
       });
@@ -225,6 +225,11 @@ export function getJSON<T>(path: string, options?: RequestOptions): Promise<T> {
 /** POST a JSON body and parse the JSON response. Throws `ApiError`. */
 export function postJSON<T>(path: string, body: unknown, options?: RequestOptions): Promise<T> {
   return requestJSON<T>("POST", path, body, options);
+}
+
+/** PUT a JSON body and parse the JSON response. Throws `ApiError`. */
+export function putJSON<T>(path: string, body: unknown, options?: RequestOptions): Promise<T> {
+  return requestJSON<T>("PUT", path, body, options);
 }
 
 /* ------------------------------------------------------------------ */

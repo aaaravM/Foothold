@@ -1,4 +1,4 @@
-"""SQLite helpers for api/.runtime/foothold.db (consent, postings, circle posts, progress, kanban).
+"""SQLite helpers (+ optional Supabase mirror, see bottom of file) for api/.runtime/foothold.db (consent, postings, circle posts, progress, kanban).
 
 Thread safety: every call opens its own short-lived connection (sqlite3 objects are
 never shared between threads); writes are additionally serialized in-process by a
@@ -23,6 +23,9 @@ from __future__ import annotations
 import json
 import re
 import sqlite3
+import logging
+import os
+import queue
 import threading
 from contextlib import contextmanager
 from datetime import datetime, timezone
@@ -190,7 +193,9 @@ def insert(table: str, row: Mapping[str, Any]) -> dict[str, Any]:
     else:
         sql = f"INSERT INTO {_ident(table)} DEFAULT VALUES RETURNING *"
     with _write_lock, connect() as conn:
-        return dict(conn.execute(sql, values).fetchone())
+        stored = dict(conn.execute(sql, values).fetchone())
+    _mirror("upsert", table, stored, _pk(table))
+    return stored
 
 
 def update(table: str, id_value: Any, fields: Mapping[str, Any], *, key: str = "id") -> int:
@@ -200,7 +205,10 @@ def update(table: str, id_value: Any, fields: Mapping[str, Any], *, key: str = "
     cols = [_ident(c) for c in fields]
     sql = f"UPDATE {_ident(table)} SET {', '.join(f'{c} = ?' for c in cols)} WHERE {_ident(key)} = ?"
     with _write_lock, connect() as conn:
-        return conn.execute(sql, [*(_encode(c, fields[c]) for c in cols), id_value]).rowcount
+        n = conn.execute(sql, [*(_encode(c, fields[c]) for c in cols), id_value]).rowcount
+    if n:
+        _mirror("update", table, {c: _encode(c, fields[c]) for c in cols}, key, id_value)
+    return n
 
 
 def upsert(table: str, row: Mapping[str, Any], *, key: str) -> dict[str, Any]:
@@ -218,4 +226,206 @@ def upsert(table: str, row: Mapping[str, Any], *, key: str) -> dict[str, Any]:
         found = conn.execute(sql, [_encode(c, row[c]) for c in cols]).fetchone()
         if found is None:  # DO NOTHING path returns no row
             found = conn.execute(f"SELECT * FROM {_ident(table)} WHERE {_ident(key)} = ?", (row[key],)).fetchone()
-        return dict(found)
+        stored = dict(found)
+    _mirror("upsert", table, stored, key)
+    return stored
+
+
+# ---------------------------------------------------------------------------
+# Optional Supabase mirror (PostgREST over httpx)
+# ---------------------------------------------------------------------------
+# SQLite stays the source of truth for every read (routes use raw SQL, which
+# PostgREST cannot run). When Supabase is active:
+#   * insert/update/upsert on MIRRORED_TABLES are replayed to Supabase by one
+#     background worker (ordered, 5 s timeout, never blocks a request);
+#   * remote_startup() pulls remote rows into SQLite (INSERT OR IGNORE) and pushes
+#     local rows missing remotely, so data survives laptop restarts / new machines.
+# Activation: DB_BACKEND=supabase, or DB_BACKEND=auto with SUPABASE_URL +
+# SUPABASE_SECRET_KEY set and a startup probe that finds the tables. Any failure
+# falls back to sqlite-only and is logged once. Keys are never logged.
+# Accounts / revoked tokens / skill_demand stay local (seeded from personas.json).
+
+log = logging.getLogger("foothold.db")
+MIRRORED_TABLES: dict[str, str] = {
+    "consent_requests": "id", "postings": "id", "circle_posts": "id", "progress_log": "id", "kanban": "learner_id",
+}
+REMOTE_TIMEOUT_S = 5.0
+_remote_lock = threading.Lock()
+_remote: dict[str, Any] = {"backend": "sqlite", "reason": "not started", "client": None, "errors": 0, "mirrored": 0}
+_queue: "queue.Queue[tuple | None]" = queue.Queue()
+_worker: threading.Thread | None = None
+_warned = False
+
+
+def _pk(table: str) -> str:
+    return MIRRORED_TABLES.get(table, "id")
+
+
+def supabase_settings() -> tuple[str, str] | None:
+    """(rest_base_url, secret_key) or None when not configured (publishable keys are rejected)."""
+    url = os.environ.get("SUPABASE_URL", "").strip().rstrip("/")
+    key = os.environ.get("SUPABASE_SECRET_KEY", "").strip()
+    if not url or not key:
+        return None
+    if key.startswith("sb_publishable_"):
+        return None  # a publishable key cannot bypass RLS; the sb_secret_ key is required
+    if url.startswith("https://supabase.com/dashboard/project/"):
+        url = f"https://{url.rsplit('/', 1)[-1]}.supabase.co"
+    return f"{url}/rest/v1", key
+
+
+class SupabaseRest:
+    """Minimal PostgREST client. ``transport`` is for tests (httpx.MockTransport)."""
+
+    def __init__(self, base: str, key: str, transport: Any = None) -> None:
+        import httpx
+
+        self._http = httpx.Client(
+            base_url=base, timeout=REMOTE_TIMEOUT_S, transport=transport,
+            headers={"apikey": key, "Authorization": f"Bearer {key}", "Content-Type": "application/json"},
+        )
+
+    def _check(self, r: Any) -> Any:
+        if r.status_code >= 300:
+            raise RuntimeError(f"supabase HTTP {r.status_code}")
+        return r.json() if r.content else None
+
+    def probe(self) -> None:
+        for table, key in MIRRORED_TABLES.items():
+            self._check(self._http.get(f"/{table}", params={"select": key, "limit": "1"}))
+
+    def select(self, table: str, limit: int = 5000) -> list[dict[str, Any]]:
+        return self._check(self._http.get(f"/{_ident(table)}", params={"select": "*", "limit": str(limit)})) or []
+
+    def upsert(self, table: str, rows: list[dict[str, Any]] | dict[str, Any], key: str, *, ignore: bool = False) -> Any:
+        pref = "resolution=ignore-duplicates" if ignore else "resolution=merge-duplicates"
+        return self._check(self._http.post(
+            f"/{_ident(table)}", params={"on_conflict": _ident(key)}, json=rows,
+            headers={"Prefer": f"{pref},return=representation"},
+        ))
+
+    def update(self, table: str, fields: dict[str, Any], key: str, value: Any) -> Any:
+        return self._check(self._http.patch(
+            f"/{_ident(table)}", params={_ident(key): f"eq.{value}"}, json=fields,
+            headers={"Prefer": "return=representation"},
+        ))
+
+    def close(self) -> None:
+        self._http.close()
+
+
+def backend_status() -> dict[str, Any]:
+    """For /health: {"backend": "sqlite"|"supabase", "reason", "mirrored", "errors"} (no secrets)."""
+    return {k: _remote[k] for k in ("backend", "reason", "mirrored", "errors")}
+
+
+def _set_sqlite(reason: str) -> None:
+    global _warned
+    _remote.update(backend="sqlite", reason=reason, client=None)
+    if not _warned and reason not in ("DB_BACKEND=sqlite", "not configured", "disabled under pytest"):
+        _warned = True
+        log.warning("Supabase disabled, using local sqlite only: %s", reason)
+
+
+def remote_startup(transport: Any = None, *, force: bool = False) -> dict[str, Any]:
+    """Decide the backend, probe Supabase, sync both ways. Never raises."""
+    mode = os.environ.get("DB_BACKEND", "auto").strip().lower() or "auto"
+    with _remote_lock:
+        if mode == "sqlite":
+            _set_sqlite("DB_BACKEND=sqlite")
+            return backend_status()
+        if "PYTEST_CURRENT_TEST" in os.environ and not force:
+            _set_sqlite("disabled under pytest")
+            return backend_status()
+        cfg = supabase_settings()
+        if cfg is None:
+            _set_sqlite("not configured" if mode == "auto"
+                        else "SUPABASE_URL / SUPABASE_SECRET_KEY (sb_secret_) missing")
+            return backend_status()
+        try:
+            client = SupabaseRest(*cfg, transport=transport)
+            client.probe()
+        except Exception as exc:
+            detail = str(exc)[:40] if isinstance(exc, RuntimeError) else type(exc).__name__
+            _set_sqlite(f"probe failed ({detail}); run supabase/schema.sql?")
+            return backend_status()
+        try:
+            _sync(client)
+        except Exception as exc:
+            log.warning("Supabase initial sync incomplete: %s", type(exc).__name__)
+        _remote.update(backend="supabase", reason="ok", client=client)
+        _ensure_worker()
+    log.info("DB backend: supabase mirror active")
+    return backend_status()
+
+
+def _sync(client: SupabaseRest) -> None:
+    with _write_lock, connect() as conn:
+        for table, key in MIRRORED_TABLES.items():
+            remote_rows = client.select(table)
+            for r in remote_rows:
+                cols = [_ident(c) for c in r]
+                conn.execute(
+                    f"INSERT OR IGNORE INTO {table} ({', '.join(cols)}) VALUES ({', '.join('?' for _ in cols)})",
+                    [_encode(c, r[c]) for c in cols],
+                )
+            have = {r.get(key) for r in remote_rows}
+            missing = [dict(r) for r in conn.execute(f"SELECT * FROM {table}").fetchall() if r[key] not in have]
+            for i in range(0, len(missing), 500):
+                client.upsert(table, missing[i:i + 500], key, ignore=True)
+
+
+def _ensure_worker() -> None:
+    global _worker
+    if _worker is None or not _worker.is_alive():
+        _worker = threading.Thread(target=_drain, name="supabase-mirror", daemon=True)
+        _worker.start()
+
+
+def _mirror(op: str, table: str, data: dict[str, Any], key: str, value: Any = None) -> None:
+    if _remote["backend"] != "supabase" or table not in MIRRORED_TABLES:
+        return
+    _queue.put((op, table, dict(data), key, value))
+
+
+def _drain() -> None:
+    while True:
+        item = _queue.get()
+        try:
+            if item is None:
+                return
+            client = _remote.get("client")
+            if client is None:
+                continue
+            op, table, data, key, value = item
+            try:
+                if op == "update":
+                    client.update(table, data, key, value)
+                else:
+                    client.upsert(table, data, key)
+                _remote["mirrored"] += 1
+            except Exception as exc:
+                _remote["errors"] += 1
+                if _remote["errors"] == 1:
+                    log.warning("Supabase mirror write failed (sqlite kept the row): %s", type(exc).__name__)
+        finally:
+            _queue.task_done()
+
+
+def flush_remote(timeout: float = 10.0) -> None:
+    """Wait for queued mirror writes (tests / shutdown)."""
+    import time as _t
+
+    end = _t.monotonic() + timeout
+    while _queue.unfinished_tasks and _t.monotonic() < end:
+        _t.sleep(0.02)
+
+
+def reset_remote() -> None:
+    """Back to sqlite-only (tests)."""
+    flush_remote(2.0)
+    with _remote_lock:
+        client = _remote.get("client")
+        if client is not None:
+            client.close()
+        _remote.update(backend="sqlite", reason="not started", client=None, errors=0, mirrored=0)

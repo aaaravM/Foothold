@@ -1,0 +1,12 @@
+[
+ {
+  "id": "foothold_sim_events_draft",
+  "title": "Foothold sim workday events and EQ practice scenarios (events.json, eq_scenarios.json)",
+  "url": "data/processed/events.json",
+  "publisher": "Foothold (hackathon project)",
+  "license": "Project content; fictional scenarios",
+  "retrieved": "2026-10-24",
+  "status": "SYNTHETIC",
+  "attribution": "Drafted by an LLM agent; DRAFT; needs human review. All people, employers and scenes are fictional; trait deltas are design judgments keyed to O*NET Work Styles ids, not measured data."
+ }
+]

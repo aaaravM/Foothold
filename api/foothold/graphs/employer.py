@@ -565,22 +565,38 @@ def fairness_audit(selected_ids: list[str], *, min_hours: int | None = None, reg
         return {**base, "reason": "talent pool not available yet"}
     if any(g is None for _, g in eligible):
         return {**base, "reason": "talent pool has no synthetic group labels"}
-    try:
-        from foothold import fairness  # built by the ML slice
-    except Exception:
-        return {**base, "reason": "fairness module not available yet"}
-    fn = getattr(fairness, "four_fifths", None) or getattr(fairness, "audit_selection", None)
-    if not callable(fn):
-        return {**base, "reason": "fairness module has no selection audit yet"}
     chosen = set(selected_ids)
     groups = [g for _, g in eligible]
     selected = [pid in chosen for pid, _ in eligible]
+    res: Any = None
     try:
-        res = fn(groups, selected)
-    except Exception as exc:
-        log.warning("fairness audit failed (%s)", type(exc).__name__)
-        return {**base, "reason": "fairness audit failed"}
+        from foothold import fairness  # built by the ML slice
+        fn = getattr(fairness, "four_fifths", None) or getattr(fairness, "audit_selection", None)
+        if callable(fn):
+            res = fn(groups, selected)
+    except Exception as exc:  # noqa: BLE001
+        log.info("foothold.fairness unavailable (%s); using the built-in four-fifths check", type(exc).__name__)
+        res = None
+    if not isinstance(res, dict):
+        res = _builtin_four_fifths(groups, selected)
     return {**base, **_public_fairness(res, groups, selected)}
+
+
+
+def _builtin_four_fifths(groups: list[str], selected: list[bool]) -> dict[str, Any]:
+    """EEOC four-fifths rule: min group selection rate / max group selection rate >= 0.8 (groups n >= 5 only)."""
+    n_by = Counter(groups)
+    sel_by = Counter(g for g, s in zip(groups, selected) if s)
+    rates = {g: sel_by[g] / n for g, n in n_by.items() if n >= consent.MIN_GROUP_SIZE}
+    top = max(rates.values()) if rates else 0.0
+    ratio = (min(rates.values()) / top) if rates and top > 0 else None
+    return {
+        "min_impact_ratio": round(ratio, 4) if ratio is not None else None,
+        "passes_four_fifths": None if ratio is None else ratio >= 0.8,
+        "method": "four-fifths rule: lowest group selection rate / highest (built-in)",
+        "note": "Synthetic group labels on a FICTIONAL pool; an audit signal, not a legal determination."
+        if ratio is not None else "No one selected yet, so there is no ratio to compare.",
+    }
 
 
 def _public_fairness(res: Any, groups: list[str], selected: list[bool]) -> dict[str, Any]:

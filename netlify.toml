@@ -1,0 +1,26 @@
+# Static Next.js export (scripts/build_web_static.sh produces web/out).
+# Recommended: build locally with the tunnel URL, then `netlify deploy --prod --dir web/out`
+# or drag web/out onto https://app.netlify.com/drop. The build command below is only used
+# if the repo is connected to Netlify CI; set NEXT_PUBLIC_API_URL in the site's env vars.
+[build]
+  base    = "web"
+  publish = "out"
+  # On Netlify CI there is no dev server, so the default distDir is fine; export lands in out/.
+  command = "NEXT_OUTPUT=export npm run build"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    X-Frame-Options = "DENY"
+
+[[headers]]
+  for = "/_next/static/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Unknown paths -> exported 404 page (all routes are pre-rendered; no SPA rewrite needed).

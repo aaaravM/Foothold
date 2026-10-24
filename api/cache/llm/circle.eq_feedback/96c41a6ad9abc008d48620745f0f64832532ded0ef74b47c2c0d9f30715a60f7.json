@@ -1,0 +1,17 @@
+{
+  "created_at": "2026-10-24T22:14:26+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "assertiveness": 4,
+    "empathy": 3,
+    "feedback": "Your reply is calm and respectful, and your Monday request gives you more notice to plan. The empathy is brief but validates that the situation may be stressful. A quick check-in could make the response feel more collaborative.",
+    "listening": 3,
+    "repair": 4,
+    "strength": "You acknowledge Jordan’s unexpected situation, clearly protect your class time, and suggest a specific deadline for future swap requests.",
+    "try_next": "You could check whether you understood what came up or ask if Jordan has another option for this Thursday."
+  },
+  "schema": "EQFeedbackOut",
+  "task": "circle.eq_feedback"
+}

@@ -1,0 +1,13 @@
+{
+  "created_at": "2026-10-24T22:22:57+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "line": "Good. Show me and the customer, then write down exactly what you found. Safety comes first.",
+    "mood_delta": 10,
+    "reaction": "approves"
+  },
+  "schema": "CoworkerReaction",
+  "task": "sim_coworker"
+}

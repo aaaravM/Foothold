@@ -260,6 +260,11 @@ def _check_wage(claim: Claim, unit: str, value: float) -> ClaimResult:
     expected = _num(wage.get(field))
     tol_unit = unit
     cross = False
+    native = "usd_per_hour" if "hourly" in field else ("usd_per_year" if "annual" in field else unit)
+    if expected is not None and native != unit:
+        # the claim names a statistic in the other unit (e.g. median_hourly stated per year): convert
+        expected = expected * HOURS_PER_YEAR if unit == "usd_per_year" else expected / HOURS_PER_YEAR
+        cross = True
     if expected is None:
         # cross-unit: hourly claim vs annual record (or the reverse), OEWS 2,080 h/yr
         other = _HOURLY_TO_ANNUAL.get(field) if unit == "usd_per_hour" else _ANNUAL_TO_HOURLY.get(field)

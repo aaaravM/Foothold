@@ -387,7 +387,7 @@ def parse_program(raw: Mapping[str, Any]) -> Program:
             if isinstance(cont_flag, bool)
             else (kind == "job" or (paid is not None and paid > 0) or route_type in ("apprenticeship", "direct_to_work"))
         )
-        secs = [s for j, s in enumerate(st.get("sections") or []) if (s := _parse_section(s, j, sid)) is not None]
+        secs = [sec for j, raw_sec in enumerate(st.get("sections") or []) if (sec := _parse_section(raw_sec, j, sid)) is not None]
         if not secs:
             secs = [Section(id=f"{sid}-flex", days=(), start=None, end=None,
                             modality="online" if kind != "job" else "in_person", flexible=True)]
@@ -598,7 +598,7 @@ def describe_rule(rule: Mapping[str, Any]) -> str:
     if t == "earliest_start":
         return f"Start {rule.get('season', '').title()} {n} or later" if n else f"Start in {rule.get('season', '').title()} or later"
     if t == "max_months":
-        return f"Finish within {n} months"
+        return f"Finish within {n} month{'s' if n != 1 else ''}"
     if t == "avoid_route":
         return f"Not the {ROUTE_LABELS.get(str(rule.get('route_type')), str(rule.get('route_type'))).lower()} route"
     return str(t)
@@ -1567,6 +1567,8 @@ def solve_greedy(program: Program, c: Constraints, *, today: date | None = None,
     if plan["cost_usd"] > c.budget_usd + 1e-6:
         return _infeasible(prep, reason="Greedy plan goes over budget.", code="budget", status="INFEASIBLE",
                            ms=int(round((time.perf_counter() - t0) * 1000)))
+    plan["feasible"] = True
+    plan["waived_steps"] = [{"step": s.id, "title": s.title, "units": s.units} for s in prep.waived]
     checks = verify_plan(plan, program, c, today=today)
     if not all(ch["ok"] for ch in checks):
         bad = next(ch for ch in checks if not ch["ok"])

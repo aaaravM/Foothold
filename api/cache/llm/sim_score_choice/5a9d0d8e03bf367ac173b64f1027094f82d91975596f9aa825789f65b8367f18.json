@@ -1,0 +1,25 @@
+{
+  "created_at": "2026-10-24T22:23:04+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "deltas": [
+      {
+        "delta": 0.8,
+        "trait_id": "adaptability"
+      },
+      {
+        "delta": 0.6,
+        "trait_id": "perseverance"
+      },
+      {
+        "delta": 0.3,
+        "trait_id": "cautiousness"
+      }
+    ],
+    "rationale": "The choice adopts the new process despite short-term inconvenience, showing adaptability and persistence while favoring consistent use of the diagnostic tool."
+  },
+  "schema": "TraitTagging",
+  "task": "sim_score_choice"
+}

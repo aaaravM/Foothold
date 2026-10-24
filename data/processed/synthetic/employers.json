@@ -1,0 +1,210 @@
+{
+ "fictional": true,
+ "status": "FICTIONAL",
+ "source_id": "foothold_fictional_employers",
+ "seed": 7,
+ "employers": [
+  {
+   "id": "tri_valley_freight",
+   "name": "Tri-Valley Freight",
+   "industry": "Third-party logistics and distribution",
+   "region": "Lathrop",
+   "hiring_careers": [
+    "robotics_tech",
+    "logistics_lead",
+    "diesel_mechanic"
+   ],
+   "size": "about 600 employees (fictional)",
+   "contact_email": "hiring@trivalleyfreight.example.org",
+   "fictional": true
+  },
+  {
+   "id": "delta_breeze_logistics",
+   "name": "Delta Breeze Logistics",
+   "industry": "Warehousing",
+   "region": "Stockton",
+   "hiring_careers": [
+    "logistics_lead",
+    "robotics_tech"
+   ],
+   "size": "about 300 employees (fictional)",
+   "contact_email": "hiring@deltabreezelogistics.example.org",
+   "fictional": true
+  },
+  {
+   "id": "oakline_ag_equipment",
+   "name": "Oakline Ag Equipment",
+   "industry": "Farm equipment dealer and service",
+   "region": "Lodi",
+   "hiring_careers": [
+    "diesel_mechanic",
+    "welder"
+   ],
+   "size": "about 80 employees (fictional)",
+   "contact_email": "hiring@oaklineagequipment.example.org",
+   "fictional": true
+  },
+  {
+   "id": "sunfield_orchards",
+   "name": "Sunfield Orchards Co-op",
+   "industry": "Almond and walnut growing (co-op)",
+   "region": "Turlock",
+   "hiring_careers": [
+    "farm_ops_manager",
+    "diesel_mechanic"
+   ],
+   "size": "about 150 employees (fictional)",
+   "contact_email": "hiring@sunfieldorchards.example.org",
+   "fictional": true
+  },
+  {
+   "id": "valley_crest_health",
+   "name": "Valley Crest Community Health",
+   "industry": "Community hospital",
+   "region": "Modesto",
+   "hiring_careers": [
+    "registered_nurse"
+   ],
+   "size": "about 1,200 employees (fictional)",
+   "contact_email": "hiring@valleycresthealth.example.org",
+   "fictional": true
+  },
+  {
+   "id": "riverbend_clinic_network",
+   "name": "Riverbend Clinic Network",
+   "industry": "Outpatient clinics",
+   "region": "Stockton",
+   "hiring_careers": [
+    "registered_nurse"
+   ],
+   "size": "about 400 employees (fictional)",
+   "contact_email": "hiring@riverbendclinicnetwork.example.org",
+   "fictional": true
+  },
+  {
+   "id": "granite_line_fabrication",
+   "name": "Granite Line Fabrication",
+   "industry": "Structural steel fabrication",
+   "region": "Manteca",
+   "hiring_careers": [
+    "welder"
+   ],
+   "size": "about 60 employees (fictional)",
+   "contact_email": "hiring@granitelinefabrication.example.org",
+   "fictional": true
+  },
+  {
+   "id": "canal_street_electric",
+   "name": "Canal Street Electric",
+   "industry": "Electrical contractor",
+   "region": "Tracy",
+   "hiring_careers": [
+    "electrician"
+   ],
+   "size": "about 90 employees (fictional)",
+   "contact_email": "hiring@canalstreetelectric.example.org",
+   "fictional": true
+  },
+  {
+   "id": "heron_point_software",
+   "name": "Heron Point Software",
+   "industry": "Agtech software",
+   "region": "Merced",
+   "hiring_careers": [
+    "software_dev"
+   ],
+   "size": "about 40 employees (fictional)",
+   "contact_email": "hiring@heronpointsoftware.example.org",
+   "fictional": true
+  },
+  {
+   "id": "bluegate_packing",
+   "name": "Bluegate Packing",
+   "industry": "Fruit packing and cold storage",
+   "region": "Lodi",
+   "hiring_careers": [
+    "robotics_tech",
+    "logistics_lead",
+    "electrician"
+   ],
+   "size": "about 500 employees (fictional)",
+   "contact_email": "hiring@bluegatepacking.example.org",
+   "fictional": true
+  },
+  {
+   "id": "ironwood_truck_service",
+   "name": "Ironwood Truck Service",
+   "industry": "Heavy truck repair",
+   "region": "Stockton",
+   "hiring_careers": [
+    "diesel_mechanic"
+   ],
+   "size": "about 45 employees (fictional)",
+   "contact_email": "hiring@ironwoodtruckservice.example.org",
+   "fictional": true
+  },
+  {
+   "id": "mesa_verde_dairy",
+   "name": "Mesa Verde Dairy Partners",
+   "industry": "Dairy operations",
+   "region": "Merced",
+   "hiring_careers": [
+    "farm_ops_manager",
+    "diesel_mechanic"
+   ],
+   "size": "about 70 employees (fictional)",
+   "contact_email": "hiring@mesaverdedairy.example.org",
+   "fictional": true
+  },
+  {
+   "id": "northgate_automation",
+   "name": "Northgate Automation Services",
+   "industry": "Conveyor and robotics integrator",
+   "region": "Tracy",
+   "hiring_careers": [
+    "robotics_tech",
+    "electrician",
+    "software_dev"
+   ],
+   "size": "about 120 employees (fictional)",
+   "contact_email": "hiring@northgateautomation.example.org",
+   "fictional": true
+  },
+  {
+   "id": "cottonwood_care_homes",
+   "name": "Cottonwood Care Homes",
+   "industry": "Skilled nursing",
+   "region": "Turlock",
+   "hiring_careers": [
+    "registered_nurse"
+   ],
+   "size": "about 200 employees (fictional)",
+   "contact_email": "hiring@cottonwoodcarehomes.example.org",
+   "fictional": true
+  },
+  {
+   "id": "sierra_vista_transit_parts",
+   "name": "Sierra Vista Transit Parts",
+   "industry": "Parts distribution",
+   "region": "Modesto",
+   "hiring_careers": [
+    "logistics_lead"
+   ],
+   "size": "about 110 employees (fictional)",
+   "contact_email": "hiring@sierravistatransitparts.example.org",
+   "fictional": true
+  },
+  {
+   "id": "tule_fog_data",
+   "name": "Tule Fog Data Co.",
+   "industry": "Small IT services firm",
+   "region": "Stockton",
+   "hiring_careers": [
+    "software_dev"
+   ],
+   "size": "about 25 employees (fictional)",
+   "contact_email": "hiring@tulefogdata.example.org",
+   "fictional": true
+  }
+ ]
+}

@@ -238,10 +238,16 @@ const REC_SCOPES: Record<RecScope, readonly string[]> = {
 };
 
 export function readRecommender(b: Block | null) {
-  const value = (m: RecModel, k: RecMetric, s: RecScope) => pickNum(b, combos(REC_MODELS[m], REC_METRICS[k], REC_SCOPES[s]));
+  const value = (m: RecModel, k: RecMetric, s: RecScope) => {
+    // train_recommender.py writes {model}.{warm|cold}.all.{recall@10|ndcg@10}
+    const direct = REC_MODELS[m].map((mm) => `${mm}.${s === "overall" ? "warm" : "cold"}.all.${k === "recall" ? "recall10" : "ndcg10"}`);
+    return pickNum(b, [...direct, ...combos(REC_MODELS[m], REC_METRICS[k], REC_SCOPES[s])]);
+  };
   return {
     value,
     modelType: pickStr(b, ["modeltype", "gnn.modeltype", "architecture", "gnntype"]),
+    winnerWarm: pickStr(b, ["winner.warm", "winner"]),
+    winnerCold: pickStr(b, ["winner.cold"]),
     coldDefinition: pickStr(b, ["colddefinition", "coldstartdefinition", "coldstart.definition", "colddef"]),
   };
 }
@@ -260,8 +266,8 @@ export function readPlanner(b: Block | null) {
     greedy: feas(["greedy"]),
     p50: pickNum(b, P50),
     p95: pickNum(b, P95),
-    months: pickNum(b, ["monthsimprovement", "improvement.months", "monthssaved", "avgmonthssaved", "meanmonthssaved", "months.improvement", "monthsimprovementmean"]),
-    cost: pickNum(b, ["costimprovement", "improvement.cost", "costsaved", "avgcostsavedusd", "costsavedusd", "meancostsaved", "cost.improvement", "costimprovementusd", "improvement.costusd"]),
+    months: pickNum(b, ["improvementwhenbothfeasible.monthssavedmean", "monthsimprovement", "improvement.months", "monthssaved", "avgmonthssaved", "meanmonthssaved", "months.improvement", "monthsimprovementmean"]),
+    cost: pickNum(b, ["improvementwhenbothfeasible.costsavedmeanusd", "costimprovement", "improvement.cost", "costsaved", "avgcostsavedusd", "costsavedusd", "meancostsaved", "cost.improvement", "costimprovementusd", "improvement.costusd"]),
     nCases: pickNum(b, ["ncases", "n", "cases"]),
   };
 }

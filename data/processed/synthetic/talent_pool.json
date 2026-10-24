@@ -1,0 +1,5577 @@
+{
+ "fictional": true,
+ "status": "SYNTHETIC",
+ "source_id": "foothold_synthetic",
+ "seed": 7,
+ "note": "group is a synthetic label for the fairness audit only: never a model feature, never displayed on cards.",
+ "candidates": [
+  {
+   "id": "cand_maya",
+   "candidate_id": "cand_maya",
+   "persona_id": "maya",
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_maya",
+    "target_career": "robotics_tech",
+    "demonstrated_skills": [
+     "mathematics",
+     "programming",
+     "robot_programming",
+     "sensors_actuators",
+     "complex_problem_solving"
+    ],
+    "sim_bands": {
+     "safety": "high",
+     "output": "mid",
+     "team_trust": "high"
+    },
+    "pathway_progress": {
+     "program": "engineering_transfer_prep_ucm",
+     "percent": 5
+    },
+    "availability": "after school and Saturdays (about 10 h/week)",
+    "region": "Stockton area"
+   },
+   "hidden": {
+    "name": "Maya Ortiz",
+    "photo_initials": "MO",
+    "exact_location": "Stockton, CA (fictional address)",
+    "contact_email": "maya.ortiz@example.com",
+    "phone": "555-0110"
+   },
+   "group": "A",
+   "fictional": true
+  },
+  {
+   "id": "cand_dev",
+   "candidate_id": "cand_dev",
+   "persona_id": "dev",
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_dev",
+    "target_career": "robotics_tech",
+    "demonstrated_skills": [
+     "forklift_safety",
+     "shipping_receiving",
+     "inventory_systems",
+     "osha_safety",
+     "lockout_tagout",
+     "equipment_maintenance",
+     "troubleshooting"
+    ],
+    "sim_bands": {
+     "safety": "high",
+     "output": "high",
+     "team_trust": "mid"
+    },
+    "pathway_progress": {
+     "program": "mjc_automation_technician_coa",
+     "percent": 20
+    },
+    "availability": "evenings and weekends",
+    "region": "Lathrop area"
+   },
+   "hidden": {
+    "name": "Dev Sandhu",
+    "photo_initials": "DS",
+    "exact_location": "Lathrop, CA (fictional address)",
+    "contact_email": "dev.sandhu@example.com",
+    "phone": "555-0111"
+   },
+   "group": "B",
+   "fictional": true
+  },
+  {
+   "id": "cand_luis",
+   "candidate_id": "cand_luis",
+   "persona_id": "luis",
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_luis",
+    "target_career": "diesel_mechanic",
+    "demonstrated_skills": [
+     "diesel_diagnostics",
+     "hydraulics",
+     "repairing",
+     "equipment_maintenance",
+     "mig_welding",
+     "troubleshooting"
+    ],
+    "sim_bands": {
+     "safety": "mid",
+     "output": "high",
+     "team_trust": "high"
+    },
+    "pathway_progress": {
+     "program": "delta_ag_mechanics_coa",
+     "percent": 10
+    },
+    "availability": "weekdays after 2:30 pm; summers full-time",
+    "region": "Manteca area"
+   },
+   "hidden": {
+    "name": "Luis Navarro",
+    "photo_initials": "LN",
+    "exact_location": "Manteca, CA (fictional address)",
+    "contact_email": "luis.navarro@example.com",
+    "phone": "555-0112"
+   },
+   "group": "C",
+   "fictional": true
+  },
+  {
+   "id": "cand_0001",
+   "candidate_id": "cand_0001",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0001",
+    "target_career": "diesel_mechanic",
+    "demonstrated_skills": [
+     "air_brakes",
+     "hydraulics",
+     "operations_monitoring",
+     "osha_safety",
+     "repairing",
+     "troubleshooting"
+    ],
+    "sim_bands": {
+     "safety": "low",
+     "output": "mid",
+     "team_trust": "mid"
+    },
+    "pathway_progress": {
+     "program": "delta_cat_dealer_apprenticeship",
+     "percent": 0
+    },
+    "availability": "full-time after certificate",
+    "region": "Turlock area"
+   },
+   "hidden": {
+    "name": "Lupe Brooks",
+    "photo_initials": "LB",
+    "exact_location": "Turlock, CA (fictional address)",
+    "contact_email": "lupe.brooks.1@example.com",
+    "phone": "555-310-1477"
+   },
+   "group": "B",
+   "fictional": true
+  },
+  {
+   "id": "cand_0002",
+   "candidate_id": "cand_0002",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0002",
+    "target_career": "electrician",
+    "demonstrated_skills": [
+     "blueprint_reading",
+     "equipment_selection",
+     "repairing",
+     "troubleshooting"
+    ],
+    "sim_bands": {
+     "safety": "mid",
+     "output": "mid",
+     "team_trust": "low"
+    },
+    "pathway_progress": {
+     "program": "sjeti_inside_wireman",
+     "percent": 35
+    },
+    "availability": "immediately, full-time",
+    "region": "Tracy area"
+   },
+   "hidden": {
+    "name": "Mateo Singh",
+    "photo_initials": "MS",
+    "exact_location": "Tracy, CA (fictional address)",
+    "contact_email": "mateo.singh.2@example.com",
+    "phone": "555-902-3129"
+   },
+   "group": "B",
+   "fictional": true
+  },
+  {
+   "id": "cand_0003",
+   "candidate_id": "cand_0003",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0003",
+    "target_career": "robotics_tech",
+    "demonstrated_skills": [
+     "electrical_theory",
+     "installation",
+     "lockout_tagout",
+     "plc_basics",
+     "repairing",
+     "sensors_actuators",
+     "technology_design"
+    ],
+    "sim_bands": {
+     "safety": "high",
+     "output": "mid",
+     "team_trust": "high"
+    },
+    "pathway_progress": {
+     "program": "mjc_automation_technician_coa",
+     "percent": 10
+    },
+    "availability": "full-time after certificate",
+    "region": "Lathrop area"
+   },
+   "hidden": {
+    "name": "Rafael Reyes",
+    "photo_initials": "RR",
+    "exact_location": "Lathrop, CA (fictional address)",
+    "contact_email": "rafael.reyes.3@example.com",
+    "phone": "555-258-2717"
+   },
+   "group": "B",
+   "fictional": true
+  },
+  {
+   "id": "cand_0004",
+   "candidate_id": "cand_0004",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0004",
+    "target_career": "farm_ops_manager",
+    "demonstrated_skills": [
+     "equipment_maintenance",
+     "inventory_systems",
+     "negotiation",
+     "spreadsheets",
+     "technology_design"
+    ],
+    "sim_bands": {
+     "safety": "low",
+     "output": "high",
+     "team_trust": "low"
+    },
+    "pathway_progress": {
+     "program": "delta_ag_business_coa",
+     "percent": 80
+    },
+    "availability": "weekdays",
+    "region": "Turlock area"
+   },
+   "hidden": {
+    "name": "Arjun Ortega",
+    "photo_initials": "AO",
+    "exact_location": "Turlock, CA (fictional address)",
+    "contact_email": "arjun.ortega.4@example.com",
+    "phone": "555-471-6717"
+   },
+   "group": "A",
+   "fictional": true
+  },
+  {
+   "id": "cand_0005",
+   "candidate_id": "cand_0005",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0005",
+    "target_career": "software_dev",
+    "demonstrated_skills": [
+     "git",
+     "python",
+     "software_testing",
+     "systems_analysis",
+     "systems_evaluation"
+    ],
+    "sim_bands": {
+     "safety": "mid",
+     "output": "mid",
+     "team_trust": "mid"
+    },
+    "pathway_progress": {
+     "program": "delta_computer_programming_coa",
+     "percent": 50
+    },
+    "availability": "full-time after certificate",
+    "region": "Tracy area"
+   },
+   "hidden": {
+    "name": "Hannah Nguyen",
+    "photo_initials": "HN",
+    "exact_location": "Tracy, CA (fictional address)",
+    "contact_email": "hannah.nguyen.5@example.com",
+    "phone": "555-408-7205"
+   },
+   "group": "C",
+   "fictional": true
+  },
+  {
+   "id": "cand_0006",
+   "candidate_id": "cand_0006",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0006",
+    "target_career": "electrician",
+    "demonstrated_skills": [
+     "blueprint_reading",
+     "conduit_bending",
+     "electrical_theory",
+     "equipment_maintenance"
+    ],
+    "sim_bands": {
+     "safety": "low",
+     "output": "mid",
+     "team_trust": "high"
+    },
+    "pathway_progress": {
+     "program": "sjeti_inside_wireman",
+     "percent": 65
+    },
+    "availability": "immediately, full-time",
+    "region": "Merced area"
+   },
+   "hidden": {
+    "name": "Rafael Vang",
+    "photo_initials": "RV",
+    "exact_location": "Merced, CA (fictional address)",
+    "contact_email": "rafael.vang.6@example.com",
+    "phone": "555-858-2611"
+   },
+   "group": "B",
+   "fictional": true
+  },
+  {
+   "id": "cand_0007",
+   "candidate_id": "cand_0007",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0007",
+    "target_career": "welder",
+    "demonstrated_skills": [
+     "mig_welding",
+     "stick_welding"
+    ],
+    "sim_bands": {
+     "safety": "low",
+     "output": "high",
+     "team_trust": "mid"
+    },
+    "pathway_progress": {
+     "program": "delta_smaw_coa",
+     "percent": 100
+    },
+    "availability": "weekdays",
+    "region": "Manteca area"
+   },
+   "hidden": {
+    "name": "Simran Ramos",
+    "photo_initials": "SR",
+    "exact_location": "Manteca, CA (fictional address)",
+    "contact_email": "simran.ramos.7@example.com",
+    "phone": "555-615-8545"
+   },
+   "group": "A",
+   "fictional": true
+  },
+  {
+   "id": "cand_0008",
+   "candidate_id": "cand_0008",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0008",
+    "target_career": "farm_ops_manager",
+    "demonstrated_skills": [
+     "ag_equipment_operation",
+     "management_of_financial_resources",
+     "management_of_personnel_resources"
+    ],
+    "sim_bands": {
+     "safety": "mid",
+     "output": "low",
+     "team_trust": "high"
+    },
+    "pathway_progress": {
+     "program": "direct_farm_crew_lead",
+     "percent": 0
+    },
+    "availability": "summer internship",
+    "region": "Lathrop area"
+   },
+   "hidden": {
+    "name": "Victor Vang",
+    "photo_initials": "VV",
+    "exact_location": "Lathrop, CA (fictional address)",
+    "contact_email": "victor.vang.8@example.com",
+    "phone": "555-398-5281"
+   },
+   "group": "A",
+   "fictional": true
+  },
+  {
+   "id": "cand_0009",
+   "candidate_id": "cand_0009",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0009",
+    "target_career": "logistics_lead",
+    "demonstrated_skills": [
+     "coordination",
+     "forklift_safety",
+     "inventory_systems",
+     "negotiation",
+     "plc_basics",
+     "shipping_receiving",
+     "software_testing",
+     "spreadsheets"
+    ],
+    "sim_bands": {
+     "safety": "mid",
+     "output": "high",
+     "team_trust": "low"
+    },
+    "pathway_progress": {
+     "program": "delta_business_admin_ast",
+     "percent": 50
+    },
+    "availability": "summer internship",
+    "region": "Merced area"
+   },
+   "hidden": {
+    "name": "Darnell Delgado",
+    "photo_initials": "DD",
+    "exact_location": "Merced, CA (fictional address)",
+    "contact_email": "darnell.delgado.9@example.com",
+    "phone": "555-936-3936"
+   },
+   "group": "A",
+   "fictional": true
+  },
+  {
+   "id": "cand_0010",
+   "candidate_id": "cand_0010",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0010",
+    "target_career": "welder",
+    "demonstrated_skills": [
+     "blueprint_reading",
+     "negotiation",
+     "operation_and_control",
+     "operations_monitoring",
+     "quality_control_analysis",
+     "shipping_receiving",
+     "stick_welding",
+     "tig_welding"
+    ],
+    "sim_bands": {
+     "safety": "mid",
+     "output": "mid",
+     "team_trust": "mid"
+    },
+    "pathway_progress": {
+     "program": "delta_welding_tech_coa",
+     "percent": 10
+    },
+    "availability": "full-time after certificate",
+    "region": "Merced area"
+   },
+   "hidden": {
+    "name": "Darnell Castillo",
+    "photo_initials": "DC",
+    "exact_location": "Merced, CA (fictional address)",
+    "contact_email": "darnell.castillo.10@example.com",
+    "phone": "555-409-4929"
+   },
+   "group": "A",
+   "fictional": true
+  },
+  {
+   "id": "cand_0011",
+   "candidate_id": "cand_0011",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0011",
+    "target_career": "logistics_lead",
+    "demonstrated_skills": [
+     "complex_problem_solving",
+     "coordination",
+     "shipping_receiving",
+     "systems_analysis"
+    ],
+    "sim_bands": {
+     "safety": "mid",
+     "output": "mid",
+     "team_trust": "high"
+    },
+    "pathway_progress": {
+     "program": "delta_logistics_supervisor_coa",
+     "percent": 100
+    },
+    "availability": "full-time after certificate",
+    "region": "Merced area"
+   },
+   "hidden": {
+    "name": "Andre Vang",
+    "photo_initials": "AV",
+    "exact_location": "Merced, CA (fictional address)",
+    "contact_email": "andre.vang.11@example.com",
+    "phone": "555-577-1417"
+   },
+   "group": "B",
+   "fictional": true
+  },
+  {
+   "id": "cand_0012",
+   "candidate_id": "cand_0012",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0012",
+    "target_career": "diesel_mechanic",
+    "demonstrated_skills": [
+     "air_brakes",
+     "equipment_maintenance",
+     "equipment_selection",
+     "git",
+     "hydraulics",
+     "lockout_tagout",
+     "operations_monitoring",
+     "spreadsheets"
+    ],
+    "sim_bands": {
+     "safety": "mid",
+     "output": "mid",
+     "team_trust": "mid"
+    },
+    "pathway_progress": {
+     "program": "direct_diesel_shop",
+     "percent": 80
+    },
+    "availability": "full-time after certificate",
+    "region": "Modesto area"
+   },
+   "hidden": {
+    "name": "Rafael Ortega",
+    "photo_initials": "RO",
+    "exact_location": "Modesto, CA (fictional address)",
+    "contact_email": "rafael.ortega.12@example.com",
+    "phone": "555-985-2109"
+   },
+   "group": "C",
+   "fictional": true
+  },
+  {
+   "id": "cand_0013",
+   "candidate_id": "cand_0013",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0013",
+    "target_career": "electrician",
+    "demonstrated_skills": [
+     "blueprint_reading",
+     "installation",
+     "repairing"
+    ],
+    "sim_bands": {
+     "safety": "low",
+     "output": "mid",
+     "team_trust": "mid"
+    },
+    "pathway_progress": {
+     "program": "delta_electrical_trainee_coa",
+     "percent": 80
+    },
+    "availability": "part-time (20 h/week)",
+    "region": "Modesto area"
+   },
+   "hidden": {
+    "name": "Rosa Nguyen",
+    "photo_initials": "RN",
+    "exact_location": "Modesto, CA (fictional address)",
+    "contact_email": "rosa.nguyen.13@example.com",
+    "phone": "555-377-7149"
+   },
+   "group": "B",
+   "fictional": true
+  },
+  {
+   "id": "cand_0014",
+   "candidate_id": "cand_0014",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0014",
+    "target_career": "farm_ops_manager",
+    "demonstrated_skills": [
+     "ag_equipment_operation",
+     "irrigation_management",
+     "management_of_personnel_resources",
+     "negotiation",
+     "operations_analysis",
+     "service_orientation"
+    ],
+    "sim_bands": {
+     "safety": "mid",
+     "output": "low",
+     "team_trust": "low"
+    },
+    "pathway_progress": {
+     "program": "mjc_ag_business_ast",
+     "percent": 0
+    },
+    "availability": "summer internship",
+    "region": "Lodi area"
+   },
+   "hidden": {
+    "name": "Leah Ortega",
+    "photo_initials": "LO",
+    "exact_location": "Lodi, CA (fictional address)",
+    "contact_email": "leah.ortega.14@example.com",
+    "phone": "555-524-6282"
+   },
+   "group": "C",
+   "fictional": true
+  },
+  {
+   "id": "cand_0015",
+   "candidate_id": "cand_0015",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0015",
+    "target_career": "welder",
+    "demonstrated_skills": [
+     "osha_safety",
+     "social_perceptiveness",
+     "stick_welding",
+     "tig_welding"
+    ],
+    "sim_bands": {
+     "safety": "low",
+     "output": "high",
+     "team_trust": "low"
+    },
+    "pathway_progress": {
+     "program": "direct_welder_helper",
+     "percent": 80
+    },
+    "availability": "weekdays",
+    "region": "Merced area"
+   },
+   "hidden": {
+    "name": "Leah Lee",
+    "photo_initials": "LL",
+    "exact_location": "Merced, CA (fictional address)",
+    "contact_email": "leah.lee.15@example.com",
+    "phone": "555-534-4350"
+   },
+   "group": "A",
+   "fictional": true
+  },
+  {
+   "id": "cand_0016",
+   "candidate_id": "cand_0016",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0016",
+    "target_career": "registered_nurse",
+    "demonstrated_skills": [
+     "ehr_charting",
+     "social_perceptiveness",
+     "systems_evaluation"
+    ],
+    "sim_bands": {
+     "safety": "mid",
+     "output": "low",
+     "team_trust": "mid"
+    },
+    "pathway_progress": {
+     "program": "delta_nursing_rn_as",
+     "percent": 100
+    },
+    "availability": "summer internship",
+    "region": "Tracy area"
+   },
+   "hidden": {
+    "name": "Rosa Ramos",
+    "photo_initials": "RR",
+    "exact_location": "Tracy, CA (fictional address)",
+    "contact_email": "rosa.ramos.16@example.com",
+    "phone": "555-709-4602"
+   },
+   "group": "A",
+   "fictional": true
+  },
+  {
+   "id": "cand_0017",
+   "candidate_id": "cand_0017",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0017",
+    "target_career": "farm_ops_manager",
+    "demonstrated_skills": [
+     "irrigation_management",
+     "management_of_financial_resources",
+     "management_of_material_resources",
+     "spreadsheets"
+    ],
+    "sim_bands": {
+     "safety": "low",
+     "output": "low",
+     "team_trust": "mid"
+    },
+    "pathway_progress": {
+     "program": "delta_ag_business_coa",
+     "percent": 35
+    },
+    "availability": "full-time after certificate",
+    "region": "Tracy area"
+   },
+   "hidden": {
+    "name": "Andre Chen",
+    "photo_initials": "AC",
+    "exact_location": "Tracy, CA (fictional address)",
+    "contact_email": "andre.chen.17@example.com",
+    "phone": "555-769-3575"
+   },
+   "group": "C",
+   "fictional": true
+  },
+  {
+   "id": "cand_0018",
+   "candidate_id": "cand_0018",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0018",
+    "target_career": "registered_nurse",
+    "demonstrated_skills": [
+     "coordination",
+     "infection_control",
+     "instructing",
+     "judgment_and_decision_making",
+     "medication_safety",
+     "monitoring",
+     "service_orientation",
+     "web_fundamentals"
+    ],
+    "sim_bands": {
+     "safety": "high",
+     "output": "mid",
+     "team_trust": "mid"
+    },
+    "pathway_progress": {
+     "program": "delta_nursing_rn_as",
+     "percent": 35
+    },
+    "availability": "evenings and weekends",
+    "region": "Lathrop area"
+   },
+   "hidden": {
+    "name": "Darnell Lee",
+    "photo_initials": "DL",
+    "exact_location": "Lathrop, CA (fictional address)",
+    "contact_email": "darnell.lee.18@example.com",
+    "phone": "555-450-1204"
+   },
+   "group": "B",
+   "fictional": true
+  },
+  {
+   "id": "cand_0019",
+   "candidate_id": "cand_0019",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0019",
+    "target_career": "electrician",
+    "demonstrated_skills": [
+     "ag_equipment_operation",
+     "blueprint_reading",
+     "equipment_maintenance",
+     "installation",
+     "inventory_systems",
+     "lockout_tagout",
+     "troubleshooting"
+    ],
+    "sim_bands": {
+     "safety": "mid",
+     "output": "mid",
+     "team_trust": "mid"
+    },
+    "pathway_progress": {
+     "program": "sjeti_inside_wireman",
+     "percent": 35
+    },
+    "availability": "weekdays",
+    "region": "Tracy area"
+   },
+   "hidden": {
+    "name": "Darnell Lopez",
+    "photo_initials": "DL",
+    "exact_location": "Tracy, CA (fictional address)",
+    "contact_email": "darnell.lopez.19@example.com",
+    "phone": "555-635-8625"
+   },
+   "group": "B",
+   "fictional": true
+  },
+  {
+   "id": "cand_0020",
+   "candidate_id": "cand_0020",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0020",
+    "target_career": "farm_ops_manager",
+    "demonstrated_skills": [
+     "irrigation_management",
+     "management_of_material_resources",
+     "negotiation",
+     "science"
+    ],
+    "sim_bands": {
+     "safety": "high",
+     "output": "mid",
+     "team_trust": "high"
+    },
+    "pathway_progress": {
+     "program": "mjc_ag_business_ast",
+     "percent": 20
+    },
+    "availability": "part-time (20 h/week)",
+    "region": "Modesto area"
+   },
+   "hidden": {
+    "name": "Jasmine Gill",
+    "photo_initials": "JG",
+    "exact_location": "Modesto, CA (fictional address)",
+    "contact_email": "jasmine.gill.20@example.com",
+    "phone": "555-222-6513"
+   },
+   "group": "A",
+   "fictional": true
+  },
+  {
+   "id": "cand_0021",
+   "candidate_id": "cand_0021",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0021",
+    "target_career": "registered_nurse",
+    "demonstrated_skills": [
+     "service_orientation",
+     "social_perceptiveness"
+    ],
+    "sim_bands": {
+     "safety": "low",
+     "output": "high",
+     "team_trust": "high"
+    },
+    "pathway_progress": {
+     "program": "delta_nursing_rn_as",
+     "percent": 100
+    },
+    "availability": "evenings and weekends",
+    "region": "Merced area"
+   },
+   "hidden": {
+    "name": "Carmen Chen",
+    "photo_initials": "CC",
+    "exact_location": "Merced, CA (fictional address)",
+    "contact_email": "carmen.chen.21@example.com",
+    "phone": "555-589-8993"
+   },
+   "group": "B",
+   "fictional": true
+  },
+  {
+   "id": "cand_0022",
+   "candidate_id": "cand_0022",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0022",
+    "target_career": "farm_ops_manager",
+    "demonstrated_skills": [
+     "ag_equipment_operation",
+     "irrigation_management",
+     "management_of_financial_resources",
+     "management_of_material_resources",
+     "pesticide_safety",
+     "spreadsheets"
+    ],
+    "sim_bands": {
+     "safety": "low",
+     "output": "mid",
+     "team_trust": "high"
+    },
+    "pathway_progress": {
+     "program": "delta_ag_business_coa",
+     "percent": 50
+    },
+    "availability": "immediately, full-time",
+    "region": "Tracy area"
+   },
+   "hidden": {
+    "name": "Nadia Ramos",
+    "photo_initials": "NR",
+    "exact_location": "Tracy, CA (fictional address)",
+    "contact_email": "nadia.ramos.22@example.com",
+    "phone": "555-620-3420"
+   },
+   "group": "B",
+   "fictional": true
+  },
+  {
+   "id": "cand_0023",
+   "candidate_id": "cand_0023",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0023",
+    "target_career": "robotics_tech",
+    "demonstrated_skills": [
+     "electrical_theory",
+     "equipment_maintenance",
+     "installation",
+     "plc_basics",
+     "sensors_actuators",
+     "troubleshooting"
+    ],
+    "sim_bands": {
+     "safety": "mid",
+     "output": "high",
+     "team_trust": "mid"
+    },
+    "pathway_progress": {
+     "program": "direct_maintenance_tech",
+     "percent": 35
+    },
+    "availability": "summer internship",
+    "region": "Manteca area"
+   },
+   "hidden": {
+    "name": "Arjun Lopez",
+    "photo_initials": "AL",
+    "exact_location": "Manteca, CA (fictional address)",
+    "contact_email": "arjun.lopez.23@example.com",
+    "phone": "555-372-2695"
+   },
+   "group": "A",
+   "fictional": true
+  },
+  {
+   "id": "cand_0024",
+   "candidate_id": "cand_0024",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0024",
+    "target_career": "robotics_tech",
+    "demonstrated_skills": [
+     "equipment_maintenance",
+     "lockout_tagout",
+     "monitoring",
+     "plc_basics",
+     "repairing",
+     "sensors_actuators",
+     "technology_design",
+     "troubleshooting"
+    ],
+    "sim_bands": {
+     "safety": "high",
+     "output": "high",
+     "team_trust": "high"
+    },
+    "pathway_progress": {
+     "program": "engineering_transfer_prep_ucm",
+     "percent": 10
+    },
+    "availability": "full-time after certificate",
+    "region": "Modesto area"
+   },
+   "hidden": {
+    "name": "Simran Chen",
+    "photo_initials": "SC",
+    "exact_location": "Modesto, CA (fictional address)",
+    "contact_email": "simran.chen.24@example.com",
+    "phone": "555-302-5784"
+   },
+   "group": "B",
+   "fictional": true
+  },
+  {
+   "id": "cand_0025",
+   "candidate_id": "cand_0025",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0025",
+    "target_career": "registered_nurse",
+    "demonstrated_skills": [
+     "bls_cpr",
+     "ehr_charting",
+     "medication_safety",
+     "plc_basics"
+    ],
+    "sim_bands": {
+     "safety": "low",
+     "output": "low",
+     "team_trust": "mid"
+    },
+    "pathway_progress": {
+     "program": "delta_nurse_assistant_cert",
+     "percent": 20
+    },
+    "availability": "immediately, full-time",
+    "region": "Modesto area"
+   },
+   "hidden": {
+    "name": "Kevin Thompson",
+    "photo_initials": "KT",
+    "exact_location": "Modesto, CA (fictional address)",
+    "contact_email": "kevin.thompson.25@example.com",
+    "phone": "555-634-6028"
+   },
+   "group": "C",
+   "fictional": true
+  },
+  {
+   "id": "cand_0026",
+   "candidate_id": "cand_0026",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0026",
+    "target_career": "electrician",
+    "demonstrated_skills": [
+     "blueprint_reading",
+     "equipment_selection",
+     "installation",
+     "lockout_tagout",
+     "osha_safety"
+    ],
+    "sim_bands": {
+     "safety": "high",
+     "output": "low",
+     "team_trust": "low"
+    },
+    "pathway_progress": {
+     "program": "sjeti_inside_wireman",
+     "percent": 35
+    },
+    "availability": "evenings and weekends",
+    "region": "Tracy area"
+   },
+   "hidden": {
+    "name": "Kevin Thompson",
+    "photo_initials": "KT",
+    "exact_location": "Tracy, CA (fictional address)",
+    "contact_email": "kevin.thompson.26@example.com",
+    "phone": "555-665-5804"
+   },
+   "group": "C",
+   "fictional": true
+  },
+  {
+   "id": "cand_0027",
+   "candidate_id": "cand_0027",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0027",
+    "target_career": "electrician",
+    "demonstrated_skills": [
+     "electrical_theory",
+     "equipment_selection",
+     "lockout_tagout",
+     "python"
+    ],
+    "sim_bands": {
+     "safety": "mid",
+     "output": "mid",
+     "team_trust": "high"
+    },
+    "pathway_progress": {
+     "program": "delta_electrical_trainee_coa",
+     "percent": 0
+    },
+    "availability": "summer internship",
+    "region": "Lodi area"
+   },
+   "hidden": {
+    "name": "Ana Delgado",
+    "photo_initials": "AD",
+    "exact_location": "Lodi, CA (fictional address)",
+    "contact_email": "ana.delgado.27@example.com",
+    "phone": "555-455-8999"
+   },
+   "group": "A",
+   "fictional": true
+  },
+  {
+   "id": "cand_0028",
+   "candidate_id": "cand_0028",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0028",
+    "target_career": "diesel_mechanic",
+    "demonstrated_skills": [
+     "diesel_diagnostics",
+     "infection_control",
+     "lockout_tagout",
+     "operations_monitoring",
+     "osha_safety"
+    ],
+    "sim_bands": {
+     "safety": "mid",
+     "output": "mid",
+     "team_trust": "high"
+    },
+    "pathway_progress": {
+     "program": "delta_diesel_equipment_coa",
+     "percent": 35
+    },
+    "availability": "part-time (20 h/week)",
+    "region": "Lodi area"
+   },
+   "hidden": {
+    "name": "Priya Vang",
+    "photo_initials": "PV",
+    "exact_location": "Lodi, CA (fictional address)",
+    "contact_email": "priya.vang.28@example.com",
+    "phone": "555-828-4328"
+   },
+   "group": "B",
+   "fictional": true
+  },
+  {
+   "id": "cand_0029",
+   "candidate_id": "cand_0029",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0029",
+    "target_career": "software_dev",
+    "demonstrated_skills": [
+     "operations_analysis",
+     "programming",
+     "robot_programming"
+    ],
+    "sim_bands": {
+     "safety": "mid",
+     "output": "low",
+     "team_trust": "mid"
+    },
+    "pathway_progress": {
+     "program": "delta_cs_ast",
+     "percent": 100
+    },
+    "availability": "immediately, full-time",
+    "region": "Turlock area"
+   },
+   "hidden": {
+    "name": "Andre Vang",
+    "photo_initials": "AV",
+    "exact_location": "Turlock, CA (fictional address)",
+    "contact_email": "andre.vang.29@example.com",
+    "phone": "555-547-5505"
+   },
+   "group": "A",
+   "fictional": true
+  },
+  {
+   "id": "cand_0030",
+   "candidate_id": "cand_0030",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0030",
+    "target_career": "registered_nurse",
+    "demonstrated_skills": [
+     "bls_cpr",
+     "coordination",
+     "infection_control",
+     "installation",
+     "medication_safety",
+     "patient_assessment",
+     "social_perceptiveness"
+    ],
+    "sim_bands": {
+     "safety": "high",
+     "output": "mid",
+     "team_trust": "low"
+    },
+    "pathway_progress": {
+     "program": "delta_nurse_assistant_cert",
+     "percent": 65
+    },
+    "availability": "immediately, full-time",
+    "region": "Merced area"
+   },
+   "hidden": {
+    "name": "Darnell Ortega",
+    "photo_initials": "DO",
+    "exact_location": "Merced, CA (fictional address)",
+    "contact_email": "darnell.ortega.30@example.com",
+    "phone": "555-457-5040"
+   },
+   "group": "A",
+   "fictional": true
+  },
+  {
+   "id": "cand_0031",
+   "candidate_id": "cand_0031",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0031",
+    "target_career": "logistics_lead",
+    "demonstrated_skills": [
+     "coordination",
+     "forklift_safety",
+     "systems_analysis"
+    ],
+    "sim_bands": {
+     "safety": "low",
+     "output": "low",
+     "team_trust": "low"
+    },
+    "pathway_progress": {
+     "program": "delta_business_admin_ast",
+     "percent": 65
+    },
+    "availability": "evenings and weekends",
+    "region": "Lathrop area"
+   },
+   "hidden": {
+    "name": "Priya Brooks",
+    "photo_initials": "PB",
+    "exact_location": "Lathrop, CA (fictional address)",
+    "contact_email": "priya.brooks.31@example.com",
+    "phone": "555-754-9954"
+   },
+   "group": "C",
+   "fictional": true
+  },
+  {
+   "id": "cand_0032",
+   "candidate_id": "cand_0032",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0032",
+    "target_career": "logistics_lead",
+    "demonstrated_skills": [
+     "inventory_systems",
+     "management_of_financial_resources",
+     "management_of_material_resources",
+     "sql"
+    ],
+    "sim_bands": {
+     "safety": "mid",
+     "output": "high",
+     "team_trust": "low"
+    },
+    "pathway_progress": {
+     "program": "direct_logistics_lead",
+     "percent": 20
+    },
+    "availability": "part-time (20 h/week)",
+    "region": "Stockton area"
+   },
+   "hidden": {
+    "name": "Simran Kaur",
+    "photo_initials": "SK",
+    "exact_location": "Stockton, CA (fictional address)",
+    "contact_email": "simran.kaur.32@example.com",
+    "phone": "555-468-7724"
+   },
+   "group": "A",
+   "fictional": true
+  },
+  {
+   "id": "cand_0033",
+   "candidate_id": "cand_0033",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0033",
+    "target_career": "farm_ops_manager",
+    "demonstrated_skills": [
+     "critical_thinking",
+     "irrigation_management",
+     "management_of_material_resources",
+     "management_of_personnel_resources",
+     "patient_assessment"
+    ],
+    "sim_bands": {
+     "safety": "mid",
+     "output": "mid",
+     "team_trust": "mid"
+    },
+    "pathway_progress": {
+     "program": "direct_farm_crew_lead",
+     "percent": 10
+    },
+    "availability": "full-time after certificate",
+    "region": "Tracy area"
+   },
+   "hidden": {
+    "name": "Elena Alvarez",
+    "photo_initials": "EA",
+    "exact_location": "Tracy, CA (fictional address)",
+    "contact_email": "elena.alvarez.33@example.com",
+    "phone": "555-334-2082"
+   },
+   "group": "B",
+   "fictional": true
+  },
+  {
+   "id": "cand_0034",
+   "candidate_id": "cand_0034",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0034",
+    "target_career": "registered_nurse",
+    "demonstrated_skills": [
+     "infection_control",
+     "judgment_and_decision_making",
+     "medication_safety",
+     "monitoring",
+     "spreadsheets"
+    ],
+    "sim_bands": {
+     "safety": "mid",
+     "output": "high",
+     "team_trust": "high"
+    },
+    "pathway_progress": {
+     "program": "delta_nurse_assistant_cert",
+     "percent": 35
+    },
+    "availability": "immediately, full-time",
+    "region": "Lathrop area"
+   },
+   "hidden": {
+    "name": "Elena Thompson",
+    "photo_initials": "ET",
+    "exact_location": "Lathrop, CA (fictional address)",
+    "contact_email": "elena.thompson.34@example.com",
+    "phone": "555-536-2645"
+   },
+   "group": "B",
+   "fictional": true
+  },
+  {
+   "id": "cand_0035",
+   "candidate_id": "cand_0035",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0035",
+    "target_career": "software_dev",
+    "demonstrated_skills": [
+     "git",
+     "pesticide_safety",
+     "programming",
+     "python",
+     "speaking",
+     "technology_design",
+     "web_fundamentals"
+    ],
+    "sim_bands": {
+     "safety": "high",
+     "output": "low",
+     "team_trust": "mid"
+    },
+    "pathway_progress": {
+     "program": "direct_software_portfolio",
+     "percent": 20
+    },
+    "availability": "immediately, full-time",
+    "region": "Manteca area"
+   },
+   "hidden": {
+    "name": "Rosa Ortega",
+    "photo_initials": "RO",
+    "exact_location": "Manteca, CA (fictional address)",
+    "contact_email": "rosa.ortega.35@example.com",
+    "phone": "555-660-1959"
+   },
+   "group": "B",
+   "fictional": true
+  },
+  {
+   "id": "cand_0036",
+   "candidate_id": "cand_0036",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0036",
+    "target_career": "robotics_tech",
+    "demonstrated_skills": [
+     "installation",
+     "lockout_tagout",
+     "repairing",
+     "robot_programming",
+     "science",
+     "technology_design",
+     "troubleshooting",
+     "web_fundamentals"
+    ],
+    "sim_bands": {
+     "safety": "mid",
+     "output": "high",
+     "team_trust": "high"
+    },
+    "pathway_progress": {
+     "program": "delta_automation_mechatronics_coa",
+     "percent": 10
+    },
+    "availability": "weekdays",
+    "region": "Manteca area"
+   },
+   "hidden": {
+    "name": "Jasmine Singh",
+    "photo_initials": "JS",
+    "exact_location": "Manteca, CA (fictional address)",
+    "contact_email": "jasmine.singh.36@example.com",
+    "phone": "555-550-6139"
+   },
+   "group": "B",
+   "fictional": true
+  },
+  {
+   "id": "cand_0037",
+   "candidate_id": "cand_0037",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0037",
+    "target_career": "welder",
+    "demonstrated_skills": [
+     "active_listening",
+     "mig_welding",
+     "operation_and_control",
+     "operations_monitoring",
+     "pesticide_safety",
+     "stick_welding",
+     "tig_welding",
+     "troubleshooting"
+    ],
+    "sim_bands": {
+     "safety": "mid",
+     "output": "high",
+     "team_trust": "mid"
+    },
+    "pathway_progress": {
+     "program": "delta_welding_tech_coa",
+     "percent": 0
+    },
+    "availability": "summer internship",
+    "region": "Stockton area"
+   },
+   "hidden": {
+    "name": "Nadia Herrera",
+    "photo_initials": "NH",
+    "exact_location": "Stockton, CA (fictional address)",
+    "contact_email": "nadia.herrera.37@example.com",
+    "phone": "555-756-6229"
+   },
+   "group": "C",
+   "fictional": true
+  },
+  {
+   "id": "cand_0038",
+   "candidate_id": "cand_0038",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0038",
+    "target_career": "software_dev",
+    "demonstrated_skills": [
+     "forklift_safety",
+     "operations_analysis",
+     "python",
+     "software_testing",
+     "systems_analysis",
+     "systems_evaluation",
+     "technology_design",
+     "web_fundamentals"
+    ],
+    "sim_bands": {
+     "safety": "mid",
+     "output": "low",
+     "team_trust": "low"
+    },
+    "pathway_progress": {
+     "program": "direct_software_portfolio",
+     "percent": 0
+    },
+    "availability": "weekdays",
+    "region": "Lodi area"
+   },
+   "hidden": {
+    "name": "Isaiah Singh",
+    "photo_initials": "IS",
+    "exact_location": "Lodi, CA (fictional address)",
+    "contact_email": "isaiah.singh.38@example.com",
+    "phone": "555-632-3901"
+   },
+   "group": "A",
+   "fictional": true
+  },
+  {
+   "id": "cand_0039",
+   "candidate_id": "cand_0039",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0039",
+    "target_career": "welder",
+    "demonstrated_skills": [
+     "judgment_and_decision_making",
+     "operations_monitoring",
+     "tig_welding",
+     "troubleshooting"
+    ],
+    "sim_bands": {
+     "safety": "low",
+     "output": "high",
+     "team_trust": "mid"
+    },
+    "pathway_progress": {
+     "program": "delta_welding_tech_coa",
+     "percent": 80
+    },
+    "availability": "evenings and weekends",
+    "region": "Manteca area"
+   },
+   "hidden": {
+    "name": "Arjun Alvarez",
+    "photo_initials": "AA",
+    "exact_location": "Manteca, CA (fictional address)",
+    "contact_email": "arjun.alvarez.39@example.com",
+    "phone": "555-355-2539"
+   },
+   "group": "B",
+   "fictional": true
+  },
+  {
+   "id": "cand_0040",
+   "candidate_id": "cand_0040",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0040",
+    "target_career": "robotics_tech",
+    "demonstrated_skills": [
+     "installation",
+     "lockout_tagout",
+     "robot_programming",
+     "sensors_actuators",
+     "technology_design",
+     "troubleshooting"
+    ],
+    "sim_bands": {
+     "safety": "mid",
+     "output": "mid",
+     "team_trust": "mid"
+    },
+    "pathway_progress": {
+     "program": "mjc_automation_technician_coa",
+     "percent": 35
+    },
+    "availability": "immediately, full-time",
+    "region": "Modesto area"
+   },
+   "hidden": {
+    "name": "Tomas Nguyen",
+    "photo_initials": "TN",
+    "exact_location": "Modesto, CA (fictional address)",
+    "contact_email": "tomas.nguyen.40@example.com",
+    "phone": "555-369-3679"
+   },
+   "group": "A",
+   "fictional": true
+  },
+  {
+   "id": "cand_0041",
+   "candidate_id": "cand_0041",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0041",
+    "target_career": "software_dev",
+    "demonstrated_skills": [
+     "git",
+     "programming",
+     "shipping_receiving",
+     "software_testing",
+     "systems_analysis",
+     "systems_evaluation"
+    ],
+    "sim_bands": {
+     "safety": "mid",
+     "output": "mid",
+     "team_trust": "high"
+    },
+    "pathway_progress": {
+     "program": "direct_software_portfolio",
+     "percent": 50
+    },
+    "availability": "immediately, full-time",
+    "region": "Tracy area"
+   },
+   "hidden": {
+    "name": "Mai Ramos",
+    "photo_initials": "MR",
+    "exact_location": "Tracy, CA (fictional address)",
+    "contact_email": "mai.ramos.41@example.com",
+    "phone": "555-415-1603"
+   },
+   "group": "B",
+   "fictional": true
+  },
+  {
+   "id": "cand_0042",
+   "candidate_id": "cand_0042",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0042",
+    "target_career": "logistics_lead",
+    "demonstrated_skills": [
+     "coordination",
+     "osha_safety",
+     "shipping_receiving",
+     "spreadsheets"
+    ],
+    "sim_bands": {
+     "safety": "high",
+     "output": "mid",
+     "team_trust": "low"
+    },
+    "pathway_progress": {
+     "program": "direct_logistics_lead",
+     "percent": 80
+    },
+    "availability": "summer internship",
+    "region": "Lathrop area"
+   },
+   "hidden": {
+    "name": "Hannah Reyes",
+    "photo_initials": "HR",
+    "exact_location": "Lathrop, CA (fictional address)",
+    "contact_email": "hannah.reyes.42@example.com",
+    "phone": "555-415-1623"
+   },
+   "group": "A",
+   "fictional": true
+  },
+  {
+   "id": "cand_0043",
+   "candidate_id": "cand_0043",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0043",
+    "target_career": "registered_nurse",
+    "demonstrated_skills": [
+     "ehr_charting",
+     "judgment_and_decision_making",
+     "medication_safety",
+     "patient_assessment",
+     "service_orientation",
+     "systems_evaluation"
+    ],
+    "sim_bands": {
+     "safety": "high",
+     "output": "low",
+     "team_trust": "mid"
+    },
+    "pathway_progress": {
+     "program": "delta_nurse_assistant_cert",
+     "percent": 10
+    },
+    "availability": "weekdays",
+    "region": "Turlock area"
+   },
+   "hidden": {
+    "name": "Hannah Ramos",
+    "photo_initials": "HR",
+    "exact_location": "Turlock, CA (fictional address)",
+    "contact_email": "hannah.ramos.43@example.com",
+    "phone": "555-216-8148"
+   },
+   "group": "B",
+   "fictional": true
+  },
+  {
+   "id": "cand_0044",
+   "candidate_id": "cand_0044",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0044",
+    "target_career": "diesel_mechanic",
+    "demonstrated_skills": [
+     "air_brakes",
+     "diesel_diagnostics",
+     "medication_safety",
+     "nec_code_basics",
+     "osha_safety",
+     "repairing",
+     "troubleshooting"
+    ],
+    "sim_bands": {
+     "safety": "high",
+     "output": "high",
+     "team_trust": "low"
+    },
+    "pathway_progress": {
+     "program": "delta_diesel_equipment_coa",
+     "percent": 50
+    },
+    "availability": "full-time after certificate",
+    "region": "Merced area"
+   },
+   "hidden": {
+    "name": "Hannah Ramos",
+    "photo_initials": "HR",
+    "exact_location": "Merced, CA (fictional address)",
+    "contact_email": "hannah.ramos.44@example.com",
+    "phone": "555-708-9019"
+   },
+   "group": "C",
+   "fictional": true
+  },
+  {
+   "id": "cand_0045",
+   "candidate_id": "cand_0045",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0045",
+    "target_career": "software_dev",
+    "demonstrated_skills": [
+     "diesel_diagnostics",
+     "git",
+     "mathematics",
+     "operations_analysis",
+     "python",
+     "software_testing",
+     "systems_analysis",
+     "systems_evaluation"
+    ],
+    "sim_bands": {
+     "safety": "high",
+     "output": "high",
+     "team_trust": "low"
+    },
+    "pathway_progress": {
+     "program": "direct_software_portfolio",
+     "percent": 100
+    },
+    "availability": "part-time (20 h/week)",
+    "region": "Lathrop area"
+   },
+   "hidden": {
+    "name": "Mateo Vang",
+    "photo_initials": "MV",
+    "exact_location": "Lathrop, CA (fictional address)",
+    "contact_email": "mateo.vang.45@example.com",
+    "phone": "555-357-4859"
+   },
+   "group": "A",
+   "fictional": true
+  },
+  {
+   "id": "cand_0046",
+   "candidate_id": "cand_0046",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0046",
+    "target_career": "registered_nurse",
+    "demonstrated_skills": [
+     "ehr_charting",
+     "infection_control",
+     "judgment_and_decision_making",
+     "medication_safety",
+     "monitoring",
+     "reading_comprehension",
+     "social_perceptiveness"
+    ],
+    "sim_bands": {
+     "safety": "high",
+     "output": "mid",
+     "team_trust": "mid"
+    },
+    "pathway_progress": {
+     "program": "delta_nurse_assistant_cert",
+     "percent": 65
+    },
+    "availability": "weekdays",
+    "region": "Merced area"
+   },
+   "hidden": {
+    "name": "Jorge Kaur",
+    "photo_initials": "JK",
+    "exact_location": "Merced, CA (fictional address)",
+    "contact_email": "jorge.kaur.46@example.com",
+    "phone": "555-731-3348"
+   },
+   "group": "A",
+   "fictional": true
+  },
+  {
+   "id": "cand_0047",
+   "candidate_id": "cand_0047",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0047",
+    "target_career": "welder",
+    "demonstrated_skills": [
+     "blueprint_reading",
+     "operation_and_control",
+     "osha_safety",
+     "quality_control_analysis",
+     "tig_welding"
+    ],
+    "sim_bands": {
+     "safety": "mid",
+     "output": "mid",
+     "team_trust": "low"
+    },
+    "pathway_progress": {
+     "program": "delta_smaw_coa",
+     "percent": 10
+    },
+    "availability": "part-time (20 h/week)",
+    "region": "Stockton area"
+   },
+   "hidden": {
+    "name": "Ana Alvarez",
+    "photo_initials": "AA",
+    "exact_location": "Stockton, CA (fictional address)",
+    "contact_email": "ana.alvarez.47@example.com",
+    "phone": "555-773-9417"
+   },
+   "group": "B",
+   "fictional": true
+  },
+  {
+   "id": "cand_0048",
+   "candidate_id": "cand_0048",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0048",
+    "target_career": "logistics_lead",
+    "demonstrated_skills": [
+     "inventory_systems",
+     "management_of_material_resources",
+     "osha_safety",
+     "shipping_receiving",
+     "spreadsheets"
+    ],
+    "sim_bands": {
+     "safety": "high",
+     "output": "low",
+     "team_trust": "mid"
+    },
+    "pathway_progress": {
+     "program": "delta_logistics_supervisor_coa",
+     "percent": 0
+    },
+    "availability": "full-time after certificate",
+    "region": "Stockton area"
+   },
+   "hidden": {
+    "name": "Marco Patel",
+    "photo_initials": "MP",
+    "exact_location": "Stockton, CA (fictional address)",
+    "contact_email": "marco.patel.48@example.com",
+    "phone": "555-879-5578"
+   },
+   "group": "C",
+   "fictional": true
+  },
+  {
+   "id": "cand_0049",
+   "candidate_id": "cand_0049",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0049",
+    "target_career": "welder",
+    "demonstrated_skills": [
+     "osha_safety",
+     "quality_control_analysis",
+     "software_testing",
+     "stick_welding",
+     "tig_welding"
+    ],
+    "sim_bands": {
+     "safety": "high",
+     "output": "high",
+     "team_trust": "mid"
+    },
+    "pathway_progress": {
+     "program": "delta_welding_tech_coa",
+     "percent": 20
+    },
+    "availability": "full-time after certificate",
+    "region": "Lodi area"
+   },
+   "hidden": {
+    "name": "Victor Ortega",
+    "photo_initials": "VO",
+    "exact_location": "Lodi, CA (fictional address)",
+    "contact_email": "victor.ortega.49@example.com",
+    "phone": "555-775-3146"
+   },
+   "group": "A",
+   "fictional": true
+  },
+  {
+   "id": "cand_0050",
+   "candidate_id": "cand_0050",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0050",
+    "target_career": "robotics_tech",
+    "demonstrated_skills": [
+     "electrical_theory",
+     "equipment_maintenance",
+     "installation",
+     "lockout_tagout",
+     "repairing",
+     "sensors_actuators"
+    ],
+    "sim_bands": {
+     "safety": "low",
+     "output": "mid",
+     "team_trust": "mid"
+    },
+    "pathway_progress": {
+     "program": "direct_maintenance_tech",
+     "percent": 80
+    },
+    "availability": "part-time (20 h/week)",
+    "region": "Modesto area"
+   },
+   "hidden": {
+    "name": "Marco Patel",
+    "photo_initials": "MP",
+    "exact_location": "Modesto, CA (fictional address)",
+    "contact_email": "marco.patel.50@example.com",
+    "phone": "555-294-3947"
+   },
+   "group": "B",
+   "fictional": true
+  },
+  {
+   "id": "cand_0051",
+   "candidate_id": "cand_0051",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0051",
+    "target_career": "logistics_lead",
+    "demonstrated_skills": [
+     "lockout_tagout",
+     "management_of_financial_resources",
+     "management_of_material_resources",
+     "sensors_actuators"
+    ],
+    "sim_bands": {
+     "safety": "high",
+     "output": "high",
+     "team_trust": "low"
+    },
+    "pathway_progress": {
+     "program": "direct_logistics_lead",
+     "percent": 80
+    },
+    "availability": "weekdays",
+    "region": "Stockton area"
+   },
+   "hidden": {
+    "name": "Nadia Patel",
+    "photo_initials": "NP",
+    "exact_location": "Stockton, CA (fictional address)",
+    "contact_email": "nadia.patel.51@example.com",
+    "phone": "555-719-4763"
+   },
+   "group": "B",
+   "fictional": true
+  },
+  {
+   "id": "cand_0052",
+   "candidate_id": "cand_0052",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0052",
+    "target_career": "software_dev",
+    "demonstrated_skills": [
+     "git",
+     "operations_analysis",
+     "programming",
+     "technology_design",
+     "web_fundamentals"
+    ],
+    "sim_bands": {
+     "safety": "mid",
+     "output": "mid",
+     "team_trust": "mid"
+    },
+    "pathway_progress": {
+     "program": "delta_cs_ast",
+     "percent": 50
+    },
+    "availability": "immediately, full-time",
+    "region": "Stockton area"
+   },
+   "hidden": {
+    "name": "Arjun Singh",
+    "photo_initials": "AS",
+    "exact_location": "Stockton, CA (fictional address)",
+    "contact_email": "arjun.singh.52@example.com",
+    "phone": "555-767-3747"
+   },
+   "group": "A",
+   "fictional": true
+  },
+  {
+   "id": "cand_0053",
+   "candidate_id": "cand_0053",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0053",
+    "target_career": "farm_ops_manager",
+    "demonstrated_skills": [
+     "ehr_charting",
+     "management_of_financial_resources",
+     "management_of_personnel_resources",
+     "programming"
+    ],
+    "sim_bands": {
+     "safety": "mid",
+     "output": "high",
+     "team_trust": "high"
+    },
+    "pathway_progress": {
+     "program": "direct_farm_crew_lead",
+     "percent": 10
+    },
+    "availability": "full-time after certificate",
+    "region": "Stockton area"
+   },
+   "hidden": {
+    "name": "Jasmine Patel",
+    "photo_initials": "JP",
+    "exact_location": "Stockton, CA (fictional address)",
+    "contact_email": "jasmine.patel.53@example.com",
+    "phone": "555-614-2424"
+   },
+   "group": "C",
+   "fictional": true
+  },
+  {
+   "id": "cand_0054",
+   "candidate_id": "cand_0054",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0054",
+    "target_career": "robotics_tech",
+    "demonstrated_skills": [
+     "equipment_maintenance",
+     "lockout_tagout",
+     "monitoring",
+     "repairing",
+     "sensors_actuators",
+     "technology_design",
+     "troubleshooting"
+    ],
+    "sim_bands": {
+     "safety": "high",
+     "output": "low",
+     "team_trust": "mid"
+    },
+    "pathway_progress": {
+     "program": "engineering_transfer_prep_ucm",
+     "percent": 80
+    },
+    "availability": "part-time (20 h/week)",
+    "region": "Stockton area"
+   },
+   "hidden": {
+    "name": "Kevin Singh",
+    "photo_initials": "KS",
+    "exact_location": "Stockton, CA (fictional address)",
+    "contact_email": "kevin.singh.54@example.com",
+    "phone": "555-455-6426"
+   },
+   "group": "C",
+   "fictional": true
+  },
+  {
+   "id": "cand_0055",
+   "candidate_id": "cand_0055",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0055",
+    "target_career": "registered_nurse",
+    "demonstrated_skills": [
+     "coordination",
+     "critical_thinking",
+     "ehr_charting",
+     "infection_control",
+     "judgment_and_decision_making",
+     "patient_assessment",
+     "service_orientation"
+    ],
+    "sim_bands": {
+     "safety": "mid",
+     "output": "mid",
+     "team_trust": "high"
+    },
+    "pathway_progress": {
+     "program": "delta_nurse_assistant_cert",
+     "percent": 0
+    },
+    "availability": "evenings and weekends",
+    "region": "Merced area"
+   },
+   "hidden": {
+    "name": "Darnell Brooks",
+    "photo_initials": "DB",
+    "exact_location": "Merced, CA (fictional address)",
+    "contact_email": "darnell.brooks.55@example.com",
+    "phone": "555-489-8908"
+   },
+   "group": "B",
+   "fictional": true
+  },
+  {
+   "id": "cand_0056",
+   "candidate_id": "cand_0056",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0056",
+    "target_career": "logistics_lead",
+    "demonstrated_skills": [
+     "coordination",
+     "forklift_safety",
+     "management_of_financial_resources",
+     "osha_safety",
+     "shipping_receiving",
+     "stick_welding",
+     "systems_analysis"
+    ],
+    "sim_bands": {
+     "safety": "high",
+     "output": "high",
+     "team_trust": "mid"
+    },
+    "pathway_progress": {
+     "program": "delta_business_admin_ast",
+     "percent": 20
+    },
+    "availability": "weekdays",
+    "region": "Merced area"
+   },
+   "hidden": {
+    "name": "Rafael Chen",
+    "photo_initials": "RC",
+    "exact_location": "Merced, CA (fictional address)",
+    "contact_email": "rafael.chen.56@example.com",
+    "phone": "555-490-6125"
+   },
+   "group": "B",
+   "fictional": true
+  },
+  {
+   "id": "cand_0057",
+   "candidate_id": "cand_0057",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0057",
+    "target_career": "welder",
+    "demonstrated_skills": [
+     "blueprint_reading",
+     "mig_welding",
+     "operation_and_control",
+     "operations_monitoring",
+     "quality_control_analysis",
+     "troubleshooting"
+    ],
+    "sim_bands": {
+     "safety": "mid",
+     "output": "low",
+     "team_trust": "low"
+    },
+    "pathway_progress": {
+     "program": "direct_welder_helper",
+     "percent": 50
+    },
+    "availability": "summer internship",
+    "region": "Turlock area"
+   },
+   "hidden": {
+    "name": "Isaiah Moua",
+    "photo_initials": "IM",
+    "exact_location": "Turlock, CA (fictional address)",
+    "contact_email": "isaiah.moua.57@example.com",
+    "phone": "555-413-5823"
+   },
+   "group": "A",
+   "fictional": true
+  },
+  {
+   "id": "cand_0058",
+   "candidate_id": "cand_0058",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0058",
+    "target_career": "diesel_mechanic",
+    "demonstrated_skills": [
+     "active_listening",
+     "lockout_tagout",
+     "osha_safety",
+     "troubleshooting"
+    ],
+    "sim_bands": {
+     "safety": "mid",
+     "output": "mid",
+     "team_trust": "low"
+    },
+    "pathway_progress": {
+     "program": "delta_diesel_equipment_coa",
+     "percent": 65
+    },
+    "availability": "summer internship",
+    "region": "Lodi area"
+   },
+   "hidden": {
+    "name": "Leah Delgado",
+    "photo_initials": "LD",
+    "exact_location": "Lodi, CA (fictional address)",
+    "contact_email": "leah.delgado.58@example.com",
+    "phone": "555-738-2051"
+   },
+   "group": "A",
+   "fictional": true
+  },
+  {
+   "id": "cand_0059",
+   "candidate_id": "cand_0059",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0059",
+    "target_career": "welder",
+    "demonstrated_skills": [
+     "blueprint_reading",
+     "management_of_personnel_resources",
+     "operation_and_control",
+     "operations_monitoring",
+     "osha_safety",
+     "quality_control_analysis"
+    ],
+    "sim_bands": {
+     "safety": "low",
+     "output": "high",
+     "team_trust": "mid"
+    },
+    "pathway_progress": {
+     "program": "delta_welding_tech_coa",
+     "percent": 80
+    },
+    "availability": "immediately, full-time",
+    "region": "Merced area"
+   },
+   "hidden": {
+    "name": "Ana Brooks",
+    "photo_initials": "AB",
+    "exact_location": "Merced, CA (fictional address)",
+    "contact_email": "ana.brooks.59@example.com",
+    "phone": "555-746-1859"
+   },
+   "group": "A",
+   "fictional": true
+  },
+  {
+   "id": "cand_0060",
+   "candidate_id": "cand_0060",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0060",
+    "target_career": "farm_ops_manager",
+    "demonstrated_skills": [
+     "irrigation_management",
+     "management_of_material_resources"
+    ],
+    "sim_bands": {
+     "safety": "mid",
+     "output": "low",
+     "team_trust": "high"
+    },
+    "pathway_progress": {
+     "program": "mjc_ag_business_ast",
+     "percent": 20
+    },
+    "availability": "immediately, full-time",
+    "region": "Manteca area"
+   },
+   "hidden": {
+    "name": "Tomas Herrera",
+    "photo_initials": "TH",
+    "exact_location": "Manteca, CA (fictional address)",
+    "contact_email": "tomas.herrera.60@example.com",
+    "phone": "555-498-6839"
+   },
+   "group": "C",
+   "fictional": true
+  },
+  {
+   "id": "cand_0061",
+   "candidate_id": "cand_0061",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0061",
+    "target_career": "registered_nurse",
+    "demonstrated_skills": [
+     "infection_control",
+     "monitoring",
+     "service_orientation"
+    ],
+    "sim_bands": {
+     "safety": "low",
+     "output": "mid",
+     "team_trust": "mid"
+    },
+    "pathway_progress": {
+     "program": "delta_nursing_rn_as",
+     "percent": 65
+    },
+    "availability": "full-time after certificate",
+    "region": "Manteca area"
+   },
+   "hidden": {
+    "name": "Kevin Singh",
+    "photo_initials": "KS",
+    "exact_location": "Manteca, CA (fictional address)",
+    "contact_email": "kevin.singh.61@example.com",
+    "phone": "555-942-8958"
+   },
+   "group": "A",
+   "fictional": true
+  },
+  {
+   "id": "cand_0062",
+   "candidate_id": "cand_0062",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0062",
+    "target_career": "farm_ops_manager",
+    "demonstrated_skills": [
+     "ag_equipment_operation",
+     "coordination",
+     "equipment_maintenance",
+     "management_of_personnel_resources",
+     "negotiation",
+     "osha_safety",
+     "spreadsheets"
+    ],
+    "sim_bands": {
+     "safety": "high",
+     "output": "mid",
+     "team_trust": "mid"
+    },
+    "pathway_progress": {
+     "program": "mjc_ag_business_ast",
+     "percent": 10
+    },
+    "availability": "summer internship",
+    "region": "Merced area"
+   },
+   "hidden": {
+    "name": "Simran Brooks",
+    "photo_initials": "SB",
+    "exact_location": "Merced, CA (fictional address)",
+    "contact_email": "simran.brooks.62@example.com",
+    "phone": "555-321-2984"
+   },
+   "group": "B",
+   "fictional": true
+  },
+  {
+   "id": "cand_0063",
+   "candidate_id": "cand_0063",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0063",
+    "target_career": "robotics_tech",
+    "demonstrated_skills": [
+     "installation",
+     "repairing",
+     "robot_programming"
+    ],
+    "sim_bands": {
+     "safety": "high",
+     "output": "high",
+     "team_trust": "high"
+    },
+    "pathway_progress": {
+     "program": "delta_automation_mechatronics_coa",
+     "percent": 50
+    },
+    "availability": "immediately, full-time",
+    "region": "Lathrop area"
+   },
+   "hidden": {
+    "name": "Simran Lee",
+    "photo_initials": "SL",
+    "exact_location": "Lathrop, CA (fictional address)",
+    "contact_email": "simran.lee.63@example.com",
+    "phone": "555-856-2668"
+   },
+   "group": "B",
+   "fictional": true
+  },
+  {
+   "id": "cand_0064",
+   "candidate_id": "cand_0064",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0064",
+    "target_career": "robotics_tech",
+    "demonstrated_skills": [
+     "python",
+     "repairing",
+     "robot_programming",
+     "systems_evaluation",
+     "technology_design"
+    ],
+    "sim_bands": {
+     "safety": "mid",
+     "output": "high",
+     "team_trust": "high"
+    },
+    "pathway_progress": {
+     "program": "direct_maintenance_tech",
+     "percent": 80
+    },
+    "availability": "evenings and weekends",
+    "region": "Modesto area"
+   },
+   "hidden": {
+    "name": "Ana Morales",
+    "photo_initials": "AM",
+    "exact_location": "Modesto, CA (fictional address)",
+    "contact_email": "ana.morales.64@example.com",
+    "phone": "555-859-5236"
+   },
+   "group": "A",
+   "fictional": true
+  },
+  {
+   "id": "cand_0065",
+   "candidate_id": "cand_0065",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0065",
+    "target_career": "registered_nurse",
+    "demonstrated_skills": [
+     "bls_cpr",
+     "judgment_and_decision_making",
+     "medication_safety",
+     "patient_assessment",
+     "plc_basics",
+     "service_orientation"
+    ],
+    "sim_bands": {
+     "safety": "high",
+     "output": "high",
+     "team_trust": "high"
+    },
+    "pathway_progress": {
+     "program": "delta_nurse_assistant_cert",
+     "percent": 0
+    },
+    "availability": "full-time after certificate",
+    "region": "Modesto area"
+   },
+   "hidden": {
+    "name": "Mai Alvarez",
+    "photo_initials": "MA",
+    "exact_location": "Modesto, CA (fictional address)",
+    "contact_email": "mai.alvarez.65@example.com",
+    "phone": "555-936-7054"
+   },
+   "group": "A",
+   "fictional": true
+  },
+  {
+   "id": "cand_0066",
+   "candidate_id": "cand_0066",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0066",
+    "target_career": "diesel_mechanic",
+    "demonstrated_skills": [
+     "equipment_maintenance",
+     "equipment_selection",
+     "hydraulics",
+     "installation",
+     "science"
+    ],
+    "sim_bands": {
+     "safety": "mid",
+     "output": "mid",
+     "team_trust": "low"
+    },
+    "pathway_progress": {
+     "program": "direct_diesel_shop",
+     "percent": 100
+    },
+    "availability": "evenings and weekends",
+    "region": "Lathrop area"
+   },
+   "hidden": {
+    "name": "Jasmine Thompson",
+    "photo_initials": "JT",
+    "exact_location": "Lathrop, CA (fictional address)",
+    "contact_email": "jasmine.thompson.66@example.com",
+    "phone": "555-250-9137"
+   },
+   "group": "A",
+   "fictional": true
+  },
+  {
+   "id": "cand_0067",
+   "candidate_id": "cand_0067",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0067",
+    "target_career": "registered_nurse",
+    "demonstrated_skills": [
+     "coordination",
+     "ehr_charting",
+     "infection_control",
+     "service_orientation",
+     "social_perceptiveness",
+     "speaking"
+    ],
+    "sim_bands": {
+     "safety": "mid",
+     "output": "mid",
+     "team_trust": "mid"
+    },
+    "pathway_progress": {
+     "program": "delta_nursing_rn_as",
+     "percent": 10
+    },
+    "availability": "immediately, full-time",
+    "region": "Modesto area"
+   },
+   "hidden": {
+    "name": "Hannah Moua",
+    "photo_initials": "HM",
+    "exact_location": "Modesto, CA (fictional address)",
+    "contact_email": "hannah.moua.67@example.com",
+    "phone": "555-897-5096"
+   },
+   "group": "A",
+   "fictional": true
+  },
+  {
+   "id": "cand_0068",
+   "candidate_id": "cand_0068",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0068",
+    "target_career": "software_dev",
+    "demonstrated_skills": [
+     "operations_analysis",
+     "python",
+     "systems_analysis",
+     "web_fundamentals"
+    ],
+    "sim_bands": {
+     "safety": "low",
+     "output": "high",
+     "team_trust": "high"
+    },
+    "pathway_progress": {
+     "program": "delta_cs_ast",
+     "percent": 50
+    },
+    "availability": "summer internship",
+    "region": "Modesto area"
+   },
+   "hidden": {
+    "name": "Mateo Gill",
+    "photo_initials": "MG",
+    "exact_location": "Modesto, CA (fictional address)",
+    "contact_email": "mateo.gill.68@example.com",
+    "phone": "555-586-9294"
+   },
+   "group": "A",
+   "fictional": true
+  },
+  {
+   "id": "cand_0069",
+   "candidate_id": "cand_0069",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0069",
+    "target_career": "registered_nurse",
+    "demonstrated_skills": [
+     "judgment_and_decision_making",
+     "monitoring",
+     "quality_control_analysis",
+     "sql"
+    ],
+    "sim_bands": {
+     "safety": "high",
+     "output": "high",
+     "team_trust": "mid"
+    },
+    "pathway_progress": {
+     "program": "delta_nurse_assistant_cert",
+     "percent": 80
+    },
+    "availability": "evenings and weekends",
+    "region": "Manteca area"
+   },
+   "hidden": {
+    "name": "Victor Alvarez",
+    "photo_initials": "VA",
+    "exact_location": "Manteca, CA (fictional address)",
+    "contact_email": "victor.alvarez.69@example.com",
+    "phone": "555-905-9609"
+   },
+   "group": "B",
+   "fictional": true
+  },
+  {
+   "id": "cand_0070",
+   "candidate_id": "cand_0070",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0070",
+    "target_career": "logistics_lead",
+    "demonstrated_skills": [
+     "management_of_material_resources",
+     "mathematics",
+     "negotiation",
+     "spreadsheets"
+    ],
+    "sim_bands": {
+     "safety": "high",
+     "output": "mid",
+     "team_trust": "low"
+    },
+    "pathway_progress": {
+     "program": "delta_business_admin_ast",
+     "percent": 10
+    },
+    "availability": "part-time (20 h/week)",
+    "region": "Manteca area"
+   },
+   "hidden": {
+    "name": "Victor Castillo",
+    "photo_initials": "VC",
+    "exact_location": "Manteca, CA (fictional address)",
+    "contact_email": "victor.castillo.70@example.com",
+    "phone": "555-330-3736"
+   },
+   "group": "C",
+   "fictional": true
+  },
+  {
+   "id": "cand_0071",
+   "candidate_id": "cand_0071",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0071",
+    "target_career": "farm_ops_manager",
+    "demonstrated_skills": [
+     "ag_equipment_operation",
+     "air_brakes",
+     "irrigation_management",
+     "osha_safety",
+     "python",
+     "spreadsheets"
+    ],
+    "sim_bands": {
+     "safety": "high",
+     "output": "high",
+     "team_trust": "high"
+    },
+    "pathway_progress": {
+     "program": "mjc_ag_business_ast",
+     "percent": 20
+    },
+    "availability": "summer internship",
+    "region": "Merced area"
+   },
+   "hidden": {
+    "name": "Leah Herrera",
+    "photo_initials": "LH",
+    "exact_location": "Merced, CA (fictional address)",
+    "contact_email": "leah.herrera.71@example.com",
+    "phone": "555-335-8672"
+   },
+   "group": "C",
+   "fictional": true
+  },
+  {
+   "id": "cand_0072",
+   "candidate_id": "cand_0072",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0072",
+    "target_career": "diesel_mechanic",
+    "demonstrated_skills": [
+     "instructing",
+     "lockout_tagout",
+     "operations_monitoring",
+     "repairing"
+    ],
+    "sim_bands": {
+     "safety": "mid",
+     "output": "high",
+     "team_trust": "low"
+    },
+    "pathway_progress": {
+     "program": "delta_cat_dealer_apprenticeship",
+     "percent": 65
+    },
+    "availability": "immediately, full-time",
+    "region": "Modesto area"
+   },
+   "hidden": {
+    "name": "Arjun Lopez",
+    "photo_initials": "AL",
+    "exact_location": "Modesto, CA (fictional address)",
+    "contact_email": "arjun.lopez.72@example.com",
+    "phone": "555-950-6926"
+   },
+   "group": "B",
+   "fictional": true
+  },
+  {
+   "id": "cand_0073",
+   "candidate_id": "cand_0073",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0073",
+    "target_career": "farm_ops_manager",
+    "demonstrated_skills": [
+     "mig_welding",
+     "negotiation",
+     "osha_safety",
+     "spreadsheets"
+    ],
+    "sim_bands": {
+     "safety": "low",
+     "output": "mid",
+     "team_trust": "mid"
+    },
+    "pathway_progress": {
+     "program": "mjc_ag_business_ast",
+     "percent": 35
+    },
+    "availability": "evenings and weekends",
+    "region": "Tracy area"
+   },
+   "hidden": {
+    "name": "Simran Ortega",
+    "photo_initials": "SO",
+    "exact_location": "Tracy, CA (fictional address)",
+    "contact_email": "simran.ortega.73@example.com",
+    "phone": "555-806-1356"
+   },
+   "group": "B",
+   "fictional": true
+  },
+  {
+   "id": "cand_0074",
+   "candidate_id": "cand_0074",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0074",
+    "target_career": "registered_nurse",
+    "demonstrated_skills": [
+     "bls_cpr",
+     "coordination",
+     "infection_control",
+     "judgment_and_decision_making",
+     "medication_safety",
+     "service_orientation"
+    ],
+    "sim_bands": {
+     "safety": "high",
+     "output": "mid",
+     "team_trust": "mid"
+    },
+    "pathway_progress": {
+     "program": "delta_nurse_assistant_cert",
+     "percent": 35
+    },
+    "availability": "weekdays",
+    "region": "Lodi area"
+   },
+   "hidden": {
+    "name": "Marco Gill",
+    "photo_initials": "MG",
+    "exact_location": "Lodi, CA (fictional address)",
+    "contact_email": "marco.gill.74@example.com",
+    "phone": "555-825-6642"
+   },
+   "group": "B",
+   "fictional": true
+  },
+  {
+   "id": "cand_0075",
+   "candidate_id": "cand_0075",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0075",
+    "target_career": "welder",
+    "demonstrated_skills": [
+     "blueprint_reading",
+     "git",
+     "mig_welding",
+     "operation_and_control",
+     "osha_safety",
+     "tig_welding",
+     "troubleshooting"
+    ],
+    "sim_bands": {
+     "safety": "low",
+     "output": "mid",
+     "team_trust": "high"
+    },
+    "pathway_progress": {
+     "program": "delta_welding_tech_coa",
+     "percent": 20
+    },
+    "availability": "part-time (20 h/week)",
+    "region": "Turlock area"
+   },
+   "hidden": {
+    "name": "Victor Singh",
+    "photo_initials": "VS",
+    "exact_location": "Turlock, CA (fictional address)",
+    "contact_email": "victor.singh.75@example.com",
+    "phone": "555-300-7121"
+   },
+   "group": "C",
+   "fictional": true
+  },
+  {
+   "id": "cand_0076",
+   "candidate_id": "cand_0076",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0076",
+    "target_career": "robotics_tech",
+    "demonstrated_skills": [
+     "lockout_tagout",
+     "robot_programming"
+    ],
+    "sim_bands": {
+     "safety": "mid",
+     "output": "mid",
+     "team_trust": "high"
+    },
+    "pathway_progress": {
+     "program": "direct_maintenance_tech",
+     "percent": 80
+    },
+    "availability": "summer internship",
+    "region": "Stockton area"
+   },
+   "hidden": {
+    "name": "Arjun Singh",
+    "photo_initials": "AS",
+    "exact_location": "Stockton, CA (fictional address)",
+    "contact_email": "arjun.singh.76@example.com",
+    "phone": "555-512-6987"
+   },
+   "group": "B",
+   "fictional": true
+  },
+  {
+   "id": "cand_0077",
+   "candidate_id": "cand_0077",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0077",
+    "target_career": "welder",
+    "demonstrated_skills": [
+     "blueprint_reading",
+     "operations_monitoring"
+    ],
+    "sim_bands": {
+     "safety": "low",
+     "output": "high",
+     "team_trust": "low"
+    },
+    "pathway_progress": {
+     "program": "direct_welder_helper",
+     "percent": 10
+    },
+    "availability": "weekdays",
+    "region": "Manteca area"
+   },
+   "hidden": {
+    "name": "Mai Gill",
+    "photo_initials": "MG",
+    "exact_location": "Manteca, CA (fictional address)",
+    "contact_email": "mai.gill.77@example.com",
+    "phone": "555-224-7470"
+   },
+   "group": "B",
+   "fictional": true
+  },
+  {
+   "id": "cand_0078",
+   "candidate_id": "cand_0078",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0078",
+    "target_career": "robotics_tech",
+    "demonstrated_skills": [
+     "air_brakes",
+     "electrical_theory",
+     "equipment_maintenance",
+     "lockout_tagout",
+     "repairing",
+     "robot_programming",
+     "systems_evaluation",
+     "technology_design"
+    ],
+    "sim_bands": {
+     "safety": "mid",
+     "output": "high",
+     "team_trust": "low"
+    },
+    "pathway_progress": {
+     "program": "engineering_transfer_prep_ucm",
+     "percent": 100
+    },
+    "availability": "evenings and weekends",
+    "region": "Stockton area"
+   },
+   "hidden": {
+    "name": "Rosa Vang",
+    "photo_initials": "RV",
+    "exact_location": "Stockton, CA (fictional address)",
+    "contact_email": "rosa.vang.78@example.com",
+    "phone": "555-214-6725"
+   },
+   "group": "C",
+   "fictional": true
+  },
+  {
+   "id": "cand_0079",
+   "candidate_id": "cand_0079",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0079",
+    "target_career": "diesel_mechanic",
+    "demonstrated_skills": [
+     "equipment_maintenance",
+     "pesticide_safety",
+     "repairing",
+     "troubleshooting"
+    ],
+    "sim_bands": {
+     "safety": "low",
+     "output": "low",
+     "team_trust": "high"
+    },
+    "pathway_progress": {
+     "program": "delta_cat_dealer_apprenticeship",
+     "percent": 10
+    },
+    "availability": "evenings and weekends",
+    "region": "Manteca area"
+   },
+   "hidden": {
+    "name": "Mai Brooks",
+    "photo_initials": "MB",
+    "exact_location": "Manteca, CA (fictional address)",
+    "contact_email": "mai.brooks.79@example.com",
+    "phone": "555-670-9037"
+   },
+   "group": "B",
+   "fictional": true
+  },
+  {
+   "id": "cand_0080",
+   "candidate_id": "cand_0080",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0080",
+    "target_career": "robotics_tech",
+    "demonstrated_skills": [
+     "electrical_theory",
+     "equipment_maintenance",
+     "forklift_safety",
+     "plc_basics",
+     "robot_programming",
+     "sensors_actuators",
+     "spreadsheets",
+     "troubleshooting"
+    ],
+    "sim_bands": {
+     "safety": "high",
+     "output": "high",
+     "team_trust": "mid"
+    },
+    "pathway_progress": {
+     "program": "mjc_automation_technician_coa",
+     "percent": 35
+    },
+    "availability": "weekdays",
+    "region": "Turlock area"
+   },
+   "hidden": {
+    "name": "Carmen Delgado",
+    "photo_initials": "CD",
+    "exact_location": "Turlock, CA (fictional address)",
+    "contact_email": "carmen.delgado.80@example.com",
+    "phone": "555-366-8999"
+   },
+   "group": "A",
+   "fictional": true
+  },
+  {
+   "id": "cand_0081",
+   "candidate_id": "cand_0081",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0081",
+    "target_career": "logistics_lead",
+    "demonstrated_skills": [
+     "forklift_safety",
+     "inventory_systems",
+     "management_of_financial_resources",
+     "negotiation",
+     "robot_programming",
+     "sensors_actuators",
+     "shipping_receiving"
+    ],
+    "sim_bands": {
+     "safety": "mid",
+     "output": "low",
+     "team_trust": "low"
+    },
+    "pathway_progress": {
+     "program": "direct_logistics_lead",
+     "percent": 100
+    },
+    "availability": "summer internship",
+    "region": "Stockton area"
+   },
+   "hidden": {
+    "name": "Jorge Lee",
+    "photo_initials": "JL",
+    "exact_location": "Stockton, CA (fictional address)",
+    "contact_email": "jorge.lee.81@example.com",
+    "phone": "555-560-8238"
+   },
+   "group": "C",
+   "fictional": true
+  },
+  {
+   "id": "cand_0082",
+   "candidate_id": "cand_0082",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0082",
+    "target_career": "registered_nurse",
+    "demonstrated_skills": [
+     "coordination",
+     "judgment_and_decision_making",
+     "operations_analysis",
+     "service_orientation"
+    ],
+    "sim_bands": {
+     "safety": "high",
+     "output": "low",
+     "team_trust": "mid"
+    },
+    "pathway_progress": {
+     "program": "delta_nursing_rn_as",
+     "percent": 20
+    },
+    "availability": "immediately, full-time",
+    "region": "Merced area"
+   },
+   "hidden": {
+    "name": "Rosa Alvarez",
+    "photo_initials": "RA",
+    "exact_location": "Merced, CA (fictional address)",
+    "contact_email": "rosa.alvarez.82@example.com",
+    "phone": "555-343-1298"
+   },
+   "group": "A",
+   "fictional": true
+  },
+  {
+   "id": "cand_0083",
+   "candidate_id": "cand_0083",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0083",
+    "target_career": "diesel_mechanic",
+    "demonstrated_skills": [
+     "air_brakes",
+     "blueprint_reading",
+     "diesel_diagnostics",
+     "equipment_selection",
+     "lockout_tagout",
+     "troubleshooting"
+    ],
+    "sim_bands": {
+     "safety": "high",
+     "output": "low",
+     "team_trust": "low"
+    },
+    "pathway_progress": {
+     "program": "delta_diesel_equipment_coa",
+     "percent": 100
+    },
+    "availability": "evenings and weekends",
+    "region": "Lathrop area"
+   },
+   "hidden": {
+    "name": "Mateo Chen",
+    "photo_initials": "MC",
+    "exact_location": "Lathrop, CA (fictional address)",
+    "contact_email": "mateo.chen.83@example.com",
+    "phone": "555-889-8794"
+   },
+   "group": "B",
+   "fictional": true
+  },
+  {
+   "id": "cand_0084",
+   "candidate_id": "cand_0084",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0084",
+    "target_career": "registered_nurse",
+    "demonstrated_skills": [
+     "coordination",
+     "ehr_charting",
+     "infection_control",
+     "patient_assessment",
+     "social_perceptiveness"
+    ],
+    "sim_bands": {
+     "safety": "mid",
+     "output": "low",
+     "team_trust": "mid"
+    },
+    "pathway_progress": {
+     "program": "delta_nurse_assistant_cert",
+     "percent": 0
+    },
+    "availability": "evenings and weekends",
+    "region": "Manteca area"
+   },
+   "hidden": {
+    "name": "Rafael Alvarez",
+    "photo_initials": "RA",
+    "exact_location": "Manteca, CA (fictional address)",
+    "contact_email": "rafael.alvarez.84@example.com",
+    "phone": "555-988-9319"
+   },
+   "group": "A",
+   "fictional": true
+  },
+  {
+   "id": "cand_0085",
+   "candidate_id": "cand_0085",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0085",
+    "target_career": "robotics_tech",
+    "demonstrated_skills": [
+     "electrical_theory",
+     "installation",
+     "lockout_tagout",
+     "operations_monitoring",
+     "plc_basics",
+     "repairing",
+     "robot_programming",
+     "technology_design"
+    ],
+    "sim_bands": {
+     "safety": "high",
+     "output": "mid",
+     "team_trust": "low"
+    },
+    "pathway_progress": {
+     "program": "mjc_automation_technician_coa",
+     "percent": 35
+    },
+    "availability": "evenings and weekends",
+    "region": "Lathrop area"
+   },
+   "hidden": {
+    "name": "Priya Brooks",
+    "photo_initials": "PB",
+    "exact_location": "Lathrop, CA (fictional address)",
+    "contact_email": "priya.brooks.85@example.com",
+    "phone": "555-669-3397"
+   },
+   "group": "B",
+   "fictional": true
+  },
+  {
+   "id": "cand_0086",
+   "candidate_id": "cand_0086",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0086",
+    "target_career": "electrician",
+    "demonstrated_skills": [
+     "equipment_selection",
+     "nec_code_basics"
+    ],
+    "sim_bands": {
+     "safety": "mid",
+     "output": "high",
+     "team_trust": "high"
+    },
+    "pathway_progress": {
+     "program": "delta_electrical_trainee_coa",
+     "percent": 50
+    },
+    "availability": "evenings and weekends",
+    "region": "Turlock area"
+   },
+   "hidden": {
+    "name": "Rafael Brooks",
+    "photo_initials": "RB",
+    "exact_location": "Turlock, CA (fictional address)",
+    "contact_email": "rafael.brooks.86@example.com",
+    "phone": "555-473-3700"
+   },
+   "group": "B",
+   "fictional": true
+  },
+  {
+   "id": "cand_0087",
+   "candidate_id": "cand_0087",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0087",
+    "target_career": "software_dev",
+    "demonstrated_skills": [
+     "medication_safety",
+     "python",
+     "web_fundamentals"
+    ],
+    "sim_bands": {
+     "safety": "mid",
+     "output": "mid",
+     "team_trust": "mid"
+    },
+    "pathway_progress": {
+     "program": "direct_software_portfolio",
+     "percent": 80
+    },
+    "availability": "evenings and weekends",
+    "region": "Modesto area"
+   },
+   "hidden": {
+    "name": "Kevin Ramos",
+    "photo_initials": "KR",
+    "exact_location": "Modesto, CA (fictional address)",
+    "contact_email": "kevin.ramos.87@example.com",
+    "phone": "555-780-2261"
+   },
+   "group": "A",
+   "fictional": true
+  },
+  {
+   "id": "cand_0088",
+   "candidate_id": "cand_0088",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0088",
+    "target_career": "welder",
+    "demonstrated_skills": [
+     "mig_welding",
+     "operation_and_control",
+     "osha_safety"
+    ],
+    "sim_bands": {
+     "safety": "low",
+     "output": "high",
+     "team_trust": "mid"
+    },
+    "pathway_progress": {
+     "program": "direct_welder_helper",
+     "percent": 50
+    },
+    "availability": "full-time after certificate",
+    "region": "Tracy area"
+   },
+   "hidden": {
+    "name": "Lupe Castillo",
+    "photo_initials": "LC",
+    "exact_location": "Tracy, CA (fictional address)",
+    "contact_email": "lupe.castillo.88@example.com",
+    "phone": "555-687-6467"
+   },
+   "group": "B",
+   "fictional": true
+  },
+  {
+   "id": "cand_0089",
+   "candidate_id": "cand_0089",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0089",
+    "target_career": "logistics_lead",
+    "demonstrated_skills": [
+     "blueprint_reading",
+     "coordination",
+     "forklift_safety",
+     "inventory_systems",
+     "management_of_material_resources",
+     "negotiation",
+     "spreadsheets"
+    ],
+    "sim_bands": {
+     "safety": "low",
+     "output": "mid",
+     "team_trust": "mid"
+    },
+    "pathway_progress": {
+     "program": "delta_business_admin_ast",
+     "percent": 50
+    },
+    "availability": "evenings and weekends",
+    "region": "Manteca area"
+   },
+   "hidden": {
+    "name": "Jorge Ortega",
+    "photo_initials": "JO",
+    "exact_location": "Manteca, CA (fictional address)",
+    "contact_email": "jorge.ortega.89@example.com",
+    "phone": "555-709-6141"
+   },
+   "group": "A",
+   "fictional": true
+  },
+  {
+   "id": "cand_0090",
+   "candidate_id": "cand_0090",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0090",
+    "target_career": "welder",
+    "demonstrated_skills": [
+     "blueprint_reading",
+     "osha_safety",
+     "quality_control_analysis"
+    ],
+    "sim_bands": {
+     "safety": "low",
+     "output": "mid",
+     "team_trust": "low"
+    },
+    "pathway_progress": {
+     "program": "delta_welding_tech_coa",
+     "percent": 65
+    },
+    "availability": "weekdays",
+    "region": "Manteca area"
+   },
+   "hidden": {
+    "name": "Mateo Brooks",
+    "photo_initials": "MB",
+    "exact_location": "Manteca, CA (fictional address)",
+    "contact_email": "mateo.brooks.90@example.com",
+    "phone": "555-525-6271"
+   },
+   "group": "C",
+   "fictional": true
+  },
+  {
+   "id": "cand_0091",
+   "candidate_id": "cand_0091",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0091",
+    "target_career": "software_dev",
+    "demonstrated_skills": [
+     "operations_analysis",
+     "plc_basics",
+     "robot_programming",
+     "software_testing",
+     "systems_analysis",
+     "technology_design",
+     "web_fundamentals"
+    ],
+    "sim_bands": {
+     "safety": "mid",
+     "output": "high",
+     "team_trust": "mid"
+    },
+    "pathway_progress": {
+     "program": "direct_software_portfolio",
+     "percent": 65
+    },
+    "availability": "part-time (20 h/week)",
+    "region": "Lathrop area"
+   },
+   "hidden": {
+    "name": "Andre Gill",
+    "photo_initials": "AG",
+    "exact_location": "Lathrop, CA (fictional address)",
+    "contact_email": "andre.gill.91@example.com",
+    "phone": "555-398-8262"
+   },
+   "group": "C",
+   "fictional": true
+  },
+  {
+   "id": "cand_0092",
+   "candidate_id": "cand_0092",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0092",
+    "target_career": "logistics_lead",
+    "demonstrated_skills": [
+     "coordination",
+     "hydraulics",
+     "management_of_material_resources",
+     "negotiation",
+     "osha_safety",
+     "shipping_receiving",
+     "spreadsheets",
+     "systems_analysis"
+    ],
+    "sim_bands": {
+     "safety": "mid",
+     "output": "high",
+     "team_trust": "low"
+    },
+    "pathway_progress": {
+     "program": "delta_logistics_supervisor_coa",
+     "percent": 65
+    },
+    "availability": "full-time after certificate",
+    "region": "Stockton area"
+   },
+   "hidden": {
+    "name": "Ana Delgado",
+    "photo_initials": "AD",
+    "exact_location": "Stockton, CA (fictional address)",
+    "contact_email": "ana.delgado.92@example.com",
+    "phone": "555-479-4619"
+   },
+   "group": "B",
+   "fictional": true
+  },
+  {
+   "id": "cand_0093",
+   "candidate_id": "cand_0093",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0093",
+    "target_career": "logistics_lead",
+    "demonstrated_skills": [
+     "coordination",
+     "forklift_safety",
+     "management_of_financial_resources",
+     "management_of_material_resources",
+     "robot_programming",
+     "spreadsheets",
+     "tig_welding"
+    ],
+    "sim_bands": {
+     "safety": "low",
+     "output": "high",
+     "team_trust": "low"
+    },
+    "pathway_progress": {
+     "program": "direct_logistics_lead",
+     "percent": 0
+    },
+    "availability": "summer internship",
+    "region": "Modesto area"
+   },
+   "hidden": {
+    "name": "Mai Ramos",
+    "photo_initials": "MR",
+    "exact_location": "Modesto, CA (fictional address)",
+    "contact_email": "mai.ramos.93@example.com",
+    "phone": "555-238-1409"
+   },
+   "group": "C",
+   "fictional": true
+  },
+  {
+   "id": "cand_0094",
+   "candidate_id": "cand_0094",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0094",
+    "target_career": "registered_nurse",
+    "demonstrated_skills": [
+     "active_listening",
+     "ehr_charting",
+     "infection_control",
+     "judgment_and_decision_making",
+     "service_orientation"
+    ],
+    "sim_bands": {
+     "safety": "high",
+     "output": "high",
+     "team_trust": "low"
+    },
+    "pathway_progress": {
+     "program": "delta_nursing_rn_as",
+     "percent": 65
+    },
+    "availability": "full-time after certificate",
+    "region": "Stockton area"
+   },
+   "hidden": {
+    "name": "Ana Ramos",
+    "photo_initials": "AR",
+    "exact_location": "Stockton, CA (fictional address)",
+    "contact_email": "ana.ramos.94@example.com",
+    "phone": "555-834-9403"
+   },
+   "group": "B",
+   "fictional": true
+  },
+  {
+   "id": "cand_0095",
+   "candidate_id": "cand_0095",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0095",
+    "target_career": "software_dev",
+    "demonstrated_skills": [
+     "git",
+     "sql"
+    ],
+    "sim_bands": {
+     "safety": "low",
+     "output": "mid",
+     "team_trust": "low"
+    },
+    "pathway_progress": {
+     "program": "delta_computer_programming_coa",
+     "percent": 80
+    },
+    "availability": "immediately, full-time",
+    "region": "Stockton area"
+   },
+   "hidden": {
+    "name": "Elena Lopez",
+    "photo_initials": "EL",
+    "exact_location": "Stockton, CA (fictional address)",
+    "contact_email": "elena.lopez.95@example.com",
+    "phone": "555-574-9015"
+   },
+   "group": "B",
+   "fictional": true
+  },
+  {
+   "id": "cand_0096",
+   "candidate_id": "cand_0096",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0096",
+    "target_career": "robotics_tech",
+    "demonstrated_skills": [
+     "diesel_diagnostics",
+     "equipment_maintenance",
+     "lockout_tagout",
+     "plc_basics",
+     "sensors_actuators",
+     "technology_design",
+     "writing"
+    ],
+    "sim_bands": {
+     "safety": "mid",
+     "output": "low",
+     "team_trust": "high"
+    },
+    "pathway_progress": {
+     "program": "mjc_automation_technician_coa",
+     "percent": 20
+    },
+    "availability": "summer internship",
+    "region": "Lathrop area"
+   },
+   "hidden": {
+    "name": "Carmen Singh",
+    "photo_initials": "CS",
+    "exact_location": "Lathrop, CA (fictional address)",
+    "contact_email": "carmen.singh.96@example.com",
+    "phone": "555-365-4653"
+   },
+   "group": "A",
+   "fictional": true
+  },
+  {
+   "id": "cand_0097",
+   "candidate_id": "cand_0097",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0097",
+    "target_career": "logistics_lead",
+    "demonstrated_skills": [
+     "infection_control",
+     "inventory_systems",
+     "management_of_material_resources",
+     "persuasion",
+     "systems_analysis"
+    ],
+    "sim_bands": {
+     "safety": "mid",
+     "output": "high",
+     "team_trust": "mid"
+    },
+    "pathway_progress": {
+     "program": "direct_logistics_lead",
+     "percent": 20
+    },
+    "availability": "immediately, full-time",
+    "region": "Tracy area"
+   },
+   "hidden": {
+    "name": "Arjun Nguyen",
+    "photo_initials": "AN",
+    "exact_location": "Tracy, CA (fictional address)",
+    "contact_email": "arjun.nguyen.97@example.com",
+    "phone": "555-675-4318"
+   },
+   "group": "A",
+   "fictional": true
+  },
+  {
+   "id": "cand_0098",
+   "candidate_id": "cand_0098",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0098",
+    "target_career": "robotics_tech",
+    "demonstrated_skills": [
+     "electrical_theory",
+     "operations_monitoring",
+     "plc_basics",
+     "robot_programming",
+     "troubleshooting"
+    ],
+    "sim_bands": {
+     "safety": "mid",
+     "output": "high",
+     "team_trust": "high"
+    },
+    "pathway_progress": {
+     "program": "mjc_automation_technician_coa",
+     "percent": 100
+    },
+    "availability": "evenings and weekends",
+    "region": "Tracy area"
+   },
+   "hidden": {
+    "name": "Darnell Reyes",
+    "photo_initials": "DR",
+    "exact_location": "Tracy, CA (fictional address)",
+    "contact_email": "darnell.reyes.98@example.com",
+    "phone": "555-551-6565"
+   },
+   "group": "B",
+   "fictional": true
+  },
+  {
+   "id": "cand_0099",
+   "candidate_id": "cand_0099",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0099",
+    "target_career": "welder",
+    "demonstrated_skills": [
+     "operation_and_control",
+     "operations_monitoring",
+     "osha_safety",
+     "tig_welding",
+     "troubleshooting"
+    ],
+    "sim_bands": {
+     "safety": "low",
+     "output": "mid",
+     "team_trust": "high"
+    },
+    "pathway_progress": {
+     "program": "delta_welding_tech_coa",
+     "percent": 35
+    },
+    "availability": "full-time after certificate",
+    "region": "Tracy area"
+   },
+   "hidden": {
+    "name": "Simran Vang",
+    "photo_initials": "SV",
+    "exact_location": "Tracy, CA (fictional address)",
+    "contact_email": "simran.vang.99@example.com",
+    "phone": "555-426-5665"
+   },
+   "group": "C",
+   "fictional": true
+  },
+  {
+   "id": "cand_0100",
+   "candidate_id": "cand_0100",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0100",
+    "target_career": "software_dev",
+    "demonstrated_skills": [
+     "systems_analysis",
+     "technology_design"
+    ],
+    "sim_bands": {
+     "safety": "high",
+     "output": "low",
+     "team_trust": "low"
+    },
+    "pathway_progress": {
+     "program": "delta_computer_programming_coa",
+     "percent": 50
+    },
+    "availability": "summer internship",
+    "region": "Tracy area"
+   },
+   "hidden": {
+    "name": "Jasmine Chen",
+    "photo_initials": "JC",
+    "exact_location": "Tracy, CA (fictional address)",
+    "contact_email": "jasmine.chen.100@example.com",
+    "phone": "555-240-2923"
+   },
+   "group": "A",
+   "fictional": true
+  },
+  {
+   "id": "cand_0101",
+   "candidate_id": "cand_0101",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0101",
+    "target_career": "software_dev",
+    "demonstrated_skills": [
+     "reading_comprehension",
+     "software_testing",
+     "speaking",
+     "sql"
+    ],
+    "sim_bands": {
+     "safety": "high",
+     "output": "high",
+     "team_trust": "mid"
+    },
+    "pathway_progress": {
+     "program": "delta_cs_ast",
+     "percent": 50
+    },
+    "availability": "weekdays",
+    "region": "Modesto area"
+   },
+   "hidden": {
+    "name": "Victor Ortega",
+    "photo_initials": "VO",
+    "exact_location": "Modesto, CA (fictional address)",
+    "contact_email": "victor.ortega.101@example.com",
+    "phone": "555-500-6554"
+   },
+   "group": "B",
+   "fictional": true
+  },
+  {
+   "id": "cand_0102",
+   "candidate_id": "cand_0102",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0102",
+    "target_career": "farm_ops_manager",
+    "demonstrated_skills": [
+     "critical_thinking",
+     "equipment_maintenance",
+     "irrigation_management",
+     "pesticide_safety",
+     "plc_basics",
+     "spreadsheets"
+    ],
+    "sim_bands": {
+     "safety": "mid",
+     "output": "high",
+     "team_trust": "low"
+    },
+    "pathway_progress": {
+     "program": "mjc_ag_business_ast",
+     "percent": 10
+    },
+    "availability": "immediately, full-time",
+    "region": "Turlock area"
+   },
+   "hidden": {
+    "name": "Mai Lopez",
+    "photo_initials": "ML",
+    "exact_location": "Turlock, CA (fictional address)",
+    "contact_email": "mai.lopez.102@example.com",
+    "phone": "555-378-1203"
+   },
+   "group": "C",
+   "fictional": true
+  },
+  {
+   "id": "cand_0103",
+   "candidate_id": "cand_0103",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0103",
+    "target_career": "electrician",
+    "demonstrated_skills": [
+     "blueprint_reading",
+     "equipment_maintenance",
+     "equipment_selection",
+     "judgment_and_decision_making",
+     "nec_code_basics"
+    ],
+    "sim_bands": {
+     "safety": "low",
+     "output": "mid",
+     "team_trust": "low"
+    },
+    "pathway_progress": {
+     "program": "sjeti_inside_wireman",
+     "percent": 50
+    },
+    "availability": "full-time after certificate",
+    "region": "Stockton area"
+   },
+   "hidden": {
+    "name": "Arjun Kaur",
+    "photo_initials": "AK",
+    "exact_location": "Stockton, CA (fictional address)",
+    "contact_email": "arjun.kaur.103@example.com",
+    "phone": "555-433-1260"
+   },
+   "group": "A",
+   "fictional": true
+  },
+  {
+   "id": "cand_0104",
+   "candidate_id": "cand_0104",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0104",
+    "target_career": "registered_nurse",
+    "demonstrated_skills": [
+     "ehr_charting",
+     "infection_control",
+     "judgment_and_decision_making",
+     "monitoring",
+     "service_orientation",
+     "systems_analysis"
+    ],
+    "sim_bands": {
+     "safety": "mid",
+     "output": "high",
+     "team_trust": "low"
+    },
+    "pathway_progress": {
+     "program": "delta_nurse_assistant_cert",
+     "percent": 80
+    },
+    "availability": "summer internship",
+    "region": "Turlock area"
+   },
+   "hidden": {
+    "name": "Jasmine Patel",
+    "photo_initials": "JP",
+    "exact_location": "Turlock, CA (fictional address)",
+    "contact_email": "jasmine.patel.104@example.com",
+    "phone": "555-689-8268"
+   },
+   "group": "A",
+   "fictional": true
+  },
+  {
+   "id": "cand_0105",
+   "candidate_id": "cand_0105",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0105",
+    "target_career": "robotics_tech",
+    "demonstrated_skills": [
+     "air_brakes",
+     "plc_basics",
+     "sensors_actuators"
+    ],
+    "sim_bands": {
+     "safety": "mid",
+     "output": "low",
+     "team_trust": "mid"
+    },
+    "pathway_progress": {
+     "program": "engineering_transfer_prep_ucm",
+     "percent": 0
+    },
+    "availability": "summer internship",
+    "region": "Modesto area"
+   },
+   "hidden": {
+    "name": "Kevin Chen",
+    "photo_initials": "KC",
+    "exact_location": "Modesto, CA (fictional address)",
+    "contact_email": "kevin.chen.105@example.com",
+    "phone": "555-774-2649"
+   },
+   "group": "B",
+   "fictional": true
+  },
+  {
+   "id": "cand_0106",
+   "candidate_id": "cand_0106",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0106",
+    "target_career": "diesel_mechanic",
+    "demonstrated_skills": [
+     "air_brakes",
+     "troubleshooting"
+    ],
+    "sim_bands": {
+     "safety": "low",
+     "output": "mid",
+     "team_trust": "high"
+    },
+    "pathway_progress": {
+     "program": "delta_cat_dealer_apprenticeship",
+     "percent": 50
+    },
+    "availability": "full-time after certificate",
+    "region": "Stockton area"
+   },
+   "hidden": {
+    "name": "Elena Patel",
+    "photo_initials": "EP",
+    "exact_location": "Stockton, CA (fictional address)",
+    "contact_email": "elena.patel.106@example.com",
+    "phone": "555-695-6464"
+   },
+   "group": "C",
+   "fictional": true
+  },
+  {
+   "id": "cand_0107",
+   "candidate_id": "cand_0107",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0107",
+    "target_career": "registered_nurse",
+    "demonstrated_skills": [
+     "ehr_charting",
+     "infection_control",
+     "operation_and_control",
+     "quality_control_analysis",
+     "social_perceptiveness"
+    ],
+    "sim_bands": {
+     "safety": "mid",
+     "output": "low",
+     "team_trust": "mid"
+    },
+    "pathway_progress": {
+     "program": "delta_nurse_assistant_cert",
+     "percent": 10
+    },
+    "availability": "evenings and weekends",
+    "region": "Tracy area"
+   },
+   "hidden": {
+    "name": "Rosa Singh",
+    "photo_initials": "RS",
+    "exact_location": "Tracy, CA (fictional address)",
+    "contact_email": "rosa.singh.107@example.com",
+    "phone": "555-922-8666"
+   },
+   "group": "A",
+   "fictional": true
+  },
+  {
+   "id": "cand_0108",
+   "candidate_id": "cand_0108",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0108",
+    "target_career": "logistics_lead",
+    "demonstrated_skills": [
+     "forklift_safety",
+     "inventory_systems",
+     "osha_safety",
+     "speaking",
+     "spreadsheets",
+     "systems_analysis",
+     "technology_design"
+    ],
+    "sim_bands": {
+     "safety": "low",
+     "output": "mid",
+     "team_trust": "high"
+    },
+    "pathway_progress": {
+     "program": "delta_business_admin_ast",
+     "percent": 100
+    },
+    "availability": "immediately, full-time",
+    "region": "Manteca area"
+   },
+   "hidden": {
+    "name": "Nadia Patel",
+    "photo_initials": "NP",
+    "exact_location": "Manteca, CA (fictional address)",
+    "contact_email": "nadia.patel.108@example.com",
+    "phone": "555-909-2628"
+   },
+   "group": "A",
+   "fictional": true
+  },
+  {
+   "id": "cand_0109",
+   "candidate_id": "cand_0109",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0109",
+    "target_career": "welder",
+    "demonstrated_skills": [
+     "bls_cpr",
+     "blueprint_reading",
+     "operation_and_control",
+     "operations_monitoring",
+     "troubleshooting"
+    ],
+    "sim_bands": {
+     "safety": "low",
+     "output": "high",
+     "team_trust": "high"
+    },
+    "pathway_progress": {
+     "program": "delta_welding_tech_coa",
+     "percent": 35
+    },
+    "availability": "part-time (20 h/week)",
+    "region": "Stockton area"
+   },
+   "hidden": {
+    "name": "Lupe Nguyen",
+    "photo_initials": "LN",
+    "exact_location": "Stockton, CA (fictional address)",
+    "contact_email": "lupe.nguyen.109@example.com",
+    "phone": "555-586-9950"
+   },
+   "group": "A",
+   "fictional": true
+  },
+  {
+   "id": "cand_0110",
+   "candidate_id": "cand_0110",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0110",
+    "target_career": "electrician",
+    "demonstrated_skills": [
+     "equipment_selection",
+     "installation",
+     "repairing"
+    ],
+    "sim_bands": {
+     "safety": "low",
+     "output": "low",
+     "team_trust": "mid"
+    },
+    "pathway_progress": {
+     "program": "delta_electrical_trainee_coa",
+     "percent": 50
+    },
+    "availability": "part-time (20 h/week)",
+    "region": "Tracy area"
+   },
+   "hidden": {
+    "name": "Leah Lee",
+    "photo_initials": "LL",
+    "exact_location": "Tracy, CA (fictional address)",
+    "contact_email": "leah.lee.110@example.com",
+    "phone": "555-367-8498"
+   },
+   "group": "A",
+   "fictional": true
+  },
+  {
+   "id": "cand_0111",
+   "candidate_id": "cand_0111",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0111",
+    "target_career": "software_dev",
+    "demonstrated_skills": [
+     "programming",
+     "python",
+     "technology_design"
+    ],
+    "sim_bands": {
+     "safety": "low",
+     "output": "high",
+     "team_trust": "mid"
+    },
+    "pathway_progress": {
+     "program": "delta_computer_programming_coa",
+     "percent": 20
+    },
+    "availability": "evenings and weekends",
+    "region": "Tracy area"
+   },
+   "hidden": {
+    "name": "Simran Herrera",
+    "photo_initials": "SH",
+    "exact_location": "Tracy, CA (fictional address)",
+    "contact_email": "simran.herrera.111@example.com",
+    "phone": "555-657-7648"
+   },
+   "group": "A",
+   "fictional": true
+  },
+  {
+   "id": "cand_0112",
+   "candidate_id": "cand_0112",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0112",
+    "target_career": "electrician",
+    "demonstrated_skills": [
+     "blueprint_reading",
+     "equipment_maintenance",
+     "equipment_selection",
+     "nec_code_basics",
+     "science",
+     "troubleshooting"
+    ],
+    "sim_bands": {
+     "safety": "high",
+     "output": "low",
+     "team_trust": "low"
+    },
+    "pathway_progress": {
+     "program": "sjeti_inside_wireman",
+     "percent": 80
+    },
+    "availability": "part-time (20 h/week)",
+    "region": "Stockton area"
+   },
+   "hidden": {
+    "name": "Elena Alvarez",
+    "photo_initials": "EA",
+    "exact_location": "Stockton, CA (fictional address)",
+    "contact_email": "elena.alvarez.112@example.com",
+    "phone": "555-409-3274"
+   },
+   "group": "A",
+   "fictional": true
+  },
+  {
+   "id": "cand_0113",
+   "candidate_id": "cand_0113",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0113",
+    "target_career": "farm_ops_manager",
+    "demonstrated_skills": [
+     "ag_equipment_operation",
+     "management_of_financial_resources",
+     "management_of_material_resources",
+     "management_of_personnel_resources",
+     "pesticide_safety",
+     "repairing"
+    ],
+    "sim_bands": {
+     "safety": "mid",
+     "output": "high",
+     "team_trust": "mid"
+    },
+    "pathway_progress": {
+     "program": "mjc_ag_business_ast",
+     "percent": 10
+    },
+    "availability": "weekdays",
+    "region": "Stockton area"
+   },
+   "hidden": {
+    "name": "Lupe Castillo",
+    "photo_initials": "LC",
+    "exact_location": "Stockton, CA (fictional address)",
+    "contact_email": "lupe.castillo.113@example.com",
+    "phone": "555-240-8340"
+   },
+   "group": "B",
+   "fictional": true
+  },
+  {
+   "id": "cand_0114",
+   "candidate_id": "cand_0114",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0114",
+    "target_career": "welder",
+    "demonstrated_skills": [
+     "blueprint_reading",
+     "management_of_material_resources",
+     "mig_welding",
+     "operations_monitoring",
+     "osha_safety",
+     "stick_welding",
+     "systems_evaluation",
+     "tig_welding"
+    ],
+    "sim_bands": {
+     "safety": "high",
+     "output": "high",
+     "team_trust": "low"
+    },
+    "pathway_progress": {
+     "program": "delta_smaw_coa",
+     "percent": 0
+    },
+    "availability": "evenings and weekends",
+    "region": "Lodi area"
+   },
+   "hidden": {
+    "name": "Kevin Reyes",
+    "photo_initials": "KR",
+    "exact_location": "Lodi, CA (fictional address)",
+    "contact_email": "kevin.reyes.114@example.com",
+    "phone": "555-511-5548"
+   },
+   "group": "B",
+   "fictional": true
+  },
+  {
+   "id": "cand_0115",
+   "candidate_id": "cand_0115",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0115",
+    "target_career": "logistics_lead",
+    "demonstrated_skills": [
+     "management_of_material_resources",
+     "shipping_receiving"
+    ],
+    "sim_bands": {
+     "safety": "low",
+     "output": "mid",
+     "team_trust": "high"
+    },
+    "pathway_progress": {
+     "program": "direct_logistics_lead",
+     "percent": 100
+    },
+    "availability": "evenings and weekends",
+    "region": "Lathrop area"
+   },
+   "hidden": {
+    "name": "Mateo Singh",
+    "photo_initials": "MS",
+    "exact_location": "Lathrop, CA (fictional address)",
+    "contact_email": "mateo.singh.115@example.com",
+    "phone": "555-890-3657"
+   },
+   "group": "B",
+   "fictional": true
+  },
+  {
+   "id": "cand_0116",
+   "candidate_id": "cand_0116",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0116",
+    "target_career": "diesel_mechanic",
+    "demonstrated_skills": [
+     "diesel_diagnostics",
+     "operations_monitoring",
+     "osha_safety",
+     "repairing"
+    ],
+    "sim_bands": {
+     "safety": "mid",
+     "output": "mid",
+     "team_trust": "mid"
+    },
+    "pathway_progress": {
+     "program": "mjc_mechanized_ag_coa",
+     "percent": 65
+    },
+    "availability": "full-time after certificate",
+    "region": "Manteca area"
+   },
+   "hidden": {
+    "name": "Victor Gill",
+    "photo_initials": "VG",
+    "exact_location": "Manteca, CA (fictional address)",
+    "contact_email": "victor.gill.116@example.com",
+    "phone": "555-562-2792"
+   },
+   "group": "C",
+   "fictional": true
+  },
+  {
+   "id": "cand_0117",
+   "candidate_id": "cand_0117",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0117",
+    "target_career": "software_dev",
+    "demonstrated_skills": [
+     "operations_analysis",
+     "programming",
+     "software_testing",
+     "sql",
+     "systems_analysis",
+     "technology_design"
+    ],
+    "sim_bands": {
+     "safety": "high",
+     "output": "mid",
+     "team_trust": "low"
+    },
+    "pathway_progress": {
+     "program": "delta_cs_ast",
+     "percent": 20
+    },
+    "availability": "part-time (20 h/week)",
+    "region": "Merced area"
+   },
+   "hidden": {
+    "name": "Mateo Alvarez",
+    "photo_initials": "MA",
+    "exact_location": "Merced, CA (fictional address)",
+    "contact_email": "mateo.alvarez.117@example.com",
+    "phone": "555-851-8262"
+   },
+   "group": "B",
+   "fictional": true
+  },
+  {
+   "id": "cand_0118",
+   "candidate_id": "cand_0118",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0118",
+    "target_career": "electrician",
+    "demonstrated_skills": [
+     "conduit_bending",
+     "electrical_theory",
+     "equipment_selection",
+     "time_management"
+    ],
+    "sim_bands": {
+     "safety": "mid",
+     "output": "high",
+     "team_trust": "mid"
+    },
+    "pathway_progress": {
+     "program": "sjeti_inside_wireman",
+     "percent": 0
+    },
+    "availability": "summer internship",
+    "region": "Modesto area"
+   },
+   "hidden": {
+    "name": "Hannah Herrera",
+    "photo_initials": "HH",
+    "exact_location": "Modesto, CA (fictional address)",
+    "contact_email": "hannah.herrera.118@example.com",
+    "phone": "555-428-6165"
+   },
+   "group": "A",
+   "fictional": true
+  },
+  {
+   "id": "cand_0119",
+   "candidate_id": "cand_0119",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0119",
+    "target_career": "farm_ops_manager",
+    "demonstrated_skills": [
+     "critical_thinking",
+     "management_of_financial_resources",
+     "management_of_material_resources",
+     "time_management"
+    ],
+    "sim_bands": {
+     "safety": "low",
+     "output": "high",
+     "team_trust": "high"
+    },
+    "pathway_progress": {
+     "program": "mjc_ag_business_ast",
+     "percent": 35
+    },
+    "availability": "weekdays",
+    "region": "Lathrop area"
+   },
+   "hidden": {
+    "name": "Simran Herrera",
+    "photo_initials": "SH",
+    "exact_location": "Lathrop, CA (fictional address)",
+    "contact_email": "simran.herrera.119@example.com",
+    "phone": "555-651-7605"
+   },
+   "group": "C",
+   "fictional": true
+  },
+  {
+   "id": "cand_0120",
+   "candidate_id": "cand_0120",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0120",
+    "target_career": "farm_ops_manager",
+    "demonstrated_skills": [
+     "equipment_maintenance",
+     "management_of_financial_resources",
+     "management_of_personnel_resources",
+     "monitoring"
+    ],
+    "sim_bands": {
+     "safety": "high",
+     "output": "mid",
+     "team_trust": "high"
+    },
+    "pathway_progress": {
+     "program": "mjc_ag_business_ast",
+     "percent": 10
+    },
+    "availability": "part-time (20 h/week)",
+    "region": "Lathrop area"
+   },
+   "hidden": {
+    "name": "Ana Brooks",
+    "photo_initials": "AB",
+    "exact_location": "Lathrop, CA (fictional address)",
+    "contact_email": "ana.brooks.120@example.com",
+    "phone": "555-211-8262"
+   },
+   "group": "C",
+   "fictional": true
+  },
+  {
+   "id": "cand_0121",
+   "candidate_id": "cand_0121",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0121",
+    "target_career": "farm_ops_manager",
+    "demonstrated_skills": [
+     "ag_equipment_operation",
+     "equipment_maintenance",
+     "management_of_financial_resources",
+     "management_of_material_resources",
+     "management_of_personnel_resources",
+     "pesticide_safety"
+    ],
+    "sim_bands": {
+     "safety": "mid",
+     "output": "high",
+     "team_trust": "high"
+    },
+    "pathway_progress": {
+     "program": "delta_ag_business_coa",
+     "percent": 20
+    },
+    "availability": "summer internship",
+    "region": "Tracy area"
+   },
+   "hidden": {
+    "name": "Kevin Ortega",
+    "photo_initials": "KO",
+    "exact_location": "Tracy, CA (fictional address)",
+    "contact_email": "kevin.ortega.121@example.com",
+    "phone": "555-809-2743"
+   },
+   "group": "A",
+   "fictional": true
+  },
+  {
+   "id": "cand_0122",
+   "candidate_id": "cand_0122",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0122",
+    "target_career": "software_dev",
+    "demonstrated_skills": [
+     "git",
+     "programming",
+     "python",
+     "software_testing",
+     "systems_analysis"
+    ],
+    "sim_bands": {
+     "safety": "low",
+     "output": "high",
+     "team_trust": "mid"
+    },
+    "pathway_progress": {
+     "program": "delta_cs_ast",
+     "percent": 20
+    },
+    "availability": "evenings and weekends",
+    "region": "Modesto area"
+   },
+   "hidden": {
+    "name": "Nadia Ortega",
+    "photo_initials": "NO",
+    "exact_location": "Modesto, CA (fictional address)",
+    "contact_email": "nadia.ortega.122@example.com",
+    "phone": "555-314-6554"
+   },
+   "group": "C",
+   "fictional": true
+  },
+  {
+   "id": "cand_0123",
+   "candidate_id": "cand_0123",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0123",
+    "target_career": "registered_nurse",
+    "demonstrated_skills": [
+     "bls_cpr",
+     "infection_control",
+     "medication_safety",
+     "monitoring",
+     "patient_assessment",
+     "repairing",
+     "service_orientation"
+    ],
+    "sim_bands": {
+     "safety": "high",
+     "output": "mid",
+     "team_trust": "low"
+    },
+    "pathway_progress": {
+     "program": "delta_nursing_rn_as",
+     "percent": 65
+    },
+    "availability": "part-time (20 h/week)",
+    "region": "Modesto area"
+   },
+   "hidden": {
+    "name": "Jasmine Moua",
+    "photo_initials": "JM",
+    "exact_location": "Modesto, CA (fictional address)",
+    "contact_email": "jasmine.moua.123@example.com",
+    "phone": "555-257-8926"
+   },
+   "group": "C",
+   "fictional": true
+  },
+  {
+   "id": "cand_0124",
+   "candidate_id": "cand_0124",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0124",
+    "target_career": "welder",
+    "demonstrated_skills": [
+     "air_brakes",
+     "blueprint_reading",
+     "equipment_maintenance",
+     "operations_monitoring",
+     "osha_safety",
+     "troubleshooting"
+    ],
+    "sim_bands": {
+     "safety": "low",
+     "output": "low",
+     "team_trust": "mid"
+    },
+    "pathway_progress": {
+     "program": "direct_welder_helper",
+     "percent": 80
+    },
+    "availability": "weekdays",
+    "region": "Stockton area"
+   },
+   "hidden": {
+    "name": "Darnell Delgado",
+    "photo_initials": "DD",
+    "exact_location": "Stockton, CA (fictional address)",
+    "contact_email": "darnell.delgado.124@example.com",
+    "phone": "555-937-2531"
+   },
+   "group": "C",
+   "fictional": true
+  },
+  {
+   "id": "cand_0125",
+   "candidate_id": "cand_0125",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0125",
+    "target_career": "logistics_lead",
+    "demonstrated_skills": [
+     "forklift_safety",
+     "instructing",
+     "inventory_systems",
+     "management_of_financial_resources",
+     "negotiation",
+     "osha_safety",
+     "reading_comprehension",
+     "systems_analysis"
+    ],
+    "sim_bands": {
+     "safety": "mid",
+     "output": "high",
+     "team_trust": "high"
+    },
+    "pathway_progress": {
+     "program": "delta_logistics_supervisor_coa",
+     "percent": 10
+    },
+    "availability": "evenings and weekends",
+    "region": "Lathrop area"
+   },
+   "hidden": {
+    "name": "Rosa Delgado",
+    "photo_initials": "RD",
+    "exact_location": "Lathrop, CA (fictional address)",
+    "contact_email": "rosa.delgado.125@example.com",
+    "phone": "555-966-8375"
+   },
+   "group": "C",
+   "fictional": true
+  },
+  {
+   "id": "cand_0126",
+   "candidate_id": "cand_0126",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0126",
+    "target_career": "electrician",
+    "demonstrated_skills": [
+     "blueprint_reading",
+     "conduit_bending",
+     "equipment_maintenance",
+     "equipment_selection",
+     "repairing",
+     "troubleshooting"
+    ],
+    "sim_bands": {
+     "safety": "mid",
+     "output": "high",
+     "team_trust": "low"
+    },
+    "pathway_progress": {
+     "program": "delta_electrical_trainee_coa",
+     "percent": 65
+    },
+    "availability": "weekdays",
+    "region": "Lodi area"
+   },
+   "hidden": {
+    "name": "Rosa Patel",
+    "photo_initials": "RP",
+    "exact_location": "Lodi, CA (fictional address)",
+    "contact_email": "rosa.patel.126@example.com",
+    "phone": "555-922-5080"
+   },
+   "group": "A",
+   "fictional": true
+  },
+  {
+   "id": "cand_0127",
+   "candidate_id": "cand_0127",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0127",
+    "target_career": "farm_ops_manager",
+    "demonstrated_skills": [
+     "active_learning",
+     "management_of_personnel_resources",
+     "negotiation",
+     "science"
+    ],
+    "sim_bands": {
+     "safety": "low",
+     "output": "mid",
+     "team_trust": "mid"
+    },
+    "pathway_progress": {
+     "program": "mjc_ag_business_ast",
+     "percent": 20
+    },
+    "availability": "part-time (20 h/week)",
+    "region": "Modesto area"
+   },
+   "hidden": {
+    "name": "Hannah Thompson",
+    "photo_initials": "HT",
+    "exact_location": "Modesto, CA (fictional address)",
+    "contact_email": "hannah.thompson.127@example.com",
+    "phone": "555-654-8977"
+   },
+   "group": "A",
+   "fictional": true
+  },
+  {
+   "id": "cand_0128",
+   "candidate_id": "cand_0128",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0128",
+    "target_career": "farm_ops_manager",
+    "demonstrated_skills": [
+     "equipment_maintenance",
+     "irrigation_management",
+     "management_of_material_resources",
+     "pesticide_safety",
+     "plc_basics",
+     "service_orientation",
+     "spreadsheets"
+    ],
+    "sim_bands": {
+     "safety": "mid",
+     "output": "high",
+     "team_trust": "mid"
+    },
+    "pathway_progress": {
+     "program": "direct_farm_crew_lead",
+     "percent": 80
+    },
+    "availability": "weekdays",
+    "region": "Merced area"
+   },
+   "hidden": {
+    "name": "Priya Moua",
+    "photo_initials": "PM",
+    "exact_location": "Merced, CA (fictional address)",
+    "contact_email": "priya.moua.128@example.com",
+    "phone": "555-592-6225"
+   },
+   "group": "C",
+   "fictional": true
+  },
+  {
+   "id": "cand_0129",
+   "candidate_id": "cand_0129",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0129",
+    "target_career": "electrician",
+    "demonstrated_skills": [
+     "conduit_bending",
+     "repairing",
+     "troubleshooting"
+    ],
+    "sim_bands": {
+     "safety": "mid",
+     "output": "mid",
+     "team_trust": "mid"
+    },
+    "pathway_progress": {
+     "program": "delta_electrical_trainee_coa",
+     "percent": 10
+    },
+    "availability": "part-time (20 h/week)",
+    "region": "Lathrop area"
+   },
+   "hidden": {
+    "name": "Kevin Reyes",
+    "photo_initials": "KR",
+    "exact_location": "Lathrop, CA (fictional address)",
+    "contact_email": "kevin.reyes.129@example.com",
+    "phone": "555-981-6805"
+   },
+   "group": "B",
+   "fictional": true
+  },
+  {
+   "id": "cand_0130",
+   "candidate_id": "cand_0130",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0130",
+    "target_career": "logistics_lead",
+    "demonstrated_skills": [
+     "forklift_safety",
+     "inventory_systems",
+     "osha_safety",
+     "spreadsheets"
+    ],
+    "sim_bands": {
+     "safety": "low",
+     "output": "mid",
+     "team_trust": "high"
+    },
+    "pathway_progress": {
+     "program": "delta_logistics_supervisor_coa",
+     "percent": 0
+    },
+    "availability": "evenings and weekends",
+    "region": "Lathrop area"
+   },
+   "hidden": {
+    "name": "Simran Nguyen",
+    "photo_initials": "SN",
+    "exact_location": "Lathrop, CA (fictional address)",
+    "contact_email": "simran.nguyen.130@example.com",
+    "phone": "555-392-2326"
+   },
+   "group": "B",
+   "fictional": true
+  },
+  {
+   "id": "cand_0131",
+   "candidate_id": "cand_0131",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0131",
+    "target_career": "welder",
+    "demonstrated_skills": [
+     "blueprint_reading",
+     "operation_and_control",
+     "osha_safety"
+    ],
+    "sim_bands": {
+     "safety": "low",
+     "output": "low",
+     "team_trust": "mid"
+    },
+    "pathway_progress": {
+     "program": "direct_welder_helper",
+     "percent": 100
+    },
+    "availability": "full-time after certificate",
+    "region": "Lathrop area"
+   },
+   "hidden": {
+    "name": "Andre Delgado",
+    "photo_initials": "AD",
+    "exact_location": "Lathrop, CA (fictional address)",
+    "contact_email": "andre.delgado.131@example.com",
+    "phone": "555-205-7123"
+   },
+   "group": "B",
+   "fictional": true
+  },
+  {
+   "id": "cand_0132",
+   "candidate_id": "cand_0132",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0132",
+    "target_career": "logistics_lead",
+    "demonstrated_skills": [
+     "blueprint_reading",
+     "coordination",
+     "judgment_and_decision_making",
+     "spreadsheets"
+    ],
+    "sim_bands": {
+     "safety": "mid",
+     "output": "high",
+     "team_trust": "high"
+    },
+    "pathway_progress": {
+     "program": "delta_logistics_supervisor_coa",
+     "percent": 65
+    },
+    "availability": "full-time after certificate",
+    "region": "Stockton area"
+   },
+   "hidden": {
+    "name": "Hannah Kaur",
+    "photo_initials": "HK",
+    "exact_location": "Stockton, CA (fictional address)",
+    "contact_email": "hannah.kaur.132@example.com",
+    "phone": "555-336-9137"
+   },
+   "group": "B",
+   "fictional": true
+  },
+  {
+   "id": "cand_0133",
+   "candidate_id": "cand_0133",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0133",
+    "target_career": "robotics_tech",
+    "demonstrated_skills": [
+     "equipment_maintenance",
+     "installation",
+     "lockout_tagout",
+     "plc_basics",
+     "robot_programming",
+     "troubleshooting"
+    ],
+    "sim_bands": {
+     "safety": "high",
+     "output": "high",
+     "team_trust": "low"
+    },
+    "pathway_progress": {
+     "program": "mjc_automation_technician_coa",
+     "percent": 20
+    },
+    "availability": "summer internship",
+    "region": "Lathrop area"
+   },
+   "hidden": {
+    "name": "Priya Kaur",
+    "photo_initials": "PK",
+    "exact_location": "Lathrop, CA (fictional address)",
+    "contact_email": "priya.kaur.133@example.com",
+    "phone": "555-231-7174"
+   },
+   "group": "B",
+   "fictional": true
+  },
+  {
+   "id": "cand_0134",
+   "candidate_id": "cand_0134",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0134",
+    "target_career": "electrician",
+    "demonstrated_skills": [
+     "blueprint_reading",
+     "conduit_bending",
+     "installation",
+     "nec_code_basics"
+    ],
+    "sim_bands": {
+     "safety": "low",
+     "output": "mid",
+     "team_trust": "high"
+    },
+    "pathway_progress": {
+     "program": "delta_electrical_trainee_coa",
+     "percent": 20
+    },
+    "availability": "full-time after certificate",
+    "region": "Stockton area"
+   },
+   "hidden": {
+    "name": "Victor Vang",
+    "photo_initials": "VV",
+    "exact_location": "Stockton, CA (fictional address)",
+    "contact_email": "victor.vang.134@example.com",
+    "phone": "555-223-4686"
+   },
+   "group": "A",
+   "fictional": true
+  },
+  {
+   "id": "cand_0135",
+   "candidate_id": "cand_0135",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0135",
+    "target_career": "farm_ops_manager",
+    "demonstrated_skills": [
+     "management_of_financial_resources",
+     "osha_safety",
+     "pesticide_safety"
+    ],
+    "sim_bands": {
+     "safety": "low",
+     "output": "mid",
+     "team_trust": "mid"
+    },
+    "pathway_progress": {
+     "program": "direct_farm_crew_lead",
+     "percent": 0
+    },
+    "availability": "evenings and weekends",
+    "region": "Modesto area"
+   },
+   "hidden": {
+    "name": "Darnell Nguyen",
+    "photo_initials": "DN",
+    "exact_location": "Modesto, CA (fictional address)",
+    "contact_email": "darnell.nguyen.135@example.com",
+    "phone": "555-213-6628"
+   },
+   "group": "C",
+   "fictional": true
+  },
+  {
+   "id": "cand_0136",
+   "candidate_id": "cand_0136",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0136",
+    "target_career": "diesel_mechanic",
+    "demonstrated_skills": [
+     "equipment_maintenance",
+     "equipment_selection",
+     "osha_safety"
+    ],
+    "sim_bands": {
+     "safety": "high",
+     "output": "low",
+     "team_trust": "high"
+    },
+    "pathway_progress": {
+     "program": "delta_diesel_equipment_coa",
+     "percent": 20
+    },
+    "availability": "immediately, full-time",
+    "region": "Turlock area"
+   },
+   "hidden": {
+    "name": "Leah Moua",
+    "photo_initials": "LM",
+    "exact_location": "Turlock, CA (fictional address)",
+    "contact_email": "leah.moua.136@example.com",
+    "phone": "555-853-9963"
+   },
+   "group": "B",
+   "fictional": true
+  },
+  {
+   "id": "cand_0137",
+   "candidate_id": "cand_0137",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0137",
+    "target_career": "diesel_mechanic",
+    "demonstrated_skills": [
+     "air_brakes",
+     "lockout_tagout",
+     "osha_safety",
+     "repairing",
+     "troubleshooting"
+    ],
+    "sim_bands": {
+     "safety": "mid",
+     "output": "mid",
+     "team_trust": "mid"
+    },
+    "pathway_progress": {
+     "program": "delta_ag_mechanics_coa",
+     "percent": 10
+    },
+    "availability": "part-time (20 h/week)",
+    "region": "Tracy area"
+   },
+   "hidden": {
+    "name": "Simran Alvarez",
+    "photo_initials": "SA",
+    "exact_location": "Tracy, CA (fictional address)",
+    "contact_email": "simran.alvarez.137@example.com",
+    "phone": "555-563-3456"
+   },
+   "group": "C",
+   "fictional": true
+  },
+  {
+   "id": "cand_0138",
+   "candidate_id": "cand_0138",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0138",
+    "target_career": "software_dev",
+    "demonstrated_skills": [
+     "programming",
+     "speaking",
+     "sql",
+     "technology_design",
+     "web_fundamentals"
+    ],
+    "sim_bands": {
+     "safety": "mid",
+     "output": "mid",
+     "team_trust": "high"
+    },
+    "pathway_progress": {
+     "program": "direct_software_portfolio",
+     "percent": 65
+    },
+    "availability": "weekdays",
+    "region": "Lathrop area"
+   },
+   "hidden": {
+    "name": "Simran Alvarez",
+    "photo_initials": "SA",
+    "exact_location": "Lathrop, CA (fictional address)",
+    "contact_email": "simran.alvarez.138@example.com",
+    "phone": "555-497-7186"
+   },
+   "group": "B",
+   "fictional": true
+  },
+  {
+   "id": "cand_0139",
+   "candidate_id": "cand_0139",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0139",
+    "target_career": "registered_nurse",
+    "demonstrated_skills": [
+     "medication_safety",
+     "social_perceptiveness"
+    ],
+    "sim_bands": {
+     "safety": "mid",
+     "output": "mid",
+     "team_trust": "high"
+    },
+    "pathway_progress": {
+     "program": "delta_nursing_rn_as",
+     "percent": 35
+    },
+    "availability": "summer internship",
+    "region": "Turlock area"
+   },
+   "hidden": {
+    "name": "Nadia Brooks",
+    "photo_initials": "NB",
+    "exact_location": "Turlock, CA (fictional address)",
+    "contact_email": "nadia.brooks.139@example.com",
+    "phone": "555-339-2538"
+   },
+   "group": "B",
+   "fictional": true
+  },
+  {
+   "id": "cand_0140",
+   "candidate_id": "cand_0140",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0140",
+    "target_career": "farm_ops_manager",
+    "demonstrated_skills": [
+     "equipment_maintenance",
+     "negotiation",
+     "sql"
+    ],
+    "sim_bands": {
+     "safety": "mid",
+     "output": "low",
+     "team_trust": "high"
+    },
+    "pathway_progress": {
+     "program": "direct_farm_crew_lead",
+     "percent": 65
+    },
+    "availability": "full-time after certificate",
+    "region": "Lathrop area"
+   },
+   "hidden": {
+    "name": "Mai Thompson",
+    "photo_initials": "MT",
+    "exact_location": "Lathrop, CA (fictional address)",
+    "contact_email": "mai.thompson.140@example.com",
+    "phone": "555-756-7006"
+   },
+   "group": "B",
+   "fictional": true
+  },
+  {
+   "id": "cand_0141",
+   "candidate_id": "cand_0141",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0141",
+    "target_career": "electrician",
+    "demonstrated_skills": [
+     "conduit_bending",
+     "mathematics",
+     "nec_code_basics",
+     "repairing",
+     "technology_design",
+     "troubleshooting"
+    ],
+    "sim_bands": {
+     "safety": "low",
+     "output": "mid",
+     "team_trust": "high"
+    },
+    "pathway_progress": {
+     "program": "delta_electrical_trainee_coa",
+     "percent": 35
+    },
+    "availability": "summer internship",
+    "region": "Lathrop area"
+   },
+   "hidden": {
+    "name": "Nadia Patel",
+    "photo_initials": "NP",
+    "exact_location": "Lathrop, CA (fictional address)",
+    "contact_email": "nadia.patel.141@example.com",
+    "phone": "555-295-5676"
+   },
+   "group": "B",
+   "fictional": true
+  },
+  {
+   "id": "cand_0142",
+   "candidate_id": "cand_0142",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0142",
+    "target_career": "software_dev",
+    "demonstrated_skills": [
+     "critical_thinking",
+     "ehr_charting",
+     "operations_analysis",
+     "programming",
+     "python",
+     "sql",
+     "systems_analysis",
+     "web_fundamentals"
+    ],
+    "sim_bands": {
+     "safety": "high",
+     "output": "high",
+     "team_trust": "high"
+    },
+    "pathway_progress": {
+     "program": "delta_cs_ast",
+     "percent": 100
+    },
+    "availability": "full-time after certificate",
+    "region": "Modesto area"
+   },
+   "hidden": {
+    "name": "Simran Moua",
+    "photo_initials": "SM",
+    "exact_location": "Modesto, CA (fictional address)",
+    "contact_email": "simran.moua.142@example.com",
+    "phone": "555-375-7828"
+   },
+   "group": "A",
+   "fictional": true
+  },
+  {
+   "id": "cand_0143",
+   "candidate_id": "cand_0143",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0143",
+    "target_career": "electrician",
+    "demonstrated_skills": [
+     "blueprint_reading",
+     "electrical_theory",
+     "equipment_maintenance",
+     "infection_control",
+     "installation",
+     "lockout_tagout"
+    ],
+    "sim_bands": {
+     "safety": "low",
+     "output": "mid",
+     "team_trust": "low"
+    },
+    "pathway_progress": {
+     "program": "sjeti_inside_wireman",
+     "percent": 10
+    },
+    "availability": "evenings and weekends",
+    "region": "Merced area"
+   },
+   "hidden": {
+    "name": "Carmen Morales",
+    "photo_initials": "CM",
+    "exact_location": "Merced, CA (fictional address)",
+    "contact_email": "carmen.morales.143@example.com",
+    "phone": "555-542-6860"
+   },
+   "group": "B",
+   "fictional": true
+  },
+  {
+   "id": "cand_0144",
+   "candidate_id": "cand_0144",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0144",
+    "target_career": "software_dev",
+    "demonstrated_skills": [
+     "git",
+     "lockout_tagout",
+     "programming",
+     "python",
+     "software_testing",
+     "systems_analysis"
+    ],
+    "sim_bands": {
+     "safety": "mid",
+     "output": "high",
+     "team_trust": "mid"
+    },
+    "pathway_progress": {
+     "program": "delta_cs_ast",
+     "percent": 50
+    },
+    "availability": "part-time (20 h/week)",
+    "region": "Turlock area"
+   },
+   "hidden": {
+    "name": "Ana Morales",
+    "photo_initials": "AM",
+    "exact_location": "Turlock, CA (fictional address)",
+    "contact_email": "ana.morales.144@example.com",
+    "phone": "555-340-5569"
+   },
+   "group": "C",
+   "fictional": true
+  },
+  {
+   "id": "cand_0145",
+   "candidate_id": "cand_0145",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0145",
+    "target_career": "electrician",
+    "demonstrated_skills": [
+     "electrical_theory",
+     "operations_analysis",
+     "sql",
+     "troubleshooting"
+    ],
+    "sim_bands": {
+     "safety": "mid",
+     "output": "high",
+     "team_trust": "mid"
+    },
+    "pathway_progress": {
+     "program": "delta_electrical_trainee_coa",
+     "percent": 20
+    },
+    "availability": "evenings and weekends",
+    "region": "Lathrop area"
+   },
+   "hidden": {
+    "name": "Jasmine Nguyen",
+    "photo_initials": "JN",
+    "exact_location": "Lathrop, CA (fictional address)",
+    "contact_email": "jasmine.nguyen.145@example.com",
+    "phone": "555-909-5591"
+   },
+   "group": "B",
+   "fictional": true
+  },
+  {
+   "id": "cand_0146",
+   "candidate_id": "cand_0146",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0146",
+    "target_career": "software_dev",
+    "demonstrated_skills": [
+     "equipment_maintenance",
+     "git",
+     "operations_analysis",
+     "python",
+     "software_testing",
+     "technology_design",
+     "web_fundamentals"
+    ],
+    "sim_bands": {
+     "safety": "high",
+     "output": "mid",
+     "team_trust": "low"
+    },
+    "pathway_progress": {
+     "program": "direct_software_portfolio",
+     "percent": 80
+    },
+    "availability": "evenings and weekends",
+    "region": "Merced area"
+   },
+   "hidden": {
+    "name": "Priya Herrera",
+    "photo_initials": "PH",
+    "exact_location": "Merced, CA (fictional address)",
+    "contact_email": "priya.herrera.146@example.com",
+    "phone": "555-964-4775"
+   },
+   "group": "B",
+   "fictional": true
+  },
+  {
+   "id": "cand_0147",
+   "candidate_id": "cand_0147",
+   "persona_id": null,
+   "opted_in": true,
+   "blind": {
+    "candidate_id": "cand_0147",
+    "target_career": "electrician",
+    "demonstrated_skills": [
+     "conduit_bending",
+     "electrical_theory",
+     "installation",
+     "lockout_tagout",
+     "repairing"
+    ],
+    "sim_bands": {
+     "safety": "high",
+     "output": "high",
+     "team_trust": "mid"
+    },
+    "pathway_progress": {
+     "program": "delta_electrical_trainee_coa",
+     "percent": 35
+    },
+    "availability": "full-time after certificate",
+    "region": "Manteca area"
+   },
+   "hidden": {
+    "name": "Isaiah Moua",
+    "photo_initials": "IM",
+    "exact_location": "Manteca, CA (fictional address)",
+    "contact_email": "isaiah.moua.147@example.com",
+    "phone": "555-689-2834"
+   },
+   "group": "A",
+   "fictional": true
+  }
+ ]
+}

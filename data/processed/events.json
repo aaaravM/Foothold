@@ -1,0 +1,3504 @@
+{
+ "schema_version": 1,
+ "status": "DRAFT — needs human review",
+ "events": [
+  {
+   "event_id": "log_01",
+   "career_ids": [
+    "logistics_lead"
+   ],
+   "clock": "07:00",
+   "title": "Two trucks, one door",
+   "text": "It is 7:00 at a distribution center off Highway 99 in Stockton. Two refrigerated trucks of table grapes pull in at the same time, and only Door 6 has a working dock seal. One driver is close to his hours-of-service limit and wants to drop the trailer and go.",
+   "crunch": false,
+   "status": "DRAFT — needs human review",
+   "choices": [
+    {
+     "choice_id": "a",
+     "text": "Decide on the spot: unload the driver near his hours limit first and tell the other carrier to wait 40 minutes.",
+     "trait_deltas": {
+      "initiative": 0.8,
+      "leadership_orientation": 0.7,
+      "self_confidence": 0.5,
+      "cautiousness": -0.2
+     },
+     "stat_deltas": {
+      "safety": 2,
+      "output": 6,
+      "team_trust": 1,
+      "stress": 3
+     },
+     "coworker_hints": {
+      "rosa_delgado": "Likes a fast call, wishes you had checked the door schedule first.",
+      "tou_vang": "Happy to know exactly which truck to pull.",
+      "darnell_hayes": "Worried the receiving paperwork will fall behind."
+     }
+    },
+    {
+     "choice_id": "b",
+     "text": "Call both carriers' dispatchers, lay out the constraint, and let them agree on an order before anything moves.",
+     "trait_deltas": {
+      "cooperation": 0.7,
+      "empathy": 0.4,
+      "initiative": -0.3,
+      "leadership_orientation": -0.2
+     },
+     "stat_deltas": {
+      "safety": 1,
+      "output": -3,
+      "team_trust": 6,
+      "stress": 1
+     },
+     "coworker_hints": {
+      "rosa_delgado": "Appreciates that nobody gets surprised.",
+      "tou_vang": "Idle on the forklift and getting impatient.",
+      "darnell_hayes": "Glad the timing will be documented."
+     }
+    },
+    {
+     "choice_id": "c",
+     "text": "Hold both trucks until maintenance confirms whether Door 4's seal can be patched safely.",
+     "trait_deltas": {
+      "cautiousness": 0.8,
+      "attention_to_detail": 0.5,
+      "adaptability": -0.3
+     },
+     "stat_deltas": {
+      "safety": 6,
+      "output": -6,
+      "team_trust": 0,
+      "stress": 4
+     },
+     "coworker_hints": {
+      "rosa_delgado": "Careful, but slow for a perishable load.",
+      "tou_vang": "Prefers not to rush around a bad seal.",
+      "darnell_hayes": "Notes the temperature-log risk while trucks sit."
+     }
+    }
+   ]
+  },
+  {
+   "event_id": "log_02",
+   "career_ids": [
+    "logistics_lead"
+   ],
+   "clock": "09:15",
+   "title": "The count is off",
+   "text": "Darnell's cycle count shows 14 pallets of almonds missing from a lane the system says is full. A customer pickup for those pallets is scheduled at noon. Nobody has touched the lane since the night shift.",
+   "crunch": false,
+   "status": "DRAFT — needs human review",
+   "choices": [
+    {
+     "choice_id": "a",
+     "text": "Walk the lane yourself with Darnell, pallet by pallet, before telling the customer anything.",
+     "trait_deltas": {
+      "attention_to_detail": 0.8,
+      "dependability": 0.5,
+      "perseverance": 0.4
+     },
+     "stat_deltas": {
+      "safety": 2,
+      "output": -2,
+      "team_trust": 4,
+      "stress": 3
+     },
+     "coworker_hints": {
+      "darnell_hayes": "Relieved you trust his count enough to check it.",
+      "tou_vang": "A little defensive about night shift.",
+      "rosa_delgado": "Thinks a lead should delegate this."
+     }
+    },
+    {
+     "choice_id": "b",
+     "text": "Call the customer now, explain there may be a shortfall, and offer to substitute from another lot.",
+     "trait_deltas": {
+      "sincerity": 0.7,
+      "integrity": 0.6,
+      "optimism": -0.2
+     },
+     "stat_deltas": {
+      "safety": 0,
+      "output": -1,
+      "team_trust": 3,
+      "stress": 2
+     },
+     "coworker_hints": {
+      "rosa_delgado": "Respects the honesty with the customer.",
+      "darnell_hayes": "Nervous it was said before the count was confirmed.",
+      "tou_vang": "Neutral."
+     }
+    },
+    {
+     "choice_id": "c",
+     "text": "Ask Tou to pull the night shift scanner logs while you start building the order from overflow stock.",
+     "trait_deltas": {
+      "initiative": 0.7,
+      "adaptability": 0.6,
+      "innovation": 0.4,
+      "attention_to_detail": -0.2
+     },
+     "stat_deltas": {
+      "safety": 0,
+      "output": 5,
+      "team_trust": 1,
+      "stress": 2
+     },
+     "coworker_hints": {
+      "tou_vang": "Feels put on the spot about his shift.",
+      "darnell_hayes": "Likes the scanner check.",
+      "rosa_delgado": "Likes that the order keeps moving."
+     }
+    }
+   ]
+  },
+  {
+   "event_id": "log_03",
+   "career_ids": [
+    "logistics_lead"
+   ],
+   "clock": "11:30",
+   "title": "Heat on the dock",
+   "text": "The dock thermometer reads 104°F and the afternoon is forecast to get hotter. Two temps in their first week are skipping water breaks to keep up with the line rate you set this morning.",
+   "crunch": false,
+   "status": "DRAFT — needs human review",
+   "choices": [
+    {
+     "choice_id": "a",
+     "text": "Cut the line rate for the afternoon and enforce a shade break every hour, even if outbound slips.",
+     "trait_deltas": {
+      "cautiousness": 0.6,
+      "empathy": 0.7,
+      "achievement_orientation": -0.3
+     },
+     "stat_deltas": {
+      "safety": 10,
+      "output": -6,
+      "team_trust": 6,
+      "stress": -3
+     },
+     "coworker_hints": {
+      "rosa_delgado": "Supports it; she has seen heat illness before.",
+      "tou_vang": "Grateful.",
+      "darnell_hayes": "Starts reworking the outbound schedule."
+     }
+    },
+    {
+     "choice_id": "b",
+     "text": "Keep the rate but pair each new temp with a veteran who will make sure they take breaks.",
+     "trait_deltas": {
+      "leadership_orientation": 0.5,
+      "cooperation": 0.5,
+      "adaptability": 0.4
+     },
+     "stat_deltas": {
+      "safety": 5,
+      "output": 0,
+      "team_trust": 3,
+      "stress": 1
+     },
+     "coworker_hints": {
+      "rosa_delgado": "Thinks it is a fair middle path.",
+      "tou_vang": "Happy to mentor, worried about his own pace.",
+      "darnell_hayes": "Neutral."
+     }
+    },
+    {
+     "choice_id": "c",
+     "text": "Talk to the two temps quietly yourself, then check on them every 30 minutes.",
+     "trait_deltas": {
+      "empathy": 0.6,
+      "social_orientation": 0.6,
+      "dependability": 0.4,
+      "leadership_orientation": -0.2
+     },
+     "stat_deltas": {
+      "safety": 6,
+      "output": -2,
+      "team_trust": 4,
+      "stress": 2
+     },
+     "coworker_hints": {
+      "rosa_delgado": "Notices you are off the floor a lot.",
+      "tou_vang": "Thinks the temps will respond to it.",
+      "darnell_hayes": "Neutral."
+     }
+    }
+   ]
+  },
+  {
+   "event_id": "log_04",
+   "career_ids": [
+    "logistics_lead"
+   ],
+   "clock": "14:00",
+   "title": "Rush order from a big customer",
+   "text": "A grocery chain calls asking for 6 extra truckloads by 5:00 tomorrow morning. Saying yes means mandatory overtime for the night crew for the third time this month.",
+   "crunch": false,
+   "status": "DRAFT — needs human review",
+   "choices": [
+    {
+     "choice_id": "a",
+     "text": "Say yes and build an overtime schedule now, offering first pick of shifts to volunteers.",
+     "trait_deltas": {
+      "achievement_orientation": 0.7,
+      "initiative": 0.5,
+      "self_confidence": 0.4,
+      "empathy": -0.2
+     },
+     "stat_deltas": {
+      "safety": -2,
+      "output": 10,
+      "team_trust": -3,
+      "stress": 5
+     },
+     "coworker_hints": {
+      "rosa_delgado": "Will back you but worries about burnout.",
+      "tou_vang": "Tired, but will take the hours.",
+      "darnell_hayes": "Starts pulling pick lists."
+     }
+    },
+    {
+     "choice_id": "b",
+     "text": "Offer 4 trucks by 5:00 and 2 by noon, and explain the crew constraint honestly.",
+     "trait_deltas": {
+      "sincerity": 0.6,
+      "integrity": 0.5,
+      "cautiousness": 0.3
+     },
+     "stat_deltas": {
+      "safety": 2,
+      "output": 4,
+      "team_trust": 4,
+      "stress": 1
+     },
+     "coworker_hints": {
+      "rosa_delgado": "Thinks this protects both the crew and the account.",
+      "tou_vang": "Relieved.",
+      "darnell_hayes": "Neutral."
+     }
+    },
+    {
+     "choice_id": "c",
+     "text": "Ask the crew first in a quick huddle and only commit to what they agree to.",
+     "trait_deltas": {
+      "cooperation": 0.7,
+      "humility": 0.5,
+      "social_orientation": 0.4,
+      "initiative": -0.2
+     },
+     "stat_deltas": {
+      "safety": 1,
+      "output": 2,
+      "team_trust": 7,
+      "stress": 2
+     },
+     "coworker_hints": {
+      "rosa_delgado": "Unsure a lead should hand off the decision.",
+      "tou_vang": "Feels respected.",
+      "darnell_hayes": "Likes knowing early."
+     }
+    }
+   ]
+  },
+  {
+   "event_id": "log_05",
+   "career_ids": [
+    "logistics_lead"
+   ],
+   "clock": "16:30",
+   "title": "Near miss at end of shift",
+   "text": "A forklift backs out of a trailer and almost clips a temp walking in the pedestrian lane. Nobody was hurt, and the driver says the backup alarm was working. Shift change is in 30 minutes.",
+   "crunch": false,
+   "status": "DRAFT — needs human review",
+   "choices": [
+    {
+     "choice_id": "a",
+     "text": "Stop all forklift traffic for a 10-minute stand-down and write up the near miss tonight.",
+     "trait_deltas": {
+      "integrity": 0.7,
+      "cautiousness": 0.6,
+      "self_control": 0.3
+     },
+     "stat_deltas": {
+      "safety": 12,
+      "output": -4,
+      "team_trust": 2,
+      "stress": 2
+     },
+     "coworker_hints": {
+      "rosa_delgado": "Fully supports it.",
+      "tou_vang": "Embarrassed but agrees.",
+      "darnell_hayes": "Notes the outbound delay."
+     }
+    },
+    {
+     "choice_id": "b",
+     "text": "Pull the driver and the temp aside, hear what each saw, and fix the lane marking tomorrow.",
+     "trait_deltas": {
+      "empathy": 0.5,
+      "intellectual_curiosity": 0.5,
+      "humility": 0.3
+     },
+     "stat_deltas": {
+      "safety": 6,
+      "output": -1,
+      "team_trust": 4,
+      "stress": 1
+     },
+     "coworker_hints": {
+      "rosa_delgado": "Wants it written up today, not tomorrow.",
+      "tou_vang": "Appreciates being heard first.",
+      "darnell_hayes": "Neutral."
+     }
+    },
+    {
+     "choice_id": "c",
+     "text": "Keep trucks moving, post a spotter at the lane until shift change, and raise it at tomorrow's huddle.",
+     "trait_deltas": {
+      "stress_tolerance": 0.6,
+      "adaptability": 0.5,
+      "achievement_orientation": 0.3,
+      "cautiousness": -0.3
+     },
+     "stat_deltas": {
+      "safety": 3,
+      "output": 4,
+      "team_trust": 0,
+      "stress": 0
+     },
+     "coworker_hints": {
+      "rosa_delgado": "Thinks this undersells a near miss.",
+      "tou_vang": "Relieved the shift is not stopped.",
+      "darnell_hayes": "Neutral."
+     }
+    }
+   ]
+  },
+  {
+   "event_id": "rn_01",
+   "career_ids": [
+    "registered_nurse"
+   ],
+   "clock": "07:00",
+   "title": "Handoff with a gap",
+   "text": "At 7:00 on a med-surg floor in a Modesto hospital, the night nurse gives you report on five patients and is clearly in a hurry. She mentions a new blood thinner for Room 412 but cannot remember whether the first dose was given.",
+   "crunch": false,
+   "status": "DRAFT — needs human review",
+   "choices": [
+    {
+     "choice_id": "a",
+     "text": "Ask her to stay two minutes while you both check the medication record together.",
+     "trait_deltas": {
+      "attention_to_detail": 0.8,
+      "dependability": 0.5,
+      "cautiousness": 0.4
+     },
+     "stat_deltas": {
+      "safety": 10,
+      "output": -2,
+      "team_trust": 2,
+      "stress": 2
+     },
+     "coworker_hints": {
+      "grace_villanueva": "Exactly what she expects in handoff.",
+      "harpreet_sandhu": "Glad the dose is verified.",
+      "luz_herrera": "Neutral."
+     }
+    },
+    {
+     "choice_id": "b",
+     "text": "Let her go home, then check the record and pharmacy log yourself before 412's next dose.",
+     "trait_deltas": {
+      "empathy": 0.6,
+      "self_control": 0.4,
+      "attention_to_detail": 0.4
+     },
+     "stat_deltas": {
+      "safety": 6,
+      "output": 0,
+      "team_trust": 4,
+      "stress": 3
+     },
+     "coworker_hints": {
+      "grace_villanueva": "OK with it if you check soon.",
+      "harpreet_sandhu": "Neutral.",
+      "luz_herrera": "Notices you took on extra work."
+     }
+    },
+    {
+     "choice_id": "c",
+     "text": "Note it as an open question and flag it to the charge nurse so the team knows.",
+     "trait_deltas": {
+      "cooperation": 0.6,
+      "humility": 0.5,
+      "initiative": -0.2
+     },
+     "stat_deltas": {
+      "safety": 5,
+      "output": 0,
+      "team_trust": 3,
+      "stress": 1
+     },
+     "coworker_hints": {
+      "grace_villanueva": "Appreciates the flag but wants you to own it.",
+      "harpreet_sandhu": "Neutral.",
+      "luz_herrera": "Neutral."
+     }
+    }
+   ]
+  },
+  {
+   "event_id": "rn_02",
+   "career_ids": [
+    "registered_nurse"
+   ],
+   "clock": "09:15",
+   "title": "A patient refuses to walk",
+   "text": "Mr. Ortega in Room 408, 78 and three days after surgery, refuses to get out of bed for his walk. He says the last nurse walked him too fast and he nearly fell. His daughter is on speakerphone asking why he is not getting better.",
+   "crunch": false,
+   "status": "DRAFT — needs human review",
+   "choices": [
+    {
+     "choice_id": "a",
+     "text": "Sit down, ask him what happened, and agree on a slower walk with Luz on his other side.",
+     "trait_deltas": {
+      "empathy": 0.8,
+      "sincerity": 0.5,
+      "humility": 0.3
+     },
+     "stat_deltas": {
+      "safety": 6,
+      "output": -2,
+      "team_trust": 5,
+      "stress": 1
+     },
+     "coworker_hints": {
+      "luz_herrera": "Glad to help with a slower walk.",
+      "grace_villanueva": "Likes the patient-centered approach.",
+      "harpreet_sandhu": "Wants the walk to happen today."
+     }
+    },
+    {
+     "choice_id": "b",
+     "text": "Explain plainly to him and his daughter why walking prevents clots and pneumonia, and set a time this morning.",
+     "trait_deltas": {
+      "self_confidence": 0.6,
+      "sincerity": 0.5,
+      "leadership_orientation": 0.4
+     },
+     "stat_deltas": {
+      "safety": 4,
+      "output": 2,
+      "team_trust": 2,
+      "stress": 2
+     },
+     "coworker_hints": {
+      "harpreet_sandhu": "Appreciates the clear teaching.",
+      "grace_villanueva": "Neutral.",
+      "luz_herrera": "Neutral."
+     }
+    },
+    {
+     "choice_id": "c",
+     "text": "Document the refusal, respect it for now, and ask the physician whether PT should assess him first.",
+     "trait_deltas": {
+      "cautiousness": 0.6,
+      "cooperation": 0.5,
+      "integrity": 0.4,
+      "initiative": -0.3
+     },
+     "stat_deltas": {
+      "safety": 5,
+      "output": -3,
+      "team_trust": 2,
+      "stress": 0
+     },
+     "coworker_hints": {
+      "harpreet_sandhu": "Fine with a PT consult.",
+      "grace_villanueva": "Wonders if you are passing it off.",
+      "luz_herrera": "Neutral."
+     }
+    }
+   ]
+  },
+  {
+   "event_id": "rn_03",
+   "career_ids": [
+    "registered_nurse"
+   ],
+   "clock": "11:00",
+   "title": "The order looks wrong",
+   "text": "A new insulin order for Room 410 is ten times the patient's usual dose. Dr. Sandhu is in a family meeting, and pharmacy has already verified the order. The patient's lunch tray is arriving now.",
+   "crunch": false,
+   "status": "DRAFT — needs human review",
+   "choices": [
+    {
+     "choice_id": "a",
+     "text": "Hold the dose and page Dr. Sandhu, even though it interrupts the family meeting.",
+     "trait_deltas": {
+      "integrity": 0.8,
+      "self_confidence": 0.5,
+      "cautiousness": 0.4
+     },
+     "stat_deltas": {
+      "safety": 13,
+      "output": -3,
+      "team_trust": 1,
+      "stress": 4
+     },
+     "coworker_hints": {
+      "harpreet_sandhu": "Annoyed for a second, then grateful.",
+      "grace_villanueva": "Fully backs you.",
+      "luz_herrera": "Neutral."
+     }
+    },
+    {
+     "choice_id": "b",
+     "text": "Ask Grace to double-check the order with you before deciding whether to page.",
+     "trait_deltas": {
+      "cooperation": 0.6,
+      "humility": 0.6,
+      "cautiousness": 0.4
+     },
+     "stat_deltas": {
+      "safety": 9,
+      "output": -2,
+      "team_trust": 3,
+      "stress": 2
+     },
+     "coworker_hints": {
+      "grace_villanueva": "Happy to check, wants you to trust yourself too.",
+      "harpreet_sandhu": "Neutral.",
+      "luz_herrera": "Neutral."
+     }
+    },
+    {
+     "choice_id": "c",
+     "text": "Call the pharmacist back and ask how they verified it, holding the dose and tray meanwhile.",
+     "trait_deltas": {
+      "intellectual_curiosity": 0.6,
+      "attention_to_detail": 0.6,
+      "perseverance": 0.3
+     },
+     "stat_deltas": {
+      "safety": 9,
+      "output": -2,
+      "team_trust": 1,
+      "stress": 2
+     },
+     "coworker_hints": {
+      "grace_villanueva": "Reasonable.",
+      "harpreet_sandhu": "Glad he was not interrupted unless needed.",
+      "luz_herrera": "Holds the tray for you."
+     }
+    }
+   ]
+  },
+  {
+   "event_id": "rn_04",
+   "career_ids": [
+    "registered_nurse"
+   ],
+   "clock": "13:30",
+   "title": "Short a CNA",
+   "text": "Luz has been pulled to another unit, so you and one other nurse are now doing all the vitals, turns, and toileting for twelve patients. Two call lights are on and a family member is waiting at the desk.",
+   "crunch": false,
+   "status": "DRAFT — needs human review",
+   "choices": [
+    {
+     "choice_id": "a",
+     "text": "Split the patients with your coworker by room number and work straight through.",
+     "trait_deltas": {
+      "dependability": 0.7,
+      "cooperation": 0.5,
+      "stress_tolerance": 0.4
+     },
+     "stat_deltas": {
+      "safety": 3,
+      "output": 4,
+      "team_trust": 4,
+      "stress": 4
+     },
+     "coworker_hints": {
+      "grace_villanueva": "Likes the structure.",
+      "luz_herrera": "Will help when she gets back.",
+      "harpreet_sandhu": "Neutral."
+     }
+    },
+    {
+     "choice_id": "b",
+     "text": "Triage: answer the call lights first, then tell the family member when you can see them.",
+     "trait_deltas": {
+      "stress_tolerance": 0.6,
+      "adaptability": 0.6,
+      "self_control": 0.4
+     },
+     "stat_deltas": {
+      "safety": 5,
+      "output": 2,
+      "team_trust": 2,
+      "stress": 3
+     },
+     "coworker_hints": {
+      "grace_villanueva": "Agrees with the priorities.",
+      "luz_herrera": "Neutral.",
+      "harpreet_sandhu": "Neutral."
+     }
+    },
+    {
+     "choice_id": "c",
+     "text": "Call Grace and say plainly that staffing is unsafe without a CNA, and ask for help.",
+     "trait_deltas": {
+      "integrity": 0.6,
+      "self_confidence": 0.5,
+      "sincerity": 0.4,
+      "stress_tolerance": -0.2
+     },
+     "stat_deltas": {
+      "safety": 8,
+      "output": -2,
+      "team_trust": 1,
+      "stress": 1
+     },
+     "coworker_hints": {
+      "grace_villanueva": "Prefers to hear it early and will try to find help.",
+      "luz_herrera": "Feels supported.",
+      "harpreet_sandhu": "Neutral."
+     }
+    }
+   ]
+  },
+  {
+   "event_id": "rn_05",
+   "career_ids": [
+    "registered_nurse"
+   ],
+   "clock": "16:00",
+   "title": "A family wants the truth",
+   "text": "Mrs. Lee's son stops you in the hallway and asks if his mother is dying. The physician has not had that conversation with the family yet, and her labs this afternoon were worse.",
+   "crunch": false,
+   "status": "DRAFT — needs human review",
+   "choices": [
+    {
+     "choice_id": "a",
+     "text": "Tell him gently that you cannot answer that, and that you will ask the physician to meet them today.",
+     "trait_deltas": {
+      "integrity": 0.6,
+      "empathy": 0.6,
+      "self_control": 0.4
+     },
+     "stat_deltas": {
+      "safety": 3,
+      "output": 0,
+      "team_trust": 5,
+      "stress": 2
+     },
+     "coworker_hints": {
+      "harpreet_sandhu": "Grateful you did not get ahead of him.",
+      "grace_villanueva": "Thinks it was handled well.",
+      "luz_herrera": "Neutral."
+     }
+    },
+    {
+     "choice_id": "b",
+     "text": "Sit with him for a few minutes and ask what he has noticed and what worries him.",
+     "trait_deltas": {
+      "empathy": 0.8,
+      "social_orientation": 0.5,
+      "sincerity": 0.3
+     },
+     "stat_deltas": {
+      "safety": 2,
+      "output": -2,
+      "team_trust": 6,
+      "stress": 2
+     },
+     "coworker_hints": {
+      "luz_herrera": "Will cover your call lights.",
+      "grace_villanueva": "Values it, watches your time.",
+      "harpreet_sandhu": "Neutral."
+     }
+    },
+    {
+     "choice_id": "c",
+     "text": "Share the facts from the chart that you are allowed to share, then page the physician.",
+     "trait_deltas": {
+      "sincerity": 0.7,
+      "self_confidence": 0.5,
+      "humility": -0.2
+     },
+     "stat_deltas": {
+      "safety": 2,
+      "output": 0,
+      "team_trust": 2,
+      "stress": 3
+     },
+     "coworker_hints": {
+      "harpreet_sandhu": "Uneasy; would have preferred to lead.",
+      "grace_villanueva": "Within bounds, but risky.",
+      "luz_herrera": "Neutral."
+     }
+    }
+   ]
+  },
+  {
+   "event_id": "dsl_01",
+   "career_ids": [
+    "diesel_mechanic"
+   ],
+   "clock": "07:00",
+   "title": "Truck down on the 99",
+   "text": "A fruit hauler limps into a Fresno shop at 7:00 with a check-engine light and low power. The driver has a load of peaches due in Los Angeles by evening. Brenda has already promised him a quick look.",
+   "crunch": false,
+   "status": "DRAFT — needs human review",
+   "choices": [
+    {
+     "choice_id": "a",
+     "text": "Pull the codes and run a full diagnostic before giving any time estimate.",
+     "trait_deltas": {
+      "attention_to_detail": 0.7,
+      "cautiousness": 0.6,
+      "perseverance": 0.3
+     },
+     "stat_deltas": {
+      "safety": 6,
+      "output": -2,
+      "team_trust": 1,
+      "stress": 1
+     },
+     "coworker_hints": {
+      "manny_soares": "Thinks it is the right call.",
+      "pao_xiong": "Approves.",
+      "brenda_ochoa": "Worried about her promise to the driver."
+     }
+    },
+    {
+     "choice_id": "b",
+     "text": "Try the most likely fix first, a clogged fuel filter, and get him moving if it works.",
+     "trait_deltas": {
+      "initiative": 0.6,
+      "achievement_orientation": 0.6,
+      "cautiousness": -0.3
+     },
+     "stat_deltas": {
+      "safety": -2,
+      "output": 8,
+      "team_trust": 0,
+      "stress": 2
+     },
+     "coworker_hints": {
+      "manny_soares": "Fine if you road-test it.",
+      "pao_xiong": "Thinks it might come back.",
+      "brenda_ochoa": "Relieved."
+     }
+    },
+    {
+     "choice_id": "c",
+     "text": "Ask Pao, who has seen this engine family a lot, what he would check first.",
+     "trait_deltas": {
+      "humility": 0.6,
+      "cooperation": 0.5,
+      "intellectual_curiosity": 0.4
+     },
+     "stat_deltas": {
+      "safety": 3,
+      "output": 2,
+      "team_trust": 3,
+      "stress": 0
+     },
+     "coworker_hints": {
+      "pao_xiong": "Happy to help, though busy.",
+      "manny_soares": "Likes the teamwork.",
+      "brenda_ochoa": "Neutral."
+     }
+    }
+   ]
+  },
+  {
+   "event_id": "dsl_02",
+   "career_ids": [
+    "diesel_mechanic"
+   ],
+   "clock": "09:30",
+   "title": "The intermittent fault",
+   "text": "A combine header controller keeps cutting out, but the fault will not repeat in the shop. You have spent two hours on it, and the farmer needs it back before harvest picks up next week.",
+   "crunch": false,
+   "status": "DRAFT — needs human review",
+   "choices": [
+    {
+     "choice_id": "a",
+     "text": "Keep at it: build a test harness and wiggle-test every connector until the fault shows.",
+     "trait_deltas": {
+      "perseverance": 0.8,
+      "intellectual_curiosity": 0.5,
+      "attention_to_detail": 0.4
+     },
+     "stat_deltas": {
+      "safety": 3,
+      "output": -2,
+      "team_trust": 0,
+      "stress": 3
+     },
+     "coworker_hints": {
+      "pao_xiong": "Respects the persistence.",
+      "manny_soares": "Watching the labor hours.",
+      "brenda_ochoa": "Wondering what to tell the customer."
+     }
+    },
+    {
+     "choice_id": "b",
+     "text": "Replace the most likely harness section and send it out with a note to call if it recurs.",
+     "trait_deltas": {
+      "adaptability": 0.5,
+      "tolerance_for_ambiguity": 0.6,
+      "achievement_orientation": 0.4,
+      "attention_to_detail": -0.3
+     },
+     "stat_deltas": {
+      "safety": -1,
+      "output": 6,
+      "team_trust": 0,
+      "stress": -1
+     },
+     "coworker_hints": {
+      "pao_xiong": "Calls it guess-and-replace repair.",
+      "manny_soares": "Fine if the customer agrees.",
+      "brenda_ochoa": "Needs a clear explanation for the bill."
+     }
+    },
+    {
+     "choice_id": "c",
+     "text": "Call the farmer and ask exactly when it fails: on hills, in heat, over bumps, or at a time of day.",
+     "trait_deltas": {
+      "intellectual_curiosity": 0.6,
+      "social_orientation": 0.4,
+      "innovation": 0.5
+     },
+     "stat_deltas": {
+      "safety": 2,
+      "output": 2,
+      "team_trust": 2,
+      "stress": 1
+     },
+     "coworker_hints": {
+      "brenda_ochoa": "Glad to get you on the phone.",
+      "pao_xiong": "Thinks it is a smart lead.",
+      "manny_soares": "Neutral."
+     }
+    }
+   ]
+  },
+  {
+   "event_id": "dsl_03",
+   "career_ids": [
+    "diesel_mechanic"
+   ],
+   "clock": "11:30",
+   "title": "A brake job someone else did",
+   "text": "During an oil change, you notice the brake chambers on a customer's truck were installed with the wrong part. Another tech in the shop did that job last month. The customer only paid for an oil change today.",
+   "crunch": false,
+   "status": "DRAFT — needs human review",
+   "choices": [
+    {
+     "choice_id": "a",
+     "text": "Show Manny and the customer, and write it up exactly as you found it.",
+     "trait_deltas": {
+      "integrity": 0.8,
+      "sincerity": 0.5,
+      "self_confidence": 0.3
+     },
+     "stat_deltas": {
+      "safety": 12,
+      "output": -2,
+      "team_trust": -2,
+      "stress": 2
+     },
+     "coworker_hints": {
+      "manny_soares": "Backs you on safety.",
+      "pao_xiong": "Thinks the other tech should have heard first.",
+      "brenda_ochoa": "Has a delicate conversation ahead."
+     }
+    },
+    {
+     "choice_id": "b",
+     "text": "Talk to the other tech first and give him a chance to fix it before anyone else hears.",
+     "trait_deltas": {
+      "empathy": 0.5,
+      "cooperation": 0.5,
+      "humility": 0.3,
+      "integrity": 0.2
+     },
+     "stat_deltas": {
+      "safety": 8,
+      "output": -1,
+      "team_trust": 3,
+      "stress": 2
+     },
+     "coworker_hints": {
+      "pao_xiong": "Prefers this.",
+      "manny_soares": "Wants to know regardless.",
+      "brenda_ochoa": "Neutral."
+     }
+    },
+    {
+     "choice_id": "c",
+     "text": "Fix it yourself at no charge and tell Manny afterward.",
+     "trait_deltas": {
+      "dependability": 0.5,
+      "initiative": 0.6,
+      "sincerity": -0.3
+     },
+     "stat_deltas": {
+      "safety": 10,
+      "output": -4,
+      "team_trust": 0,
+      "stress": 1
+     },
+     "coworker_hints": {
+      "manny_soares": "Uncomfortable you decided alone.",
+      "pao_xiong": "Respects the fix, not the silence.",
+      "brenda_ochoa": "Confused about the ticket."
+     }
+    }
+   ]
+  },
+  {
+   "event_id": "dsl_04",
+   "career_ids": [
+    "diesel_mechanic"
+   ],
+   "clock": "13:30",
+   "title": "The new scan tool",
+   "text": "The shop just bought a diagnostic tablet with guided tests and remote support. Pao says it is slower than his old laptop setup. Three trucks are waiting this afternoon.",
+   "crunch": false,
+   "status": "DRAFT — needs human review",
+   "choices": [
+    {
+     "choice_id": "a",
+     "text": "Use the new tool on all three trucks, even if it slows you down today.",
+     "trait_deltas": {
+      "innovation": 0.6,
+      "intellectual_curiosity": 0.5,
+      "adaptability": 0.5,
+      "achievement_orientation": -0.2
+     },
+     "stat_deltas": {
+      "safety": 1,
+      "output": -4,
+      "team_trust": 0,
+      "stress": 2
+     },
+     "coworker_hints": {
+      "manny_soares": "Glad someone is learning it.",
+      "pao_xiong": "Skeptical.",
+      "brenda_ochoa": "Worried about wait times."
+     }
+    },
+    {
+     "choice_id": "b",
+     "text": "Use the old setup today and learn the tablet on a slow afternoon.",
+     "trait_deltas": {
+      "cautiousness": 0.5,
+      "dependability": 0.5,
+      "achievement_orientation": 0.4,
+      "innovation": -0.3
+     },
+     "stat_deltas": {
+      "safety": 0,
+      "output": 5,
+      "team_trust": 1,
+      "stress": -1
+     },
+     "coworker_hints": {
+      "pao_xiong": "Agrees.",
+      "manny_soares": "Fine, but wants a date.",
+      "brenda_ochoa": "Relieved."
+     }
+    },
+    {
+     "choice_id": "c",
+     "text": "Use the tablet on one truck with Pao beside you, comparing results.",
+     "trait_deltas": {
+      "cooperation": 0.5,
+      "intellectual_curiosity": 0.4,
+      "humility": 0.4,
+      "attention_to_detail": 0.3
+     },
+     "stat_deltas": {
+      "safety": 2,
+      "output": 0,
+      "team_trust": 3,
+      "stress": 1
+     },
+     "coworker_hints": {
+      "pao_xiong": "Willing to compare.",
+      "manny_soares": "Likes it.",
+      "brenda_ochoa": "Neutral."
+     }
+    }
+   ]
+  },
+  {
+   "event_id": "dsl_05",
+   "career_ids": [
+    "diesel_mechanic"
+   ],
+   "clock": "15:45",
+   "title": "Customer pushes back on the bill",
+   "text": "A farmer who has come to the shop for 20 years says the bill for his tractor is double what he expected. Brenda gave him a rough estimate before you found a cracked radiator.",
+   "crunch": false,
+   "status": "DRAFT — needs human review",
+   "choices": [
+    {
+     "choice_id": "a",
+     "text": "Walk him to the old radiator and show him the crack and what the labor covered.",
+     "trait_deltas": {
+      "sincerity": 0.6,
+      "self_confidence": 0.5,
+      "social_orientation": 0.4
+     },
+     "stat_deltas": {
+      "safety": 0,
+      "output": 1,
+      "team_trust": 3,
+      "stress": 2
+     },
+     "coworker_hints": {
+      "brenda_ochoa": "Grateful for the backup.",
+      "manny_soares": "Likes the transparency.",
+      "pao_xiong": "Neutral."
+     }
+    },
+    {
+     "choice_id": "b",
+     "text": "Let Brenda handle it; your job is the repair, not the conversation.",
+     "trait_deltas": {
+      "self_control": 0.4,
+      "humility": 0.4,
+      "social_orientation": -0.6
+     },
+     "stat_deltas": {
+      "safety": 0,
+      "output": 2,
+      "team_trust": -2,
+      "stress": -2
+     },
+     "coworker_hints": {
+      "brenda_ochoa": "Feels left alone with it.",
+      "manny_soares": "Thinks you should help.",
+      "pao_xiong": "Understands."
+     }
+    },
+    {
+     "choice_id": "c",
+     "text": "Ask Manny whether the shop can split the difference, since the estimate was wrong.",
+     "trait_deltas": {
+      "empathy": 0.6,
+      "cooperation": 0.4,
+      "integrity": 0.3
+     },
+     "stat_deltas": {
+      "safety": 0,
+      "output": -2,
+      "team_trust": 2,
+      "stress": 1
+     },
+     "coworker_hints": {
+      "manny_soares": "Will consider it, notes the precedent.",
+      "brenda_ochoa": "Relieved.",
+      "pao_xiong": "Neutral."
+     }
+    }
+   ]
+  },
+  {
+   "event_id": "wld_01",
+   "career_ids": [
+    "welder"
+   ],
+   "clock": "07:00",
+   "title": "Fit-up is off",
+   "text": "At a fabrication shop in Visalia, you are welding brackets for a dairy's feed-handling frame. The parts from the saw are 1/8 inch short, which the print does not allow. The delivery truck leaves at 2:00.",
+   "crunch": false,
+   "status": "DRAFT — needs human review",
+   "choices": [
+    {
+     "choice_id": "a",
+     "text": "Stop and tell Ernesto the parts are out of tolerance before welding anything.",
+     "trait_deltas": {
+      "integrity": 0.6,
+      "cautiousness": 0.6,
+      "attention_to_detail": 0.5
+     },
+     "stat_deltas": {
+      "safety": 6,
+      "output": -4,
+      "team_trust": 2,
+      "stress": 1
+     },
+     "coworker_hints": {
+      "ernesto_ruiz": "Appreciates it.",
+      "arman_petrosyan": "Glad it was caught upstream.",
+      "kayla_brooks": "Learns from watching."
+     }
+    },
+    {
+     "choice_id": "b",
+     "text": "Build up the gap with extra weld passes and grind to fit.",
+     "trait_deltas": {
+      "innovation": 0.5,
+      "achievement_orientation": 0.5,
+      "perseverance": 0.4,
+      "cautiousness": -0.4
+     },
+     "stat_deltas": {
+      "safety": -4,
+      "output": 5,
+      "team_trust": -1,
+      "stress": 2
+     },
+     "coworker_hints": {
+      "arman_petrosyan": "Will flag it at inspection.",
+      "ernesto_ruiz": "Not happy you did not ask.",
+      "kayla_brooks": "Impressed but confused."
+     }
+    },
+    {
+     "choice_id": "c",
+     "text": "Re-cut the parts yourself from stock; it costs an hour but keeps to the print.",
+     "trait_deltas": {
+      "initiative": 0.6,
+      "dependability": 0.5,
+      "attention_to_detail": 0.4
+     },
+     "stat_deltas": {
+      "safety": 4,
+      "output": -1,
+      "team_trust": 1,
+      "stress": 3
+     },
+     "coworker_hints": {
+      "ernesto_ruiz": "Fine, wants to know why the saw drifted.",
+      "arman_petrosyan": "Approves.",
+      "kayla_brooks": "Helps."
+     }
+    }
+   ]
+  },
+  {
+   "event_id": "wld_02",
+   "career_ids": [
+    "welder"
+   ],
+   "clock": "09:30",
+   "title": "The apprentice's weld",
+   "text": "Kayla shows you a fillet weld she is proud of. It looks good, but you can see undercut along one toe that will fail inspection.",
+   "crunch": false,
+   "status": "DRAFT — needs human review",
+   "choices": [
+    {
+     "choice_id": "a",
+     "text": "Point out the undercut directly and show her how to adjust her travel angle.",
+     "trait_deltas": {
+      "sincerity": 0.7,
+      "leadership_orientation": 0.4,
+      "attention_to_detail": 0.4
+     },
+     "stat_deltas": {
+      "safety": 3,
+      "output": 0,
+      "team_trust": 2,
+      "stress": 1
+     },
+     "coworker_hints": {
+      "kayla_brooks": "Stung, then grateful.",
+      "ernesto_ruiz": "Approves.",
+      "arman_petrosyan": "Glad."
+     }
+    },
+    {
+     "choice_id": "b",
+     "text": "Praise what is good first, then ask her what she sees along the toe.",
+     "trait_deltas": {
+      "empathy": 0.6,
+      "social_orientation": 0.5,
+      "humility": 0.3
+     },
+     "stat_deltas": {
+      "safety": 2,
+      "output": -1,
+      "team_trust": 4,
+      "stress": 0
+     },
+     "coworker_hints": {
+      "kayla_brooks": "Finds it herself and remembers it.",
+      "ernesto_ruiz": "Thinks it takes longer than needed.",
+      "arman_petrosyan": "Neutral."
+     }
+    },
+    {
+     "choice_id": "c",
+     "text": "Let Arman catch it at inspection; she will learn more from the reject.",
+     "trait_deltas": {
+      "self_control": 0.4,
+      "tolerance_for_ambiguity": 0.4,
+      "empathy": -0.4,
+      "social_orientation": -0.4
+     },
+     "stat_deltas": {
+      "safety": 0,
+      "output": 1,
+      "team_trust": -3,
+      "stress": -1
+     },
+     "coworker_hints": {
+      "kayla_brooks": "Embarrassed in front of the inspector.",
+      "arman_petrosyan": "Annoyed at the extra rework.",
+      "ernesto_ruiz": "Disappointed."
+     }
+    }
+   ]
+  },
+  {
+   "event_id": "wld_03",
+   "career_ids": [
+    "welder"
+   ],
+   "clock": "11:30",
+   "title": "Ventilation fan is out",
+   "text": "The exhaust fan above your booth quit, and you are about to weld galvanized steel. The replacement motor will not arrive until tomorrow.",
+   "crunch": false,
+   "status": "DRAFT — needs human review",
+   "choices": [
+    {
+     "choice_id": "a",
+     "text": "Refuse to weld the galvanized parts until ventilation is fixed, and switch to other work.",
+     "trait_deltas": {
+      "cautiousness": 0.8,
+      "integrity": 0.5,
+      "self_confidence": 0.3
+     },
+     "stat_deltas": {
+      "safety": 12,
+      "output": -5,
+      "team_trust": 0,
+      "stress": 0
+     },
+     "coworker_hints": {
+      "ernesto_ruiz": "Agrees and reshuffles the schedule.",
+      "arman_petrosyan": "Supports it.",
+      "kayla_brooks": "Learns where the safety line is."
+     }
+    },
+    {
+     "choice_id": "b",
+     "text": "Grind the coating off the weld zones outdoors and weld with a respirator and a portable fume fan.",
+     "trait_deltas": {
+      "innovation": 0.6,
+      "adaptability": 0.6,
+      "initiative": 0.4
+     },
+     "stat_deltas": {
+      "safety": 6,
+      "output": 2,
+      "team_trust": 1,
+      "stress": 2
+     },
+     "coworker_hints": {
+      "ernesto_ruiz": "Fine if you have the right respirator.",
+      "arman_petrosyan": "Wants to check the prep.",
+      "kayla_brooks": "Helps grind."
+     }
+    },
+    {
+     "choice_id": "c",
+     "text": "Weld it quickly with the bay door open; it is only a few brackets.",
+     "trait_deltas": {
+      "achievement_orientation": 0.5,
+      "stress_tolerance": 0.4,
+      "cautiousness": -0.7
+     },
+     "stat_deltas": {
+      "safety": -10,
+      "output": 5,
+      "team_trust": -2,
+      "stress": 1
+     },
+     "coworker_hints": {
+      "ernesto_ruiz": "Will stop you if he sees it.",
+      "arman_petrosyan": "Concerned.",
+      "kayla_brooks": "Confused about the rule."
+     }
+    }
+   ]
+  },
+  {
+   "event_id": "wld_04",
+   "career_ids": [
+    "welder"
+   ],
+   "clock": "13:30",
+   "title": "Inspector rejects your weld",
+   "text": "Arman rejects two of your welds for porosity and says your shielding gas flow was probably wrong. You checked the flow this morning and think the cause is a draft from the open bay door.",
+   "crunch": false,
+   "status": "DRAFT — needs human review",
+   "choices": [
+    {
+     "choice_id": "a",
+     "text": "Accept the reject, grind them out, and re-weld without arguing.",
+     "trait_deltas": {
+      "humility": 0.6,
+      "self_control": 0.6,
+      "dependability": 0.4
+     },
+     "stat_deltas": {
+      "safety": 4,
+      "output": -3,
+      "team_trust": 2,
+      "stress": 1
+     },
+     "coworker_hints": {
+      "arman_petrosyan": "Appreciates it.",
+      "ernesto_ruiz": "Neutral.",
+      "kayla_brooks": "Notices."
+     }
+    },
+    {
+     "choice_id": "b",
+     "text": "Show Arman your flow reading and ask him to look at the draft with you.",
+     "trait_deltas": {
+      "self_confidence": 0.6,
+      "sincerity": 0.5,
+      "intellectual_curiosity": 0.4
+     },
+     "stat_deltas": {
+      "safety": 3,
+      "output": -1,
+      "team_trust": 1,
+      "stress": 2
+     },
+     "coworker_hints": {
+      "arman_petrosyan": "Willing to look.",
+      "ernesto_ruiz": "Likes the problem-solving.",
+      "kayla_brooks": "Neutral."
+     }
+    },
+    {
+     "choice_id": "c",
+     "text": "Re-weld and rig a wind screen yourself so it does not happen again.",
+     "trait_deltas": {
+      "initiative": 0.7,
+      "innovation": 0.4,
+      "perseverance": 0.4
+     },
+     "stat_deltas": {
+      "safety": 4,
+      "output": -2,
+      "team_trust": 1,
+      "stress": 1
+     },
+     "coworker_hints": {
+      "ernesto_ruiz": "Likes the fix.",
+      "arman_petrosyan": "Glad.",
+      "kayla_brooks": "Copies it."
+     }
+    }
+   ]
+  },
+  {
+   "event_id": "wld_05",
+   "career_ids": [
+    "welder"
+   ],
+   "clock": "15:30",
+   "title": "Long day, last joint",
+   "text": "You have been welding overhead on a trailer frame for hours, your arms are shaking, and one joint is left. Ernesto asked you to finish it before you leave.",
+   "crunch": false,
+   "status": "DRAFT — needs human review",
+   "choices": [
+    {
+     "choice_id": "a",
+     "text": "Take a ten-minute break, then weld the joint carefully.",
+     "trait_deltas": {
+      "self_control": 0.6,
+      "cautiousness": 0.5,
+      "stress_tolerance": 0.3
+     },
+     "stat_deltas": {
+      "safety": 5,
+      "output": 0,
+      "team_trust": 1,
+      "stress": -4
+     },
+     "coworker_hints": {
+      "ernesto_ruiz": "Fine, as long as it gets done.",
+      "arman_petrosyan": "Prefers it.",
+      "kayla_brooks": "Neutral."
+     }
+    },
+    {
+     "choice_id": "b",
+     "text": "Push through and finish it now.",
+     "trait_deltas": {
+      "perseverance": 0.7,
+      "achievement_orientation": 0.5,
+      "cautiousness": -0.3
+     },
+     "stat_deltas": {
+      "safety": -3,
+      "output": 4,
+      "team_trust": 1,
+      "stress": 4
+     },
+     "coworker_hints": {
+      "ernesto_ruiz": "Glad it is done, checks it.",
+      "arman_petrosyan": "Will look closely.",
+      "kayla_brooks": "Impressed."
+     }
+    },
+    {
+     "choice_id": "c",
+     "text": "Tell Ernesto you are worn out and ask to finish it first thing tomorrow.",
+     "trait_deltas": {
+      "sincerity": 0.6,
+      "integrity": 0.4,
+      "achievement_orientation": -0.3
+     },
+     "stat_deltas": {
+      "safety": 4,
+      "output": -3,
+      "team_trust": 0,
+      "stress": -3
+     },
+     "coworker_hints": {
+      "ernesto_ruiz": "A little frustrated, respects the honesty.",
+      "arman_petrosyan": "Agrees.",
+      "kayla_brooks": "Neutral."
+     }
+    }
+   ]
+  },
+  {
+   "event_id": "elc_01",
+   "career_ids": [
+    "electrician"
+   ],
+   "clock": "07:00",
+   "title": "The panel is not labeled",
+   "text": "On a new apartment build in Merced, you are told the panel you need to work on is dead. The breakers are not labeled, and the last crew left in a hurry yesterday.",
+   "crunch": false,
+   "status": "DRAFT — needs human review",
+   "choices": [
+    {
+     "choice_id": "a",
+     "text": "Lock out the panel, test it yourself with a meter, and only then start work.",
+     "trait_deltas": {
+      "cautiousness": 0.8,
+      "attention_to_detail": 0.5,
+      "dependability": 0.4
+     },
+     "stat_deltas": {
+      "safety": 12,
+      "output": -2,
+      "team_trust": 1,
+      "stress": 1
+     },
+     "coworker_hints": {
+      "dale_nakamura": "Expects nothing less.",
+      "yesenia_cruz": "Learns the habit.",
+      "ninos_youkhana": "Mildly impatient."
+     }
+    },
+    {
+     "choice_id": "b",
+     "text": "Ask Dale to confirm first, since he talked to the last crew.",
+     "trait_deltas": {
+      "cooperation": 0.5,
+      "humility": 0.5,
+      "cautiousness": 0.4
+     },
+     "stat_deltas": {
+      "safety": 8,
+      "output": -2,
+      "team_trust": 2,
+      "stress": 0
+     },
+     "coworker_hints": {
+      "dale_nakamura": "Fine, still wants you to test.",
+      "yesenia_cruz": "Neutral.",
+      "ninos_youkhana": "Neutral."
+     }
+    },
+    {
+     "choice_id": "c",
+     "text": "Start labeling the whole panel now so nobody else hits this problem.",
+     "trait_deltas": {
+      "initiative": 0.6,
+      "attention_to_detail": 0.5,
+      "innovation": 0.3
+     },
+     "stat_deltas": {
+      "safety": 6,
+      "output": -3,
+      "team_trust": 3,
+      "stress": 1
+     },
+     "coworker_hints": {
+      "dale_nakamura": "Likes it, worries about time.",
+      "ninos_youkhana": "Asks why it is slow.",
+      "yesenia_cruz": "Helps."
+     }
+    }
+   ]
+  },
+  {
+   "event_id": "elc_02",
+   "career_ids": [
+    "electrician"
+   ],
+   "clock": "09:30",
+   "title": "The super wants it faster",
+   "text": "Ninos, the general contractor's superintendent, says the drywall crew is coming Thursday and your rough-in must be done by Wednesday night. That leaves no time for the rough-in inspection you scheduled.",
+   "crunch": false,
+   "status": "DRAFT — needs human review",
+   "choices": [
+    {
+     "choice_id": "a",
+     "text": "Explain that rough-in must pass inspection before drywall, and propose a new timeline.",
+     "trait_deltas": {
+      "integrity": 0.6,
+      "self_confidence": 0.6,
+      "leadership_orientation": 0.4
+     },
+     "stat_deltas": {
+      "safety": 8,
+      "output": -3,
+      "team_trust": 0,
+      "stress": 2
+     },
+     "coworker_hints": {
+      "ninos_youkhana": "Unhappy but knows the code.",
+      "dale_nakamura": "Backs you.",
+      "yesenia_cruz": "Neutral."
+     }
+    },
+    {
+     "choice_id": "b",
+     "text": "Work late both nights to finish and still get the inspection in.",
+     "trait_deltas": {
+      "perseverance": 0.6,
+      "dependability": 0.6,
+      "achievement_orientation": 0.5
+     },
+     "stat_deltas": {
+      "safety": 4,
+      "output": 6,
+      "team_trust": 2,
+      "stress": 6
+     },
+     "coworker_hints": {
+      "ninos_youkhana": "Pleased.",
+      "dale_nakamura": "Worried about fatigue.",
+      "yesenia_cruz": "Tired."
+     }
+    },
+    {
+     "choice_id": "c",
+     "text": "Let Dale negotiate with Ninos; it is above your role.",
+     "trait_deltas": {
+      "humility": 0.6,
+      "cooperation": 0.4,
+      "initiative": -0.4,
+      "leadership_orientation": -0.3
+     },
+     "stat_deltas": {
+      "safety": 2,
+      "output": 0,
+      "team_trust": 1,
+      "stress": -2
+     },
+     "coworker_hints": {
+      "dale_nakamura": "Fine, wishes you had given input.",
+      "ninos_youkhana": "Neutral.",
+      "yesenia_cruz": "Neutral."
+     }
+    }
+   ]
+  },
+  {
+   "event_id": "elc_03",
+   "career_ids": [
+    "electrician"
+   ],
+   "clock": "11:30",
+   "title": "The apprentice's shortcut",
+   "text": "Yesenia is pulling wire through metal studs without bushings, which risks scraping the insulation on the sharp edges. She says the journeyman on her last job did it this way.",
+   "crunch": false,
+   "status": "DRAFT — needs human review",
+   "choices": [
+    {
+     "choice_id": "a",
+     "text": "Stop her, show her why the insulation matters, and have her redo it.",
+     "trait_deltas": {
+      "leadership_orientation": 0.6,
+      "attention_to_detail": 0.5,
+      "sincerity": 0.4
+     },
+     "stat_deltas": {
+      "safety": 6,
+      "output": -2,
+      "team_trust": 2,
+      "stress": 1
+     },
+     "coworker_hints": {
+      "yesenia_cruz": "Embarrassed but learns.",
+      "dale_nakamura": "Approves.",
+      "ninos_youkhana": "Neutral."
+     }
+    },
+    {
+     "choice_id": "b",
+     "text": "Ask her to explain what could go wrong, and let her decide.",
+     "trait_deltas": {
+      "empathy": 0.5,
+      "social_orientation": 0.4,
+      "tolerance_for_ambiguity": 0.4
+     },
+     "stat_deltas": {
+      "safety": 3,
+      "output": -1,
+      "team_trust": 3,
+      "stress": 0
+     },
+     "coworker_hints": {
+      "yesenia_cruz": "Thinks it through.",
+      "dale_nakamura": "Too soft for a safety issue.",
+      "ninos_youkhana": "Neutral."
+     }
+    },
+    {
+     "choice_id": "c",
+     "text": "Let it go this once and tell Dale later so he can address it.",
+     "trait_deltas": {
+      "self_control": 0.4,
+      "cooperation": 0.3,
+      "leadership_orientation": -0.4,
+      "cautiousness": -0.3
+     },
+     "stat_deltas": {
+      "safety": -4,
+      "output": 2,
+      "team_trust": -1,
+      "stress": -1
+     },
+     "coworker_hints": {
+      "dale_nakamura": "Wishes you had said something.",
+      "yesenia_cruz": "Never hears about it.",
+      "ninos_youkhana": "Neutral."
+     }
+    }
+   ]
+  },
+  {
+   "event_id": "elc_04",
+   "career_ids": [
+    "electrician"
+   ],
+   "clock": "13:30",
+   "title": "A code question",
+   "text": "A plan calls for a GFCI layout that does not match what you remember from the latest code cycle. The drawings were stamped by an engineer, but you think they may be outdated.",
+   "crunch": false,
+   "status": "DRAFT — needs human review",
+   "choices": [
+    {
+     "choice_id": "a",
+     "text": "Look up the current code section and bring it to Dale before installing.",
+     "trait_deltas": {
+      "intellectual_curiosity": 0.6,
+      "attention_to_detail": 0.6,
+      "integrity": 0.3
+     },
+     "stat_deltas": {
+      "safety": 6,
+      "output": -2,
+      "team_trust": 1,
+      "stress": 1
+     },
+     "coworker_hints": {
+      "dale_nakamura": "Glad you checked.",
+      "ninos_youkhana": "Worried about a change order.",
+      "yesenia_cruz": "Learns."
+     }
+    },
+    {
+     "choice_id": "b",
+     "text": "Install per the drawings; the engineer is responsible for the design.",
+     "trait_deltas": {
+      "dependability": 0.4,
+      "humility": 0.4,
+      "intellectual_curiosity": -0.4
+     },
+     "stat_deltas": {
+      "safety": -2,
+      "output": 4,
+      "team_trust": 0,
+      "stress": -1
+     },
+     "coworker_hints": {
+      "dale_nakamura": "Thinks you should question it.",
+      "ninos_youkhana": "Pleased.",
+      "yesenia_cruz": "Neutral."
+     }
+    },
+    {
+     "choice_id": "c",
+     "text": "Install the stricter version that satisfies both and document why.",
+     "trait_deltas": {
+      "innovation": 0.5,
+      "cautiousness": 0.5,
+      "initiative": 0.4
+     },
+     "stat_deltas": {
+      "safety": 5,
+      "output": -1,
+      "team_trust": 1,
+      "stress": 1
+     },
+     "coworker_hints": {
+      "dale_nakamura": "Likes it, checks cost.",
+      "ninos_youkhana": "Asks who pays.",
+      "yesenia_cruz": "Neutral."
+     }
+    }
+   ]
+  },
+  {
+   "event_id": "elc_05",
+   "career_ids": [
+    "electrician"
+   ],
+   "clock": "15:30",
+   "title": "Small arc, no injury",
+   "text": "While trimming a device, your screwdriver touched a terminal you thought was off. There was a small spark, no injury, and nobody saw it.",
+   "crunch": false,
+   "status": "DRAFT — needs human review",
+   "choices": [
+    {
+     "choice_id": "a",
+     "text": "Report the near miss to Dale and find out why the circuit was still live.",
+     "trait_deltas": {
+      "integrity": 0.8,
+      "humility": 0.4,
+      "intellectual_curiosity": 0.3
+     },
+     "stat_deltas": {
+      "safety": 12,
+      "output": -2,
+      "team_trust": 2,
+      "stress": 2
+     },
+     "coworker_hints": {
+      "dale_nakamura": "Grateful, starts checking panel labels.",
+      "yesenia_cruz": "Learns from it.",
+      "ninos_youkhana": "Neutral."
+     }
+    },
+    {
+     "choice_id": "b",
+     "text": "Tighten up your own testing routine and keep it to yourself.",
+     "trait_deltas": {
+      "self_control": 0.5,
+      "perseverance": 0.4,
+      "sincerity": -0.5
+     },
+     "stat_deltas": {
+      "safety": 4,
+      "output": 0,
+      "team_trust": -2,
+      "stress": 1
+     },
+     "coworker_hints": {
+      "dale_nakamura": "Would want to know.",
+      "yesenia_cruz": "Does not learn from it.",
+      "ninos_youkhana": "Neutral."
+     }
+    },
+    {
+     "choice_id": "c",
+     "text": "Stop, recheck every circuit you touched today, then report it.",
+     "trait_deltas": {
+      "cautiousness": 0.6,
+      "attention_to_detail": 0.5,
+      "integrity": 0.4
+     },
+     "stat_deltas": {
+      "safety": 10,
+      "output": -3,
+      "team_trust": 1,
+      "stress": 2
+     },
+     "coworker_hints": {
+      "dale_nakamura": "Likes the thoroughness.",
+      "yesenia_cruz": "Helps recheck.",
+      "ninos_youkhana": "Neutral."
+     }
+    }
+   ]
+  },
+  {
+   "event_id": "sw_01",
+   "career_ids": [
+    "software_dev"
+   ],
+   "clock": "08:30",
+   "title": "Bug report from a grower",
+   "text": "At a small Fresno ag-tech company, a grower reports that the irrigation scheduling app showed the wrong water allocation for his almond block yesterday. The data came from the irrigation district's feed, and you cannot reproduce it.",
+   "crunch": false,
+   "status": "DRAFT — needs human review",
+   "choices": [
+    {
+     "choice_id": "a",
+     "text": "Add logging around the district feed and dig through yesterday's records until you find the cause.",
+     "trait_deltas": {
+      "intellectual_curiosity": 0.7,
+      "perseverance": 0.5,
+      "attention_to_detail": 0.4
+     },
+     "stat_deltas": {
+      "safety": 4,
+      "output": -2,
+      "team_trust": 1,
+      "stress": 2
+     },
+     "coworker_hints": {
+      "priya_raman": "Supports the investigation.",
+      "marcus_bell": "Wants an update for the grower.",
+      "sokha_chhim": "Wants a test case."
+     }
+    },
+    {
+     "choice_id": "b",
+     "text": "Call the grower to see exactly what he saw before writing any code.",
+     "trait_deltas": {
+      "social_orientation": 0.5,
+      "empathy": 0.5,
+      "intellectual_curiosity": 0.4
+     },
+     "stat_deltas": {
+      "safety": 3,
+      "output": 0,
+      "team_trust": 3,
+      "stress": 1
+     },
+     "coworker_hints": {
+      "marcus_bell": "Glad.",
+      "priya_raman": "Neutral.",
+      "sokha_chhim": "Asks for a screenshot."
+     }
+    },
+    {
+     "choice_id": "c",
+     "text": "Ship a quick in-app warning when district data looks out of range while you investigate.",
+     "trait_deltas": {
+      "innovation": 0.6,
+      "initiative": 0.5,
+      "tolerance_for_ambiguity": 0.4
+     },
+     "stat_deltas": {
+      "safety": 5,
+      "output": 3,
+      "team_trust": 1,
+      "stress": 2
+     },
+     "coworker_hints": {
+      "priya_raman": "Likes it but wants a review.",
+      "sokha_chhim": "Wants to test it.",
+      "marcus_bell": "Pleased."
+     }
+    }
+   ]
+  },
+  {
+   "event_id": "sw_02",
+   "career_ids": [
+    "software_dev"
+   ],
+   "clock": "10:00",
+   "title": "A vague feature request",
+   "text": "Marcus asks for a dashboard for farm managers by Friday, with no other detail. Priya is out until Thursday.",
+   "crunch": false,
+   "status": "DRAFT — needs human review",
+   "choices": [
+    {
+     "choice_id": "a",
+     "text": "Build a rough prototype from your best guess and show Marcus tomorrow.",
+     "trait_deltas": {
+      "innovation": 0.7,
+      "tolerance_for_ambiguity": 0.6,
+      "initiative": 0.5
+     },
+     "stat_deltas": {
+      "safety": 0,
+      "output": 4,
+      "team_trust": 1,
+      "stress": 2
+     },
+     "coworker_hints": {
+      "marcus_bell": "Excited.",
+      "priya_raman": "Will have opinions Thursday.",
+      "sokha_chhim": "Worried about testing."
+     }
+    },
+    {
+     "choice_id": "b",
+     "text": "Write five questions and ask Marcus for 20 minutes before building anything.",
+     "trait_deltas": {
+      "intellectual_curiosity": 0.5,
+      "attention_to_detail": 0.5,
+      "cautiousness": 0.4,
+      "tolerance_for_ambiguity": -0.3
+     },
+     "stat_deltas": {
+      "safety": 0,
+      "output": -1,
+      "team_trust": 3,
+      "stress": 0
+     },
+     "coworker_hints": {
+      "marcus_bell": "A little impatient, but answers.",
+      "priya_raman": "Approves.",
+      "sokha_chhim": "Neutral."
+     }
+    },
+    {
+     "choice_id": "c",
+     "text": "Wait for Priya on Thursday to agree on the architecture.",
+     "trait_deltas": {
+      "humility": 0.4,
+      "cooperation": 0.4,
+      "initiative": -0.5,
+      "tolerance_for_ambiguity": -0.4
+     },
+     "stat_deltas": {
+      "safety": 0,
+      "output": -4,
+      "team_trust": 1,
+      "stress": -1
+     },
+     "coworker_hints": {
+      "marcus_bell": "Frustrated.",
+      "priya_raman": "Appreciates it, but wanted some progress.",
+      "sokha_chhim": "Neutral."
+     }
+    }
+   ]
+  },
+  {
+   "event_id": "sw_03",
+   "career_ids": [
+    "software_dev"
+   ],
+   "clock": "11:45",
+   "title": "Code review feedback",
+   "text": "Priya left 23 comments on your pull request before she left, several saying your approach is overcomplicated. You spent two days on it and are proud of the design.",
+   "crunch": false,
+   "status": "DRAFT — needs human review",
+   "choices": [
+    {
+     "choice_id": "a",
+     "text": "Read every comment, rewrite it the simpler way, and thank her.",
+     "trait_deltas": {
+      "humility": 0.7,
+      "adaptability": 0.5,
+      "self_control": 0.4
+     },
+     "stat_deltas": {
+      "safety": 2,
+      "output": -2,
+      "team_trust": 3,
+      "stress": 1
+     },
+     "coworker_hints": {
+      "priya_raman": "Pleased.",
+      "marcus_bell": "Asks about the timeline.",
+      "sokha_chhim": "Neutral."
+     }
+    },
+    {
+     "choice_id": "b",
+     "text": "Reply to each comment with your reasoning and ask for a quick call.",
+     "trait_deltas": {
+      "self_confidence": 0.6,
+      "sincerity": 0.5,
+      "intellectual_curiosity": 0.3
+     },
+     "stat_deltas": {
+      "safety": 1,
+      "output": 0,
+      "team_trust": 1,
+      "stress": 2
+     },
+     "coworker_hints": {
+      "priya_raman": "Respects it; some debate follows.",
+      "marcus_bell": "Neutral.",
+      "sokha_chhim": "Neutral."
+     }
+    },
+    {
+     "choice_id": "c",
+     "text": "Merge the parts she agreed with and move the rest into a follow-up ticket.",
+     "trait_deltas": {
+      "achievement_orientation": 0.6,
+      "adaptability": 0.4,
+      "stress_tolerance": 0.3
+     },
+     "stat_deltas": {
+      "safety": -1,
+      "output": 4,
+      "team_trust": 0,
+      "stress": 0
+     },
+     "coworker_hints": {
+      "priya_raman": "Fine with it.",
+      "marcus_bell": "Glad something shipped.",
+      "sokha_chhim": "Wants tests for both parts."
+     }
+    }
+   ]
+  },
+  {
+   "event_id": "sw_04",
+   "career_ids": [
+    "software_dev"
+   ],
+   "clock": "14:00",
+   "title": "Production is down",
+   "text": "The app stops loading for every user during the afternoon irrigation window. Logs point to a database migration you deployed this morning. Growers are calling Marcus.",
+   "crunch": false,
+   "status": "DRAFT — needs human review",
+   "choices": [
+    {
+     "choice_id": "a",
+     "text": "Roll back the migration immediately, then investigate.",
+     "trait_deltas": {
+      "stress_tolerance": 0.6,
+      "self_control": 0.5,
+      "cautiousness": 0.4
+     },
+     "stat_deltas": {
+      "safety": 6,
+      "output": 2,
+      "team_trust": 2,
+      "stress": 3
+     },
+     "coworker_hints": {
+      "priya_raman": "Agrees.",
+      "marcus_bell": "Relieved.",
+      "sokha_chhim": "Adds it to the test plan."
+     }
+    },
+    {
+     "choice_id": "b",
+     "text": "Hot-fix forward, because a rollback could lose this morning's data.",
+     "trait_deltas": {
+      "self_confidence": 0.6,
+      "innovation": 0.5,
+      "stress_tolerance": 0.5,
+      "cautiousness": -0.3
+     },
+     "stat_deltas": {
+      "safety": 0,
+      "output": 4,
+      "team_trust": 0,
+      "stress": 6
+     },
+     "coworker_hints": {
+      "priya_raman": "Nervous, watches over your shoulder.",
+      "marcus_bell": "Asks for an ETA every five minutes.",
+      "sokha_chhim": "Neutral."
+     }
+    },
+    {
+     "choice_id": "c",
+     "text": "Post in the team channel that it was your migration, then work the rollback with the team.",
+     "trait_deltas": {
+      "sincerity": 0.6,
+      "integrity": 0.5,
+      "cooperation": 0.4
+     },
+     "stat_deltas": {
+      "safety": 5,
+      "output": 1,
+      "team_trust": 4,
+      "stress": 3
+     },
+     "coworker_hints": {
+      "priya_raman": "Appreciates the transparency.",
+      "marcus_bell": "Neutral.",
+      "sokha_chhim": "Joins in."
+     }
+    }
+   ]
+  },
+  {
+   "event_id": "sw_05",
+   "career_ids": [
+    "software_dev"
+   ],
+   "clock": "16:30",
+   "title": "Tests or features",
+   "text": "Sokha shows you that the scheduling module has no automated tests and has broken twice this month. Marcus wants the new report export done before tomorrow's grower meeting.",
+   "crunch": false,
+   "status": "DRAFT — needs human review",
+   "choices": [
+    {
+     "choice_id": "a",
+     "text": "Write tests for the scheduling module first and push the export to next week.",
+     "trait_deltas": {
+      "dependability": 0.6,
+      "cautiousness": 0.5,
+      "attention_to_detail": 0.4,
+      "achievement_orientation": -0.2
+     },
+     "stat_deltas": {
+      "safety": 6,
+      "output": -4,
+      "team_trust": 2,
+      "stress": 1
+     },
+     "coworker_hints": {
+      "sokha_chhim": "Grateful.",
+      "marcus_bell": "Disappointed.",
+      "priya_raman": "Supports it."
+     }
+    },
+    {
+     "choice_id": "b",
+     "text": "Build the export tonight and promise tests next sprint.",
+     "trait_deltas": {
+      "achievement_orientation": 0.6,
+      "perseverance": 0.4,
+      "optimism": 0.4,
+      "cautiousness": -0.3
+     },
+     "stat_deltas": {
+      "safety": -2,
+      "output": 6,
+      "team_trust": 0,
+      "stress": 4
+     },
+     "coworker_hints": {
+      "marcus_bell": "Happy.",
+      "sokha_chhim": "Skeptical.",
+      "priya_raman": "Wants the promise kept."
+     }
+    },
+    {
+     "choice_id": "c",
+     "text": "Pair with Sokha for an hour on the riskiest tests, then build a minimal export.",
+     "trait_deltas": {
+      "cooperation": 0.5,
+      "adaptability": 0.5,
+      "innovation": 0.3
+     },
+     "stat_deltas": {
+      "safety": 3,
+      "output": 2,
+      "team_trust": 3,
+      "stress": 2
+     },
+     "coworker_hints": {
+      "sokha_chhim": "Happy to pair.",
+      "marcus_bell": "OK with a minimal version.",
+      "priya_raman": "Likes it."
+     }
+    }
+   ]
+  },
+  {
+   "event_id": "farm_01",
+   "career_ids": [
+    "farm_ops_manager"
+   ],
+   "clock": "07:00",
+   "title": "Frost overnight",
+   "text": "On a 900-acre farm near Kerman, the overnight low hit 31°F, and you do not yet know whether the young pistachio buds are damaged. Lupe's crew is scheduled to start pruning another block at 7:30.",
+   "crunch": false,
+   "status": "DRAFT — needs human review",
+   "choices": [
+    {
+     "choice_id": "a",
+     "text": "Walk the blocks with Navdeep at sunrise and set the crew's plan after.",
+     "trait_deltas": {
+      "attention_to_detail": 0.5,
+      "cautiousness": 0.5,
+      "intellectual_curiosity": 0.4
+     },
+     "stat_deltas": {
+      "safety": 3,
+      "output": -2,
+      "team_trust": 2,
+      "stress": 2
+     },
+     "coworker_hints": {
+      "navdeep_kaur": "Glad to scout with you.",
+      "lupe_mendoza": "Crew is waiting.",
+      "dirk_visser": "Wants an answer by lunch."
+     }
+    },
+    {
+     "choice_id": "b",
+     "text": "Keep the crew on pruning and send Navdeep to scout while work continues.",
+     "trait_deltas": {
+      "leadership_orientation": 0.6,
+      "initiative": 0.5,
+      "tolerance_for_ambiguity": 0.5
+     },
+     "stat_deltas": {
+      "safety": 0,
+      "output": 5,
+      "team_trust": 1,
+      "stress": 2
+     },
+     "coworker_hints": {
+      "lupe_mendoza": "Appreciates the clear plan.",
+      "navdeep_kaur": "Fine.",
+      "dirk_visser": "Likes it."
+     }
+    },
+    {
+     "choice_id": "c",
+     "text": "Call the farm advisor and the crop insurance agent before anything else.",
+     "trait_deltas": {
+      "cautiousness": 0.5,
+      "cooperation": 0.4,
+      "initiative": -0.3
+     },
+     "stat_deltas": {
+      "safety": 1,
+      "output": -3,
+      "team_trust": 0,
+      "stress": 1
+     },
+     "coworker_hints": {
+      "dirk_visser": "Thinks it is premature.",
+      "navdeep_kaur": "Neutral.",
+      "lupe_mendoza": "Waiting."
+     }
+    }
+   ]
+  },
+  {
+   "event_id": "farm_02",
+   "career_ids": [
+    "farm_ops_manager"
+   ],
+   "clock": "09:00",
+   "title": "Water allocation cut",
+   "text": "The irrigation district announces a cut in surface water deliveries for the rest of the month. You have to choose which blocks get full water and which go on deficit irrigation.",
+   "crunch": false,
+   "status": "DRAFT — needs human review",
+   "choices": [
+    {
+     "choice_id": "a",
+     "text": "Prioritize the young trees and run the mature blocks on planned deficit.",
+     "trait_deltas": {
+      "self_confidence": 0.6,
+      "leadership_orientation": 0.5,
+      "tolerance_for_ambiguity": 0.5
+     },
+     "stat_deltas": {
+      "safety": 2,
+      "output": 3,
+      "team_trust": 1,
+      "stress": 3
+     },
+     "coworker_hints": {
+      "dirk_visser": "Agrees on long-term value.",
+      "navdeep_kaur": "Will monitor soil moisture.",
+      "lupe_mendoza": "Neutral."
+     }
+    },
+    {
+     "choice_id": "b",
+     "text": "Ask Navdeep for soil moisture readings block by block before deciding.",
+     "trait_deltas": {
+      "attention_to_detail": 0.6,
+      "intellectual_curiosity": 0.5,
+      "cautiousness": 0.3
+     },
+     "stat_deltas": {
+      "safety": 1,
+      "output": 0,
+      "team_trust": 2,
+      "stress": 1
+     },
+     "coworker_hints": {
+      "navdeep_kaur": "Happy to help.",
+      "dirk_visser": "Wants a decision soon.",
+      "lupe_mendoza": "Neutral."
+     }
+    },
+    {
+     "choice_id": "c",
+     "text": "Pump more groundwater to cover the cut, even though it costs more and draws down the aquifer.",
+     "trait_deltas": {
+      "achievement_orientation": 0.5,
+      "initiative": 0.5,
+      "integrity": -0.2,
+      "cautiousness": -0.3
+     },
+     "stat_deltas": {
+      "safety": -2,
+      "output": 5,
+      "team_trust": 0,
+      "stress": 2
+     },
+     "coworker_hints": {
+      "dirk_visser": "Worried about cost and the well.",
+      "navdeep_kaur": "Concerned about salinity.",
+      "lupe_mendoza": "Neutral."
+     }
+    }
+   ]
+  },
+  {
+   "event_id": "farm_03",
+   "career_ids": [
+    "farm_ops_manager"
+   ],
+   "clock": "11:30",
+   "title": "Crew at risk in the heat",
+   "text": "By 11:30 it is 101°F in the orchard. California heat rules require shade, water, and cool-down rest, and Lupe tells you two workers seem dizzy.",
+   "crunch": false,
+   "status": "DRAFT — needs human review",
+   "choices": [
+    {
+     "choice_id": "a",
+     "text": "Stop work right away and bring the two workers into shade with water.",
+     "trait_deltas": {
+      "empathy": 0.7,
+      "integrity": 0.5,
+      "cautiousness": 0.4
+     },
+     "stat_deltas": {
+      "safety": 12,
+      "output": -5,
+      "team_trust": 5,
+      "stress": 1
+     },
+     "coworker_hints": {
+      "lupe_mendoza": "Relieved.",
+      "dirk_visser": "Supports safety, asks about the schedule.",
+      "navdeep_kaur": "Neutral."
+     }
+    },
+    {
+     "choice_id": "b",
+     "text": "Move the crew to a shadier block with more frequent breaks and check on the two workers yourself.",
+     "trait_deltas": {
+      "adaptability": 0.6,
+      "leadership_orientation": 0.4,
+      "empathy": 0.4
+     },
+     "stat_deltas": {
+      "safety": 8,
+      "output": 0,
+      "team_trust": 3,
+      "stress": 2
+     },
+     "coworker_hints": {
+      "lupe_mendoza": "Thinks it works.",
+      "dirk_visser": "Likes it.",
+      "navdeep_kaur": "Neutral."
+     }
+    },
+    {
+     "choice_id": "c",
+     "text": "Have Lupe handle it and ask her to report back.",
+     "trait_deltas": {
+      "cooperation": 0.4,
+      "humility": 0.3,
+      "leadership_orientation": -0.4,
+      "empathy": -0.2
+     },
+     "stat_deltas": {
+      "safety": 4,
+      "output": 1,
+      "team_trust": -2,
+      "stress": 0
+     },
+     "coworker_hints": {
+      "lupe_mendoza": "Feels alone with it.",
+      "dirk_visser": "Neutral.",
+      "navdeep_kaur": "Neutral."
+     }
+    }
+   ]
+  },
+  {
+   "event_id": "farm_04",
+   "career_ids": [
+    "farm_ops_manager"
+   ],
+   "clock": "13:30",
+   "title": "The owner wants to try something new",
+   "text": "Dirk wants to put a sensor-driven irrigation system on 40 acres this season. The vendor's results come from a different region, and your crew is already stretched thin.",
+   "crunch": false,
+   "status": "DRAFT — needs human review",
+   "choices": [
+    {
+     "choice_id": "a",
+     "text": "Agree to a small pilot on 10 acres with clear measurements.",
+     "trait_deltas": {
+      "innovation": 0.5,
+      "cautiousness": 0.4,
+      "intellectual_curiosity": 0.5
+     },
+     "stat_deltas": {
+      "safety": 1,
+      "output": 1,
+      "team_trust": 3,
+      "stress": 1
+     },
+     "coworker_hints": {
+      "dirk_visser": "Pleased.",
+      "navdeep_kaur": "Excited to compare.",
+      "lupe_mendoza": "Worried about extra work."
+     }
+    },
+    {
+     "choice_id": "b",
+     "text": "Push back and say the crew cannot take on a new system this season.",
+     "trait_deltas": {
+      "self_confidence": 0.6,
+      "sincerity": 0.5,
+      "innovation": -0.4
+     },
+     "stat_deltas": {
+      "safety": 1,
+      "output": 1,
+      "team_trust": -1,
+      "stress": -1
+     },
+     "coworker_hints": {
+      "dirk_visser": "Disappointed.",
+      "lupe_mendoza": "Grateful.",
+      "navdeep_kaur": "Disappointed."
+     }
+    },
+    {
+     "choice_id": "c",
+     "text": "Go all in on the 40 acres and learn as you go.",
+     "trait_deltas": {
+      "optimism": 0.6,
+      "initiative": 0.6,
+      "tolerance_for_ambiguity": 0.5,
+      "cautiousness": -0.4
+     },
+     "stat_deltas": {
+      "safety": -1,
+      "output": 3,
+      "team_trust": 1,
+      "stress": 4
+     },
+     "coworker_hints": {
+      "dirk_visser": "Very pleased.",
+      "lupe_mendoza": "Stressed.",
+      "navdeep_kaur": "Worried."
+     }
+    }
+   ]
+  },
+  {
+   "event_id": "farm_05",
+   "career_ids": [
+    "farm_ops_manager"
+   ],
+   "clock": "16:00",
+   "title": "Shaker breaks at harvest",
+   "text": "A tree shaker breaks down mid-harvest, and the mechanic says parts are three days out. Rain is in the forecast for Friday.",
+   "crunch": false,
+   "status": "DRAFT — needs human review",
+   "choices": [
+    {
+     "choice_id": "a",
+     "text": "Rent a shaker from a neighbor at a premium and keep harvesting.",
+     "trait_deltas": {
+      "initiative": 0.7,
+      "adaptability": 0.5,
+      "achievement_orientation": 0.4
+     },
+     "stat_deltas": {
+      "safety": 0,
+      "output": 8,
+      "team_trust": 1,
+      "stress": 3
+     },
+     "coworker_hints": {
+      "dirk_visser": "Wants the cost justified.",
+      "lupe_mendoza": "Relieved.",
+      "navdeep_kaur": "Neutral."
+     }
+    },
+    {
+     "choice_id": "b",
+     "text": "Run longer hours with the remaining equipment and accept a slower pace.",
+     "trait_deltas": {
+      "perseverance": 0.7,
+      "stress_tolerance": 0.5,
+      "dependability": 0.4
+     },
+     "stat_deltas": {
+      "safety": -2,
+      "output": 4,
+      "team_trust": 1,
+      "stress": 5
+     },
+     "coworker_hints": {
+      "lupe_mendoza": "Crew is tired.",
+      "dirk_visser": "Likes saving money.",
+      "navdeep_kaur": "Neutral."
+     }
+    },
+    {
+     "choice_id": "c",
+     "text": "Call around to nearby farms to borrow or trade equipment time.",
+     "trait_deltas": {
+      "social_orientation": 0.6,
+      "cooperation": 0.5,
+      "optimism": 0.4
+     },
+     "stat_deltas": {
+      "safety": 0,
+      "output": 5,
+      "team_trust": 3,
+      "stress": 2
+     },
+     "coworker_hints": {
+      "dirk_visser": "Likes using the network.",
+      "lupe_mendoza": "Neutral.",
+      "navdeep_kaur": "Neutral."
+     }
+    }
+   ]
+  },
+  {
+   "event_id": "rob_01",
+   "career_ids": [
+    "robotics_tech"
+   ],
+   "clock": "07:00",
+   "title": "Robot arm stopped",
+   "text": "At a food packaging plant in Tracy, a robotic palletizer stops with a fault code at the start of shift. Trevor says the line will back up in 20 minutes.",
+   "crunch": false,
+   "status": "DRAFT — needs human review",
+   "choices": [
+    {
+     "choice_id": "a",
+     "text": "Pull the fault log, trace the cause, and fix it properly.",
+     "trait_deltas": {
+      "attention_to_detail": 0.6,
+      "intellectual_curiosity": 0.6,
+      "perseverance": 0.3
+     },
+     "stat_deltas": {
+      "safety": 4,
+      "output": -2,
+      "team_trust": 1,
+      "stress": 2
+     },
+     "coworker_hints": {
+      "mai_thao": "Likes the approach.",
+      "trevor_hall": "Watching the clock.",
+      "alejandro_ibarra": "Neutral."
+     }
+    },
+    {
+     "choice_id": "b",
+     "text": "Reset the robot, get the line moving, and investigate at break.",
+     "trait_deltas": {
+      "achievement_orientation": 0.5,
+      "adaptability": 0.5,
+      "stress_tolerance": 0.4,
+      "cautiousness": -0.2
+     },
+     "stat_deltas": {
+      "safety": 0,
+      "output": 5,
+      "team_trust": 1,
+      "stress": 1
+     },
+     "coworker_hints": {
+      "trevor_hall": "Relieved.",
+      "mai_thao": "Worried it will recur.",
+      "alejandro_ibarra": "Neutral."
+     }
+    },
+    {
+     "choice_id": "c",
+     "text": "Call Mai, who programmed the cell, and work it together.",
+     "trait_deltas": {
+      "cooperation": 0.5,
+      "humility": 0.5,
+      "social_orientation": 0.3
+     },
+     "stat_deltas": {
+      "safety": 2,
+      "output": 1,
+      "team_trust": 3,
+      "stress": 0
+     },
+     "coworker_hints": {
+      "mai_thao": "Happy to help.",
+      "trevor_hall": "Fine.",
+      "alejandro_ibarra": "Neutral."
+     }
+    }
+   ]
+  },
+  {
+   "event_id": "rob_02",
+   "career_ids": [
+    "robotics_tech"
+   ],
+   "clock": "09:30",
+   "title": "Repair or upgrade",
+   "text": "Alejandro asks whether to replace the old vision system on Line 3 or keep repairing it. A new system is expensive, and the old one works most of the time.",
+   "crunch": false,
+   "status": "DRAFT — needs human review",
+   "choices": [
+    {
+     "choice_id": "a",
+     "text": "Pull the downtime records for the old system and build a cost comparison.",
+     "trait_deltas": {
+      "attention_to_detail": 0.6,
+      "achievement_orientation": 0.5,
+      "intellectual_curiosity": 0.4
+     },
+     "stat_deltas": {
+      "safety": 1,
+      "output": 0,
+      "team_trust": 2,
+      "stress": 1
+     },
+     "coworker_hints": {
+      "alejandro_ibarra": "Wants the data.",
+      "trevor_hall": "Neutral.",
+      "mai_thao": "Helps."
+     }
+    },
+    {
+     "choice_id": "b",
+     "text": "Recommend the new system based on your hands-on experience.",
+     "trait_deltas": {
+      "self_confidence": 0.6,
+      "innovation": 0.5,
+      "attention_to_detail": -0.3
+     },
+     "stat_deltas": {
+      "safety": 0,
+      "output": 2,
+      "team_trust": 0,
+      "stress": 1
+     },
+     "coworker_hints": {
+      "alejandro_ibarra": "Wants evidence first.",
+      "mai_thao": "Agrees.",
+      "trevor_hall": "Neutral."
+     }
+    },
+    {
+     "choice_id": "c",
+     "text": "Propose a one-week trial of a demo unit on Line 3.",
+     "trait_deltas": {
+      "innovation": 0.6,
+      "intellectual_curiosity": 0.5,
+      "cautiousness": 0.3
+     },
+     "stat_deltas": {
+      "safety": 1,
+      "output": 1,
+      "team_trust": 2,
+      "stress": 1
+     },
+     "coworker_hints": {
+      "alejandro_ibarra": "Likes it.",
+      "mai_thao": "Excited.",
+      "trevor_hall": "Worried about disruption."
+     }
+    }
+   ]
+  },
+  {
+   "event_id": "rob_03",
+   "career_ids": [
+    "robotics_tech"
+   ],
+   "clock": "11:30",
+   "title": "Safety guard bypassed",
+   "text": "You find that someone has taped over a light-curtain sensor on a robot cell, probably to stop nuisance trips. The line has been running this way since morning.",
+   "crunch": false,
+   "status": "DRAFT — needs human review",
+   "choices": [
+    {
+     "choice_id": "a",
+     "text": "Stop the cell immediately, remove the tape, and report it.",
+     "trait_deltas": {
+      "integrity": 0.8,
+      "cautiousness": 0.6,
+      "self_confidence": 0.3
+     },
+     "stat_deltas": {
+      "safety": 13,
+      "output": -4,
+      "team_trust": 0,
+      "stress": 2
+     },
+     "coworker_hints": {
+      "alejandro_ibarra": "Backs you fully.",
+      "trevor_hall": "Frustrated at the stop.",
+      "mai_thao": "Agrees."
+     }
+    },
+    {
+     "choice_id": "b",
+     "text": "Stop the cell, find the cause of the nuisance trips, and report it with the fix.",
+     "trait_deltas": {
+      "innovation": 0.5,
+      "attention_to_detail": 0.5,
+      "cautiousness": 0.3
+     },
+     "stat_deltas": {
+      "safety": 10,
+      "output": -1,
+      "team_trust": 1,
+      "stress": 2
+     },
+     "coworker_hints": {
+      "mai_thao": "Likes it.",
+      "alejandro_ibarra": "Wants the report right away.",
+      "trevor_hall": "Relieved it will not keep tripping."
+     }
+    },
+    {
+     "choice_id": "c",
+     "text": "Stop the cell, then ask Trevor's operators why they did it before you write the report.",
+     "trait_deltas": {
+      "empathy": 0.5,
+      "social_orientation": 0.5,
+      "intellectual_curiosity": 0.4
+     },
+     "stat_deltas": {
+      "safety": 8,
+      "output": -2,
+      "team_trust": 3,
+      "stress": 1
+     },
+     "coworker_hints": {
+      "trevor_hall": "Appreciates it.",
+      "alejandro_ibarra": "Neutral.",
+      "mai_thao": "Neutral."
+     }
+    }
+   ]
+  },
+  {
+   "event_id": "rob_04",
+   "career_ids": [
+    "robotics_tech"
+   ],
+   "clock": "13:30",
+   "title": "A new PLC program",
+   "text": "Mai wrote a new PLC program to speed up Line 2. She asks you to load it during lunch, but it has never run on the real line.",
+   "crunch": false,
+   "status": "DRAFT — needs human review",
+   "choices": [
+    {
+     "choice_id": "a",
+     "text": "Run it in simulation first and test the edge cases before it touches the line.",
+     "trait_deltas": {
+      "cautiousness": 0.6,
+      "attention_to_detail": 0.5,
+      "dependability": 0.4
+     },
+     "stat_deltas": {
+      "safety": 6,
+      "output": -2,
+      "team_trust": 1,
+      "stress": 1
+     },
+     "coworker_hints": {
+      "mai_thao": "A little impatient, respects it.",
+      "trevor_hall": "Neutral.",
+      "alejandro_ibarra": "Approves."
+     }
+    },
+    {
+     "choice_id": "b",
+     "text": "Load it at lunch with the old program ready to restore.",
+     "trait_deltas": {
+      "innovation": 0.5,
+      "tolerance_for_ambiguity": 0.5,
+      "initiative": 0.5
+     },
+     "stat_deltas": {
+      "safety": 1,
+      "output": 4,
+      "team_trust": 2,
+      "stress": 2
+     },
+     "coworker_hints": {
+      "mai_thao": "Pleased.",
+      "trevor_hall": "Excited.",
+      "alejandro_ibarra": "Wants to be told."
+     }
+    },
+    {
+     "choice_id": "c",
+     "text": "Ask Alejandro to approve the change first.",
+     "trait_deltas": {
+      "cooperation": 0.5,
+      "humility": 0.4,
+      "initiative": -0.3
+     },
+     "stat_deltas": {
+      "safety": 4,
+      "output": -1,
+      "team_trust": 1,
+      "stress": 0
+     },
+     "coworker_hints": {
+      "alejandro_ibarra": "Glad you asked.",
+      "mai_thao": "Frustrated by the delay.",
+      "trevor_hall": "Neutral."
+     }
+    }
+   ]
+  },
+  {
+   "event_id": "rob_05",
+   "career_ids": [
+    "robotics_tech"
+   ],
+   "clock": "15:30",
+   "title": "End-of-shift handoff",
+   "text": "You are leaving after a long shift, and a sensor on Line 1 is throwing intermittent errors. The night tech started last week.",
+   "crunch": false,
+   "status": "DRAFT — needs human review",
+   "choices": [
+    {
+     "choice_id": "a",
+     "text": "Stay an extra 30 minutes to walk the new tech through the issue.",
+     "trait_deltas": {
+      "dependability": 0.6,
+      "empathy": 0.4,
+      "leadership_orientation": 0.4
+     },
+     "stat_deltas": {
+      "safety": 4,
+      "output": 1,
+      "team_trust": 3,
+      "stress": 3
+     },
+     "coworker_hints": {
+      "alejandro_ibarra": "Appreciates it.",
+      "trevor_hall": "Neutral.",
+      "mai_thao": "Neutral."
+     }
+    },
+    {
+     "choice_id": "b",
+     "text": "Write detailed notes and leave on time.",
+     "trait_deltas": {
+      "attention_to_detail": 0.6,
+      "self_control": 0.4,
+      "social_orientation": -0.3
+     },
+     "stat_deltas": {
+      "safety": 2,
+      "output": 0,
+      "team_trust": 1,
+      "stress": -2
+     },
+     "coworker_hints": {
+      "alejandro_ibarra": "Fine.",
+      "trevor_hall": "Hopes the notes are clear.",
+      "mai_thao": "Neutral."
+     }
+    },
+    {
+     "choice_id": "c",
+     "text": "Swap the sensor before you leave, just in case.",
+     "trait_deltas": {
+      "initiative": 0.6,
+      "perseverance": 0.4,
+      "cautiousness": 0.3
+     },
+     "stat_deltas": {
+      "safety": 4,
+      "output": 0,
+      "team_trust": 1,
+      "stress": 2
+     },
+     "coworker_hints": {
+      "alejandro_ibarra": "Wants to know about parts use.",
+      "trevor_hall": "Pleased.",
+      "mai_thao": "Neutral."
+     }
+    }
+   ]
+  },
+  {
+   "event_id": "crunch_01",
+   "career_ids": [],
+   "clock": "12:15",
+   "title": "Everything at once",
+   "text": "It is a 106°F afternoon in the Valley and the power company has warned of rolling outages. Your supervisor texts asking for a status update, a coworker asks for a hand, and the task in front of you is half done. You have about ten minutes before the next deadline.",
+   "crunch": true,
+   "status": "DRAFT — needs human review",
+   "choices": [
+    {
+     "choice_id": "a",
+     "text": "Finish the task in front of you, then answer the others in order.",
+     "trait_deltas": {
+      "self_control": 0.6,
+      "dependability": 0.5,
+      "stress_tolerance": 0.4
+     },
+     "stat_deltas": {
+      "safety": 2,
+      "output": 3,
+      "team_trust": 0,
+      "stress": 1
+     },
+     "coworker_hints": {}
+    },
+    {
+     "choice_id": "b",
+     "text": "Help your coworker first; your task can wait a few minutes.",
+     "trait_deltas": {
+      "cooperation": 0.6,
+      "empathy": 0.5,
+      "achievement_orientation": -0.3
+     },
+     "stat_deltas": {
+      "safety": 1,
+      "output": -2,
+      "team_trust": 5,
+      "stress": 2
+     },
+     "coworker_hints": {}
+    },
+    {
+     "choice_id": "c",
+     "text": "Read your supervisor's text right away in case priorities changed.",
+     "trait_deltas": {
+      "adaptability": 0.6,
+      "tolerance_for_ambiguity": 0.4,
+      "leadership_orientation": 0.3
+     },
+     "stat_deltas": {
+      "safety": 1,
+      "output": 1,
+      "team_trust": 1,
+      "stress": 3
+     },
+     "coworker_hints": {}
+    }
+   ]
+  },
+  {
+   "event_id": "crunch_02",
+   "career_ids": [],
+   "clock": "14:45",
+   "title": "A mistake you made",
+   "text": "You realize something you did an hour ago was wrong: a number entered in the wrong field, a step skipped. Nobody has noticed yet, and fixing it will eat time you do not have before the 5:00 cutoff.",
+   "crunch": true,
+   "status": "DRAFT — needs human review",
+   "choices": [
+    {
+     "choice_id": "a",
+     "text": "Tell your supervisor right away and offer a plan to fix it.",
+     "trait_deltas": {
+      "integrity": 0.7,
+      "sincerity": 0.5,
+      "self_confidence": 0.3
+     },
+     "stat_deltas": {
+      "safety": 6,
+      "output": -2,
+      "team_trust": 3,
+      "stress": 3
+     },
+     "coworker_hints": {}
+    },
+    {
+     "choice_id": "b",
+     "text": "Fix it quietly before anyone notices.",
+     "trait_deltas": {
+      "perseverance": 0.5,
+      "self_control": 0.4,
+      "sincerity": -0.4
+     },
+     "stat_deltas": {
+      "safety": 3,
+      "output": -2,
+      "team_trust": -1,
+      "stress": 4
+     },
+     "coworker_hints": {}
+    },
+    {
+     "choice_id": "c",
+     "text": "Ask a coworker to help you fix it fast and tell the supervisor after.",
+     "trait_deltas": {
+      "cooperation": 0.5,
+      "humility": 0.5,
+      "adaptability": 0.3
+     },
+     "stat_deltas": {
+      "safety": 4,
+      "output": 0,
+      "team_trust": 2,
+      "stress": 2
+     },
+     "coworker_hints": {}
+    }
+   ]
+  },
+  {
+   "event_id": "crunch_03",
+   "career_ids": [],
+   "clock": "16:30",
+   "title": "Asked to stay late",
+   "text": "Your supervisor asks you to stay two hours late to finish an urgent job. You promised to pick up your younger brother from practice in Ceres at 6:00, and nobody else can get him.",
+   "crunch": true,
+   "status": "DRAFT — needs human review",
+   "choices": [
+    {
+     "choice_id": "a",
+     "text": "Stay late and arrange another ride for your brother.",
+     "trait_deltas": {
+      "dependability": 0.6,
+      "achievement_orientation": 0.5,
+      "perseverance": 0.3
+     },
+     "stat_deltas": {
+      "safety": 0,
+      "output": 6,
+      "team_trust": 2,
+      "stress": 4
+     },
+     "coworker_hints": {}
+    },
+    {
+     "choice_id": "b",
+     "text": "Explain the commitment and offer to come in early tomorrow.",
+     "trait_deltas": {
+      "sincerity": 0.6,
+      "self_confidence": 0.5,
+      "optimism": 0.3
+     },
+     "stat_deltas": {
+      "safety": 0,
+      "output": 0,
+      "team_trust": 1,
+      "stress": -2
+     },
+     "coworker_hints": {}
+    },
+    {
+     "choice_id": "c",
+     "text": "Help find a coworker who can stay instead.",
+     "trait_deltas": {
+      "social_orientation": 0.5,
+      "cooperation": 0.5,
+      "innovation": 0.3
+     },
+     "stat_deltas": {
+      "safety": 0,
+      "output": 3,
+      "team_trust": 3,
+      "stress": 1
+     },
+     "coworker_hints": {}
+    }
+   ]
+  },
+  {
+   "event_id": "cross_01",
+   "career_ids": [
+    "logistics_lead",
+    "farm_ops_manager"
+   ],
+   "clock": "08:00",
+   "title": "Harvest load, no dock",
+   "text": "A grower's first trailer of cherries is loaded and rolling toward Stockton, but the distribution center has no open dock until 1:00. Cherries sitting in an August trailer lose quality by the hour.",
+   "crunch": false,
+   "status": "DRAFT — needs human review",
+   "choices": [
+    {
+     "choice_id": "a",
+     "text": "Get on the phone and negotiate a priority unloading slot.",
+     "trait_deltas": {
+      "social_orientation": 0.6,
+      "self_confidence": 0.5,
+      "initiative": 0.4
+     },
+     "stat_deltas": {
+      "safety": 0,
+      "output": 5,
+      "team_trust": 2,
+      "stress": 2
+     },
+     "coworker_hints": {}
+    },
+    {
+     "choice_id": "b",
+     "text": "Arrange a shaded staging spot and a reefer unit to hold temperature while you wait.",
+     "trait_deltas": {
+      "innovation": 0.5,
+      "cautiousness": 0.5,
+      "attention_to_detail": 0.4
+     },
+     "stat_deltas": {
+      "safety": 3,
+      "output": 2,
+      "team_trust": 1,
+      "stress": 1
+     },
+     "coworker_hints": {}
+    },
+    {
+     "choice_id": "c",
+     "text": "Reroute the load to a cold storage facility in Lodi with open doors.",
+     "trait_deltas": {
+      "adaptability": 0.6,
+      "tolerance_for_ambiguity": 0.5,
+      "initiative": 0.4
+     },
+     "stat_deltas": {
+      "safety": 0,
+      "output": 4,
+      "team_trust": 0,
+      "stress": 3
+     },
+     "coworker_hints": {}
+    }
+   ]
+  },
+  {
+   "event_id": "cross_02",
+   "career_ids": [
+    "registered_nurse",
+    "electrician",
+    "robotics_tech"
+   ],
+   "clock": "10:30",
+   "title": "Main equipment fails mid-task",
+   "text": "Halfway through a critical task, the equipment you rely on quits: an IV pump, a cordless meter, a handheld programming pendant. A backup is on the shelf, but it is older and you have used it only once.",
+   "crunch": false,
+   "status": "DRAFT — needs human review",
+   "choices": [
+    {
+     "choice_id": "a",
+     "text": "Switch to the backup and continue carefully.",
+     "trait_deltas": {
+      "adaptability": 0.6,
+      "stress_tolerance": 0.5,
+      "attention_to_detail": 0.3
+     },
+     "stat_deltas": {
+      "safety": 4,
+      "output": 2,
+      "team_trust": 1,
+      "stress": 3
+     },
+     "coworker_hints": {}
+    },
+    {
+     "choice_id": "b",
+     "text": "Pause and troubleshoot the main equipment before going on.",
+     "trait_deltas": {
+      "intellectual_curiosity": 0.5,
+      "perseverance": 0.5,
+      "cautiousness": 0.4
+     },
+     "stat_deltas": {
+      "safety": 3,
+      "output": -2,
+      "team_trust": 0,
+      "stress": 2
+     },
+     "coworker_hints": {}
+    },
+    {
+     "choice_id": "c",
+     "text": "Call someone who knows the backup well and work it together.",
+     "trait_deltas": {
+      "cooperation": 0.5,
+      "humility": 0.5,
+      "social_orientation": 0.4
+     },
+     "stat_deltas": {
+      "safety": 4,
+      "output": 0,
+      "team_trust": 3,
+      "stress": 1
+     },
+     "coworker_hints": {}
+    }
+   ]
+  },
+  {
+   "event_id": "cross_03",
+   "career_ids": [
+    "diesel_mechanic",
+    "welder"
+   ],
+   "clock": "12:30",
+   "title": "Weld it or replace it",
+   "text": "A farmer from Hanford brings in a disc harrow with a cracked frame member. A weld repair is cheaper and done today; a new part is safer but takes a week to arrive, in the middle of field prep.",
+   "crunch": false,
+   "status": "DRAFT — needs human review",
+   "choices": [
+    {
+     "choice_id": "a",
+     "text": "Recommend replacing the part and explain the safety reasons.",
+     "trait_deltas": {
+      "integrity": 0.6,
+      "cautiousness": 0.6,
+      "sincerity": 0.3
+     },
+     "stat_deltas": {
+      "safety": 8,
+      "output": -3,
+      "team_trust": 1,
+      "stress": 1
+     },
+     "coworker_hints": {}
+    },
+    {
+     "choice_id": "b",
+     "text": "Do a careful weld repair with a reinforcing plate and inspect it.",
+     "trait_deltas": {
+      "innovation": 0.5,
+      "attention_to_detail": 0.5,
+      "achievement_orientation": 0.4
+     },
+     "stat_deltas": {
+      "safety": 2,
+      "output": 4,
+      "team_trust": 1,
+      "stress": 2
+     },
+     "coworker_hints": {}
+    },
+    {
+     "choice_id": "c",
+     "text": "Lay out both options with costs and let the farmer decide.",
+     "trait_deltas": {
+      "sincerity": 0.5,
+      "empathy": 0.4,
+      "humility": 0.4
+     },
+     "stat_deltas": {
+      "safety": 3,
+      "output": 1,
+      "team_trust": 3,
+      "stress": 0
+     },
+     "coworker_hints": {}
+    }
+   ]
+  },
+  {
+   "event_id": "cross_04",
+   "career_ids": [
+    "software_dev",
+    "robotics_tech"
+   ],
+   "clock": "13:00",
+   "title": "Automating a manual job",
+   "text": "A packing house in Reedley wants to automate box labeling, a job four people do by hand now. Two of them have asked you directly whether they are being replaced, and the system is not proven yet.",
+   "crunch": false,
+   "status": "DRAFT — needs human review",
+   "choices": [
+    {
+     "choice_id": "a",
+     "text": "Meet with the workers to hear their concerns before you design anything.",
+     "trait_deltas": {
+      "empathy": 0.6,
+      "social_orientation": 0.5,
+      "sincerity": 0.4
+     },
+     "stat_deltas": {
+      "safety": 1,
+      "output": -2,
+      "team_trust": 5,
+      "stress": 1
+     },
+     "coworker_hints": {}
+    },
+    {
+     "choice_id": "b",
+     "text": "Build a prototype quickly to show what is possible.",
+     "trait_deltas": {
+      "innovation": 0.6,
+      "achievement_orientation": 0.5,
+      "initiative": 0.4
+     },
+     "stat_deltas": {
+      "safety": 0,
+      "output": 4,
+      "team_trust": 0,
+      "stress": 2
+     },
+     "coworker_hints": {}
+    },
+    {
+     "choice_id": "c",
+     "text": "Propose a gradual rollout with cross-training for the people affected.",
+     "trait_deltas": {
+      "cautiousness": 0.4,
+      "leadership_orientation": 0.5,
+      "optimism": 0.4
+     },
+     "stat_deltas": {
+      "safety": 2,
+      "output": 1,
+      "team_trust": 3,
+      "stress": 1
+     },
+     "coworker_hints": {}
+    }
+   ]
+  },
+  {
+   "event_id": "cross_05",
+   "career_ids": [
+    "logistics_lead",
+    "farm_ops_manager",
+    "electrician"
+   ],
+   "clock": "14:30",
+   "title": "Leading through a setback",
+   "text": "Word comes in that a large contract your team has been working toward for weeks has been canceled. People stop what they are doing and look at you. Tomorrow's schedule now has big gaps.",
+   "crunch": false,
+   "status": "DRAFT — needs human review",
+   "choices": [
+    {
+     "choice_id": "a",
+     "text": "Call a short meeting to explain what happened and the plan forward.",
+     "trait_deltas": {
+      "leadership_orientation": 0.7,
+      "self_confidence": 0.5,
+      "optimism": 0.4
+     },
+     "stat_deltas": {
+      "safety": 0,
+      "output": 2,
+      "team_trust": 4,
+      "stress": 2
+     },
+     "coworker_hints": {}
+    },
+    {
+     "choice_id": "b",
+     "text": "Check in with each person one by one over the afternoon.",
+     "trait_deltas": {
+      "empathy": 0.6,
+      "social_orientation": 0.5,
+      "humility": 0.3
+     },
+     "stat_deltas": {
+      "safety": 0,
+      "output": 0,
+      "team_trust": 5,
+      "stress": 2
+     },
+     "coworker_hints": {}
+    },
+    {
+     "choice_id": "c",
+     "text": "Get everyone onto concrete next tasks right away to keep momentum.",
+     "trait_deltas": {
+      "achievement_orientation": 0.5,
+      "initiative": 0.5,
+      "perseverance": 0.5
+     },
+     "stat_deltas": {
+      "safety": 0,
+      "output": 4,
+      "team_trust": 2,
+      "stress": 3
+     },
+     "coworker_hints": {}
+    }
+   ]
+  },
+  {
+   "event_id": "cross_06",
+   "career_ids": [
+    "registered_nurse",
+    "software_dev"
+   ],
+   "clock": "15:00",
+   "title": "Confidential info on a group chat",
+   "text": "In the break room you see a coworker show a friend a screenshot that includes a client's private records. It might be harmless, but it breaks policy and possibly the law.",
+   "crunch": false,
+   "status": "DRAFT — needs human review",
+   "choices": [
+    {
+     "choice_id": "a",
+     "text": "Talk to the coworker privately about the risk and ask them to delete it.",
+     "trait_deltas": {
+      "integrity": 0.5,
+      "empathy": 0.5,
+      "sincerity": 0.4
+     },
+     "stat_deltas": {
+      "safety": 4,
+      "output": 0,
+      "team_trust": 2,
+      "stress": 2
+     },
+     "coworker_hints": {}
+    },
+    {
+     "choice_id": "b",
+     "text": "Report it to your supervisor.",
+     "trait_deltas": {
+      "integrity": 0.7,
+      "cautiousness": 0.5,
+      "cooperation": -0.3
+     },
+     "stat_deltas": {
+      "safety": 6,
+      "output": 0,
+      "team_trust": -2,
+      "stress": 2
+     },
+     "coworker_hints": {}
+    },
+    {
+     "choice_id": "c",
+     "text": "Leave it alone unless it happens again.",
+     "trait_deltas": {
+      "self_control": 0.4,
+      "tolerance_for_ambiguity": 0.4,
+      "integrity": -0.4
+     },
+     "stat_deltas": {
+      "safety": -3,
+      "output": 1,
+      "team_trust": 0,
+      "stress": -1
+     },
+     "coworker_hints": {}
+    }
+   ]
+  }
+ ]
+}

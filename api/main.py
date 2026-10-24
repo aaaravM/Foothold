@@ -30,7 +30,12 @@ from fastapi.middleware.cors import CORSMiddleware  # noqa: E402
 from foothold import config, db, llm  # noqa: E402
 
 log = logging.getLogger("foothold")
-CORS_ORIGIN_REGEX = r"http://(localhost|127\.0\.0\.1)(:\d+)?"
+CORS_ORIGIN_REGEX = (
+    r"http://(localhost|127\.0\.0\.1)(:\d+)?"
+    r"|https://[a-z0-9-]+(--[a-z0-9-]+)?\.netlify\.app"  # Netlify static build (+ deploy previews)
+    r"|https://[a-z0-9-]+\.trycloudflare\.com"  # quick tunnel serving the same origin
+    r"|https://[a-z0-9-]+\.lhr\.life"  # localhost.run fallback tunnel
+)
 ROUTES_PACKAGE = "foothold.routes"
 
 
@@ -104,10 +109,12 @@ async def lifespan(app: FastAPI) -> AsyncIterator[None]:
     except Exception as exc:  # keep serving; db routes will report errors themselves
         log.warning("init_db failed: %s", type(exc).__name__)
     task = asyncio.create_task(_background_key_check())
+    db_task = asyncio.create_task(asyncio.to_thread(db.remote_startup))  # Supabase probe/sync, never blocks startup
     try:
         yield
     finally:
         task.cancel()
+        db_task.cancel()
         with contextlib.suppress(BaseException):
             await task
 
@@ -145,6 +152,7 @@ def create_app(routes_package: str = ROUTES_PACKAGE) -> FastAPI:
                 "error_class": st["error_class"],
             },
             "demo_mode": st["demo_mode"],
+            "db": db.backend_status(),
             "route_errors": dict(request.app.state.route_errors),
             "routes": list(request.app.state.routes_loaded),
         }

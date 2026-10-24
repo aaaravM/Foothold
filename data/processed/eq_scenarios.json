@@ -1,0 +1,69 @@
+{
+ "schema_version": 1,
+ "status": "DRAFT — needs human review",
+ "provenance": "FICTIONAL",
+ "source_id": "foothold_sim_events_draft",
+ "note": "Practice scenarios for workplace communication, not therapy or treatment. All people are fictional.",
+ "scenarios": [
+  {
+   "id": "eq_critical_feedback",
+   "title": "Critical feedback from your supervisor",
+   "setup": "You are three weeks into a warehouse job in Stockton. At the end of shift, your supervisor Rosa pulls you aside and says two of your pallets were mislabeled this week and a customer order went to the wrong store.",
+   "prompt": "Rosa is waiting for your response. What do you say to her?",
+   "situation": "Three weeks into a warehouse job, your supervisor tells you two of your pallets were mislabeled this week and a customer order went to the wrong store. Respond to her.",
+   "persona_line": "Rosa (supervisor): \"I need to talk to you about the labels this week. Two pallets went out wrong and the store called us. What happened?\"",
+   "rubric": {
+    "listening": {"1": "Interrupts or ignores what was said.", "2": "Acknowledges the issue vaguely.", "3": "Restates the specific problem (two mislabeled pallets).", "4": "Restates the problem and asks a question to understand the impact or the expectation."},
+    "empathy": {"1": "Dismisses the impact on the customer or the team.", "2": "Mentions the impact briefly.", "3": "Recognizes the extra work it caused Rosa and the store.", "4": "Recognizes the impact and shows genuine concern for the people affected."},
+    "assertiveness": {"1": "Over-apologizes with no plan, or blames others.", "2": "Explains without taking ownership.", "3": "Takes ownership and gives a short, honest explanation.", "4": "Takes ownership, explains briefly, and asks for what would help (for example, a label check)."},
+    "repair": {"1": "No next step.", "2": "Promises vaguely to do better.", "3": "Offers one concrete fix.", "4": "Offers a concrete fix and a way to check that it worked."}
+   },
+   "example_strong_response": "Thanks for telling me directly. So two of my pallets had the wrong labels and the store got the wrong order, which means extra work for you and for them. That is on me. I think I was printing labels for the next lane before finishing the last one. Starting tomorrow I will scan each label against the pick list before wrapping, and could you check my first few pallets on Thursday so we know it is fixed?"
+  },
+  {
+   "id": "eq_coworker_conflict",
+   "title": "A coworker keeps leaving you the hard jobs",
+   "setup": "At a diesel shop in Fresno, a senior tech keeps taking the quick oil changes and leaving you the long diagnostic jobs, which makes your numbers look slow. You have decided to bring it up with him during a slow moment.",
+   "prompt": "Open the conversation with your coworker.",
+   "situation": "A senior coworker at a diesel shop keeps taking the quick jobs and leaving you the long diagnostic ones, which makes your numbers look slow. Open the conversation with him.",
+   "persona_line": "Pao (senior tech, wiping his hands): \"Yeah? What's up?\"",
+   "rubric": {
+    "listening": {"1": "Does not leave room for his side.", "2": "Asks a closed question only.", "3": "Asks how he sees the job split.", "4": "Asks for his view and signals they will take it seriously."},
+    "empathy": {"1": "Accuses or labels him.", "2": "Neutral but cold.", "3": "Acknowledges he may not have noticed or has his own pressures.", "4": "Acknowledges his perspective and shared goals (getting trucks out)."},
+    "assertiveness": {"1": "Hints, or avoids the issue entirely.", "2": "Names the issue but backs off right away.", "3": "States the specific pattern and its effect calmly.", "4": "States the pattern, the effect, and a clear, fair request."},
+    "repair": {"1": "No proposal.", "2": "Asks him to change without a proposal.", "3": "Proposes a fair split.", "4": "Proposes a fair split and agrees on a time to check how it is going."}
+   },
+   "example_strong_response": "Got a minute? I've noticed most of the quick services have been going to you and the long diagnostics to me, and my hours per job look slow on the board because of it. Maybe you haven't noticed, or there's a reason I'm missing. How do you see it? I'd like to alternate the quick ones, or have Manny assign them. Can we try that this week and check in Friday?"
+  },
+  {
+   "id": "eq_ask_for_raise",
+   "title": "Asking for a raise",
+   "setup": "You have worked a year as a farm crew lead near Kerman. You trained four new workers, cut equipment downtime, and now handle the irrigation schedule. You have a meeting with the owner, Dirk, who is careful with money.",
+   "prompt": "Make your case to Dirk.",
+   "situation": "After a year as a farm crew lead, during which you trained four new workers and took over the irrigation schedule, you ask the careful-with-money owner for a raise. Make your case.",
+   "persona_line": "Dirk (owner): \"You wanted to talk about pay. Go ahead, I'm listening.\"",
+   "rubric": {
+    "listening": {"1": "Ignores his concerns or interrupts.", "2": "Notes his concern without engaging.", "3": "Responds to the budget concern directly.", "4": "Asks what would make a raise workable for the farm."},
+    "empathy": {"1": "Treats it as a demand with no regard for the farm.", "2": "Mentions the farm's situation briefly.", "3": "Acknowledges cost pressures sincerely.", "4": "Frames the raise around shared success and his constraints."},
+    "assertiveness": {"1": "Apologizes for asking or gives up quickly.", "2": "Asks without a specific amount or evidence.", "3": "Gives concrete contributions and a specific ask.", "4": "Gives evidence, a specific ask, and stays steady if he pushes back."},
+    "repair": {"1": "No follow-up if the answer is no.", "2": "Accepts a no with no next step.", "3": "Suggests an alternative (timeline or partial step).", "4": "Suggests an alternative and agrees on a date and criteria to revisit."}
+   },
+   "example_strong_response": "Thanks for making time. Over the past year I trained four new workers, took over the irrigation schedule, and our shaker downtime dropped because we started daily checks. I'd like my pay to reflect the bigger role, and I'm asking for a raise of a specific amount per hour that I can show you against what crew leads are paid nearby. I know margins are tight this year. If the full amount isn't possible now, could we do part now and set a date after harvest to review the rest?"
+  },
+  {
+   "id": "eq_first_interview",
+   "title": "Your first job interview",
+   "setup": "You are interviewing for a robotics technician trainee role at a packaging plant in Tracy. You do not have direct experience yet, but you completed a free online PLC course and fixed equipment on your family's farm.",
+   "prompt": "Answer the interviewer's question.",
+   "situation": "Interviewing for a robotics technician trainee role with no direct experience, you are asked to describe a time you solved a technical problem. Answer the interviewer.",
+   "persona_line": "Alejandro (maintenance supervisor): \"Tell me about a time you figured out a technical problem on your own.\"",
+   "rubric": {
+    "listening": {"1": "Answers a different question.", "2": "Answers loosely.", "3": "Answers the question asked with a real example.", "4": "Answers with a real example and checks whether it was what he wanted."},
+    "empathy": {"1": "Shows no interest in the role or the team.", "2": "Mentions the role generically.", "3": "Connects the example to what the plant needs.", "4": "Connects the example to the plant's needs and asks about the team."},
+    "assertiveness": {"1": "Undersells or apologizes for lacking experience.", "2": "Hedges heavily.", "3": "Describes their own actions clearly and confidently.", "4": "Describes their actions and results confidently and is honest about gaps."},
+    "repair": {"1": "Ignores a gap or makes things up.", "2": "Mentions a gap with no plan.", "3": "Names a gap and how they are closing it.", "4": "Names a gap, the plan to close it, and asks about training on the job."}
+   },
+   "example_strong_response": "Last summer our drip irrigation pump kept shutting off in the afternoons. I checked the wiring first, then noticed it only happened when it got hot, so I tested the motor's thermal overload and found the pump was undersized for the line. We swapped it, and it ran the rest of the season. I haven't worked on industrial robots yet, but I finished a free PLC course this spring and I'd like to keep building on that. Is that the kind of example you were looking for? And how does training work for new techs here?"
+  }
+ ]
+}

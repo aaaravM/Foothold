@@ -1,0 +1,28 @@
+{
+  "created_at": "2026-10-24T22:25:26+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "events": [
+      {
+        "event_id": "dsl_01",
+        "text": "At 7:00, a Tri-Valley Freight truck limps into the Central Valley service yard with a check-engine light and low power. Its driver has a load due in Los Angeles by evening, and Brenda has already promised him a quick look.",
+        "title": "Truck down on the 99"
+      },
+      {
+        "event_id": "dsl_02",
+        "text": "A Tri-Valley Freight truck’s electronic controller keeps cutting out, but the fault will not repeat in the service yard. You have spent two hours trying to find it, and the truck is needed for scheduled freight runs next week.",
+        "title": "The intermittent fault"
+      },
+      {
+        "event_id": "dsl_03",
+        "text": "During an oil change at Tri-Valley Freight, you notice that the brake chambers on one of the company’s trucks were installed with the wrong part. Another technician in the shop did that job last month, and the truck is in today only for an oil change.",
+        "title": "A brake job someone else did"
+      }
+    ],
+    "setting": "Tri-Valley Freight"
+  },
+  "schema": "SimVariantOut",
+  "task": "employer.sim_variant"
+}

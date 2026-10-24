@@ -1,0 +1,13 @@
+{
+  "created_at": "2026-10-24T22:22:57+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "line": "I’d talk to Manny before bringing the customer in. Let’s make sure we’ve got the facts straight and write down exactly what we found.",
+    "mood_delta": -5,
+    "reaction": "uneasy"
+  },
+  "schema": "CoworkerReaction",
+  "task": "sim_coworker"
+}

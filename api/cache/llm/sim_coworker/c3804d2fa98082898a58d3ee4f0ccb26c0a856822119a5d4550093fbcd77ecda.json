@@ -1,0 +1,13 @@
+{
+  "created_at": "2026-10-24T22:22:08+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "line": "Good call—let’s pull the codes and trace it properly before we promise a timeline.",
+    "mood_delta": 8,
+    "reaction": "approves"
+  },
+  "schema": "CoworkerReaction",
+  "task": "sim_coworker"
+}

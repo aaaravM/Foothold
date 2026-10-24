@@ -122,9 +122,59 @@ function scheduleExpiry(): void {
   }, wait);
 }
 
+/**
+ * DEV-ONLY: `?dev_token=<token>` signs this tab in with an existing token (used by headless
+ * screenshots). The whole branch is removed from production builds (NODE_ENV is inlined).
+ */
+export function devTokenPending(): boolean {
+  if (process.env.NODE_ENV !== "development" || typeof window === "undefined") return false;
+  return new URLSearchParams(window.location.search).has("dev_token");
+}
+
+function consumeDevToken(): void {
+  if (process.env.NODE_ENV !== "development" || typeof window === "undefined") return;
+  const url = new URL(window.location.href);
+  const token = url.searchParams.get("dev_token");
+  if (!token) return;
+  const strip = () => {
+    url.searchParams.delete("dev_token");
+    window.history.replaceState(window.history.state, "", `${url.pathname}${url.search}${url.hash}`);
+  };
+  void getJSON<MeResponse>("/api/auth/me", { auth: false, headers: { Authorization: `Bearer ${token}` }, timeoutMs: 8_000 })
+    .then((me) => {
+      if (me && isAccount(me.account)) {
+        lastCheckedToken = token;
+        lastCheckedAt = Date.now();
+        setSession({ token, account: me.account, expires_at: me.expires_at });
+      }
+    })
+    .catch(() => undefined)
+    .finally(() => {
+      strip();
+      emitDevDone();
+    });
+}
+
+const devListeners = new Set<() => void>();
+function emitDevDone(): void {
+  devListeners.forEach((l) => l());
+}
+/** Re-render when the dev token check finishes (only meaningful in development). */
+export function useDevTokenPending(): boolean {
+  return React.useSyncExternalStore(
+    (l) => {
+      devListeners.add(l);
+      return () => devListeners.delete(l);
+    },
+    devTokenPending,
+    () => false,
+  );
+}
+
 function startLifecycle(): void {
   if (lifecycleStarted || typeof window === "undefined") return;
   lifecycleStarted = true;
+  consumeDevToken();
   const onReturn = () => {
     if (document.visibilityState === "visible") void checkSession(false);
   };

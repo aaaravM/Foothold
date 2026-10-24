@@ -1,0 +1,28 @@
+{
+  "created_at": "2026-10-24T22:22:00+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "rules": [
+      {
+        "day": null,
+        "number": null,
+        "route_type": null,
+        "season": null,
+        "time": "17:00",
+        "type": "no_class_before"
+      },
+      {
+        "day": "Sat",
+        "number": null,
+        "route_type": null,
+        "season": null,
+        "time": null,
+        "type": "day_off"
+      }
+    ]
+  },
+  "schema": "RulesOut",
+  "task": "path_translate"
+}

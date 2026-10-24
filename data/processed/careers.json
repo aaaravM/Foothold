@@ -1,1026 +1,1222 @@
 [
-  {
-    "id": "logistics_lead",
-    "title": "Logistics Operations Lead",
-    "onet_soc": "11-3071.00",
-    "onet_title": "Transportation, Storage, and Distribution Managers",
-    "onet_url": "https://www.onetonline.org/link/summary/11-3071.00",
-    "summary": "Leads a shift or an area of a warehouse or distribution center. You plan the day's inbound and outbound work, keep people and forklifts moving safely, and sort out problems when trucks, counts, or systems don't match. Floor experience as an associate or forklift operator is one way in.",
-    "path_types": [
-      "cc_transfer",
-      "certificate",
-      "direct_to_work"
-    ],
-    "work_styles": {
-      "innovation": 0.6526,
-      "achievement_orientation": 0.8451,
-      "intellectual_curiosity": 0.5421,
-      "tolerance_for_ambiguity": 0.7009,
-      "initiative": 0.9669,
-      "adaptability": 0.8608,
-      "self_confidence": 0.8911,
-      "perseverance": 0.8322,
-      "leadership_orientation": 0.9658,
-      "humility": 0.532,
-      "sincerity": 0.4989,
-      "empathy": 0.5758,
-      "cooperation": 0.6134,
-      "optimism": 0.5471,
-      "social_orientation": 0.5718,
-      "cautiousness": 0.573,
-      "attention_to_detail": 0.4899,
-      "dependability": 0.7834,
-      "integrity": 0.8502,
-      "stress_tolerance": 0.7581,
-      "self_control": 0.656
-    },
-    "distinctive_work_styles": [
-      "initiative",
-      "leadership_orientation",
-      "adaptability",
-      "achievement_orientation",
-      "integrity",
-      "attention_to_detail",
-      "dependability"
-    ],
-    "skills": [
-      "forklift_safety",
-      "inventory_systems",
-      "shipping_receiving",
-      "spreadsheets",
-      "osha_safety",
-      "management_of_material_resources",
-      "management_of_financial_resources",
-      "negotiation",
-      "systems_analysis",
-      "coordination"
-    ],
-    "skills_basis": {
-      "foothold": [
-        "forklift_safety",
-        "inventory_systems",
-        "shipping_receiving",
-        "spreadsheets",
-        "osha_safety"
-      ],
-      "onet": [
-        "management_of_material_resources",
-        "management_of_financial_resources",
-        "negotiation",
-        "systems_analysis",
-        "coordination"
-      ],
-      "method": "foothold = Foothold job-specific skills (editorial); onet = the 5 O*NET 31.0 skills with the highest Importance relative to the all-occupation mean (z-score), among skills with IM >= 2.5"
-    },
-    "holland_code": "EC",
-    "wage": null,
-    "outlook": null,
-    "coworkers": [
-      {
-        "id": "rosa_delgado",
-        "name": "Rosa Delgado",
-        "pronouns": "she/her",
-        "role": "Inbound dock supervisor",
-        "style": "Direct and fast; trusts people who flag problems early.",
-        "base_mood": "tense",
-        "fictional": true
-      },
-      {
-        "id": "tou_vang",
-        "name": "Tou Vang",
-        "pronouns": "he/him",
-        "role": "Forklift operator, night shift",
-        "style": "Quiet and safety-first; goes silent when he feels rushed.",
-        "base_mood": "tired",
-        "fictional": true
-      },
-      {
-        "id": "darnell_hayes",
-        "name": "Darnell Hayes",
-        "pronouns": "he/him",
-        "role": "Inventory control clerk",
-        "style": "Jokes a lot, but catches every count mismatch.",
-        "base_mood": "upbeat",
-        "fictional": true
-      }
-    ],
-    "provenance": {
-      "onet": {
-        "status": "REAL",
-        "source_id": "onet_31_0",
-        "fields": [
-          "onet_soc",
-          "onet_title",
-          "work_styles",
-          "distinctive_work_styles",
-          "skills_basis.onet",
-          "holland_code"
-        ]
-      },
-      "summary": "Foothold editorial (own words)",
-      "path_types": "Foothold editorial; checked against data/raw/programs/programs_raw.json",
-      "skills_basis.foothold": {
-        "status": "SAMPLE",
-        "source_id": "foothold_taxonomy"
-      },
-      "coworkers": {
-        "status": "FICTIONAL",
-        "source_id": "foothold_fictional_coworkers"
-      },
-      "wage_outlook": "filled by the wages/outlook build step; preserved on rebuild"
-    }
+ {
+  "id": "logistics_lead",
+  "title": "Logistics Operations Lead",
+  "onet_soc": "11-3071.00",
+  "onet_title": "Transportation, Storage, and Distribution Managers",
+  "onet_url": "https://www.onetonline.org/link/summary/11-3071.00",
+  "summary": "Leads a shift or an area of a warehouse or distribution center. You plan the day's inbound and outbound work, keep people and forklifts moving safely, and sort out problems when trucks, counts, or systems don't match. Floor experience as an associate or forklift operator is one way in.",
+  "path_types": [
+   "cc_transfer",
+   "certificate",
+   "direct_to_work"
+  ],
+  "work_styles": {
+   "innovation": 0.6526,
+   "achievement_orientation": 0.8451,
+   "intellectual_curiosity": 0.5421,
+   "tolerance_for_ambiguity": 0.7009,
+   "initiative": 0.9669,
+   "adaptability": 0.8608,
+   "self_confidence": 0.8911,
+   "perseverance": 0.8322,
+   "leadership_orientation": 0.9658,
+   "humility": 0.532,
+   "sincerity": 0.4989,
+   "empathy": 0.5758,
+   "cooperation": 0.6134,
+   "optimism": 0.5471,
+   "social_orientation": 0.5718,
+   "cautiousness": 0.573,
+   "attention_to_detail": 0.4899,
+   "dependability": 0.7834,
+   "integrity": 0.8502,
+   "stress_tolerance": 0.7581,
+   "self_control": 0.656
   },
-  {
-    "id": "registered_nurse",
-    "title": "Registered Nurse",
-    "onet_soc": "29-1141.00",
-    "onet_title": "Registered Nurses",
-    "onet_url": "https://www.onetonline.org/link/summary/29-1141.00",
-    "summary": "Cares for patients in hospitals, clinics, and home health. You assess how patients are doing, give medications and treatments safely, teach patients and families, and coordinate with doctors and the rest of the care team. Becoming an RN takes an approved nursing program and a passing score on the NCLEX-RN licensing exam.",
-    "path_types": [
-      "cc_transfer",
-      "certificate"
-    ],
-    "work_styles": {
-      "innovation": 0.624,
-      "achievement_orientation": 0.3737,
-      "intellectual_curiosity": 0.6033,
-      "tolerance_for_ambiguity": 0.7435,
-      "initiative": 0.578,
-      "adaptability": 0.9478,
-      "self_confidence": 0.7542,
-      "perseverance": 0.8866,
-      "leadership_orientation": 0.7699,
-      "humility": 0.9422,
-      "sincerity": 0.9444,
-      "empathy": 0.9046,
-      "cooperation": 0.9557,
-      "optimism": 0.826,
-      "social_orientation": 0.8474,
-      "cautiousness": 0.7587,
-      "attention_to_detail": 0.9299,
-      "dependability": 0.9585,
-      "integrity": 0.9001,
-      "stress_tolerance": 0.8855,
-      "self_control": 0.8496
-    },
-    "distinctive_work_styles": [
-      "sincerity",
-      "adaptability",
-      "perseverance",
-      "empathy",
-      "stress_tolerance",
-      "self_control",
-      "social_orientation",
-      "cooperation",
-      "cautiousness",
-      "integrity"
-    ],
-    "skills": [
-      "patient_assessment",
-      "medication_safety",
-      "infection_control",
-      "bls_cpr",
-      "ehr_charting",
-      "coordination",
-      "social_perceptiveness",
-      "service_orientation",
-      "judgment_and_decision_making",
-      "monitoring"
-    ],
-    "skills_basis": {
-      "foothold": [
-        "patient_assessment",
-        "medication_safety",
-        "infection_control",
-        "bls_cpr",
-        "ehr_charting"
-      ],
-      "onet": [
-        "coordination",
-        "social_perceptiveness",
-        "service_orientation",
-        "judgment_and_decision_making",
-        "monitoring"
-      ],
-      "method": "foothold = Foothold job-specific skills (editorial); onet = the 5 O*NET 31.0 skills with the highest Importance relative to the all-occupation mean (z-score), among skills with IM >= 2.5"
-    },
-    "holland_code": "SCI",
-    "wage": null,
-    "outlook": null,
-    "coworkers": [
-      {
-        "id": "grace_villanueva",
-        "name": "Grace Villanueva",
-        "pronouns": "she/her",
-        "role": "Charge nurse",
-        "style": "Calm under pressure; expects clear, complete handoffs.",
-        "base_mood": "calm",
-        "fictional": true
-      },
-      {
-        "id": "harpreet_sandhu",
-        "name": "Harpreet Sandhu",
-        "pronouns": "he/him",
-        "role": "Hospitalist physician",
-        "style": "Brisk on rounds; listens closely when you bring vitals and trends.",
-        "base_mood": "skeptical",
-        "fictional": true
-      },
-      {
-        "id": "luz_herrera",
-        "name": "Luz Herrera",
-        "pronouns": "she/her",
-        "role": "Certified nursing assistant",
-        "style": "Warm with patients and stretched thin; notices who pitches in.",
-        "base_mood": "tired",
-        "fictional": true
-      }
-    ],
-    "provenance": {
-      "onet": {
-        "status": "REAL",
-        "source_id": "onet_31_0",
-        "fields": [
-          "onet_soc",
-          "onet_title",
-          "work_styles",
-          "distinctive_work_styles",
-          "skills_basis.onet",
-          "holland_code"
-        ]
-      },
-      "summary": "Foothold editorial (own words)",
-      "path_types": "Foothold editorial; checked against data/raw/programs/programs_raw.json",
-      "skills_basis.foothold": {
-        "status": "SAMPLE",
-        "source_id": "foothold_taxonomy"
-      },
-      "coworkers": {
-        "status": "FICTIONAL",
-        "source_id": "foothold_fictional_coworkers"
-      },
-      "wage_outlook": "filled by the wages/outlook build step; preserved on rebuild"
-    }
+  "distinctive_work_styles": [
+   "initiative",
+   "leadership_orientation",
+   "adaptability",
+   "achievement_orientation",
+   "integrity",
+   "attention_to_detail",
+   "dependability"
+  ],
+  "skills": [
+   "forklift_safety",
+   "inventory_systems",
+   "shipping_receiving",
+   "spreadsheets",
+   "osha_safety",
+   "management_of_material_resources",
+   "management_of_financial_resources",
+   "negotiation",
+   "systems_analysis",
+   "coordination"
+  ],
+  "skills_basis": {
+   "foothold": [
+    "forklift_safety",
+    "inventory_systems",
+    "shipping_receiving",
+    "spreadsheets",
+    "osha_safety"
+   ],
+   "onet": [
+    "management_of_material_resources",
+    "management_of_financial_resources",
+    "negotiation",
+    "systems_analysis",
+    "coordination"
+   ],
+   "method": "foothold = Foothold job-specific skills (editorial); onet = the 5 O*NET 31.0 skills with the highest Importance relative to the all-occupation mean (z-score), among skills with IM >= 2.5"
   },
-  {
-    "id": "diesel_mechanic",
-    "title": "Diesel and Heavy-Equipment Mechanic",
-    "onet_soc": "49-3031.00",
-    "onet_title": "Bus and Truck Mechanics and Diesel Engine Specialists",
-    "onet_url": "https://www.onetonline.org/link/summary/49-3031.00",
-    "summary": "Inspects, diagnoses, and repairs diesel trucks, buses, and heavy equipment, including engines, air brakes, hydraulics, and electronic controls. The work mixes hands-on repair with computer diagnostics, and getting it right matters because these machines carry heavy loads on public roads and job sites.",
-    "path_types": [
-      "certificate",
-      "apprenticeship",
-      "direct_to_work"
-    ],
-    "work_styles": {
-      "innovation": 0.518,
-      "achievement_orientation": 0.3199,
-      "intellectual_curiosity": 0.4927,
-      "tolerance_for_ambiguity": 0.3676,
-      "initiative": 0.3575,
-      "adaptability": 0.298,
-      "self_confidence": 0.2609,
-      "perseverance": 0.6914,
-      "leadership_orientation": 0.3165,
-      "humility": 0.2531,
-      "sincerity": 0.3176,
-      "empathy": 0.2593,
-      "cooperation": 0.2037,
-      "optimism": 0.3911,
-      "social_orientation": 0.1734,
-      "cautiousness": 0.546,
-      "attention_to_detail": 0.5292,
-      "dependability": 0.4933,
-      "integrity": 0.2351,
-      "stress_tolerance": 0.4018,
-      "self_control": 0.1987
-    },
-    "distinctive_work_styles": [
-      "attention_to_detail",
-      "dependability"
-    ],
-    "skills": [
-      "diesel_diagnostics",
-      "hydraulics",
-      "air_brakes",
-      "lockout_tagout",
-      "osha_safety",
-      "repairing",
-      "troubleshooting",
-      "equipment_selection",
-      "equipment_maintenance",
-      "operations_monitoring"
-    ],
-    "skills_basis": {
-      "foothold": [
-        "diesel_diagnostics",
-        "hydraulics",
-        "air_brakes",
-        "lockout_tagout",
-        "osha_safety"
-      ],
-      "onet": [
-        "repairing",
-        "troubleshooting",
-        "equipment_selection",
-        "equipment_maintenance",
-        "operations_monitoring"
-      ],
-      "method": "foothold = Foothold job-specific skills (editorial); onet = the 5 O*NET 31.0 skills with the highest Importance relative to the all-occupation mean (z-score), among skills with IM >= 2.5"
-    },
-    "holland_code": "RCI",
-    "wage": null,
-    "outlook": null,
-    "coworkers": [
-      {
-        "id": "manny_soares",
-        "name": "Manny Soares",
-        "pronouns": "he/him",
-        "role": "Shop foreman",
-        "style": "Old-school; explains once and hates comebacks.",
-        "base_mood": "skeptical",
-        "fictional": true
-      },
-      {
-        "id": "pao_xiong",
-        "name": "Pao Xiong",
-        "pronouns": "he/him",
-        "role": "Senior diesel technician",
-        "style": "Patient teacher who loves a tricky electrical fault.",
-        "base_mood": "calm",
-        "fictional": true
-      },
-      {
-        "id": "brenda_ochoa",
-        "name": "Brenda Ochoa",
-        "pronouns": "she/her",
-        "role": "Service writer",
-        "style": "Juggles impatient fleet customers; wants honest time estimates.",
-        "base_mood": "tense",
-        "fictional": true
-      }
-    ],
-    "provenance": {
-      "onet": {
-        "status": "REAL",
-        "source_id": "onet_31_0",
-        "fields": [
-          "onet_soc",
-          "onet_title",
-          "work_styles",
-          "distinctive_work_styles",
-          "skills_basis.onet",
-          "holland_code"
-        ]
-      },
-      "summary": "Foothold editorial (own words)",
-      "path_types": "Foothold editorial; checked against data/raw/programs/programs_raw.json",
-      "skills_basis.foothold": {
-        "status": "SAMPLE",
-        "source_id": "foothold_taxonomy"
-      },
-      "coworkers": {
-        "status": "FICTIONAL",
-        "source_id": "foothold_fictional_coworkers"
-      },
-      "wage_outlook": "filled by the wages/outlook build step; preserved on rebuild"
-    }
+  "holland_code": "EC",
+  "wage": {
+   "median_hourly": 36.34,
+   "median_annual": 75589,
+   "p25_annual": 57246,
+   "p75_annual": 80096,
+   "p25_hourly": 27.53,
+   "p75_hourly": 38.5,
+   "area": "Stockton-Lodi MSA",
+   "period": "2026 Q1 (CA EDD OEWS; employment = May 2025 estimate)",
+   "soc": "53-1047",
+   "employment": 2440,
+   "source_id": "edd_oews_2026q1",
+   "status": "REAL",
+   "verify_url": "https://data.ca.gov/dataset/oews",
+   "note": "O*NET profile is 11-3071 (Transportation, Storage, and Distribution Managers); the local wage shown is OEWS 53-1047 (First-Line Supervisors of Transportation and Material Moving Workers), the closer match for a warehouse lead role in Stockton-Lodi."
   },
-  {
-    "id": "welder",
-    "title": "Welder and Fabricator",
-    "onet_soc": "51-4121.00",
-    "onet_title": "Welders, Cutters, Solderers, and Brazers",
-    "onet_url": "https://www.onetonline.org/link/summary/51-4121.00",
-    "summary": "Joins and cuts metal for farm equipment, structures, and repairs using MIG, TIG, and stick processes. You read prints, set up the machine, and check your own work. Skills are usually proven with a hands-on weld test.",
-    "path_types": [
-      "certificate",
-      "direct_to_work"
-    ],
-    "work_styles": {
-      "innovation": 0.3855,
-      "achievement_orientation": 0.2632,
-      "intellectual_curiosity": 0.3159,
-      "tolerance_for_ambiguity": 0.0774,
-      "initiative": 0.1734,
-      "adaptability": 0.1431,
-      "self_confidence": 0.2536,
-      "perseverance": 0.3154,
-      "leadership_orientation": 0.1712,
-      "humility": 0.1785,
-      "sincerity": 0.1122,
-      "empathy": 0.1173,
-      "cooperation": 0.0707,
-      "optimism": 0.147,
-      "social_orientation": 0.0864,
-      "cautiousness": 0.5988,
-      "attention_to_detail": 0.4388,
-      "dependability": 0.3485,
-      "integrity": 0.1566,
-      "stress_tolerance": 0.3575,
-      "self_control": 0.257
-    },
-    "distinctive_work_styles": [
-      "cautiousness",
-      "attention_to_detail",
-      "dependability"
-    ],
-    "skills": [
-      "mig_welding",
-      "tig_welding",
-      "stick_welding",
-      "blueprint_reading",
-      "osha_safety",
-      "quality_control_analysis",
-      "troubleshooting",
-      "operation_and_control",
-      "operations_monitoring"
-    ],
-    "skills_basis": {
-      "foothold": [
-        "mig_welding",
-        "tig_welding",
-        "stick_welding",
-        "blueprint_reading",
-        "osha_safety"
-      ],
-      "onet": [
-        "quality_control_analysis",
-        "troubleshooting",
-        "operation_and_control",
-        "operations_monitoring"
-      ],
-      "method": "foothold = Foothold job-specific skills (editorial); onet = the 5 O*NET 31.0 skills with the highest Importance relative to the all-occupation mean (z-score), among skills with IM >= 2.5"
-    },
-    "holland_code": "RC",
-    "wage": null,
-    "outlook": null,
-    "coworkers": [
-      {
-        "id": "ernesto_ruiz",
-        "name": "Ernesto Ruiz",
-        "pronouns": "he/him",
-        "role": "Lead welder and fitter",
-        "style": "Perfectionist about fit-up; quiet praise for a clean bead.",
-        "base_mood": "calm",
-        "fictional": true
-      },
-      {
-        "id": "kayla_brooks",
-        "name": "Kayla Brooks",
-        "pronouns": "she/her",
-        "role": "Welding apprentice",
-        "style": "Eager and full of questions; sometimes rushes the prep.",
-        "base_mood": "upbeat",
-        "fictional": true
-      },
-      {
-        "id": "arman_petrosyan",
-        "name": "Arman Petrosyan",
-        "pronouns": "he/him",
-        "role": "Quality inspector",
-        "style": "Measures everything and trusts paperwork over promises.",
-        "base_mood": "skeptical",
-        "fictional": true
-      }
-    ],
-    "provenance": {
-      "onet": {
-        "status": "REAL",
-        "source_id": "onet_31_0",
-        "fields": [
-          "onet_soc",
-          "onet_title",
-          "work_styles",
-          "distinctive_work_styles",
-          "skills_basis.onet",
-          "holland_code"
-        ]
-      },
-      "summary": "Foothold editorial (own words)",
-      "path_types": "Foothold editorial; checked against data/raw/programs/programs_raw.json",
-      "skills_basis.foothold": {
-        "status": "SAMPLE",
-        "source_id": "foothold_taxonomy"
-      },
-      "coworkers": {
-        "status": "FICTIONAL",
-        "source_id": "foothold_fictional_coworkers"
-      },
-      "wage_outlook": "filled by the wages/outlook build step; preserved on rebuild"
-    }
+  "outlook": {
+   "growth_pct": 12.0,
+   "annual_openings": 269,
+   "period": "2023-2033",
+   "area": "Stockton-Lodi MSA (San Joaquin County)",
+   "total_openings_10yr": 2690,
+   "source_id": "edd_projections",
+   "status": "REAL",
+   "verify_url": "https://data.ca.gov/dataset/long-term-occupational-employment-projections",
+   "note": "annual_openings derived from EDD: 10-year total openings / 10."
   },
-  {
-    "id": "electrician",
-    "title": "Electrician (Apprenticeship Route)",
-    "onet_soc": "47-2111.00",
-    "onet_title": "Electricians",
-    "onet_url": "https://www.onetonline.org/link/summary/47-2111.00",
-    "summary": "Installs, maintains, and troubleshoots wiring, panels, lighting, and controls in homes, businesses, and industrial sites, following the National Electrical Code. In California, electricians usually train through a state-approved apprenticeship, or register as an electrician trainee while enrolled in an approved school, and then pass a state certification exam.",
-    "path_types": [
-      "certificate",
-      "apprenticeship"
-    ],
-    "work_styles": {
-      "innovation": 0.5095,
-      "achievement_orientation": 0.4444,
-      "intellectual_curiosity": 0.4848,
-      "tolerance_for_ambiguity": 0.3047,
-      "initiative": 0.4534,
-      "adaptability": 0.4837,
-      "self_confidence": 0.4927,
-      "perseverance": 0.6914,
-      "leadership_orientation": 0.5617,
-      "humility": 0.2879,
-      "sincerity": 0.4209,
-      "empathy": 0.3423,
-      "cooperation": 0.3322,
-      "optimism": 0.4708,
-      "social_orientation": 0.3451,
-      "cautiousness": 0.853,
-      "attention_to_detail": 0.5595,
-      "dependability": 0.7834,
-      "integrity": 0.4933,
-      "stress_tolerance": 0.4798,
-      "self_control": 0.4675
-    },
-    "distinctive_work_styles": [
-      "cautiousness",
-      "attention_to_detail",
-      "dependability"
-    ],
-    "skills": [
-      "electrical_theory",
-      "nec_code_basics",
-      "conduit_bending",
-      "blueprint_reading",
-      "lockout_tagout",
-      "installation",
-      "troubleshooting",
-      "repairing",
-      "equipment_selection",
-      "equipment_maintenance"
-    ],
-    "skills_basis": {
-      "foothold": [
-        "electrical_theory",
-        "nec_code_basics",
-        "conduit_bending",
-        "blueprint_reading",
-        "lockout_tagout"
-      ],
-      "onet": [
-        "installation",
-        "troubleshooting",
-        "repairing",
-        "equipment_selection",
-        "equipment_maintenance"
-      ],
-      "method": "foothold = Foothold job-specific skills (editorial); onet = the 5 O*NET 31.0 skills with the highest Importance relative to the all-occupation mean (z-score), among skills with IM >= 2.5"
-    },
-    "holland_code": "RC",
-    "wage": null,
-    "outlook": null,
-    "coworkers": [
-      {
-        "id": "dale_nakamura",
-        "name": "Dale Nakamura",
-        "pronouns": "he/him",
-        "role": "Foreman, journey-level electrician",
-        "style": "Methodical; zero tolerance for skipping lockout.",
-        "base_mood": "calm",
-        "fictional": true
-      },
-      {
-        "id": "yesenia_cruz",
-        "name": "Yesenia Cruz",
-        "pronouns": "she/her",
-        "role": "Second-year apprentice",
-        "style": "Fast learner and competitive; nervous about the code exam.",
-        "base_mood": "tense",
-        "fictional": true
-      },
-      {
-        "id": "ninos_youkhana",
-        "name": "Ninos Youkhana",
-        "pronouns": "he/him",
-        "role": "General contractor superintendent",
-        "style": "Schedule-driven; short on sleep and patience before inspections.",
-        "base_mood": "tired",
-        "fictional": true
-      }
-    ],
-    "provenance": {
-      "onet": {
-        "status": "REAL",
-        "source_id": "onet_31_0",
-        "fields": [
-          "onet_soc",
-          "onet_title",
-          "work_styles",
-          "distinctive_work_styles",
-          "skills_basis.onet",
-          "holland_code"
-        ]
-      },
-      "summary": "Foothold editorial (own words)",
-      "path_types": "Foothold editorial; checked against data/raw/programs/programs_raw.json",
-      "skills_basis.foothold": {
-        "status": "SAMPLE",
-        "source_id": "foothold_taxonomy"
-      },
-      "coworkers": {
-        "status": "FICTIONAL",
-        "source_id": "foothold_fictional_coworkers"
-      },
-      "wage_outlook": "filled by the wages/outlook build step; preserved on rebuild"
-    }
-  },
-  {
-    "id": "software_dev",
-    "title": "Software Developer",
-    "onet_soc": "15-1252.00",
-    "onet_title": "Software Developers",
-    "onet_url": "https://www.onetonline.org/link/summary/15-1252.00",
-    "summary": "Designs, writes, tests, and maintains software, from web and mobile apps to the systems behind farms, clinics, and warehouses. Day to day you break problems into small pieces, write code with a team, review each other's work, and fix bugs.",
-    "path_types": [
-      "cc_transfer",
-      "certificate",
-      "direct_to_work"
-    ],
-    "work_styles": {
-      "innovation": 0.968,
-      "achievement_orientation": 0.8917,
-      "intellectual_curiosity": 0.8687,
-      "tolerance_for_ambiguity": 0.9203,
-      "initiative": 0.7637,
-      "adaptability": 0.9035,
-      "self_confidence": 0.6122,
-      "perseverance": 0.6914,
-      "leadership_orientation": 0.6599,
-      "humility": 0.6016,
-      "sincerity": 0.4304,
-      "empathy": 0.4731,
-      "cooperation": 0.413,
-      "optimism": 0.4585,
-      "social_orientation": 0.4646,
-      "cautiousness": 0.4506,
-      "attention_to_detail": 0.7088,
-      "dependability": 0.4332,
-      "integrity": 0.4512,
-      "stress_tolerance": 0.4018,
-      "self_control": 0.1728
-    },
-    "distinctive_work_styles": [
-      "innovation",
-      "adaptability",
-      "achievement_orientation",
-      "intellectual_curiosity",
-      "attention_to_detail",
-      "dependability"
-    ],
-    "skills": [
-      "python",
-      "git",
-      "sql",
-      "web_fundamentals",
-      "software_testing",
-      "programming",
-      "technology_design",
-      "operations_analysis",
-      "systems_analysis",
-      "systems_evaluation"
-    ],
-    "skills_basis": {
-      "foothold": [
-        "python",
-        "git",
-        "sql",
-        "web_fundamentals",
-        "software_testing"
-      ],
-      "onet": [
-        "programming",
-        "technology_design",
-        "operations_analysis",
-        "systems_analysis",
-        "systems_evaluation"
-      ],
-      "method": "foothold = Foothold job-specific skills (editorial); onet = the 5 O*NET 31.0 skills with the highest Importance relative to the all-occupation mean (z-score), among skills with IM >= 2.5"
-    },
-    "holland_code": "IC",
-    "wage": null,
-    "outlook": null,
-    "coworkers": [
-      {
-        "id": "priya_raman",
-        "name": "Priya Raman",
-        "pronouns": "she/her",
-        "role": "Tech lead",
-        "style": "Kind but exacting in code review; always asks how you tested it.",
-        "base_mood": "calm",
-        "fictional": true
-      },
-      {
-        "id": "marcus_bell",
-        "name": "Marcus Bell",
-        "pronouns": "he/him",
-        "role": "Product manager",
-        "style": "Optimistic about deadlines; needs ideas turned into clear tickets.",
-        "base_mood": "upbeat",
-        "fictional": true
-      },
-      {
-        "id": "sokha_chhim",
-        "name": "Sokha Chhim",
-        "pronouns": "she/her",
-        "role": "QA engineer",
-        "style": "Finds the edge case nobody considered; dry sense of humor.",
-        "base_mood": "skeptical",
-        "fictional": true
-      }
-    ],
-    "provenance": {
-      "onet": {
-        "status": "REAL",
-        "source_id": "onet_31_0",
-        "fields": [
-          "onet_soc",
-          "onet_title",
-          "work_styles",
-          "distinctive_work_styles",
-          "skills_basis.onet",
-          "holland_code"
-        ]
-      },
-      "summary": "Foothold editorial (own words)",
-      "path_types": "Foothold editorial; checked against data/raw/programs/programs_raw.json",
-      "skills_basis.foothold": {
-        "status": "SAMPLE",
-        "source_id": "foothold_taxonomy"
-      },
-      "coworkers": {
-        "status": "FICTIONAL",
-        "source_id": "foothold_fictional_coworkers"
-      },
-      "wage_outlook": "filled by the wages/outlook build step; preserved on rebuild"
-    }
-  },
-  {
-    "id": "farm_ops_manager",
-    "title": "Farm Operations Manager",
-    "onet_soc": "11-9013.00",
-    "onet_title": "Farmers, Ranchers, and Other Agricultural Managers",
-    "onet_url": "https://www.onetonline.org/link/summary/11-9013.00",
-    "summary": "Plans and runs day-to-day farm operations: planting and harvest schedules, irrigation, equipment, crews, budgets, and food-safety and pesticide rules. It is part fieldwork and part business, and decisions depend on weather, water, and markets.",
-    "path_types": [
-      "cc_transfer",
-      "certificate",
-      "direct_to_work"
-    ],
-    "work_styles": {
-      "innovation": 0.7121,
-      "achievement_orientation": 0.7536,
-      "intellectual_curiosity": 0.5022,
-      "tolerance_for_ambiguity": 0.7935,
-      "initiative": 0.9097,
-      "adaptability": 0.7912,
-      "self_confidence": 0.8552,
-      "perseverance": 0.9708,
-      "leadership_orientation": 0.9753,
-      "humility": 0.578,
-      "sincerity": 0.4602,
-      "empathy": 0.4579,
-      "cooperation": 0.1246,
-      "optimism": 0.6756,
-      "social_orientation": 0.4203,
-      "cautiousness": 0.3148,
-      "attention_to_detail": 0.2935,
-      "dependability": 0.5303,
-      "integrity": 0.3558,
-      "stress_tolerance": 0.6756,
-      "self_control": 0.4933
-    },
-    "distinctive_work_styles": [
-      "leadership_orientation",
-      "perseverance",
-      "achievement_orientation",
-      "attention_to_detail",
-      "dependability"
-    ],
-    "skills": [
-      "irrigation_management",
-      "ag_equipment_operation",
-      "pesticide_safety",
-      "spreadsheets",
-      "osha_safety",
-      "management_of_financial_resources",
-      "management_of_material_resources",
-      "management_of_personnel_resources",
-      "negotiation",
-      "equipment_maintenance"
-    ],
-    "skills_basis": {
-      "foothold": [
-        "irrigation_management",
-        "ag_equipment_operation",
-        "pesticide_safety",
-        "spreadsheets",
-        "osha_safety"
-      ],
-      "onet": [
-        "management_of_financial_resources",
-        "management_of_material_resources",
-        "management_of_personnel_resources",
-        "negotiation",
-        "equipment_maintenance"
-      ],
-      "method": "foothold = Foothold job-specific skills (editorial); onet = the 5 O*NET 31.0 skills with the highest Importance relative to the all-occupation mean (z-score), among skills with IM >= 2.5"
-    },
-    "holland_code": "ERC",
-    "wage": null,
-    "outlook": null,
-    "coworkers": [
-      {
-        "id": "lupe_mendoza",
-        "name": "Lupe Mendoza",
-        "pronouns": "she/her",
-        "role": "Field crew supervisor",
-        "style": "Knows every row and every worker; protective of her crew.",
-        "base_mood": "tired",
-        "fictional": true
-      },
-      {
-        "id": "dirk_visser",
-        "name": "Dirk Visser",
-        "pronouns": "he/him",
-        "role": "Farm owner, third generation",
-        "style": "Proud of the land; wary of new tech until it pays off.",
-        "base_mood": "skeptical",
-        "fictional": true
-      },
-      {
-        "id": "navdeep_kaur",
-        "name": "Navdeep Kaur",
-        "pronouns": "she/her",
-        "role": "Irrigation and pest scout",
-        "style": "Data-driven; shows up with soil-moisture charts.",
-        "base_mood": "upbeat",
-        "fictional": true
-      }
-    ],
-    "provenance": {
-      "onet": {
-        "status": "REAL",
-        "source_id": "onet_31_0",
-        "fields": [
-          "onet_soc",
-          "onet_title",
-          "work_styles",
-          "distinctive_work_styles",
-          "skills_basis.onet",
-          "holland_code"
-        ]
-      },
-      "summary": "Foothold editorial (own words)",
-      "path_types": "Foothold editorial; checked against data/raw/programs/programs_raw.json",
-      "skills_basis.foothold": {
-        "status": "SAMPLE",
-        "source_id": "foothold_taxonomy"
-      },
-      "coworkers": {
-        "status": "FICTIONAL",
-        "source_id": "foothold_fictional_coworkers"
-      },
-      "wage_outlook": "filled by the wages/outlook build step; preserved on rebuild"
-    }
-  },
-  {
-    "id": "robotics_tech",
-    "title": "Robotics and Automation Technician",
-    "onet_soc": "17-3024.01",
-    "onet_title": "Robotics Technicians",
-    "onet_url": "https://www.onetonline.org/link/summary/17-3024.01",
-    "summary": "Keeps automated production lines running by installing, programming, and troubleshooting robots, PLCs, sensors, and conveyors in food processing, packaging, and manufacturing plants. Much of the job is figuring out why a machine stopped and fixing it safely and quickly.",
-    "path_types": [
-      "certificate",
-      "direct_to_work"
-    ],
-    "work_styles": {
-      "innovation": 0.7626,
-      "achievement_orientation": 0.5746,
-      "intellectual_curiosity": 0.6745,
-      "tolerance_for_ambiguity": 0.5331,
-      "initiative": 0.4731,
-      "adaptability": 0.6863,
-      "self_confidence": 0.4343,
-      "perseverance": 0.5645,
-      "leadership_orientation": 0.4237,
-      "humility": 0.2531,
-      "sincerity": 0.2789,
-      "empathy": 0.2262,
-      "cooperation": 0.312,
-      "optimism": 0.3911,
-      "social_orientation": 0.2643,
-      "cautiousness": 0.573,
-      "attention_to_detail": 0.6128,
-      "dependability": 0.4063,
-      "integrity": 0.3361,
-      "stress_tolerance": 0.3305,
-      "self_control": 0.2688
-    },
-    "distinctive_work_styles": [
-      "attention_to_detail",
-      "dependability"
-    ],
-    "skills": [
-      "plc_basics",
-      "sensors_actuators",
-      "robot_programming",
-      "electrical_theory",
-      "lockout_tagout",
-      "installation",
-      "repairing",
-      "equipment_maintenance",
-      "troubleshooting",
-      "technology_design"
-    ],
-    "skills_basis": {
-      "foothold": [
-        "plc_basics",
-        "sensors_actuators",
-        "robot_programming",
-        "electrical_theory",
-        "lockout_tagout"
-      ],
-      "onet": [
-        "installation",
-        "repairing",
-        "equipment_maintenance",
-        "troubleshooting",
-        "technology_design"
-      ],
-      "method": "foothold = Foothold job-specific skills (editorial); onet = the 5 O*NET 31.0 skills with the highest Importance relative to the all-occupation mean (z-score), among skills with IM >= 2.5"
-    },
-    "holland_code": "RCI",
-    "wage": null,
-    "outlook": null,
-    "coworkers": [
-      {
-        "id": "alejandro_ibarra",
-        "name": "Alejandro Ibarra",
-        "pronouns": "he/him",
-        "role": "Maintenance supervisor",
-        "style": "Wants the line running; values root-cause fixes over quick resets.",
-        "base_mood": "tense",
-        "fictional": true
-      },
-      {
-        "id": "mai_thao",
-        "name": "Mai Thao",
-        "pronouns": "she/her",
-        "role": "Controls technician",
-        "style": "Precise; documents every change to the PLC program.",
-        "base_mood": "calm",
-        "fictional": true
-      },
-      {
-        "id": "trevor_hall",
-        "name": "Trevor Hall",
-        "pronouns": "he/him",
-        "role": "Production line lead",
-        "style": "Friendly but impatient during downtime; counts cases per minute.",
-        "base_mood": "upbeat",
-        "fictional": true
-      }
-    ],
-    "provenance": {
-      "onet": {
-        "status": "REAL",
-        "source_id": "onet_31_0",
-        "fields": [
-          "onet_soc",
-          "onet_title",
-          "work_styles",
-          "distinctive_work_styles",
-          "skills_basis.onet",
-          "holland_code"
-        ]
-      },
-      "summary": "Foothold editorial (own words)",
-      "path_types": "Foothold editorial; checked against data/raw/programs/programs_raw.json",
-      "skills_basis.foothold": {
-        "status": "SAMPLE",
-        "source_id": "foothold_taxonomy"
-      },
-      "coworkers": {
-        "status": "FICTIONAL",
-        "source_id": "foothold_fictional_coworkers"
-      },
-      "wage_outlook": "filled by the wages/outlook build step; preserved on rebuild"
-    }
+  "coworkers": [
+   {
+    "id": "rosa_delgado",
+    "name": "Rosa Delgado",
+    "pronouns": "she/her",
+    "role": "Inbound dock supervisor",
+    "style": "Direct and fast; trusts people who flag problems early.",
+    "base_mood": "tense",
+    "fictional": true
+   },
+   {
+    "id": "tou_vang",
+    "name": "Tou Vang",
+    "pronouns": "he/him",
+    "role": "Forklift operator, night shift",
+    "style": "Quiet and safety-first; goes silent when he feels rushed.",
+    "base_mood": "tired",
+    "fictional": true
+   },
+   {
+    "id": "darnell_hayes",
+    "name": "Darnell Hayes",
+    "pronouns": "he/him",
+    "role": "Inventory control clerk",
+    "style": "Jokes a lot, but catches every count mismatch.",
+    "base_mood": "upbeat",
+    "fictional": true
+   }
+  ],
+  "provenance": {
+   "onet": {
+    "status": "REAL",
+    "source_id": "onet_31_0",
+    "fields": [
+     "onet_soc",
+     "onet_title",
+     "work_styles",
+     "distinctive_work_styles",
+     "skills_basis.onet",
+     "holland_code"
+    ]
+   },
+   "summary": "Foothold editorial (own words)",
+   "path_types": "Foothold editorial; checked against data/raw/programs/programs_raw.json",
+   "skills_basis.foothold": {
+    "status": "SAMPLE",
+    "source_id": "foothold_taxonomy"
+   },
+   "coworkers": {
+    "status": "FICTIONAL",
+    "source_id": "foothold_fictional_coworkers"
+   },
+   "wage_outlook": "filled by the wages/outlook build step; preserved on rebuild"
   }
+ },
+ {
+  "id": "registered_nurse",
+  "title": "Registered Nurse",
+  "onet_soc": "29-1141.00",
+  "onet_title": "Registered Nurses",
+  "onet_url": "https://www.onetonline.org/link/summary/29-1141.00",
+  "summary": "Cares for patients in hospitals, clinics, and home health. You assess how patients are doing, give medications and treatments safely, teach patients and families, and coordinate with doctors and the rest of the care team. Becoming an RN takes an approved nursing program and a passing score on the NCLEX-RN licensing exam.",
+  "path_types": [
+   "cc_transfer",
+   "certificate"
+  ],
+  "work_styles": {
+   "innovation": 0.624,
+   "achievement_orientation": 0.3737,
+   "intellectual_curiosity": 0.6033,
+   "tolerance_for_ambiguity": 0.7435,
+   "initiative": 0.578,
+   "adaptability": 0.9478,
+   "self_confidence": 0.7542,
+   "perseverance": 0.8866,
+   "leadership_orientation": 0.7699,
+   "humility": 0.9422,
+   "sincerity": 0.9444,
+   "empathy": 0.9046,
+   "cooperation": 0.9557,
+   "optimism": 0.826,
+   "social_orientation": 0.8474,
+   "cautiousness": 0.7587,
+   "attention_to_detail": 0.9299,
+   "dependability": 0.9585,
+   "integrity": 0.9001,
+   "stress_tolerance": 0.8855,
+   "self_control": 0.8496
+  },
+  "distinctive_work_styles": [
+   "sincerity",
+   "adaptability",
+   "perseverance",
+   "empathy",
+   "stress_tolerance",
+   "self_control",
+   "social_orientation",
+   "cooperation",
+   "cautiousness",
+   "integrity"
+  ],
+  "skills": [
+   "patient_assessment",
+   "medication_safety",
+   "infection_control",
+   "bls_cpr",
+   "ehr_charting",
+   "coordination",
+   "social_perceptiveness",
+   "service_orientation",
+   "judgment_and_decision_making",
+   "monitoring"
+  ],
+  "skills_basis": {
+   "foothold": [
+    "patient_assessment",
+    "medication_safety",
+    "infection_control",
+    "bls_cpr",
+    "ehr_charting"
+   ],
+   "onet": [
+    "coordination",
+    "social_perceptiveness",
+    "service_orientation",
+    "judgment_and_decision_making",
+    "monitoring"
+   ],
+   "method": "foothold = Foothold job-specific skills (editorial); onet = the 5 O*NET 31.0 skills with the highest Importance relative to the all-occupation mean (z-score), among skills with IM >= 2.5"
+  },
+  "holland_code": "SCI",
+  "wage": {
+   "median_hourly": 66.51,
+   "median_annual": 138347,
+   "p25_annual": 126073,
+   "p75_annual": 171695,
+   "p25_hourly": 60.61,
+   "p75_hourly": 82.55,
+   "area": "Stockton-Lodi MSA",
+   "period": "2026 Q1 (CA EDD OEWS; employment = May 2025 estimate)",
+   "soc": "29-1141",
+   "employment": 5460,
+   "source_id": "edd_oews_2026q1",
+   "status": "REAL",
+   "verify_url": "https://data.ca.gov/dataset/oews"
+  },
+  "outlook": {
+   "growth_pct": 8.2,
+   "annual_openings": 301,
+   "period": "2023-2033",
+   "area": "Stockton-Lodi MSA (San Joaquin County)",
+   "total_openings_10yr": 3010,
+   "source_id": "edd_projections",
+   "status": "REAL",
+   "verify_url": "https://data.ca.gov/dataset/long-term-occupational-employment-projections",
+   "note": "annual_openings derived from EDD: 10-year total openings / 10."
+  },
+  "coworkers": [
+   {
+    "id": "grace_villanueva",
+    "name": "Grace Villanueva",
+    "pronouns": "she/her",
+    "role": "Charge nurse",
+    "style": "Calm under pressure; expects clear, complete handoffs.",
+    "base_mood": "calm",
+    "fictional": true
+   },
+   {
+    "id": "harpreet_sandhu",
+    "name": "Harpreet Sandhu",
+    "pronouns": "he/him",
+    "role": "Hospitalist physician",
+    "style": "Brisk on rounds; listens closely when you bring vitals and trends.",
+    "base_mood": "skeptical",
+    "fictional": true
+   },
+   {
+    "id": "luz_herrera",
+    "name": "Luz Herrera",
+    "pronouns": "she/her",
+    "role": "Certified nursing assistant",
+    "style": "Warm with patients and stretched thin; notices who pitches in.",
+    "base_mood": "tired",
+    "fictional": true
+   }
+  ],
+  "provenance": {
+   "onet": {
+    "status": "REAL",
+    "source_id": "onet_31_0",
+    "fields": [
+     "onet_soc",
+     "onet_title",
+     "work_styles",
+     "distinctive_work_styles",
+     "skills_basis.onet",
+     "holland_code"
+    ]
+   },
+   "summary": "Foothold editorial (own words)",
+   "path_types": "Foothold editorial; checked against data/raw/programs/programs_raw.json",
+   "skills_basis.foothold": {
+    "status": "SAMPLE",
+    "source_id": "foothold_taxonomy"
+   },
+   "coworkers": {
+    "status": "FICTIONAL",
+    "source_id": "foothold_fictional_coworkers"
+   },
+   "wage_outlook": "filled by the wages/outlook build step; preserved on rebuild"
+  }
+ },
+ {
+  "id": "diesel_mechanic",
+  "title": "Diesel and Heavy-Equipment Mechanic",
+  "onet_soc": "49-3031.00",
+  "onet_title": "Bus and Truck Mechanics and Diesel Engine Specialists",
+  "onet_url": "https://www.onetonline.org/link/summary/49-3031.00",
+  "summary": "Inspects, diagnoses, and repairs diesel trucks, buses, and heavy equipment, including engines, air brakes, hydraulics, and electronic controls. The work mixes hands-on repair with computer diagnostics, and getting it right matters because these machines carry heavy loads on public roads and job sites.",
+  "path_types": [
+   "certificate",
+   "apprenticeship",
+   "direct_to_work"
+  ],
+  "work_styles": {
+   "innovation": 0.518,
+   "achievement_orientation": 0.3199,
+   "intellectual_curiosity": 0.4927,
+   "tolerance_for_ambiguity": 0.3676,
+   "initiative": 0.3575,
+   "adaptability": 0.298,
+   "self_confidence": 0.2609,
+   "perseverance": 0.6914,
+   "leadership_orientation": 0.3165,
+   "humility": 0.2531,
+   "sincerity": 0.3176,
+   "empathy": 0.2593,
+   "cooperation": 0.2037,
+   "optimism": 0.3911,
+   "social_orientation": 0.1734,
+   "cautiousness": 0.546,
+   "attention_to_detail": 0.5292,
+   "dependability": 0.4933,
+   "integrity": 0.2351,
+   "stress_tolerance": 0.4018,
+   "self_control": 0.1987
+  },
+  "distinctive_work_styles": [
+   "attention_to_detail",
+   "dependability"
+  ],
+  "skills": [
+   "diesel_diagnostics",
+   "hydraulics",
+   "air_brakes",
+   "lockout_tagout",
+   "osha_safety",
+   "repairing",
+   "troubleshooting",
+   "equipment_selection",
+   "equipment_maintenance",
+   "operations_monitoring"
+  ],
+  "skills_basis": {
+   "foothold": [
+    "diesel_diagnostics",
+    "hydraulics",
+    "air_brakes",
+    "lockout_tagout",
+    "osha_safety"
+   ],
+   "onet": [
+    "repairing",
+    "troubleshooting",
+    "equipment_selection",
+    "equipment_maintenance",
+    "operations_monitoring"
+   ],
+   "method": "foothold = Foothold job-specific skills (editorial); onet = the 5 O*NET 31.0 skills with the highest Importance relative to the all-occupation mean (z-score), among skills with IM >= 2.5"
+  },
+  "holland_code": "RCI",
+  "wage": {
+   "median_hourly": 34.81,
+   "median_annual": 72401,
+   "p25_annual": 54437,
+   "p75_annual": 81090,
+   "p25_hourly": 26.17,
+   "p75_hourly": 38.99,
+   "area": "Stockton-Lodi MSA",
+   "period": "2026 Q1 (CA EDD OEWS; employment = May 2025 estimate)",
+   "soc": "49-3031",
+   "employment": 760,
+   "source_id": "edd_oews_2026q1",
+   "status": "REAL",
+   "verify_url": "https://data.ca.gov/dataset/oews"
+  },
+  "outlook": {
+   "growth_pct": 8.7,
+   "annual_openings": 65,
+   "period": "2023-2033",
+   "area": "Stockton-Lodi MSA (San Joaquin County)",
+   "total_openings_10yr": 650,
+   "source_id": "edd_projections",
+   "status": "REAL",
+   "verify_url": "https://data.ca.gov/dataset/long-term-occupational-employment-projections",
+   "note": "annual_openings derived from EDD: 10-year total openings / 10."
+  },
+  "coworkers": [
+   {
+    "id": "manny_soares",
+    "name": "Manny Soares",
+    "pronouns": "he/him",
+    "role": "Shop foreman",
+    "style": "Old-school; explains once and hates comebacks.",
+    "base_mood": "skeptical",
+    "fictional": true
+   },
+   {
+    "id": "pao_xiong",
+    "name": "Pao Xiong",
+    "pronouns": "he/him",
+    "role": "Senior diesel technician",
+    "style": "Patient teacher who loves a tricky electrical fault.",
+    "base_mood": "calm",
+    "fictional": true
+   },
+   {
+    "id": "brenda_ochoa",
+    "name": "Brenda Ochoa",
+    "pronouns": "she/her",
+    "role": "Service writer",
+    "style": "Juggles impatient fleet customers; wants honest time estimates.",
+    "base_mood": "tense",
+    "fictional": true
+   }
+  ],
+  "provenance": {
+   "onet": {
+    "status": "REAL",
+    "source_id": "onet_31_0",
+    "fields": [
+     "onet_soc",
+     "onet_title",
+     "work_styles",
+     "distinctive_work_styles",
+     "skills_basis.onet",
+     "holland_code"
+    ]
+   },
+   "summary": "Foothold editorial (own words)",
+   "path_types": "Foothold editorial; checked against data/raw/programs/programs_raw.json",
+   "skills_basis.foothold": {
+    "status": "SAMPLE",
+    "source_id": "foothold_taxonomy"
+   },
+   "coworkers": {
+    "status": "FICTIONAL",
+    "source_id": "foothold_fictional_coworkers"
+   },
+   "wage_outlook": "filled by the wages/outlook build step; preserved on rebuild"
+  }
+ },
+ {
+  "id": "welder",
+  "title": "Welder and Fabricator",
+  "onet_soc": "51-4121.00",
+  "onet_title": "Welders, Cutters, Solderers, and Brazers",
+  "onet_url": "https://www.onetonline.org/link/summary/51-4121.00",
+  "summary": "Joins and cuts metal for farm equipment, structures, and repairs using MIG, TIG, and stick processes. You read prints, set up the machine, and check your own work. Skills are usually proven with a hands-on weld test.",
+  "path_types": [
+   "certificate",
+   "direct_to_work"
+  ],
+  "work_styles": {
+   "innovation": 0.3855,
+   "achievement_orientation": 0.2632,
+   "intellectual_curiosity": 0.3159,
+   "tolerance_for_ambiguity": 0.0774,
+   "initiative": 0.1734,
+   "adaptability": 0.1431,
+   "self_confidence": 0.2536,
+   "perseverance": 0.3154,
+   "leadership_orientation": 0.1712,
+   "humility": 0.1785,
+   "sincerity": 0.1122,
+   "empathy": 0.1173,
+   "cooperation": 0.0707,
+   "optimism": 0.147,
+   "social_orientation": 0.0864,
+   "cautiousness": 0.5988,
+   "attention_to_detail": 0.4388,
+   "dependability": 0.3485,
+   "integrity": 0.1566,
+   "stress_tolerance": 0.3575,
+   "self_control": 0.257
+  },
+  "distinctive_work_styles": [
+   "cautiousness",
+   "attention_to_detail",
+   "dependability"
+  ],
+  "skills": [
+   "mig_welding",
+   "tig_welding",
+   "stick_welding",
+   "blueprint_reading",
+   "osha_safety",
+   "quality_control_analysis",
+   "troubleshooting",
+   "operation_and_control",
+   "operations_monitoring"
+  ],
+  "skills_basis": {
+   "foothold": [
+    "mig_welding",
+    "tig_welding",
+    "stick_welding",
+    "blueprint_reading",
+    "osha_safety"
+   ],
+   "onet": [
+    "quality_control_analysis",
+    "troubleshooting",
+    "operation_and_control",
+    "operations_monitoring"
+   ],
+   "method": "foothold = Foothold job-specific skills (editorial); onet = the 5 O*NET 31.0 skills with the highest Importance relative to the all-occupation mean (z-score), among skills with IM >= 2.5"
+  },
+  "holland_code": "RC",
+  "wage": {
+   "median_hourly": 25.31,
+   "median_annual": 52655,
+   "p25_annual": 49320,
+   "p75_annual": 63036,
+   "p25_hourly": 23.71,
+   "p75_hourly": 30.31,
+   "area": "Stockton-Lodi MSA",
+   "period": "2026 Q1 (CA EDD OEWS; employment = May 2025 estimate)",
+   "soc": "51-4121",
+   "employment": 740,
+   "source_id": "edd_oews_2026q1",
+   "status": "REAL",
+   "verify_url": "https://data.ca.gov/dataset/oews"
+  },
+  "outlook": {
+   "growth_pct": 7.7,
+   "annual_openings": 71,
+   "period": "2023-2033",
+   "area": "Stockton-Lodi MSA (San Joaquin County)",
+   "total_openings_10yr": 710,
+   "source_id": "edd_projections",
+   "status": "REAL",
+   "verify_url": "https://data.ca.gov/dataset/long-term-occupational-employment-projections",
+   "note": "annual_openings derived from EDD: 10-year total openings / 10."
+  },
+  "coworkers": [
+   {
+    "id": "ernesto_ruiz",
+    "name": "Ernesto Ruiz",
+    "pronouns": "he/him",
+    "role": "Lead welder and fitter",
+    "style": "Perfectionist about fit-up; quiet praise for a clean bead.",
+    "base_mood": "calm",
+    "fictional": true
+   },
+   {
+    "id": "kayla_brooks",
+    "name": "Kayla Brooks",
+    "pronouns": "she/her",
+    "role": "Welding apprentice",
+    "style": "Eager and full of questions; sometimes rushes the prep.",
+    "base_mood": "upbeat",
+    "fictional": true
+   },
+   {
+    "id": "arman_petrosyan",
+    "name": "Arman Petrosyan",
+    "pronouns": "he/him",
+    "role": "Quality inspector",
+    "style": "Measures everything and trusts paperwork over promises.",
+    "base_mood": "skeptical",
+    "fictional": true
+   }
+  ],
+  "provenance": {
+   "onet": {
+    "status": "REAL",
+    "source_id": "onet_31_0",
+    "fields": [
+     "onet_soc",
+     "onet_title",
+     "work_styles",
+     "distinctive_work_styles",
+     "skills_basis.onet",
+     "holland_code"
+    ]
+   },
+   "summary": "Foothold editorial (own words)",
+   "path_types": "Foothold editorial; checked against data/raw/programs/programs_raw.json",
+   "skills_basis.foothold": {
+    "status": "SAMPLE",
+    "source_id": "foothold_taxonomy"
+   },
+   "coworkers": {
+    "status": "FICTIONAL",
+    "source_id": "foothold_fictional_coworkers"
+   },
+   "wage_outlook": "filled by the wages/outlook build step; preserved on rebuild"
+  }
+ },
+ {
+  "id": "electrician",
+  "title": "Electrician (Apprenticeship Route)",
+  "onet_soc": "47-2111.00",
+  "onet_title": "Electricians",
+  "onet_url": "https://www.onetonline.org/link/summary/47-2111.00",
+  "summary": "Installs, maintains, and troubleshoots wiring, panels, lighting, and controls in homes, businesses, and industrial sites, following the National Electrical Code. In California, electricians usually train through a state-approved apprenticeship, or register as an electrician trainee while enrolled in an approved school, and then pass a state certification exam.",
+  "path_types": [
+   "certificate",
+   "apprenticeship"
+  ],
+  "work_styles": {
+   "innovation": 0.5095,
+   "achievement_orientation": 0.4444,
+   "intellectual_curiosity": 0.4848,
+   "tolerance_for_ambiguity": 0.3047,
+   "initiative": 0.4534,
+   "adaptability": 0.4837,
+   "self_confidence": 0.4927,
+   "perseverance": 0.6914,
+   "leadership_orientation": 0.5617,
+   "humility": 0.2879,
+   "sincerity": 0.4209,
+   "empathy": 0.3423,
+   "cooperation": 0.3322,
+   "optimism": 0.4708,
+   "social_orientation": 0.3451,
+   "cautiousness": 0.853,
+   "attention_to_detail": 0.5595,
+   "dependability": 0.7834,
+   "integrity": 0.4933,
+   "stress_tolerance": 0.4798,
+   "self_control": 0.4675
+  },
+  "distinctive_work_styles": [
+   "cautiousness",
+   "attention_to_detail",
+   "dependability"
+  ],
+  "skills": [
+   "electrical_theory",
+   "nec_code_basics",
+   "conduit_bending",
+   "blueprint_reading",
+   "lockout_tagout",
+   "installation",
+   "troubleshooting",
+   "repairing",
+   "equipment_selection",
+   "equipment_maintenance"
+  ],
+  "skills_basis": {
+   "foothold": [
+    "electrical_theory",
+    "nec_code_basics",
+    "conduit_bending",
+    "blueprint_reading",
+    "lockout_tagout"
+   ],
+   "onet": [
+    "installation",
+    "troubleshooting",
+    "repairing",
+    "equipment_selection",
+    "equipment_maintenance"
+   ],
+   "method": "foothold = Foothold job-specific skills (editorial); onet = the 5 O*NET 31.0 skills with the highest Importance relative to the all-occupation mean (z-score), among skills with IM >= 2.5"
+  },
+  "holland_code": "RC",
+  "wage": {
+   "median_hourly": 37.74,
+   "median_annual": 78480,
+   "p25_annual": 60218,
+   "p75_annual": 105225,
+   "p25_hourly": 28.95,
+   "p75_hourly": 50.59,
+   "area": "Stockton-Lodi MSA",
+   "period": "2026 Q1 (CA EDD OEWS; employment = May 2025 estimate)",
+   "soc": "47-2111",
+   "employment": 1180,
+   "source_id": "edd_oews_2026q1",
+   "status": "REAL",
+   "verify_url": "https://data.ca.gov/dataset/oews"
+  },
+  "outlook": {
+   "growth_pct": 25.8,
+   "annual_openings": 149,
+   "period": "2023-2033",
+   "area": "Stockton-Lodi MSA (San Joaquin County)",
+   "total_openings_10yr": 1490,
+   "source_id": "edd_projections",
+   "status": "REAL",
+   "verify_url": "https://data.ca.gov/dataset/long-term-occupational-employment-projections",
+   "note": "annual_openings derived from EDD: 10-year total openings / 10."
+  },
+  "coworkers": [
+   {
+    "id": "dale_nakamura",
+    "name": "Dale Nakamura",
+    "pronouns": "he/him",
+    "role": "Foreman, journey-level electrician",
+    "style": "Methodical; zero tolerance for skipping lockout.",
+    "base_mood": "calm",
+    "fictional": true
+   },
+   {
+    "id": "yesenia_cruz",
+    "name": "Yesenia Cruz",
+    "pronouns": "she/her",
+    "role": "Second-year apprentice",
+    "style": "Fast learner and competitive; nervous about the code exam.",
+    "base_mood": "tense",
+    "fictional": true
+   },
+   {
+    "id": "ninos_youkhana",
+    "name": "Ninos Youkhana",
+    "pronouns": "he/him",
+    "role": "General contractor superintendent",
+    "style": "Schedule-driven; short on sleep and patience before inspections.",
+    "base_mood": "tired",
+    "fictional": true
+   }
+  ],
+  "provenance": {
+   "onet": {
+    "status": "REAL",
+    "source_id": "onet_31_0",
+    "fields": [
+     "onet_soc",
+     "onet_title",
+     "work_styles",
+     "distinctive_work_styles",
+     "skills_basis.onet",
+     "holland_code"
+    ]
+   },
+   "summary": "Foothold editorial (own words)",
+   "path_types": "Foothold editorial; checked against data/raw/programs/programs_raw.json",
+   "skills_basis.foothold": {
+    "status": "SAMPLE",
+    "source_id": "foothold_taxonomy"
+   },
+   "coworkers": {
+    "status": "FICTIONAL",
+    "source_id": "foothold_fictional_coworkers"
+   },
+   "wage_outlook": "filled by the wages/outlook build step; preserved on rebuild"
+  }
+ },
+ {
+  "id": "software_dev",
+  "title": "Software Developer",
+  "onet_soc": "15-1252.00",
+  "onet_title": "Software Developers",
+  "onet_url": "https://www.onetonline.org/link/summary/15-1252.00",
+  "summary": "Designs, writes, tests, and maintains software, from web and mobile apps to the systems behind farms, clinics, and warehouses. Day to day you break problems into small pieces, write code with a team, review each other's work, and fix bugs.",
+  "path_types": [
+   "cc_transfer",
+   "certificate",
+   "direct_to_work"
+  ],
+  "work_styles": {
+   "innovation": 0.968,
+   "achievement_orientation": 0.8917,
+   "intellectual_curiosity": 0.8687,
+   "tolerance_for_ambiguity": 0.9203,
+   "initiative": 0.7637,
+   "adaptability": 0.9035,
+   "self_confidence": 0.6122,
+   "perseverance": 0.6914,
+   "leadership_orientation": 0.6599,
+   "humility": 0.6016,
+   "sincerity": 0.4304,
+   "empathy": 0.4731,
+   "cooperation": 0.413,
+   "optimism": 0.4585,
+   "social_orientation": 0.4646,
+   "cautiousness": 0.4506,
+   "attention_to_detail": 0.7088,
+   "dependability": 0.4332,
+   "integrity": 0.4512,
+   "stress_tolerance": 0.4018,
+   "self_control": 0.1728
+  },
+  "distinctive_work_styles": [
+   "innovation",
+   "adaptability",
+   "achievement_orientation",
+   "intellectual_curiosity",
+   "attention_to_detail",
+   "dependability"
+  ],
+  "skills": [
+   "python",
+   "git",
+   "sql",
+   "web_fundamentals",
+   "software_testing",
+   "programming",
+   "technology_design",
+   "operations_analysis",
+   "systems_analysis",
+   "systems_evaluation"
+  ],
+  "skills_basis": {
+   "foothold": [
+    "python",
+    "git",
+    "sql",
+    "web_fundamentals",
+    "software_testing"
+   ],
+   "onet": [
+    "programming",
+    "technology_design",
+    "operations_analysis",
+    "systems_analysis",
+    "systems_evaluation"
+   ],
+   "method": "foothold = Foothold job-specific skills (editorial); onet = the 5 O*NET 31.0 skills with the highest Importance relative to the all-occupation mean (z-score), among skills with IM >= 2.5"
+  },
+  "holland_code": "IC",
+  "wage": {
+   "median_hourly": 68.47,
+   "median_annual": 142428,
+   "p25_annual": 123914,
+   "p75_annual": 182160,
+   "p25_hourly": 59.57,
+   "p75_hourly": 87.57,
+   "area": "Stockton-Lodi MSA",
+   "period": "2026 Q1 (CA EDD OEWS; employment = May 2025 estimate)",
+   "soc": "15-1252",
+   "employment": 570,
+   "source_id": "edd_oews_2026q1",
+   "status": "REAL",
+   "verify_url": "https://data.ca.gov/dataset/oews"
+  },
+  "outlook": {
+   "growth_pct": 16.9,
+   "annual_openings": 43,
+   "period": "2023-2033",
+   "area": "Stockton-Lodi MSA (San Joaquin County)",
+   "total_openings_10yr": 430,
+   "source_id": "edd_projections",
+   "status": "REAL",
+   "verify_url": "https://data.ca.gov/dataset/long-term-occupational-employment-projections",
+   "note": "annual_openings derived from EDD: 10-year total openings / 10."
+  },
+  "coworkers": [
+   {
+    "id": "priya_raman",
+    "name": "Priya Raman",
+    "pronouns": "she/her",
+    "role": "Tech lead",
+    "style": "Kind but exacting in code review; always asks how you tested it.",
+    "base_mood": "calm",
+    "fictional": true
+   },
+   {
+    "id": "marcus_bell",
+    "name": "Marcus Bell",
+    "pronouns": "he/him",
+    "role": "Product manager",
+    "style": "Optimistic about deadlines; needs ideas turned into clear tickets.",
+    "base_mood": "upbeat",
+    "fictional": true
+   },
+   {
+    "id": "sokha_chhim",
+    "name": "Sokha Chhim",
+    "pronouns": "she/her",
+    "role": "QA engineer",
+    "style": "Finds the edge case nobody considered; dry sense of humor.",
+    "base_mood": "skeptical",
+    "fictional": true
+   }
+  ],
+  "provenance": {
+   "onet": {
+    "status": "REAL",
+    "source_id": "onet_31_0",
+    "fields": [
+     "onet_soc",
+     "onet_title",
+     "work_styles",
+     "distinctive_work_styles",
+     "skills_basis.onet",
+     "holland_code"
+    ]
+   },
+   "summary": "Foothold editorial (own words)",
+   "path_types": "Foothold editorial; checked against data/raw/programs/programs_raw.json",
+   "skills_basis.foothold": {
+    "status": "SAMPLE",
+    "source_id": "foothold_taxonomy"
+   },
+   "coworkers": {
+    "status": "FICTIONAL",
+    "source_id": "foothold_fictional_coworkers"
+   },
+   "wage_outlook": "filled by the wages/outlook build step; preserved on rebuild"
+  }
+ },
+ {
+  "id": "farm_ops_manager",
+  "title": "Farm Operations Manager",
+  "onet_soc": "11-9013.00",
+  "onet_title": "Farmers, Ranchers, and Other Agricultural Managers",
+  "onet_url": "https://www.onetonline.org/link/summary/11-9013.00",
+  "summary": "Plans and runs day-to-day farm operations: planting and harvest schedules, irrigation, equipment, crews, budgets, and food-safety and pesticide rules. It is part fieldwork and part business, and decisions depend on weather, water, and markets.",
+  "path_types": [
+   "cc_transfer",
+   "certificate",
+   "direct_to_work"
+  ],
+  "work_styles": {
+   "innovation": 0.7121,
+   "achievement_orientation": 0.7536,
+   "intellectual_curiosity": 0.5022,
+   "tolerance_for_ambiguity": 0.7935,
+   "initiative": 0.9097,
+   "adaptability": 0.7912,
+   "self_confidence": 0.8552,
+   "perseverance": 0.9708,
+   "leadership_orientation": 0.9753,
+   "humility": 0.578,
+   "sincerity": 0.4602,
+   "empathy": 0.4579,
+   "cooperation": 0.1246,
+   "optimism": 0.6756,
+   "social_orientation": 0.4203,
+   "cautiousness": 0.3148,
+   "attention_to_detail": 0.2935,
+   "dependability": 0.5303,
+   "integrity": 0.3558,
+   "stress_tolerance": 0.6756,
+   "self_control": 0.4933
+  },
+  "distinctive_work_styles": [
+   "leadership_orientation",
+   "perseverance",
+   "achievement_orientation",
+   "attention_to_detail",
+   "dependability"
+  ],
+  "skills": [
+   "irrigation_management",
+   "ag_equipment_operation",
+   "pesticide_safety",
+   "spreadsheets",
+   "osha_safety",
+   "management_of_financial_resources",
+   "management_of_material_resources",
+   "management_of_personnel_resources",
+   "negotiation",
+   "equipment_maintenance"
+  ],
+  "skills_basis": {
+   "foothold": [
+    "irrigation_management",
+    "ag_equipment_operation",
+    "pesticide_safety",
+    "spreadsheets",
+    "osha_safety"
+   ],
+   "onet": [
+    "management_of_financial_resources",
+    "management_of_material_resources",
+    "management_of_personnel_resources",
+    "negotiation",
+    "equipment_maintenance"
+   ],
+   "method": "foothold = Foothold job-specific skills (editorial); onet = the 5 O*NET 31.0 skills with the highest Importance relative to the all-occupation mean (z-score), among skills with IM >= 2.5"
+  },
+  "holland_code": "ERC",
+  "wage": {
+   "median_hourly": 49.85,
+   "median_annual": 103701,
+   "p25_annual": 93523,
+   "p75_annual": 134713,
+   "p25_hourly": 44.96,
+   "p75_hourly": 64.77,
+   "area": "Stockton-Lodi MSA",
+   "period": "2026 Q1 (CA EDD OEWS; employment = May 2025 estimate)",
+   "soc": "11-9013",
+   "employment": 100,
+   "source_id": "edd_oews_2026q1",
+   "status": "REAL",
+   "verify_url": "https://data.ca.gov/dataset/oews",
+   "note": "Small sample: OEWS estimates 100 jobs locally (relative standard error of the mean wage 5.5%). OEWS covers wage-and-salary managers only, not self-employed farmers."
+  },
+  "outlook": {
+   "growth_pct": -8.0,
+   "annual_openings": 198,
+   "period": "2023-2033",
+   "area": "Stockton-Lodi MSA (San Joaquin County)",
+   "total_openings_10yr": 1980,
+   "source_id": "edd_projections",
+   "status": "REAL",
+   "verify_url": "https://data.ca.gov/dataset/long-term-occupational-employment-projections",
+   "note": "annual_openings derived from EDD: 10-year total openings / 10."
+  },
+  "coworkers": [
+   {
+    "id": "lupe_mendoza",
+    "name": "Lupe Mendoza",
+    "pronouns": "she/her",
+    "role": "Field crew supervisor",
+    "style": "Knows every row and every worker; protective of her crew.",
+    "base_mood": "tired",
+    "fictional": true
+   },
+   {
+    "id": "dirk_visser",
+    "name": "Dirk Visser",
+    "pronouns": "he/him",
+    "role": "Farm owner, third generation",
+    "style": "Proud of the land; wary of new tech until it pays off.",
+    "base_mood": "skeptical",
+    "fictional": true
+   },
+   {
+    "id": "navdeep_kaur",
+    "name": "Navdeep Kaur",
+    "pronouns": "she/her",
+    "role": "Irrigation and pest scout",
+    "style": "Data-driven; shows up with soil-moisture charts.",
+    "base_mood": "upbeat",
+    "fictional": true
+   }
+  ],
+  "provenance": {
+   "onet": {
+    "status": "REAL",
+    "source_id": "onet_31_0",
+    "fields": [
+     "onet_soc",
+     "onet_title",
+     "work_styles",
+     "distinctive_work_styles",
+     "skills_basis.onet",
+     "holland_code"
+    ]
+   },
+   "summary": "Foothold editorial (own words)",
+   "path_types": "Foothold editorial; checked against data/raw/programs/programs_raw.json",
+   "skills_basis.foothold": {
+    "status": "SAMPLE",
+    "source_id": "foothold_taxonomy"
+   },
+   "coworkers": {
+    "status": "FICTIONAL",
+    "source_id": "foothold_fictional_coworkers"
+   },
+   "wage_outlook": "filled by the wages/outlook build step; preserved on rebuild"
+  }
+ },
+ {
+  "id": "robotics_tech",
+  "title": "Robotics and Automation Technician",
+  "onet_soc": "17-3024.01",
+  "onet_title": "Robotics Technicians",
+  "onet_url": "https://www.onetonline.org/link/summary/17-3024.01",
+  "summary": "Keeps automated production lines running by installing, programming, and troubleshooting robots, PLCs, sensors, and conveyors in food processing, packaging, and manufacturing plants. Much of the job is figuring out why a machine stopped and fixing it safely and quickly.",
+  "path_types": [
+   "certificate",
+   "direct_to_work"
+  ],
+  "work_styles": {
+   "innovation": 0.7626,
+   "achievement_orientation": 0.5746,
+   "intellectual_curiosity": 0.6745,
+   "tolerance_for_ambiguity": 0.5331,
+   "initiative": 0.4731,
+   "adaptability": 0.6863,
+   "self_confidence": 0.4343,
+   "perseverance": 0.5645,
+   "leadership_orientation": 0.4237,
+   "humility": 0.2531,
+   "sincerity": 0.2789,
+   "empathy": 0.2262,
+   "cooperation": 0.312,
+   "optimism": 0.3911,
+   "social_orientation": 0.2643,
+   "cautiousness": 0.573,
+   "attention_to_detail": 0.6128,
+   "dependability": 0.4063,
+   "integrity": 0.3361,
+   "stress_tolerance": 0.3305,
+   "self_control": 0.2688
+  },
+  "distinctive_work_styles": [
+   "attention_to_detail",
+   "dependability"
+  ],
+  "skills": [
+   "plc_basics",
+   "sensors_actuators",
+   "robot_programming",
+   "electrical_theory",
+   "lockout_tagout",
+   "installation",
+   "repairing",
+   "equipment_maintenance",
+   "troubleshooting",
+   "technology_design"
+  ],
+  "skills_basis": {
+   "foothold": [
+    "plc_basics",
+    "sensors_actuators",
+    "robot_programming",
+    "electrical_theory",
+    "lockout_tagout"
+   ],
+   "onet": [
+    "installation",
+    "repairing",
+    "equipment_maintenance",
+    "troubleshooting",
+    "technology_design"
+   ],
+   "method": "foothold = Foothold job-specific skills (editorial); onet = the 5 O*NET 31.0 skills with the highest Importance relative to the all-occupation mean (z-score), among skills with IM >= 2.5"
+  },
+  "holland_code": "RCI",
+  "wage": {
+   "median_hourly": 38.85,
+   "median_annual": 80790,
+   "p25_annual": 73316,
+   "p75_annual": 98050,
+   "p25_hourly": 35.25,
+   "p75_hourly": 47.14,
+   "area": "Sacramento-Roseville-Folsom MSA",
+   "period": "2026 Q1 (CA EDD OEWS; employment = May 2025 estimate)",
+   "soc": "17-3024",
+   "employment": 40,
+   "source_id": "edd_oews_2026q1",
+   "status": "REAL",
+   "verify_url": "https://data.ca.gov/dataset/oews",
+   "note": "No Stockton-Lodi row for 17-3024 in EDD OEWS 2026 Q1. Shown: Sacramento-Roseville-Folsom MSA (not local; about 40 jobs, RSE 3.2%). California statewide median: $40.31/h, $83,833/yr.",
+   "fallback": true
+  },
+  "outlook": {
+   "growth_pct": 5.3,
+   "annual_openings": 170,
+   "period": "2024-2034",
+   "area": "California",
+   "total_openings_10yr": 1700,
+   "source_id": "edd_projections",
+   "status": "REAL",
+   "verify_url": "https://data.ca.gov/dataset/long-term-occupational-employment-projections",
+   "note": "annual_openings derived from EDD: 10-year total openings / 10. No Stockton-Lodi projection for this occupation; California statewide shown."
+  },
+  "coworkers": [
+   {
+    "id": "alejandro_ibarra",
+    "name": "Alejandro Ibarra",
+    "pronouns": "he/him",
+    "role": "Maintenance supervisor",
+    "style": "Wants the line running; values root-cause fixes over quick resets.",
+    "base_mood": "tense",
+    "fictional": true
+   },
+   {
+    "id": "mai_thao",
+    "name": "Mai Thao",
+    "pronouns": "she/her",
+    "role": "Controls technician",
+    "style": "Precise; documents every change to the PLC program.",
+    "base_mood": "calm",
+    "fictional": true
+   },
+   {
+    "id": "trevor_hall",
+    "name": "Trevor Hall",
+    "pronouns": "he/him",
+    "role": "Production line lead",
+    "style": "Friendly but impatient during downtime; counts cases per minute.",
+    "base_mood": "upbeat",
+    "fictional": true
+   }
+  ],
+  "provenance": {
+   "onet": {
+    "status": "REAL",
+    "source_id": "onet_31_0",
+    "fields": [
+     "onet_soc",
+     "onet_title",
+     "work_styles",
+     "distinctive_work_styles",
+     "skills_basis.onet",
+     "holland_code"
+    ]
+   },
+   "summary": "Foothold editorial (own words)",
+   "path_types": "Foothold editorial; checked against data/raw/programs/programs_raw.json",
+   "skills_basis.foothold": {
+    "status": "SAMPLE",
+    "source_id": "foothold_taxonomy"
+   },
+   "coworkers": {
+    "status": "FICTIONAL",
+    "source_id": "foothold_fictional_coworkers"
+   },
+   "wage_outlook": "filled by the wages/outlook build step; preserved on rebuild"
+  }
+ }
 ]

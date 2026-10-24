@@ -1,0 +1,11 @@
+{
+  "created_at": "2026-10-24T22:23:09+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "paragraph": "You worked through a day of roadside pressure, an intermittent fault, a brake repair, a repair-versus-replace decision, and a new scan tool without a crunch. Your strongest work styles—integrity, cautiousness, and perseverance—showed up in how you handled uncertainty and kept safety in view. Your practice signals point toward registered nursing, an electrician apprenticeship route, and logistics operations leadership; these are practice signals, not a verdict. Take a moment to note which challenge brought out your best judgment and what you’d like to strengthen next."
+  },
+  "schema": "ReportSummary",
+  "task": "sim_summary"
+}

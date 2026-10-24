@@ -1,0 +1,44 @@
+{
+  "created_at": "2026-10-24T22:25:22+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "career_id": "diesel_mechanic",
+    "injection_attempt": false,
+    "injection_note": null,
+    "min_hours_per_week": null,
+    "role_title": "Diesel Technician Apprentice",
+    "shift": "unspecified",
+    "skills": [
+      {
+        "evidence": "help our lead mechanic diagnose diesel engines",
+        "importance": "required",
+        "skill_id": "diesel_diagnostics"
+      },
+      {
+        "evidence": "service hydraulic lift gates",
+        "importance": "required",
+        "skill_id": "hydraulics"
+      },
+      {
+        "evidence": "do preventive maintenance on our fleet",
+        "importance": "required",
+        "skill_id": "equipment_maintenance"
+      },
+      {
+        "evidence": "troubleshoot electrical faults",
+        "importance": "required",
+        "skill_id": "troubleshooting"
+      },
+      {
+        "evidence": "Basic MIG welding for bracket repairs is a plus",
+        "importance": "preferred",
+        "skill_id": "mig_welding"
+      }
+    ],
+    "summary": "A diesel technician apprentice assists with diagnosing, maintaining, and repairing fleet trucks and equipment."
+  },
+  "schema": "PostingProfile",
+  "task": "employer.parse_posting"
+}

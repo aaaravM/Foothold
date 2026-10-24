@@ -55,7 +55,11 @@ export function SiteFooter() {
               All people, employers and circle members in Foothold are fictional. Wages, costs and program details carry a
               provenance label (REAL, SAMPLE, SYNTHETIC or FICTIONAL) with a link to verify. Sources and methods:{" "}
               <Link href="/about" className="text-ink underline decoration-line-strong underline-offset-4 hover:text-accent hover:decoration-accent">
-                Sheet 07, About
+                About &amp; data sources
+              </Link>
+              . How the models are measured:{" "}
+              <Link href="/lab" className="text-ink underline decoration-line-strong underline-offset-4 hover:text-accent hover:decoration-accent">
+                Model lab
               </Link>
               .
             </p>

@@ -1,0 +1,13 @@
+{
+  "created_at": "2026-10-24T22:22:08+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "line": "Good. Pull the codes and run it through before we promise a time. Brenda can update the driver once we know what we’re dealing with.",
+    "mood_delta": 7,
+    "reaction": "approves"
+  },
+  "schema": "CoworkerReaction",
+  "task": "sim_coworker"
+}

@@ -1,0 +1,223 @@
+{
+ "fictional": true,
+ "status": "FICTIONAL",
+ "source_id": "foothold_personas",
+ "note": "All personas are fictional composites; no real person is described.",
+ "personas": [
+  {
+   "id": "maya",
+   "kind": "learner",
+   "fictional": true,
+   "name": "Maya",
+   "display_name": "Maya Ortiz",
+   "age": 16,
+   "grade": "11th grade (junior)",
+   "region": "Stockton (San Joaquin County)",
+   "interests": [
+    "engineering",
+    "robotics club",
+    "math"
+   ],
+   "target_career": "robotics_tech",
+   "interests_careers": [
+    "robotics_tech",
+    "software_dev",
+    "electrician"
+   ],
+   "goal": "Transfer to a UC (UC Merced engineering) without debt; start college classes while in high school.",
+   "story": "Robotics club builder who wants a UC but worries about cost and getting to campus by bus.",
+   "current_credits": 0,
+   "hours_per_week": 10,
+   "budget_usd": 4000,
+   "commute_minutes": 35,
+   "commute_mode": "bus",
+   "dependents": 0,
+   "available_windows": [
+    {
+     "days": [
+      "Mon",
+      "Tue",
+      "Wed",
+      "Thu",
+      "Fri"
+     ],
+     "start": "15:30",
+     "end": "21:00"
+    },
+    {
+     "days": [
+      "Sat"
+     ],
+     "start": "09:00",
+     "end": "17:00"
+    }
+   ],
+   "constraints": {
+    "hours_per_week": 10,
+    "budget_usd": 4000,
+    "commute_minutes": 35,
+    "dependents": 0,
+    "current_credits": 0,
+    "no_class_before": "15:30",
+    "days_off": [
+     "Sun"
+    ]
+   },
+   "preferred_routes": [
+    "cc_transfer",
+    "certificate"
+   ],
+   "budget_note": "Whole-plan budget (fictional): family can set aside about $100 a month. Fee waivers such as the California College Promise Grant may lower costs (not verified here)."
+  },
+  {
+   "id": "dev",
+   "kind": "learner",
+   "fictional": true,
+   "name": "Dev",
+   "display_name": "Dev Sandhu",
+   "age": 41,
+   "region": "Lathrop (San Joaquin County)",
+   "current_job": "Warehouse order picker",
+   "current_job_soc": "53-7062",
+   "current_wage_hourly": 23.25,
+   "current_wage_note": "Stockton-Lodi median for 53-7062 (CA EDD OEWS 2026 Q1), used as Dev's fictional wage.",
+   "interests": [
+    "fixing equipment",
+    "automation",
+    "steady pay"
+   ],
+   "target_career": "robotics_tech",
+   "interests_careers": [
+    "robotics_tech",
+    "diesel_mechanic",
+    "logistics_lead"
+   ],
+   "goal": "Move from picking to maintaining the robots that are replacing picking jobs, without losing income.",
+   "story": "Twelve years in warehouses; the new automated picking system made him curious, not scared.",
+   "current_credits": 0,
+   "hours_per_week": 10,
+   "work_hours_per_week": 45,
+   "budget_usd": 2000,
+   "commute_minutes": 20,
+   "commute_mode": "car",
+   "dependents": 2,
+   "available_windows": [
+    {
+     "days": [
+      "Mon",
+      "Tue",
+      "Wed",
+      "Thu",
+      "Fri"
+     ],
+     "start": "18:00",
+     "end": "22:00"
+    },
+    {
+     "days": [
+      "Sat",
+      "Sun"
+     ],
+     "start": "08:00",
+     "end": "16:00"
+    }
+   ],
+   "constraints": {
+    "hours_per_week": 10,
+    "budget_usd": 2000,
+    "commute_minutes": 20,
+    "dependents": 2,
+    "current_credits": 0,
+    "no_class_before": "17:30"
+   },
+   "preferred_routes": [
+    "certificate",
+    "direct_to_work"
+   ]
+  },
+  {
+   "id": "luis",
+   "kind": "learner",
+   "fictional": true,
+   "name": "Luis",
+   "display_name": "Luis Navarro",
+   "age": 18,
+   "grade": "12th grade (senior)",
+   "region": "Manteca (San Joaquin County)",
+   "family_business": "family farm-equipment repair shop (about 15 h/week)",
+   "interests": [
+    "diesel engines",
+    "farm equipment",
+    "welding"
+   ],
+   "target_career": "diesel_mechanic",
+   "interests_careers": [
+    "diesel_mechanic",
+    "welder",
+    "farm_ops_manager"
+   ],
+   "goal": "Get certified on diesel and farm equipment so he can grow the family shop.",
+   "story": "Has rebuilt tractor hydraulics with his uncle since he was 13; wants papers to prove it.",
+   "current_credits": 0,
+   "hours_per_week": 14,
+   "work_hours_per_week": 15,
+   "budget_usd": 1500,
+   "commute_minutes": 25,
+   "commute_mode": "car",
+   "dependents": 0,
+   "available_windows": [
+    {
+     "days": [
+      "Mon",
+      "Tue",
+      "Wed",
+      "Thu",
+      "Fri"
+     ],
+     "start": "07:30",
+     "end": "14:30"
+    },
+    {
+     "days": [
+      "Tue",
+      "Thu"
+     ],
+     "start": "17:00",
+     "end": "21:30"
+    }
+   ],
+   "constraints": {
+    "hours_per_week": 14,
+    "budget_usd": 1500,
+    "commute_minutes": 25,
+    "dependents": 0,
+    "current_credits": 0,
+    "days_off": [
+     "Sat"
+    ]
+   },
+   "preferred_routes": [
+    "certificate",
+    "apprenticeship"
+   ]
+  },
+  {
+   "id": "tri_valley_freight",
+   "kind": "employer",
+   "fictional": true,
+   "name": "Tri-Valley Freight",
+   "display_name": "Tri-Valley Freight",
+   "org": "Tri-Valley Freight",
+   "industry": "Third-party logistics and distribution (fictional)",
+   "region": "Stockton / Lathrop",
+   "size": "about 600 employees (fictional)",
+   "hiring_for": [
+    "robotics_tech",
+    "logistics_lead",
+    "diesel_mechanic"
+   ],
+   "story": "A fictional regional distribution company automating two warehouses and short on technicians.",
+   "contact_email": "hiring@trivalleyfreight.example.org"
+  }
+ ]
+}

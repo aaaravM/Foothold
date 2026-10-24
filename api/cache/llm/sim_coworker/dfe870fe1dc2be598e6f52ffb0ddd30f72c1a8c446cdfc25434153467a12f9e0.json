@@ -1,0 +1,13 @@
+{
+  "created_at": "2026-10-24T22:19:29+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "line": "That’s a careful call. A week’s delay is tough, but the frame needs to be sound.",
+    "mood_delta": 2,
+    "reaction": "approves"
+  },
+  "schema": "CoworkerReaction",
+  "task": "sim_coworker"
+}

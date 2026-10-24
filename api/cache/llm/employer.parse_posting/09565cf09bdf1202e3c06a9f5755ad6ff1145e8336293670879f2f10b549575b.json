@@ -1,0 +1,49 @@
+{
+  "created_at": "2026-10-24T22:24:42+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "career_id": "logistics_lead",
+    "injection_attempt": false,
+    "injection_note": null,
+    "min_hours_per_week": 32,
+    "role_title": "Warehouse Lead, Night Shift",
+    "shift": "night",
+    "skills": [
+      {
+        "evidence": "run a crew of 8 pickers",
+        "importance": "preferred",
+        "skill_id": "management_of_personnel_resources"
+      },
+      {
+        "evidence": "check inventory counts with RF scanners",
+        "importance": "preferred",
+        "skill_id": "inventory_systems"
+      },
+      {
+        "evidence": "Forklift certification required",
+        "importance": "required",
+        "skill_id": "forklift_safety"
+      },
+      {
+        "evidence": "hand off clean notes to the morning lead",
+        "importance": "preferred",
+        "skill_id": "writing"
+      },
+      {
+        "evidence": "clear communication with the crew",
+        "importance": "preferred",
+        "skill_id": "speaking"
+      },
+      {
+        "evidence": "Spreadsheet basics",
+        "importance": "preferred",
+        "skill_id": "spreadsheets"
+      }
+    ],
+    "summary": "Leads a night-shift warehouse crew, oversees inventory counts and forklift safety, and shares handoff notes."
+  },
+  "schema": "PostingProfile",
+  "task": "employer.parse_posting"
+}

@@ -1,0 +1,1276 @@
+{
+  "verifier": {
+    "status": "ok",
+    "provenance": "SYNTHETIC",
+    "data": "adversarial claims generated from data/processed careers.json + programs.json",
+    "seed": 7,
+    "trained_at": "2026-10-24T22:20:55+00:00",
+    "reproduce": "python ml/eval_verifier.py",
+    "n_cases": 741,
+    "n_wrong": 563,
+    "n_correct": 178,
+    "catch_rate": 1.0,
+    "false_positive_rate": 0.0,
+    "by_attack": {
+      "as_months": {
+        "n": 25,
+        "handled": 25
+      },
+      "cost_scaled_0.5": {
+        "n": 20,
+        "handled": 20
+      },
+      "cost_scaled_0.75": {
+        "n": 20,
+        "handled": 20
+      },
+      "cost_scaled_1.3": {
+        "n": 20,
+        "handled": 20
+      },
+      "cost_scaled_3.0": {
+        "n": 20,
+        "handled": 20
+      },
+      "digit_slip": {
+        "n": 32,
+        "handled": 32
+      },
+      "duration_scaled_0.5": {
+        "n": 25,
+        "handled": 25
+      },
+      "duration_scaled_1.5": {
+        "n": 25,
+        "handled": 25
+      },
+      "duration_scaled_2.0": {
+        "n": 25,
+        "handled": 25
+      },
+      "exact": {
+        "n": 93,
+        "handled": 93
+      },
+      "fake_source": {
+        "n": 32,
+        "handled": 32
+      },
+      "hourly_as_annual": {
+        "n": 24,
+        "handled": 24
+      },
+      "hourly_as_yearly_2080h": {
+        "n": 8,
+        "handled": 8
+      },
+      "other_career": {
+        "n": 32,
+        "handled": 32
+      },
+      "outlook_-4.0": {
+        "n": 8,
+        "handled": 8
+      },
+      "outlook_0.5": {
+        "n": 8,
+        "handled": 8
+      },
+      "outlook_1.5": {
+        "n": 8,
+        "handled": 8
+      },
+      "outlook_3.0": {
+        "n": 16,
+        "handled": 16
+      },
+      "outlook_7.5": {
+        "n": 8,
+        "handled": 8
+      },
+      "rounded": {
+        "n": 52,
+        "handled": 52
+      },
+      "scaled_0.5": {
+        "n": 32,
+        "handled": 32
+      },
+      "scaled_0.8": {
+        "n": 32,
+        "handled": 32
+      },
+      "scaled_0.88": {
+        "n": 32,
+        "handled": 32
+      },
+      "scaled_1.12": {
+        "n": 32,
+        "handled": 32
+      },
+      "scaled_1.25": {
+        "n": 32,
+        "handled": 32
+      },
+      "scaled_2.0": {
+        "n": 32,
+        "handled": 32
+      },
+      "wrong_stat_median_annual": {
+        "n": 16,
+        "handled": 16
+      },
+      "wrong_stat_p25_annual": {
+        "n": 16,
+        "handled": 16
+      },
+      "wrong_stat_p75_annual": {
+        "n": 16,
+        "handled": 16
+      }
+    },
+    "prose": {
+      "faithful_drafts": 8,
+      "faithful_pass_rate": 1.0,
+      "injected_drafts": 24,
+      "injected_catch_rate": 1.0
+    },
+    "note": "A wrong claim counts as caught when it is not verified (mismatch is dropped, unverifiable is flagged)."
+  },
+  "career_fit": {
+    "status": "SYNTHETIC",
+    "provenance": "SYNTHETIC",
+    "data": "42 classes = O*NET 31.0 occupations (REAL work-style profiles, percentile ranks); 600/class training rows and 200/class held-out rows are SYNTHETIC. Synthetic rows around each occupation's REAL O*NET 31.0 work-style profile: x = 0.5 + s*(w + N(0, 0.12^2) - 0.5) with shrink s ~ U(0.35, 1.0), then each trait is replaced by 0.5 (no evidence) with probability p ~ U(0, 0.6) per sample; clipped to 0..1.",
+    "seed": 7,
+    "trained_at": "2026-10-24T22:21:03+00:00",
+    "reproduce": "python ml/train_career_fit.py",
+    "model_type": "MLP 21-64-64-42 (8298 params), AdamW, 60 epochs",
+    "baseline": "cosine similarity of centred profiles (softmax temperature 8.0 for ranking)",
+    "overall": {
+      "mlp": {
+        "top1": 0.7133,
+        "top3": 0.9196,
+        "n": 8400
+      },
+      "cosine": {
+        "top1": 0.7033,
+        "top3": 0.9038,
+        "n": 8400
+      }
+    },
+    "careers8": {
+      "mlp": {
+        "top1": 0.9344,
+        "top3": 0.9938,
+        "n": 1600
+      },
+      "cosine": {
+        "top1": 0.9225,
+        "top3": 0.9906,
+        "n": 1600
+      }
+    },
+    "winner": "mlp",
+    "winner_careers8": "mlp",
+    "n_test": 8400,
+    "n_classes": 42,
+    "train_seconds": 11.2,
+    "artifact": "ml/artifacts/career_fit.pt",
+    "note": "Accuracy on synthetic noisy profiles, not on real people; it measures how well the model recovers an occupation from a partial, noisy work-style profile."
+  },
+  "planner": {
+    "status": "ok",
+    "provenance": "SYNTHETIC",
+    "data": "200 generated constraint sets over data/processed/programs.json (25 programs, 8 careers); program records keep their own REAL/SAMPLE status",
+    "seed": 11,
+    "trained_at": "2026-10-24T22:21:38+00:00",
+    "reproduce": "python ml/eval_planner.py",
+    "n_cases": 200,
+    "n_route_solves": 520,
+    "feasibility": {
+      "cpsat": 0.4808,
+      "greedy": 0.4808,
+      "cpsat_only": 0,
+      "greedy_only": 0
+    },
+    "solve_ms": {
+      "p50": 15.0,
+      "p95": 189.6,
+      "max": 891,
+      "per_route_p50": 0.0,
+      "per_route_p95": 73.0,
+      "note": "p50/p95 = one /api/path/solve call (all routes of a career, solved in parallel)"
+    },
+    "improvement_when_both_feasible": {
+      "n": 250,
+      "months_saved_mean": 0.832,
+      "months_saved_max": 19,
+      "cost_saved_mean_usd": 0,
+      "share_cpsat_strictly_better": 0.104
+    },
+    "cpsat_plans_verified": 1.0,
+    "time_limit_s": 0.8
+  },
+  "recommender": {
+    "status": "trained",
+    "provenance": "SYNTHETIC",
+    "seed": 7,
+    "trained_at": "2026-10-24T22:25:27+00:00",
+    "data": {
+      "learners": 2000,
+      "talent_cards_feature_only": 150,
+      "skills": 67,
+      "courses": 85,
+      "jobs": 45,
+      "edges": {
+        "learner/has/skill": 9944,
+        "course/teaches/skill": 224,
+        "job/requires/skill": 219,
+        "learner/completed/course": 2159,
+        "learner/placed/job": 314
+      },
+      "test_courses": 1252,
+      "test_jobs": 264,
+      "cold_start_eval_learners": 242,
+      "source": "data/processed (synthetic learners; course/job/skill taxonomy)"
+    },
+    "reproduce": "C:/Users/MUTTA/.venvs/foothold/Scripts/python.exe ml/train_recommender.py",
+    "model_type": "pyg_heteroconv_sage",
+    "gnn": {
+      "warm": {
+        "all": {
+          "recall@10": 0.3814,
+          "ndcg@10": 0.2268,
+          "n": 1185
+        },
+        "courses": {
+          "recall@10": 0.2792,
+          "ndcg@10": 0.1342,
+          "n": 1010
+        },
+        "jobs": {
+          "recall@10": 0.9714,
+          "ndcg@10": 0.7608,
+          "n": 175
+        }
+      },
+      "cold": {
+        "all": {
+          "recall@10": 0.3891,
+          "ndcg@10": 0.2669,
+          "n": 331
+        },
+        "courses": {
+          "recall@10": 0.181,
+          "ndcg@10": 0.105,
+          "n": 242
+        },
+        "jobs": {
+          "recall@10": 0.9551,
+          "ndcg@10": 0.707,
+          "n": 89
+        }
+      }
+    },
+    "mf": {
+      "warm": {
+        "all": {
+          "recall@10": 0.4034,
+          "ndcg@10": 0.2263,
+          "n": 1185
+        },
+        "courses": {
+          "recall@10": 0.3317,
+          "ndcg@10": 0.1686,
+          "n": 1010
+        },
+        "jobs": {
+          "recall@10": 0.8171,
+          "ndcg@10": 0.5592,
+          "n": 175
+        }
+      },
+      "cold": {
+        "all": {
+          "recall@10": 0.3119,
+          "ndcg@10": 0.1635,
+          "n": 331
+        },
+        "courses": {
+          "recall@10": 0.191,
+          "ndcg@10": 0.1212,
+          "n": 242
+        },
+        "jobs": {
+          "recall@10": 0.6404,
+          "ndcg@10": 0.2783,
+          "n": 89
+        }
+      }
+    },
+    "popularity": {
+      "warm": {
+        "all": {
+          "recall@10": 0.2835,
+          "ndcg@10": 0.1396,
+          "n": 1185
+        },
+        "courses": {
+          "recall@10": 0.2277,
+          "ndcg@10": 0.1094,
+          "n": 1010
+        },
+        "jobs": {
+          "recall@10": 0.6057,
+          "ndcg@10": 0.3139,
+          "n": 175
+        }
+      },
+      "cold": {
+        "all": {
+          "recall@10": 0.3119,
+          "ndcg@10": 0.1809,
+          "n": 331
+        },
+        "courses": {
+          "recall@10": 0.191,
+          "ndcg@10": 0.1218,
+          "n": 242
+        },
+        "jobs": {
+          "recall@10": 0.6404,
+          "ndcg@10": 0.3414,
+          "n": 89
+        }
+      }
+    },
+    "winner": {
+      "warm": "gnn",
+      "cold": "gnn"
+    },
+    "selection": {
+      "method": "grid search on a validation split carved from training data (seed 8); test untouched",
+      "gnn": [
+        {
+          "epochs": 100,
+          "wd": 1e-05,
+          "use_id": true,
+          "mp_interactions": false,
+          "val_ndcg@10_mean_warm_cold": 0.2223
+        },
+        {
+          "epochs": 100,
+          "wd": 0.0001,
+          "use_id": true,
+          "mp_interactions": false,
+          "val_ndcg@10_mean_warm_cold": 0.2193
+        },
+        {
+          "epochs": 300,
+          "wd": 0.0001,
+          "use_id": true,
+          "mp_interactions": false,
+          "val_ndcg@10_mean_warm_cold": 0.2178
+        },
+        {
+          "epochs": 100,
+          "wd": 1e-05,
+          "use_id": false,
+          "mp_interactions": false,
+          "val_ndcg@10_mean_warm_cold": 0.2145
+        },
+        {
+          "epochs": 300,
+          "wd": 1e-05,
+          "use_id": false,
+          "mp_interactions": false,
+          "val_ndcg@10_mean_warm_cold": 0.2137
+        },
+        {
+          "epochs": 300,
+          "wd": 0.0001,
+          "use_id": false,
+          "mp_interactions": false,
+          "val_ndcg@10_mean_warm_cold": 0.2069
+        },
+        {
+          "epochs": 100,
+          "wd": 0.0001,
+          "use_id": false,
+          "mp_interactions": false,
+          "val_ndcg@10_mean_warm_cold": 0.2062
+        },
+        {
+          "epochs": 300,
+          "wd": 1e-05,
+          "use_id": true,
+          "mp_interactions": false,
+          "val_ndcg@10_mean_warm_cold": 0.2026
+        },
+        {
+          "epochs": 100,
+          "wd": 1e-05,
+          "use_id": false,
+          "mp_interactions": true,
+          "val_ndcg@10_mean_warm_cold": 0.1522
+        },
+        {
+          "epochs": 300,
+          "wd": 1e-05,
+          "use_id": false,
+          "mp_interactions": true,
+          "val_ndcg@10_mean_warm_cold": 0.1387
+        },
+        {
+          "epochs": 100,
+          "wd": 0.0001,
+          "use_id": true,
+          "mp_interactions": true,
+          "val_ndcg@10_mean_warm_cold": 0.1314
+        },
+        {
+          "epochs": 100,
+          "wd": 0.0001,
+          "use_id": false,
+          "mp_interactions": true,
+          "val_ndcg@10_mean_warm_cold": 0.1305
+        },
+        {
+          "epochs": 300,
+          "wd": 0.0001,
+          "use_id": true,
+          "mp_interactions": true,
+          "val_ndcg@10_mean_warm_cold": 0.1237
+        },
+        {
+          "epochs": 300,
+          "wd": 0.0001,
+          "use_id": false,
+          "mp_interactions": true,
+          "val_ndcg@10_mean_warm_cold": 0.1175
+        },
+        {
+          "epochs": 100,
+          "wd": 1e-05,
+          "use_id": true,
+          "mp_interactions": true,
+          "val_ndcg@10_mean_warm_cold": 0.114
+        },
+        {
+          "epochs": 300,
+          "wd": 1e-05,
+          "use_id": true,
+          "mp_interactions": true,
+          "val_ndcg@10_mean_warm_cold": 0.1051
+        }
+      ],
+      "mf": [
+        {
+          "epochs": 300,
+          "wd": 0.0001,
+          "val_ndcg@10_mean_warm_cold": 0.1517
+        },
+        {
+          "epochs": 100,
+          "wd": 0.0001,
+          "val_ndcg@10_mean_warm_cold": 0.1365
+        },
+        {
+          "epochs": 300,
+          "wd": 1e-05,
+          "val_ndcg@10_mean_warm_cold": 0.1275
+        },
+        {
+          "epochs": 100,
+          "wd": 1e-05,
+          "val_ndcg@10_mean_warm_cold": 0.1138
+        }
+      ]
+    },
+    "train_seconds": {
+      "total": 56.2,
+      "gnn": 1.0,
+      "mf": 0.7
+    },
+    "loss_curve": {
+      "gnn": [
+        [
+          0,
+          1.4226
+        ],
+        [
+          20,
+          0.124
+        ],
+        [
+          40,
+          0.0891
+        ],
+        [
+          60,
+          0.0847
+        ],
+        [
+          80,
+          0.0803
+        ],
+        [
+          99,
+          0.0818
+        ]
+      ],
+      "mf": [
+        [
+          0,
+          1.3974
+        ],
+        [
+          20,
+          0.5058
+        ],
+        [
+          40,
+          0.1457
+        ],
+        [
+          60,
+          0.0817
+        ],
+        [
+          80,
+          0.0934
+        ],
+        [
+          100,
+          0.0959
+        ],
+        [
+          120,
+          0.0939
+        ],
+        [
+          140,
+          0.081
+        ],
+        [
+          160,
+          0.0786
+        ],
+        [
+          180,
+          0.0801
+        ],
+        [
+          200,
+          0.0842
+        ],
+        [
+          220,
+          0.067
+        ],
+        [
+          240,
+          0.0834
+        ],
+        [
+          260,
+          0.0729
+        ],
+        [
+          280,
+          0.0817
+        ],
+        [
+          299,
+          0.0832
+        ]
+      ]
+    },
+    "note": "Synthetic learners whose skills were generated from their completed courses; skills only a held-out course teaches are removed from training features. Cold-start = 15% of interacting learners with all course/job links (and their course-taught skills) hidden. Ranking excludes training items."
+  },
+  "selector": {
+    "status": "SYNTHETIC",
+    "provenance": "SYNTHETIC",
+    "data": "2000 simulated players: true career uniform over 8; profile = REAL O*NET 31.0 work styles + N(0, 0.1^2); choices sampled from softmax(beta*dot(trait_deltas, profile-0.5)) with player beta 4.0 vs selector beta 4.5 (mis-specified on purpose). Events: 46 non-crunch DRAFT events from events.json.",
+    "seed": 11,
+    "trained_at": "2026-10-24T22:23:54+00:00",
+    "reproduce": "python ml/eval_selector.py",
+    "model_type": "Bayesian player model; next event by max expected information gain (mutual information)",
+    "confidence_threshold": 0.8,
+    "cap": 20,
+    "n_players": 2000,
+    "adaptive": {
+      "avg_events_to_confident": 12.755,
+      "avg_events_to_confident_converged_only": 9.244,
+      "median_events_to_confident": 12.0,
+      "converged_rate": 0.6735,
+      "non_converged": 653,
+      "confident_within_5": 0.134,
+      "ever_confident_wrong_rate": 0.2205
+    },
+    "thompson": {
+      "avg_events_to_confident": 13.366,
+      "avg_events_to_confident_converged_only": 9.925,
+      "median_events_to_confident": 13.0,
+      "converged_rate": 0.6585,
+      "non_converged": 683,
+      "confident_within_5": 0.1135,
+      "ever_confident_wrong_rate": 0.225
+    },
+    "random": {
+      "avg_events_to_confident": 16.851,
+      "avg_events_to_confident_converged_only": 12.843,
+      "median_events_to_confident": 20.0,
+      "converged_rate": 0.44,
+      "non_converged": 1120,
+      "confident_within_5": 0.03,
+      "ever_confident_wrong_rate": 0.122
+    },
+    "fixed": {
+      "avg_events_to_confident": 17.133,
+      "avg_events_to_confident_converged_only": 13.09,
+      "median_events_to_confident": 20.0,
+      "converged_rate": 0.415,
+      "non_converged": 1170,
+      "confident_within_5": 0.012,
+      "ever_confident_wrong_rate": 0.132
+    },
+    "curve": {
+      "k": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "adaptive": [
+        0.267,
+        0.3405,
+        0.42,
+        0.495,
+        0.521,
+        0.572,
+        0.608,
+        0.6135,
+        0.624,
+        0.644
+      ],
+      "thompson": [
+        0.2395,
+        0.3325,
+        0.3995,
+        0.4535,
+        0.488,
+        0.5275,
+        0.5615,
+        0.598,
+        0.624,
+        0.6465
+      ],
+      "random": [
+        0.217,
+        0.271,
+        0.334,
+        0.3705,
+        0.3995,
+        0.433,
+        0.456,
+        0.488,
+        0.5025,
+        0.532
+      ],
+      "fixed": [
+        0.257,
+        0.3145,
+        0.3485,
+        0.4,
+        0.4235,
+        0.4615,
+        0.486,
+        0.494,
+        0.507,
+        0.5325
+      ]
+    },
+    "beta_sensitivity": [
+      {
+        "selector_beta": 2.5,
+        "n_players": 500,
+        "adaptive": {
+          "avg_events_to_confident": 16.206,
+          "non_converged": 269,
+          "ever_confident_wrong_rate": 0.05
+        },
+        "random": {
+          "avg_events_to_confident": 18.67,
+          "non_converged": 389,
+          "ever_confident_wrong_rate": 0.02
+        },
+        "fixed": {
+          "avg_events_to_confident": 18.99,
+          "non_converged": 403,
+          "ever_confident_wrong_rate": 0.016
+        }
+      },
+      {
+        "selector_beta": 4.5,
+        "n_players": 500,
+        "adaptive": {
+          "avg_events_to_confident": 12.848,
+          "non_converged": 169,
+          "ever_confident_wrong_rate": 0.204
+        },
+        "random": {
+          "avg_events_to_confident": 16.77,
+          "non_converged": 293,
+          "ever_confident_wrong_rate": 0.128
+        },
+        "fixed": {
+          "avg_events_to_confident": 17.29,
+          "non_converged": 301,
+          "ever_confident_wrong_rate": 0.128
+        }
+      },
+      {
+        "selector_beta": 6.0,
+        "n_players": 500,
+        "adaptive": {
+          "avg_events_to_confident": 11.208,
+          "non_converged": 127,
+          "ever_confident_wrong_rate": 0.344
+        },
+        "random": {
+          "avg_events_to_confident": 15.54,
+          "non_converged": 237,
+          "ever_confident_wrong_rate": 0.274
+        },
+        "fixed": {
+          "avg_events_to_confident": 15.952,
+          "non_converged": 250,
+          "ever_confident_wrong_rate": 0.268
+        }
+      }
+    ],
+    "winner": "adaptive",
+    "note": "avg_events_to_confident counts players who never reach a correct confident match within 20 events at the cap; the converged-only mean and non_converged count are reported alongside. Higher selector beta reaches confidence sooner but is wrong-confident more often (beta_sensitivity); 4.5 was chosen as the middle of that trade-off. Simulated players follow the model family, so this measures selection efficiency, not real-player accuracy.",
+    "seconds": 30.6
+  },
+  "fairness": {
+    "status": "audited",
+    "provenance": "SYNTHETIC",
+    "seed": 7,
+    "trained_at": "2026-10-24T22:28:15+00:00",
+    "data": {
+      "pool": 150,
+      "groups": {
+        "A": 53,
+        "B": 61,
+        "C": 36
+      },
+      "postings": 8,
+      "top_n": 15,
+      "source": "data/processed/synthetic/talent_pool.json + jobs.json"
+    },
+    "reproduce": "C:/Users/MUTTA/.venvs/foothold/Scripts/python.exe ml/audit_fairness.py",
+    "method": "four-fifths rule: lowest group selection rate / highest group selection rate >= 0.8",
+    "min_group_size": 5,
+    "ranking_inputs": "blind demonstrated skills (0.7) + recommender score (0.3); group label never used",
+    "selection_rates_by_group": {
+      "A": 0.092,
+      "B": 0.1045,
+      "C": 0.1042
+    },
+    "min_impact_ratio": 0.2104,
+    "pooled_impact_ratio": 0.8804,
+    "passes_four_fifths": false,
+    "summary": {
+      "skill_match+recommender": {
+        "n_postings": 8,
+        "n_pass": 1,
+        "min_impact_ratio": 0.2104,
+        "median_impact_ratio": 0.4075,
+        "n_fail_significant_p05": 0
+      },
+      "skill_match_only": {
+        "n_postings": 8,
+        "n_pass": 0,
+        "min_impact_ratio": 0.3392,
+        "median_impact_ratio": 0.3769,
+        "n_fail_significant_p05": 0
+      }
+    },
+    "postings": [
+      {
+        "job_id": "warehouse_associate",
+        "title": "Warehouse Associate",
+        "career_id": "logistics_lead",
+        "ranker": "skill_match+recommender",
+        "recommender_used": true,
+        "rates": {
+          "A": {
+            "n": 53,
+            "selected": 4,
+            "rate": 0.0755
+          },
+          "B": {
+            "n": 61,
+            "selected": 7,
+            "rate": 0.1148
+          },
+          "C": {
+            "n": 36,
+            "selected": 4,
+            "rate": 0.1111
+          }
+        },
+        "min_impact_ratio": 0.6577,
+        "passes_four_fifths": false,
+        "lowest_group": "A",
+        "highest_group": "B",
+        "p_value": 0.7591
+      },
+      {
+        "job_id": "warehouse_associate",
+        "title": "Warehouse Associate",
+        "career_id": "logistics_lead",
+        "ranker": "skill_match_only",
+        "recommender_used": false,
+        "rates": {
+          "A": {
+            "n": 53,
+            "selected": 4,
+            "rate": 0.0755
+          },
+          "B": {
+            "n": 61,
+            "selected": 9,
+            "rate": 0.1475
+          },
+          "C": {
+            "n": 36,
+            "selected": 2,
+            "rate": 0.0556
+          }
+        },
+        "min_impact_ratio": 0.3769,
+        "passes_four_fifths": false,
+        "lowest_group": "C",
+        "highest_group": "B",
+        "p_value": 0.2623
+      },
+      {
+        "job_id": "certified_nursing_assistant",
+        "title": "Certified Nursing Assistant",
+        "career_id": "registered_nurse",
+        "ranker": "skill_match+recommender",
+        "recommender_used": true,
+        "rates": {
+          "A": {
+            "n": 53,
+            "selected": 9,
+            "rate": 0.1698
+          },
+          "B": {
+            "n": 61,
+            "selected": 4,
+            "rate": 0.0656
+          },
+          "C": {
+            "n": 36,
+            "selected": 2,
+            "rate": 0.0556
+          }
+        },
+        "min_impact_ratio": 0.3274,
+        "passes_four_fifths": false,
+        "lowest_group": "C",
+        "highest_group": "A",
+        "p_value": 0.1073
+      },
+      {
+        "job_id": "certified_nursing_assistant",
+        "title": "Certified Nursing Assistant",
+        "career_id": "registered_nurse",
+        "ranker": "skill_match_only",
+        "recommender_used": false,
+        "rates": {
+          "A": {
+            "n": 53,
+            "selected": 8,
+            "rate": 0.1509
+          },
+          "B": {
+            "n": 61,
+            "selected": 5,
+            "rate": 0.082
+          },
+          "C": {
+            "n": 36,
+            "selected": 2,
+            "rate": 0.0556
+          }
+        },
+        "min_impact_ratio": 0.3685,
+        "passes_four_fifths": false,
+        "lowest_group": "C",
+        "highest_group": "A",
+        "p_value": 0.281
+      },
+      {
+        "job_id": "lube_pm_technician",
+        "title": "Lube and Preventive Maintenance Technician",
+        "career_id": "diesel_mechanic",
+        "ranker": "skill_match+recommender",
+        "recommender_used": true,
+        "rates": {
+          "A": {
+            "n": 53,
+            "selected": 3,
+            "rate": 0.0566
+          },
+          "B": {
+            "n": 61,
+            "selected": 6,
+            "rate": 0.0984
+          },
+          "C": {
+            "n": 36,
+            "selected": 6,
+            "rate": 0.1667
+          }
+        },
+        "min_impact_ratio": 0.3395,
+        "passes_four_fifths": false,
+        "lowest_group": "A",
+        "highest_group": "C",
+        "p_value": 0.2359
+      },
+      {
+        "job_id": "lube_pm_technician",
+        "title": "Lube and Preventive Maintenance Technician",
+        "career_id": "diesel_mechanic",
+        "ranker": "skill_match_only",
+        "recommender_used": false,
+        "rates": {
+          "A": {
+            "n": 53,
+            "selected": 3,
+            "rate": 0.0566
+          },
+          "B": {
+            "n": 61,
+            "selected": 7,
+            "rate": 0.1148
+          },
+          "C": {
+            "n": 36,
+            "selected": 5,
+            "rate": 0.1389
+          }
+        },
+        "min_impact_ratio": 0.4075,
+        "passes_four_fifths": false,
+        "lowest_group": "A",
+        "highest_group": "C",
+        "p_value": 0.3943
+      },
+      {
+        "job_id": "welder_helper",
+        "title": "Welder Helper",
+        "career_id": "welder",
+        "ranker": "skill_match+recommender",
+        "recommender_used": true,
+        "rates": {
+          "A": {
+            "n": 53,
+            "selected": 2,
+            "rate": 0.0377
+          },
+          "B": {
+            "n": 61,
+            "selected": 7,
+            "rate": 0.1148
+          },
+          "C": {
+            "n": 36,
+            "selected": 6,
+            "rate": 0.1667
+          }
+        },
+        "min_impact_ratio": 0.2262,
+        "passes_four_fifths": false,
+        "lowest_group": "A",
+        "highest_group": "C",
+        "p_value": 0.1219
+      },
+      {
+        "job_id": "welder_helper",
+        "title": "Welder Helper",
+        "career_id": "welder",
+        "ranker": "skill_match_only",
+        "recommender_used": false,
+        "rates": {
+          "A": {
+            "n": 53,
+            "selected": 3,
+            "rate": 0.0566
+          },
+          "B": {
+            "n": 61,
+            "selected": 8,
+            "rate": 0.1311
+          },
+          "C": {
+            "n": 36,
+            "selected": 4,
+            "rate": 0.1111
+          }
+        },
+        "min_impact_ratio": 0.4317,
+        "passes_four_fifths": false,
+        "lowest_group": "A",
+        "highest_group": "B",
+        "p_value": 0.4033
+      },
+      {
+        "job_id": "electrical_helper",
+        "title": "Electrical Helper",
+        "career_id": "electrician",
+        "ranker": "skill_match+recommender",
+        "recommender_used": true,
+        "rates": {
+          "A": {
+            "n": 53,
+            "selected": 6,
+            "rate": 0.1132
+          },
+          "B": {
+            "n": 61,
+            "selected": 7,
+            "rate": 0.1148
+          },
+          "C": {
+            "n": 36,
+            "selected": 2,
+            "rate": 0.0556
+          }
+        },
+        "min_impact_ratio": 0.4843,
+        "passes_four_fifths": false,
+        "lowest_group": "C",
+        "highest_group": "B",
+        "p_value": 0.5944
+      },
+      {
+        "job_id": "electrical_helper",
+        "title": "Electrical Helper",
+        "career_id": "electrician",
+        "ranker": "skill_match_only",
+        "recommender_used": false,
+        "rates": {
+          "A": {
+            "n": 53,
+            "selected": 4,
+            "rate": 0.0755
+          },
+          "B": {
+            "n": 61,
+            "selected": 9,
+            "rate": 0.1475
+          },
+          "C": {
+            "n": 36,
+            "selected": 2,
+            "rate": 0.0556
+          }
+        },
+        "min_impact_ratio": 0.3769,
+        "passes_four_fifths": false,
+        "lowest_group": "C",
+        "highest_group": "B",
+        "p_value": 0.2623
+      },
+      {
+        "job_id": "it_support_technician",
+        "title": "IT Support Technician",
+        "career_id": "software_dev",
+        "ranker": "skill_match+recommender",
+        "recommender_used": true,
+        "rates": {
+          "A": {
+            "n": 53,
+            "selected": 7,
+            "rate": 0.1321
+          },
+          "B": {
+            "n": 61,
+            "selected": 7,
+            "rate": 0.1148
+          },
+          "C": {
+            "n": 36,
+            "selected": 1,
+            "rate": 0.0278
+          }
+        },
+        "min_impact_ratio": 0.2104,
+        "passes_four_fifths": false,
+        "lowest_group": "C",
+        "highest_group": "A",
+        "p_value": 0.2417
+      },
+      {
+        "job_id": "it_support_technician",
+        "title": "IT Support Technician",
+        "career_id": "software_dev",
+        "ranker": "skill_match_only",
+        "recommender_used": false,
+        "rates": {
+          "A": {
+            "n": 53,
+            "selected": 3,
+            "rate": 0.0566
+          },
+          "B": {
+            "n": 61,
+            "selected": 10,
+            "rate": 0.1639
+          },
+          "C": {
+            "n": 36,
+            "selected": 2,
+            "rate": 0.0556
+          }
+        },
+        "min_impact_ratio": 0.3392,
+        "passes_four_fifths": false,
+        "lowest_group": "C",
+        "highest_group": "B",
+        "p_value": 0.0968
+      },
+      {
+        "job_id": "farmworker_crop",
+        "title": "Farmworker (Crops and Orchards)",
+        "career_id": "farm_ops_manager",
+        "ranker": "skill_match+recommender",
+        "recommender_used": true,
+        "rates": {
+          "A": {
+            "n": 53,
+            "selected": 3,
+            "rate": 0.0566
+          },
+          "B": {
+            "n": 61,
+            "selected": 7,
+            "rate": 0.1148
+          },
+          "C": {
+            "n": 36,
+            "selected": 5,
+            "rate": 0.1389
+          }
+        },
+        "min_impact_ratio": 0.4075,
+        "passes_four_fifths": false,
+        "lowest_group": "A",
+        "highest_group": "C",
+        "p_value": 0.3943
+      },
+      {
+        "job_id": "farmworker_crop",
+        "title": "Farmworker (Crops and Orchards)",
+        "career_id": "farm_ops_manager",
+        "ranker": "skill_match_only",
+        "recommender_used": false,
+        "rates": {
+          "A": {
+            "n": 53,
+            "selected": 4,
+            "rate": 0.0755
+          },
+          "B": {
+            "n": 61,
+            "selected": 9,
+            "rate": 0.1475
+          },
+          "C": {
+            "n": 36,
+            "selected": 2,
+            "rate": 0.0556
+          }
+        },
+        "min_impact_ratio": 0.3769,
+        "passes_four_fifths": false,
+        "lowest_group": "C",
+        "highest_group": "B",
+        "p_value": 0.2623
+      },
+      {
+        "job_id": "automated_line_operator",
+        "title": "Automated Line Operator",
+        "career_id": "robotics_tech",
+        "ranker": "skill_match+recommender",
+        "recommender_used": true,
+        "rates": {
+          "A": {
+            "n": 53,
+            "selected": 5,
+            "rate": 0.0943
+          },
+          "B": {
+            "n": 61,
+            "selected": 6,
+            "rate": 0.0984
+          },
+          "C": {
+            "n": 36,
+            "selected": 4,
+            "rate": 0.1111
+          }
+        },
+        "min_impact_ratio": 0.8488,
+        "passes_four_fifths": true,
+        "lowest_group": "A",
+        "highest_group": "C",
+        "p_value": 0.9656
+      },
+      {
+        "job_id": "automated_line_operator",
+        "title": "Automated Line Operator",
+        "career_id": "robotics_tech",
+        "ranker": "skill_match_only",
+        "recommender_used": false,
+        "rates": {
+          "A": {
+            "n": 53,
+            "selected": 5,
+            "rate": 0.0943
+          },
+          "B": {
+            "n": 61,
+            "selected": 7,
+            "rate": 0.1148
+          },
+          "C": {
+            "n": 36,
+            "selected": 3,
+            "rate": 0.0833
+          }
+        },
+        "min_impact_ratio": 0.7256,
+        "passes_four_fifths": false,
+        "lowest_group": "C",
+        "highest_group": "B",
+        "p_value": 0.8704
+      }
+    ],
+    "note": "Audit runs on synthetic data and demonstrates the mechanism, not real-world fairness.",
+    "interpretation": "With a top-15 shortlist from 150 candidates (groups of 53/61/36), each group expects only about 4-6 selections, so one or two candidates swing the per-posting ratio; the chi-square p-value shows whether a failure is distinguishable from chance. The pooled ratio aggregates all postings."
+  }
+}

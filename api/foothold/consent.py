@@ -266,6 +266,9 @@ def _bands(card: dict[str, Any]) -> list[dict[str, Any]]:
 
     if isinstance(raw, dict):
         for career, val in raw.items():
+            if career in ("safety", "output", "team_trust", "stress") and not isinstance(val, dict):
+                add(None, val, {"metric": career})
+                continue
             if isinstance(val, dict):
                 add(val.get("career_id") or career, val.get("band") or val.get("level") or val.get("label"), val)
             else:
@@ -360,6 +363,14 @@ def _region(card: dict[str, Any]) -> dict[str, Any] | None:
     return None
 
 
+def _target_career(card: dict[str, Any]) -> dict[str, Any] | None:
+    cid = _pick(card, ("target_career", "career_id"), _BLIND_NESTS)
+    if not isinstance(cid, str) or not cid:
+        return None
+    titles = _career_titles()
+    return {"id": cid, "title": titles.get(cid, _clean(cid.replace("_", " ").title(), 48))} if cid in titles else None
+
+
 def blind_card(card: dict[str, Any]) -> dict[str, Any]:
     """The employer-facing card: blind fields only (whitelist), opaque id, FICTIONAL."""
     cid = auth.card_id(card) or ""
@@ -368,6 +379,7 @@ def blind_card(card: dict[str, Any]) -> dict[str, Any]:
         "fictional": True,
         "demonstrated_skills": _skills(card),
         "sim_bands": _bands(card),
+        "target_career": _target_career(card),
         "pathway_progress": _progress(card),
         "availability": _availability(card),
         "region": _region(card),
@@ -388,7 +400,7 @@ def hidden_fields(card: dict[str, Any]) -> dict[str, Any]:
     account = auth.get_account_by_persona(persona) if persona else None
     if not name and account is not None:
         name = account.display_name
-    initials = _clean(_pick(card, ("initials",), _HIDDEN_NESTS), 4) or (auth.make_initials(name) if name else None)
+    initials = _clean(_pick(card, ("initials", "photo_initials"), _HIDDEN_NESTS), 4) or (auth.make_initials(name) if name else None)
     photo = _clean(_pick(card, ("photo", "photo_url", "avatar", "avatar_url"), _HIDDEN_NESTS), 300)
 
     loc_raw = _pick(card, ("exact_location", "location", "address", "home_location"), _HIDDEN_NESTS)
@@ -406,8 +418,8 @@ def hidden_fields(card: dict[str, Any]) -> dict[str, Any]:
     elif isinstance(contact_raw, str):
         email = _clean(contact_raw, 120) if "@" in contact_raw else None
         phone = None if email else _clean(contact_raw, 40)
-    email = email or _clean(_pick(card, ("email",), _HIDDEN_NESTS), 120)
-    phone = phone or _clean(_pick(card, ("phone",), _HIDDEN_NESTS), 40)
+    email = email or _clean(_pick(card, ("email", "contact_email"), _HIDDEN_NESTS), 120)
+    phone = phone or _clean(_pick(card, ("phone", "contact_phone"), _HIDDEN_NESTS), 40)
     if not email and account is not None:
         email = account.email
     return {

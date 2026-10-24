@@ -67,13 +67,8 @@ function SheetLinks({ pathname, kind }: { pathname: string | null; kind: NavAcco
                 active ? "text-ink" : "text-ink-faint hover:text-ink",
               )}
             >
-              {s.navNumber ? (
-                <span className={cn("transition-colors", active ? "text-accent" : "text-ink-faint group-hover:text-ink-muted")}>
-                  {s.navNumber}
-                </span>
-              ) : null}
               <span className="link-draw [--ul-offset:-5px]" data-drawn={active ? "true" : undefined}>
-                {s.code}
+                {s.navLabel ?? s.title}
               </span>
               <Corners />
             </Link>
@@ -115,11 +110,8 @@ function MobileSheetList({ pathname, kind }: { pathname: string | null; kind: Na
                   active ? "text-ink" : "text-ink-muted",
                 )}
               >
-                <span className={cn("label-mono w-9 shrink-0", active ? "text-accent" : "text-ink-faint")}>
-                  {s.navNumber ?? "··"}
-                </span>
                 <span className="flex min-w-0 flex-col">
-                  <span className="font-display text-lg leading-tight font-semibold">{s.title}</span>
+                  <span className="font-display text-lg leading-tight font-semibold">{s.navLabel ?? s.title}</span>
                   <span className="text-xs text-ink-muted">{s.description}</span>
                 </span>
               </Link>

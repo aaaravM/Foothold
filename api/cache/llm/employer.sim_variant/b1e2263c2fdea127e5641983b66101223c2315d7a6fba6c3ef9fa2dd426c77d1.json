@@ -1,0 +1,28 @@
+{
+  "created_at": "2026-10-24T22:18:03+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "events": [
+      {
+        "event_id": "log_01",
+        "text": "At 7:00 at Tri-Valley Freight’s Central Valley distribution center, two refrigerated trucks carrying produce arrive at once, but only one dock door has a working seal. One driver is close to the hours-of-service limit and asks to drop the trailer and leave.",
+        "title": "Two trucks, one door"
+      },
+      {
+        "event_id": "log_02",
+        "text": "Darnell’s cycle count at Tri-Valley Freight shows 14 pallets of almonds missing from a lane the inventory system says is full. A customer pickup for those pallets is scheduled at noon, and nobody has touched the lane since the night shift.",
+        "title": "The count is off"
+      },
+      {
+        "event_id": "log_03",
+        "text": "At Tri-Valley Freight, the dock thermometer reads 104°F, and the afternoon is forecast to get hotter. Two temps in their first week are skipping water breaks to keep up with the line rate set this morning.",
+        "title": "Heat on the dock"
+      }
+    ],
+    "setting": "Tri-Valley Freight"
+  },
+  "schema": "SimVariantOut",
+  "task": "employer.sim_variant"
+}

@@ -1,0 +1,121 @@
+"use client";
+
+import * as React from "react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { Lock, LockOpen, Mail, MapPin, Phone } from "lucide-react";
+import { MonoLabel } from "@/components/foothold/mono-label";
+import { FictionalTag } from "@/components/foothold/fictional-tag";
+import { getJSON } from "@/lib/api";
+import { BlindFields, EmptyNote, ErrorNote, errorText, fmtTime, StatusPill } from "./shared";
+import type { CandidateResponse, EmployerRequest, Revealed } from "./types";
+
+const EASE = [0.65, 0, 0.35, 1] as const;
+
+export function Requests({ requests, error }: { requests: EmployerRequest[] | null; error: string | null }) {
+  if (error && !requests) return <ErrorNote>{error}</ErrorNote>;
+  if (!requests) return <MonoLabel as="p">Loading requests…</MonoLabel>;
+  if (!requests.length) return <EmptyNote>No consent requests yet. Send one from a talent card or from a posting run.</EmptyNote>;
+  return (
+    <div className="grid gap-3">
+      <p className="text-sm text-ink-muted">Updates every few seconds. When a learner accepts in their inbox, their card unlocks here.</p>
+      <ul className="grid gap-3 md:grid-cols-2">
+        {requests.map((r) => (
+          <RequestCard key={r.id} request={r} />
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function RequestCard({ request }: { request: EmployerRequest }) {
+  const reduce = useReducedMotion();
+  const accepted = request.status === "accepted";
+  const [contact, setContact] = React.useState<Revealed | null>(null);
+  const [err, setErr] = React.useState<string | null>(null);
+  const [firstStatus] = React.useState(request.status);
+  const justUnlocked = accepted && firstStatus !== "accepted";
+
+  React.useEffect(() => {
+    if (!accepted) return;
+    let live = true;
+    getJSON<CandidateResponse>(`/api/employer/candidates/${encodeURIComponent(request.candidate_id)}`)
+      .then((res) => {
+        if (live) setContact(res.revealed);
+      })
+      .catch((e: unknown) => {
+        if (live) setErr(errorText(e));
+      });
+    return () => {
+      live = false;
+    };
+  }, [accepted, request.candidate_id]);
+
+  const revealed = contact ?? (accepted ? request.revealed : null);
+
+  return (
+    <li className="grid content-start gap-3 border border-line bg-bg p-4">
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <div className="grid gap-0.5">
+          <p className="text-sm font-medium text-ink">{request.posting_title ?? "General outreach"}</p>
+          <MonoLabel>sent {fmtTime(request.created_at)}{request.decided_at ? ` · decided ${fmtTime(request.decided_at)}` : ""}</MonoLabel>
+        </div>
+        <StatusPill status={request.status} />
+      </div>
+      {request.message ? <p className="border-l-2 border-line-strong pl-3 text-sm text-ink-muted">&ldquo;{request.message}&rdquo;</p> : null}
+
+      <AnimatePresence initial={false} mode="wait">
+        {revealed ? (
+          <motion.div
+            key="open"
+            className="grid gap-2 border border-success/60 p-3"
+            initial={reduce || !justUnlocked ? false : { opacity: 0, clipPath: "inset(0 100% 0 0)" }}
+            animate={{ opacity: 1, clipPath: "inset(0 0% 0 0)" }}
+            transition={{ duration: 0.6, ease: EASE }}
+          >
+            <div className="flex items-center justify-between gap-2">
+              <p className="flex items-center gap-2 text-sm font-medium text-success">
+                <LockOpen aria-hidden="true" className="size-4" /> Unlocked with consent
+              </p>
+              <FictionalTag compact />
+            </div>
+            <p className="text-lg font-semibold text-ink">{revealed.name ?? "Name not provided"}</p>
+            <ul className="grid gap-1 text-sm text-ink">
+              {revealed.contact.email ? (
+                <li className="flex items-center gap-2">
+                  <Mail aria-hidden="true" className="size-4 text-ink-faint" />
+                  <a className="underline underline-offset-4 hover:text-accent" href={`mailto:${revealed.contact.email}`}>
+                    {revealed.contact.email}
+                  </a>
+                </li>
+              ) : null}
+              {revealed.contact.phone ? (
+                <li className="flex items-center gap-2">
+                  <Phone aria-hidden="true" className="size-4 text-ink-faint" /> {revealed.contact.phone}
+                </li>
+              ) : null}
+              {revealed.exact_location ? (
+                <li className="flex items-center gap-2">
+                  <MapPin aria-hidden="true" className="size-4 text-ink-faint" /> {revealed.exact_location}
+                </li>
+              ) : null}
+            </ul>
+          </motion.div>
+        ) : (
+          <motion.p key="locked" exit={reduce ? undefined : { opacity: 0 }} className="flex items-center gap-2 text-sm text-ink-muted">
+            <Lock aria-hidden="true" className="size-4" />
+            {request.status === "declined" ? "The learner declined. Their identity stays hidden." : "Name and contact stay hidden until the learner accepts."}
+          </motion.p>
+        )}
+      </AnimatePresence>
+      {err ? <ErrorNote>{err}</ErrorNote> : null}
+      {request.card ? (
+        <details className="border-t border-line pt-2">
+          <summary className="cursor-pointer text-sm text-ink-muted hover:text-ink focus-visible:outline-2 focus-visible:outline-accent">Blind card</summary>
+          <div className="mt-2">
+            <BlindFields card={request.card} showLocked={!revealed} />
+          </div>
+        </details>
+      ) : null}
+    </li>
+  );
+}

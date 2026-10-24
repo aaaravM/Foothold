@@ -508,7 +508,7 @@ def select_event(state: SimState) -> dict[str, Any]:
 
 def inject_crunch(state: SimState) -> dict[str, Any]:
     played = set(state.get("played") or [])
-    work = leading_career(state) or state.get("career_id")
+    work = state.get("career_id") or leading_career(state)
     crunch = [e for e in all_events() if e.get("crunch") and e["event_id"] not in played]
     fitting = [e for e in crunch if not e.get("career_ids") or (work and work in e.get("career_ids"))]
     pool = sorted(fitting or crunch, key=lambda e: (_to_min(str(e.get("clock", DAY_START))), e["event_id"]))
@@ -776,6 +776,29 @@ def _metrics_block() -> dict[str, Any] | None:
     return m if isinstance(m, dict) else None
 
 
+def cosine_top3(traits: dict[str, float]) -> list[dict[str, Any]]:
+    """Untrained baseline: cosine between centred trait estimate and centred career work styles."""
+    ids = trait_ids()
+    u = [float(traits.get(t, 0.5)) - 0.5 for t in ids]
+    rows = []
+    for c in data.careers():
+        ws = (c or {}).get("work_styles") or {}
+        if not ws:
+            continue
+        mean = sum(float(ws.get(t, 0.5)) for t in ids) / max(1, len(ids))
+        v = [float(ws.get(t, mean)) - mean for t in ids]
+        nu = math.sqrt(sum(x * x for x in u)) or 1e-9
+        nv = math.sqrt(sum(x * x for x in v)) or 1e-9
+        rows.append((sum(a * b for a, b in zip(u, v)) / (nu * nv), c["id"]))
+    if not rows:
+        return []
+    exps = [math.exp(4.0 * s) for s, _ in rows]
+    tot = sum(exps)
+    ranked = sorted(zip(rows, exps), key=lambda r: -r[0][0])[:3]
+    return [{"rank": i + 1, "career_id": cid, "title": (data.get_career(cid) or {}).get("title"),
+             "probability": round(e / tot, 4), "similarity": round(s, 4)} for i, ((s, cid), e) in enumerate(ranked)]
+
+
 async def report(state: SimState) -> dict[str, Any]:
     traits = dict(state.get("trait_estimate") or {})
     if not traits:
@@ -799,7 +822,10 @@ async def report(state: SimState) -> dict[str, Any]:
         model = {"source": "selector_posterior", "name": "Bayesian player model", "trained": False,
                  "note": "career-fit model not available yet; showing the selector's posterior", "metrics": None}
     else:
-        model = {"source": None, "name": None, "trained": False, "note": "career-fit model not available yet", "metrics": None}
+        top = cosine_top3(traits)
+        model = {"source": "cosine_fallback", "name": "cosine similarity to O*NET work styles", "trained": False,
+                 "note": "career-fit model not available yet; ranked by cosine similarity between your trait estimate "
+                         "and each career's O*NET work-style profile", "metrics": None}
 
     focus = [t["career_id"] for t in top]
     if state.get("career_id") and state["career_id"] not in focus:

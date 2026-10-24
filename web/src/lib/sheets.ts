@@ -34,8 +34,10 @@ export interface SheetMeta {
   chapter?: Chapter;
   /** shown in the main sheet nav (for its audience) */
   inNav: boolean;
-  /** number printed before the code in the nav ("01"); null prints the code alone (INBOX) */
+  /** number printed before the code in mobile lists ("01"); null prints the code alone (INBOX) */
   navNumber: string | null;
+  /** app-first label shown in the top nav ("Workday"); falls back to title */
+  navLabel?: string;
   audience: SheetAudience;
   /** counts toward "SHEET x OF 07" */
   numbered: boolean;
@@ -79,6 +81,7 @@ export const SHEETS: readonly SheetMeta[] = [
   },
   {
     id: "sim",
+    navLabel: "Workday",
     href: "/sim",
     sheet: "01",
     code: "SIM",
@@ -93,6 +96,7 @@ export const SHEETS: readonly SheetMeta[] = [
   },
   {
     id: "path",
+    navLabel: "Path",
     href: "/path",
     sheet: "02",
     code: "PATH",
@@ -107,6 +111,7 @@ export const SHEETS: readonly SheetMeta[] = [
   },
   {
     id: "graph",
+    navLabel: "Skills",
     href: "/graph",
     sheet: "03",
     code: "GRAPH",
@@ -121,6 +126,7 @@ export const SHEETS: readonly SheetMeta[] = [
   },
   {
     id: "employers",
+    navLabel: "Employers",
     href: "/employers",
     sheet: "04",
     code: "EMPLOYERS",
@@ -135,6 +141,7 @@ export const SHEETS: readonly SheetMeta[] = [
   },
   {
     id: "circle",
+    navLabel: "Circles",
     href: "/circle",
     sheet: "05",
     code: "CIRCLE",
@@ -149,6 +156,7 @@ export const SHEETS: readonly SheetMeta[] = [
   },
   {
     id: "inbox",
+    navLabel: "Inbox",
     href: "/inbox",
     sheet: "04",
     code: "INBOX",
@@ -170,7 +178,7 @@ export const SHEETS: readonly SheetMeta[] = [
     dwg: "DWG-006",
     description: "Models, metrics and fairness checks",
     chapter: { index: 6, total: TOTAL_CHAPTERS, label: "VERIFY" },
-    inNav: true,
+    inNav: false,
     navNumber: "06",
     audience: "public",
     numbered: true,
@@ -183,7 +191,7 @@ export const SHEETS: readonly SheetMeta[] = [
     title: "About",
     dwg: "DWG-007",
     description: "Sources, methods, licenses and limits",
-    inNav: true,
+    inNav: false,
     navNumber: "07",
     audience: "public",
     numbered: true,
@@ -207,12 +215,18 @@ export const SHEETS: readonly SheetMeta[] = [
 export const NAV_SHEETS: readonly SheetMeta[] = SHEETS.filter((s) => s.inNav);
 
 /**
- * Nav items for an account (CONTRACTS section 13):
- * learners 01 SIM, 02 PATH, 03 GRAPH, 05 CIRCLE, INBOX; employers 04 EMPLOYERS;
- * everyone 06 LAB, 07 ABOUT; signed out only the public sheets.
+ * App-first nav (user decision): the tabs are the product, not how it was built.
+ * Signed out sees the features (each asks to sign in); learners and employers see their own tools.
+ * Lab and About live in the footer.
  */
+const NAV_BY_KIND: Record<"public" | "learner" | "employer", readonly SheetId[]> = {
+  public: ["sim", "path", "graph", "circle", "employers"],
+  learner: ["sim", "path", "graph", "circle", "inbox"],
+  employer: ["employers", "graph"],
+};
+
 export function navSheetsFor(kind: NavAccountKind): readonly SheetMeta[] {
-  return NAV_SHEETS.filter((s) => s.audience === "public" || (kind !== null && s.audience === kind));
+  return NAV_BY_KIND[kind ?? "public"].map((id) => getSheet(id));
 }
 
 const BY_ID = new Map<SheetId, SheetMeta>(SHEETS.map((s) => [s.id, s]));

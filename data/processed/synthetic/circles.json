@@ -1,0 +1,232 @@
+{
+ "fictional": true,
+ "status": "FICTIONAL",
+ "note": "Fictional communities and pseudonymous posts written by Foothold; no real people.",
+ "circles": [
+  {
+   "id": "students",
+   "name": "Students figuring it out",
+   "description": "High schoolers and first-year college students comparing paths.",
+   "fictional": true,
+   "posts": [
+    {
+     "id": "students_p1",
+     "handle": "robot_rookie",
+     "text": "Signed up for my first dual-enrollment class at Delta. Kind of nervous about being the youngest in the room.",
+     "fictional": true
+    },
+    {
+     "id": "students_p2",
+     "handle": "mathlete_209",
+     "text": "You'll be fine. I did precalc there junior year; the professor cared more that you showed up than how old you were.",
+     "fictional": true
+    },
+    {
+     "id": "students_p3",
+     "handle": "busline_reader",
+     "text": "Tip for anyone taking the bus: I do my reading on the ride. 35 minutes each way adds up.",
+     "fictional": true
+    },
+    {
+     "id": "students_p4",
+     "handle": "quiet_coder",
+     "text": "Does anyone else feel behind because they didn't start coding at 10? Started at 16 and it's going okay.",
+     "fictional": true
+    },
+    {
+     "id": "students_p5",
+     "handle": "mathlete_209",
+     "text": "Totally normal. Most people in my CS class started in high school or later.",
+     "fictional": true
+    },
+    {
+     "id": "students_p6",
+     "handle": "future_rn_kay",
+     "text": "Anatomy lab is hard but the study group on Thursdays is saving me.",
+     "fictional": true
+    },
+    {
+     "id": "students_p7",
+     "handle": "robot_rookie",
+     "text": "Update: survived week one. The counselor helped me map which classes transfer. ASSIST is confusing but worth it.",
+     "fictional": true
+    },
+    {
+     "id": "students_p8",
+     "handle": "first_gen_frankie",
+     "text": "First in my family doing college stuff. Asking questions in office hours felt weird at first, now it's my favorite part.",
+     "fictional": true
+    }
+   ]
+  },
+  {
+   "id": "career_changers",
+   "name": "Career changers",
+   "description": "Adults switching fields, often while working full-time.",
+   "fictional": true,
+   "posts": [
+    {
+     "id": "career_changers_p1",
+     "handle": "night_shift_nate",
+     "text": "Warehouse brought in the new picking robots. Instead of panicking I asked the tech what training he had.",
+     "fictional": true
+    },
+    {
+     "id": "career_changers_p2",
+     "handle": "forklift_to_plc",
+     "text": "Started an evening PLC class at 41. My kids quiz me on ladder logic now, it's hilarious.",
+     "fictional": true
+    },
+    {
+     "id": "career_changers_p3",
+     "handle": "steady_hands_mo",
+     "text": "Hardest part for me is the schedule. Two kids, 45 hours a week. I take one class at a time and that's okay.",
+     "fictional": true
+    },
+    {
+     "id": "career_changers_p4",
+     "handle": "night_shift_nate",
+     "text": "One class at a time still gets you there. Took me three semesters for my first certificate.",
+     "fictional": true
+    },
+    {
+     "id": "career_changers_p5",
+     "handle": "second_act_sue",
+     "text": "Went back for prereqs at 38 for nursing. The younger students ask me for help with time management.",
+     "fictional": true
+    },
+    {
+     "id": "career_changers_p6",
+     "handle": "forklift_to_plc",
+     "text": "Anyone know if employers count sim results or just certificates? Asking before I spend money.",
+     "fictional": true
+    },
+    {
+     "id": "career_changers_p7",
+     "handle": "steady_hands_mo",
+     "text": "Some do both. Mine cared a lot about the safety record I already had.",
+     "fictional": true
+    },
+    {
+     "id": "career_changers_p8",
+     "handle": "second_act_sue",
+     "text": "Reminder to rest. We're doing two jobs: working and learning.",
+     "fictional": true
+    }
+   ]
+  },
+  {
+   "id": "trades",
+   "name": "Trades crew",
+   "description": "Diesel, welding, electrical and ag mechanics folks.",
+   "fictional": true,
+   "posts": [
+    {
+     "id": "trades_p1",
+     "handle": "tractor_tuner",
+     "text": "Rebuilt a hydraulic pump with my uncle this weekend. Want the certificate so customers trust the shop.",
+     "fictional": true
+    },
+    {
+     "id": "trades_p2",
+     "handle": "arc_and_spark",
+     "text": "SMAW cert test is next month. Practicing verticals every night after work.",
+     "fictional": true
+    },
+    {
+     "id": "trades_p3",
+     "handle": "wire_nut_wren",
+     "text": "Got into the apprenticeship interview round. The algebra requirement was the scary part, glad I did it.",
+     "fictional": true
+    },
+    {
+     "id": "trades_p4",
+     "handle": "tractor_tuner",
+     "text": "Congrats! What did they ask in the oral interview?",
+     "fictional": true
+    },
+    {
+     "id": "trades_p5",
+     "handle": "wire_nut_wren",
+     "text": "Mostly why I wanted the trade and how I handle safety. Be honest and specific.",
+     "fictional": true
+    },
+    {
+     "id": "trades_p6",
+     "handle": "diesel_dani",
+     "text": "Air brakes class was way more math than I expected. Worth it though.",
+     "fictional": true
+    },
+    {
+     "id": "trades_p7",
+     "handle": "arc_and_spark",
+     "text": "Shoutout to the open lab hours. Free practice time makes a huge difference.",
+     "fictional": true
+    },
+    {
+     "id": "trades_p8",
+     "handle": "diesel_dani",
+     "text": "Remember to ask about tool programs. Some shops help with tool costs.",
+     "fictional": true
+    }
+   ]
+  },
+  {
+   "id": "caregivers",
+   "name": "Parents and caregivers",
+   "description": "Learning while caring for kids or family.",
+   "fictional": true,
+   "posts": [
+    {
+     "id": "caregivers_p1",
+     "handle": "mom_of_three_ty",
+     "text": "Online sections are the only reason I can take classes. Studying after bedtime.",
+     "fictional": true
+    },
+    {
+     "id": "caregivers_p2",
+     "handle": "papa_bear_ben",
+     "text": "Found a Saturday hybrid class so my partner covers mornings. Small wins.",
+     "fictional": true
+    },
+    {
+     "id": "caregivers_p3",
+     "handle": "grandma_learns",
+     "text": "Taking care of my mom and taking a spreadsheet course. Slow but steady.",
+     "fictional": true
+    },
+    {
+     "id": "caregivers_p4",
+     "handle": "mom_of_three_ty",
+     "text": "Some days I only get 20 minutes in. Counting those as progress now.",
+     "fictional": true
+    },
+    {
+     "id": "caregivers_p5",
+     "handle": "papa_bear_ben",
+     "text": "The campus has a childcare center, ask about it. I didn't know for a whole semester.",
+     "fictional": true
+    },
+    {
+     "id": "caregivers_p6",
+     "handle": "care_and_code",
+     "text": "Feeling guilty about time away from family. Anyone else?",
+     "fictional": true
+    },
+    {
+     "id": "caregivers_p7",
+     "handle": "grandma_learns",
+     "text": "Yes. My kids told me they're proud of me. That helped.",
+     "fictional": true
+    },
+    {
+     "id": "caregivers_p8",
+     "handle": "care_and_code",
+     "text": "Thanks all. Signing up for one class next term instead of two.",
+     "fictional": true
+    }
+   ]
+  }
+ ],
+ "source_id": "foothold_fictional_circles"
+}

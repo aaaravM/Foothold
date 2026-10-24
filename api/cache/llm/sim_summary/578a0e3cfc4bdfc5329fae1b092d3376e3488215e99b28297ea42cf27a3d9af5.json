@@ -1,0 +1,11 @@
+{
+  "created_at": "2026-10-24T22:19:39+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "paragraph": "You stayed grounded in integrity, attention to detail, and empathy as you worked through fit-up problems, an apprentice’s weld, and a failed ventilation fan. Deciding whether to weld or replace a part—and responding when an inspector rejected your weld—gave you practice balancing quality, safety, and teamwork. These are practice signals, not a verdict, and they point to strengths worth exploring across nursing, welding, and electrical work."
+  },
+  "schema": "ReportSummary",
+  "task": "sim_summary"
+}

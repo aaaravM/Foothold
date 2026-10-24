@@ -1,0 +1,412 @@
+{
+ "schema": "foothold.wages.processed.v1",
+ "retrieved": "2026-10-24",
+ "status": "REAL",
+ "source": "CA EDD OEWS, 2026 Q1 (Stockton-Lodi MSA); EDD long-term projections 2023-2033 (local) / 2024-2034 (CA)",
+ "notes": [
+  "Wages: CA EDD OEWS, Year=2026, Quarter=1st Qtr. EDD states wages were updated to Q1 2026 by applying the US DOL Employment Cost Index; employment estimates are for May 2025.",
+  "Percentile keys p10..p90 come from EDD columns named unsafe_*_percentile_wage (CKAN naming artifact; values are ordinary numbers).",
+  "Projections: EDD long-term projections; Stockton-Lodi MSA period 2023-2033, California period 2024-2034. total_openings_10yr is the 10-year total (exits + transfers + growth); annual_openings_avg_DERIVED = total/10, computed by Foothold research, not published by EDD.",
+  "EDD OEWS is a federal-state cooperative program with BLS. The BLS May 2025 MSA page could not be read by script (see bls_may2025_msa.verify_url)."
+ ],
+ "all_occupations": {
+  "median_hourly": 24.08,
+  "median_annual": 50089,
+  "p25_annual": 40397,
+  "p75_annual": 76755,
+  "p25_hourly": 19.42,
+  "p75_hourly": 36.9,
+  "area": "Stockton-Lodi MSA",
+  "period": "2026 Q1 (CA EDD OEWS; employment = May 2025 estimate)",
+  "soc": "00-0000",
+  "employment": 289660,
+  "source_id": "edd_oews_2026q1",
+  "status": "REAL",
+  "verify_url": "https://data.ca.gov/dataset/oews"
+ },
+ "warehouse_baseline": {
+  "soc": "53-7062",
+  "title": "Laborers and Freight, Stock, and Material Movers, Hand",
+  "foothold_role": "Warehouse baseline (hand laborers and material movers)",
+  "wage": {
+   "median_hourly": 23.25,
+   "median_annual": 48366,
+   "p25_annual": 42909,
+   "p75_annual": 57563,
+   "p25_hourly": 20.63,
+   "p75_hourly": 27.67,
+   "area": "Stockton-Lodi MSA",
+   "period": "2026 Q1 (CA EDD OEWS; employment = May 2025 estimate)",
+   "soc": "53-7062",
+   "employment": 15030,
+   "source_id": "edd_oews_2026q1",
+   "status": "REAL",
+   "verify_url": "https://data.ca.gov/dataset/oews"
+  },
+  "outlook": {
+   "growth_pct": 8.5,
+   "annual_openings": 2363,
+   "period": "2023-2033",
+   "area": "Stockton-Lodi MSA (San Joaquin County)",
+   "total_openings_10yr": 23630,
+   "source_id": "edd_projections",
+   "status": "REAL",
+   "verify_url": "https://data.ca.gov/dataset/long-term-occupational-employment-projections",
+   "note": "annual_openings derived from EDD: 10-year total openings / 10."
+  },
+  "note": "Baseline for warehouse pickers facing automation (Dev's starting point)."
+ },
+ "careers": {
+  "logistics_lead": {
+   "wage": {
+    "median_hourly": 36.34,
+    "median_annual": 75589,
+    "p25_annual": 57246,
+    "p75_annual": 80096,
+    "p25_hourly": 27.53,
+    "p75_hourly": 38.5,
+    "area": "Stockton-Lodi MSA",
+    "period": "2026 Q1 (CA EDD OEWS; employment = May 2025 estimate)",
+    "soc": "53-1047",
+    "employment": 2440,
+    "source_id": "edd_oews_2026q1",
+    "status": "REAL",
+    "verify_url": "https://data.ca.gov/dataset/oews",
+    "note": "O*NET profile is 11-3071 (Transportation, Storage, and Distribution Managers); the local wage shown is OEWS 53-1047 (First-Line Supervisors of Transportation and Material Moving Workers), the closer match for a warehouse lead role in Stockton-Lodi."
+   },
+   "outlook": {
+    "growth_pct": 12.0,
+    "annual_openings": 269,
+    "period": "2023-2033",
+    "area": "Stockton-Lodi MSA (San Joaquin County)",
+    "total_openings_10yr": 2690,
+    "source_id": "edd_projections",
+    "status": "REAL",
+    "verify_url": "https://data.ca.gov/dataset/long-term-occupational-employment-projections",
+    "note": "annual_openings derived from EDD: 10-year total openings / 10."
+   }
+  },
+  "registered_nurse": {
+   "wage": {
+    "median_hourly": 66.51,
+    "median_annual": 138347,
+    "p25_annual": 126073,
+    "p75_annual": 171695,
+    "p25_hourly": 60.61,
+    "p75_hourly": 82.55,
+    "area": "Stockton-Lodi MSA",
+    "period": "2026 Q1 (CA EDD OEWS; employment = May 2025 estimate)",
+    "soc": "29-1141",
+    "employment": 5460,
+    "source_id": "edd_oews_2026q1",
+    "status": "REAL",
+    "verify_url": "https://data.ca.gov/dataset/oews"
+   },
+   "outlook": {
+    "growth_pct": 8.2,
+    "annual_openings": 301,
+    "period": "2023-2033",
+    "area": "Stockton-Lodi MSA (San Joaquin County)",
+    "total_openings_10yr": 3010,
+    "source_id": "edd_projections",
+    "status": "REAL",
+    "verify_url": "https://data.ca.gov/dataset/long-term-occupational-employment-projections",
+    "note": "annual_openings derived from EDD: 10-year total openings / 10."
+   }
+  },
+  "diesel_mechanic": {
+   "wage": {
+    "median_hourly": 34.81,
+    "median_annual": 72401,
+    "p25_annual": 54437,
+    "p75_annual": 81090,
+    "p25_hourly": 26.17,
+    "p75_hourly": 38.99,
+    "area": "Stockton-Lodi MSA",
+    "period": "2026 Q1 (CA EDD OEWS; employment = May 2025 estimate)",
+    "soc": "49-3031",
+    "employment": 760,
+    "source_id": "edd_oews_2026q1",
+    "status": "REAL",
+    "verify_url": "https://data.ca.gov/dataset/oews"
+   },
+   "outlook": {
+    "growth_pct": 8.7,
+    "annual_openings": 65,
+    "period": "2023-2033",
+    "area": "Stockton-Lodi MSA (San Joaquin County)",
+    "total_openings_10yr": 650,
+    "source_id": "edd_projections",
+    "status": "REAL",
+    "verify_url": "https://data.ca.gov/dataset/long-term-occupational-employment-projections",
+    "note": "annual_openings derived from EDD: 10-year total openings / 10."
+   }
+  },
+  "welder": {
+   "wage": {
+    "median_hourly": 25.31,
+    "median_annual": 52655,
+    "p25_annual": 49320,
+    "p75_annual": 63036,
+    "p25_hourly": 23.71,
+    "p75_hourly": 30.31,
+    "area": "Stockton-Lodi MSA",
+    "period": "2026 Q1 (CA EDD OEWS; employment = May 2025 estimate)",
+    "soc": "51-4121",
+    "employment": 740,
+    "source_id": "edd_oews_2026q1",
+    "status": "REAL",
+    "verify_url": "https://data.ca.gov/dataset/oews"
+   },
+   "outlook": {
+    "growth_pct": 7.7,
+    "annual_openings": 71,
+    "period": "2023-2033",
+    "area": "Stockton-Lodi MSA (San Joaquin County)",
+    "total_openings_10yr": 710,
+    "source_id": "edd_projections",
+    "status": "REAL",
+    "verify_url": "https://data.ca.gov/dataset/long-term-occupational-employment-projections",
+    "note": "annual_openings derived from EDD: 10-year total openings / 10."
+   }
+  },
+  "electrician": {
+   "wage": {
+    "median_hourly": 37.74,
+    "median_annual": 78480,
+    "p25_annual": 60218,
+    "p75_annual": 105225,
+    "p25_hourly": 28.95,
+    "p75_hourly": 50.59,
+    "area": "Stockton-Lodi MSA",
+    "period": "2026 Q1 (CA EDD OEWS; employment = May 2025 estimate)",
+    "soc": "47-2111",
+    "employment": 1180,
+    "source_id": "edd_oews_2026q1",
+    "status": "REAL",
+    "verify_url": "https://data.ca.gov/dataset/oews"
+   },
+   "outlook": {
+    "growth_pct": 25.8,
+    "annual_openings": 149,
+    "period": "2023-2033",
+    "area": "Stockton-Lodi MSA (San Joaquin County)",
+    "total_openings_10yr": 1490,
+    "source_id": "edd_projections",
+    "status": "REAL",
+    "verify_url": "https://data.ca.gov/dataset/long-term-occupational-employment-projections",
+    "note": "annual_openings derived from EDD: 10-year total openings / 10."
+   }
+  },
+  "software_dev": {
+   "wage": {
+    "median_hourly": 68.47,
+    "median_annual": 142428,
+    "p25_annual": 123914,
+    "p75_annual": 182160,
+    "p25_hourly": 59.57,
+    "p75_hourly": 87.57,
+    "area": "Stockton-Lodi MSA",
+    "period": "2026 Q1 (CA EDD OEWS; employment = May 2025 estimate)",
+    "soc": "15-1252",
+    "employment": 570,
+    "source_id": "edd_oews_2026q1",
+    "status": "REAL",
+    "verify_url": "https://data.ca.gov/dataset/oews"
+   },
+   "outlook": {
+    "growth_pct": 16.9,
+    "annual_openings": 43,
+    "period": "2023-2033",
+    "area": "Stockton-Lodi MSA (San Joaquin County)",
+    "total_openings_10yr": 430,
+    "source_id": "edd_projections",
+    "status": "REAL",
+    "verify_url": "https://data.ca.gov/dataset/long-term-occupational-employment-projections",
+    "note": "annual_openings derived from EDD: 10-year total openings / 10."
+   }
+  },
+  "farm_ops_manager": {
+   "wage": {
+    "median_hourly": 49.85,
+    "median_annual": 103701,
+    "p25_annual": 93523,
+    "p75_annual": 134713,
+    "p25_hourly": 44.96,
+    "p75_hourly": 64.77,
+    "area": "Stockton-Lodi MSA",
+    "period": "2026 Q1 (CA EDD OEWS; employment = May 2025 estimate)",
+    "soc": "11-9013",
+    "employment": 100,
+    "source_id": "edd_oews_2026q1",
+    "status": "REAL",
+    "verify_url": "https://data.ca.gov/dataset/oews",
+    "note": "Small sample: OEWS estimates 100 jobs locally (relative standard error of the mean wage 5.5%). OEWS covers wage-and-salary managers only, not self-employed farmers."
+   },
+   "outlook": {
+    "growth_pct": -8.0,
+    "annual_openings": 198,
+    "period": "2023-2033",
+    "area": "Stockton-Lodi MSA (San Joaquin County)",
+    "total_openings_10yr": 1980,
+    "source_id": "edd_projections",
+    "status": "REAL",
+    "verify_url": "https://data.ca.gov/dataset/long-term-occupational-employment-projections",
+    "note": "annual_openings derived from EDD: 10-year total openings / 10."
+   }
+  },
+  "robotics_tech": {
+   "wage": {
+    "median_hourly": 38.85,
+    "median_annual": 80790,
+    "p25_annual": 73316,
+    "p75_annual": 98050,
+    "p25_hourly": 35.25,
+    "p75_hourly": 47.14,
+    "area": "Sacramento-Roseville-Folsom MSA",
+    "period": "2026 Q1 (CA EDD OEWS; employment = May 2025 estimate)",
+    "soc": "17-3024",
+    "employment": 40,
+    "source_id": "edd_oews_2026q1",
+    "status": "REAL",
+    "verify_url": "https://data.ca.gov/dataset/oews",
+    "note": "No Stockton-Lodi row for 17-3024 in EDD OEWS 2026 Q1. Shown: Sacramento-Roseville-Folsom MSA (not local; about 40 jobs, RSE 3.2%). California statewide median: $40.31/h, $83,833/yr.",
+    "fallback": true
+   },
+   "outlook": {
+    "growth_pct": 5.3,
+    "annual_openings": 170,
+    "period": "2024-2034",
+    "area": "California",
+    "total_openings_10yr": 1700,
+    "source_id": "edd_projections",
+    "status": "REAL",
+    "verify_url": "https://data.ca.gov/dataset/long-term-occupational-employment-projections",
+    "note": "annual_openings derived from EDD: 10-year total openings / 10. No Stockton-Lodi projection for this occupation; California statewide shown."
+   }
+  }
+ },
+ "related": {
+  "13-1081": {
+   "title": "Logisticians",
+   "foothold_role": "Logistics lead (logistician; usually BA-level)",
+   "wage": {
+    "median_hourly": 37.43,
+    "median_annual": 77844,
+    "p25_annual": 61728,
+    "p75_annual": 99573,
+    "p25_hourly": 29.68,
+    "p75_hourly": 47.87,
+    "area": "Stockton-Lodi MSA",
+    "period": "2026 Q1 (CA EDD OEWS; employment = May 2025 estimate)",
+    "soc": "13-1081",
+    "employment": 350,
+    "source_id": "edd_oews_2026q1",
+    "status": "REAL",
+    "verify_url": "https://data.ca.gov/dataset/oews"
+   },
+   "outlook": {
+    "growth_pct": 25.7,
+    "annual_openings": 41,
+    "period": "2023-2033",
+    "area": "Stockton-Lodi MSA (San Joaquin County)",
+    "total_openings_10yr": 410,
+    "source_id": "edd_projections",
+    "status": "REAL",
+    "verify_url": "https://data.ca.gov/dataset/long-term-occupational-employment-projections",
+    "note": "annual_openings derived from EDD: 10-year total openings / 10."
+   }
+  },
+  "49-3042": {
+   "title": "Mobile Heavy Equipment Mechanics, Except Engines",
+   "foothold_role": "Heavy equipment mechanic",
+   "wage": {
+    "median_hourly": 36.59,
+    "median_annual": 76092,
+    "p25_annual": 57008,
+    "p75_annual": 83660,
+    "p25_hourly": 27.41,
+    "p75_hourly": 40.22,
+    "area": "Stockton-Lodi MSA",
+    "period": "2026 Q1 (CA EDD OEWS; employment = May 2025 estimate)",
+    "soc": "49-3042",
+    "employment": 530,
+    "source_id": "edd_oews_2026q1",
+    "status": "REAL",
+    "verify_url": "https://data.ca.gov/dataset/oews"
+   },
+   "outlook": {
+    "growth_pct": 10.9,
+    "annual_openings": 53,
+    "period": "2023-2033",
+    "area": "Stockton-Lodi MSA (San Joaquin County)",
+    "total_openings_10yr": 530,
+    "source_id": "edd_projections",
+    "status": "REAL",
+    "verify_url": "https://data.ca.gov/dataset/long-term-occupational-employment-projections",
+    "note": "annual_openings derived from EDD: 10-year total openings / 10."
+   }
+  },
+  "49-3041": {
+   "title": "Farm Equipment Mechanics and Service Technicians",
+   "foothold_role": "Farm equipment mechanic",
+   "wage": {
+    "median_hourly": 25.58,
+    "median_annual": 53213,
+    "p25_annual": 47085,
+    "p75_annual": 78241,
+    "p25_hourly": 22.64,
+    "p75_hourly": 37.61,
+    "area": "Stockton-Lodi MSA",
+    "period": "2026 Q1 (CA EDD OEWS; employment = May 2025 estimate)",
+    "soc": "49-3041",
+    "employment": 250,
+    "source_id": "edd_oews_2026q1",
+    "status": "REAL",
+    "verify_url": "https://data.ca.gov/dataset/oews",
+    "note": "Small sample: OEWS estimates 250 jobs locally (RSE 2.8%)."
+   },
+   "outlook": {
+    "growth_pct": 7.7,
+    "annual_openings": 24,
+    "period": "2023-2033",
+    "area": "Stockton-Lodi MSA (San Joaquin County)",
+    "total_openings_10yr": 240,
+    "source_id": "edd_projections",
+    "status": "REAL",
+    "verify_url": "https://data.ca.gov/dataset/long-term-occupational-employment-projections",
+    "note": "annual_openings derived from EDD: 10-year total openings / 10."
+   }
+  },
+  "53-7062": {
+   "title": "Laborers and Freight, Stock, and Material Movers, Hand",
+   "foothold_role": "Warehouse baseline (hand laborers and material movers)",
+   "wage": {
+    "median_hourly": 23.25,
+    "median_annual": 48366,
+    "p25_annual": 42909,
+    "p75_annual": 57563,
+    "p25_hourly": 20.63,
+    "p75_hourly": 27.67,
+    "area": "Stockton-Lodi MSA",
+    "period": "2026 Q1 (CA EDD OEWS; employment = May 2025 estimate)",
+    "soc": "53-7062",
+    "employment": 15030,
+    "source_id": "edd_oews_2026q1",
+    "status": "REAL",
+    "verify_url": "https://data.ca.gov/dataset/oews"
+   },
+   "outlook": {
+    "growth_pct": 8.5,
+    "annual_openings": 2363,
+    "period": "2023-2033",
+    "area": "Stockton-Lodi MSA (San Joaquin County)",
+    "total_openings_10yr": 23630,
+    "source_id": "edd_projections",
+    "status": "REAL",
+    "verify_url": "https://data.ca.gov/dataset/long-term-occupational-employment-projections",
+    "note": "annual_openings derived from EDD: 10-year total openings / 10."
+   }
+  }
+ }
+}
