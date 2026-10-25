@@ -9,6 +9,7 @@ const nextConfig: NextConfig = {
   // PPR (cacheComponents / partialPrefetching) cannot run in export mode.
   cacheComponents: !isExport,
   partialPrefetching: !isExport,
+  agentRules: false,
   turbopack: {
     rules: {
       "*.css": {
