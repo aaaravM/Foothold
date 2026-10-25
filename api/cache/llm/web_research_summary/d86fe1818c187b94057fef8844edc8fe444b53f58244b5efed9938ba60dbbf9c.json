@@ -1,0 +1,26 @@
+{
+  "created_at": "2026-10-25T00:21:51+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "sentences": [
+      {
+        "sources": [
+          1,
+          4
+        ],
+        "text": "Logistics leads plan and monitor operations, guide staff, and adapt to issues such as customer requests or weather delays."
+      },
+      {
+        "sources": [
+          2,
+          5
+        ],
+        "text": "Stockton listings include logistics operations manager jobs and a West Coast Magnetics opening."
+      }
+    ]
+  },
+  "schema": "ResearchSummary",
+  "task": "web_research_summary"
+}

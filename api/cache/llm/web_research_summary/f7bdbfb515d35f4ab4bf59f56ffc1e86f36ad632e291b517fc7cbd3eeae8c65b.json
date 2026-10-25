@@ -1,0 +1,31 @@
+{
+  "created_at": "2026-10-25T00:22:57+00:00",
+  "format": 1,
+  "kind": "structured",
+  "model": "gpt-6-luna",
+  "response": {
+    "sentences": [
+      {
+        "sources": [
+          1
+        ],
+        "text": "The work involves inspecting, troubleshooting, and repairing diesel engines, hydraulics, electrical systems, and other machinery components."
+      },
+      {
+        "sources": [
+          8,
+          5
+        ],
+        "text": "Holt of California lists technician jobs in Stockton, and local listings include diesel and heavy-equipment mechanic openings."
+      },
+      {
+        "sources": [
+          9
+        ],
+        "text": "San Joaquin Delta College offers a Diesel Technician Apprentice program combining classroom learning with hands-on experience."
+      }
+    ]
+  },
+  "schema": "ResearchSummary",
+  "task": "web_research_summary"
+}
