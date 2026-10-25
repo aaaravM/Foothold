@@ -33,7 +33,7 @@ export interface ApiBaseInfo {
 const API_STORAGE_KEY = "foothold.api";
 const SUPABASE_URL = (process.env.NEXT_PUBLIC_SUPABASE_URL || "").replace(/\/+$/, "");
 const SUPABASE_KEY = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY || "";
-const SUPABASE_TIMEOUT_MS = 2_000;
+const SUPABASE_TIMEOUT_MS = 8_000;
 
 let resolvedBase: ApiBaseInfo | null = null;
 let resolvingBase: Promise<ApiBaseInfo> | null = null;
@@ -104,7 +104,7 @@ async function readSupabaseBase(): Promise<string | null> {
 /**
  * Where the Foothold API lives, resolved once per page load:
  * ?api=<url> (saved to localStorage 'foothold.api'; ?api=clear removes it) -> localStorage ->
- * Supabase public_config 'api_url' (2 s timeout; skipped in development) -> NEXT_PUBLIC_API_URL -> http://localhost:8000.
+ * Supabase public_config 'api_url' (8 s timeout; skipped in development) -> NEXT_PUBLIC_API_URL -> http://localhost:8000.
  */
 export function resolveApiBaseInfo(): Promise<ApiBaseInfo> {
   if (resolvedBase) return Promise.resolve(resolvedBase);
